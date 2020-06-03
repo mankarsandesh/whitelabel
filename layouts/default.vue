@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar clipped-left fixed app>
       <div class="tnk-app-bar">
-        <div>
+        <div class="tnk-app-bar-item">
           <v-btn large icon @click.stop="rightDrawer = !rightDrawer">
             <v-icon>mdi-menu</v-icon>
           </v-btn>
@@ -86,9 +86,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
   </v-app>
 </template>
 
@@ -97,11 +94,6 @@ export default {
   data() {
     return {
       languages: ["English", "Chinese", "Thai", "Lao"],
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      miniVariant: false,
-      right: true,
       rightDrawer: false
     };
   }
@@ -126,6 +118,9 @@ export default {
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+.tnk-app-bar-item:first-child {
+  padding: 0 10px;
 }
 .tnk-app-bar-item-active {
   background: linear-gradient(50deg, #38aab8 0%, #38ab55 100%);
