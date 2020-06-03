@@ -54,7 +54,7 @@
             href="https://nuxtjs.org/"
             target="_blank"
           >
-            Nuxt Documentation
+           <font-awesome-icon icon="times" style="font-size:22px" />
           </a>
           <br>
           <a
@@ -87,6 +87,9 @@ export default {
   components: {
     Logo,
     VuetifyLogo
+  },
+  mounted(){
+    // alert(process.env.NODE_ENV)
   }
 }
 </script>
