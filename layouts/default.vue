@@ -1,73 +1,58 @@
 <template>
   <v-app>
-    <v-app-bar clipped-left fixed app>
-      <div class="tnk-app-bar">
-        <div class="tnk-app-bar-item">
+    <v-app-bar clipped-left fixed app dark>
+      <div class="tnk-app-bar">    
+        <div class="tnk-app-bar-item" left>
+          <v-img width="130" src="/logo/logo.png"></v-img>
+        </div>
+
+        <v-toolbar-items class="hidden-xs-only text-s1 " >
+          <v-btn
+            flat
+            v-for="item in menu"
+            :key="item.title"
+            :to="item.to"
+            class="menuItem"
+          >
+            <i :class="item.icon" />
+            <span>&nbsp;{{ item.title }}</span>
+          </v-btn>
+
+          <div class="tnk-app-bar-item-right">
+            <v-btn dark rounded class="button-login">
+              <v-icon left size="18">
+                fas fa-user
+              </v-icon>
+              login
+            </v-btn>
+          </div>
+          <div class="tnk-app-bar-item-right">
+            <v-btn dark rounded color="success" class="button-register">
+              <v-icon left size="22">
+                fas fa-user-plus
+              </v-icon>
+              register
+            </v-btn>
+          </div>
+
+          <div class="tnk-app-bar-item-right">
+            <v-icon left size="22" class="languageChange">
+              fas fa-globe
+            </v-icon>
+          </div>
+        </v-toolbar-items>
+
+        <div class="tnk-app-bar-item" right> 
           <v-btn large icon @click.stop="rightDrawer = !rightDrawer">
             <v-icon>mdi-menu</v-icon>
           </v-btn>
         </div>
-        <v-divider vertical></v-divider>
-        <div class="tnk-app-bar-item">
-          <v-img width="130" src="/logo/tnk-logo.png"></v-img>
-        </div>
-        <v-divider vertical></v-divider>
-        <div class="tnk-app-bar-item tnk-app-bar-item-active white--text">
-          <v-icon color="white" left>
-            far fa-users
-          </v-icon>
-          <span class="text-uppercase">
-            recommend friends
-          </span>
-        </div>
-        <v-divider vertical></v-divider>
-        <div class="tnk-app-bar-item">
-          <!-- <font-awesome-icon icon="times" /> -->
-          <v-icon left>fas fa-gamepad</v-icon>
-          <span class="text-uppercase">
-            free trial
-          </span>
-        </div>
-        <v-divider vertical></v-divider>
-        <v-spacer></v-spacer>
 
-        <div class="tnk-app-bar-item-right">
-          <v-select
-            rounded
-            hide-details
-            :items="languages"
-            placeholder="Language"
-            outlined
-            dense
-          >
-            <template v-slot:prepend-inner>
-              <v-icon left>far fa-times</v-icon>
-            </template>
-          </v-select>
-        </div>
-        <div class="tnk-app-bar-item-right">
-          <v-btn dark rounded class="button-login">
-            <v-icon left size="18">
-              fas fa-user
-            </v-icon>
-            login
-          </v-btn>
-        </div>
-        <div class="tnk-app-bar-item-right">
-          <v-btn dark rounded color="success" class="button-register">
-            <v-icon left size="22">
-              fas fa-user-plus
-            </v-icon>
-            register
-          </v-btn>
-        </div>
       </div>
     </v-app-bar>
-    <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-content>
+
+    <nuxt />
+
     <v-navigation-drawer
       v-model="rightDrawer"
       :right="false"
@@ -94,12 +79,32 @@ export default {
   data() {
     return {
       languages: ["English", "Chinese", "Thai", "Lao"],
-      rightDrawer: false
+      rightDrawer: false,
+      menu: [
+        {
+          icon: "fa fa-trophy fa-2x",
+          title: "Live Stock",
+          to: "/modern/desktop/gamerule"
+        },
+        {
+          icon: "fa fa-trophy fa-2x",
+          title: "Game Mode",
+          to: "/modern/desktop/leaderboard"
+        },
+        {
+          icon: "fa fa-trophy fa-2x",
+          title: "Promotions",
+          to: "/modern/desktop/Promotions"
+        }
+      ]
     };
   }
 };
 </script>
 <style>
+.languageChange{
+  cursor: pointer;
+}
 .v-toolbar__content {
   padding: 0;
 }
@@ -133,11 +138,12 @@ export default {
   align-items: center;
 }
 .button-login {
-  background: linear-gradient(50deg, #416acc 0%, #7d58d1 100%);
-  padding: 0 25px !important;
+  color: #ff0167 !important;
+  border: 1px solid #ff0167;
+  padding: 15px 30px !important;
 }
 .button-register {
-  background: linear-gradient(50deg, #14b283 0%, #1bb33f 100%);
-  padding: 0 30px !important;
+  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
+  padding: 15px 30px !important;
 }
 </style>
