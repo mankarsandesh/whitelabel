@@ -1,5 +1,9 @@
 <template>
-  <v-layout column justify-center align-center> </v-layout>
+  <v-layout column justify-center align-center>
+    <div>
+      <v-btn color="danger" @click="error()">Throw error</v-btn>
+    </div>
+  </v-layout>
 </template>
 
 <script>
@@ -10,6 +14,11 @@ export default {
   components: {
     Logo,
     VuetifyLogo
+  },
+  methods: {
+    error() {
+      throw new Error();
+    }
   },
   mounted() {
     // alert(process.env.NODE_ENV)
