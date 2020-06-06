@@ -1,0 +1,11 @@
+@import "~/assets/myVariables.scss";
+.color-pink {
+    color: $pink;
+}
+
+.v-application--wrap {
+    header.navbar {
+        background-color: rgba(255, 255, 255, 0.12) !important;
+        box-shadow: 0px 1px 12px rgba(0, 0, 0, 0.2);
+    }
+}
