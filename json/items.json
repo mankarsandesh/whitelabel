@@ -1,0 +1,76 @@
+{
+    "menu": [{
+            "icon": "far fa-chart-bar fa-2x",
+            "title": "Live Stock",
+            "text": true,
+            "to": "/modern/desktop/gamerule"
+        },
+        {
+            "icon": "fa fa-gamepad fa-2x",
+            "title": "Game Mode",
+            "text": true,
+            "to": "/modern/desktop/leaderboard"
+        },
+        {
+            "icon": "fa fa-gift fa-2x",
+            "title": "Promotions",
+            "text": true,
+            "to": "/modern/desktop/Promotions"
+        },
+        {
+            "icon": "fas fa-user",
+            "title": "login",
+            "rounded": true,
+            "outline": true,
+            "color": "pink",
+            "to": "/modern/desktop/Promotions"
+        },
+        {
+            "icon": "fas fa-user-plus",
+            "title": "register",
+            "rounded": true,
+            "color": "pink",
+            "to": "/modern/desktop/Promotions"
+        }
+    ],
+    "languages": [
+        { "text": "English", "value": "us" },
+        { "text": "Chinese", "value": "cn" },
+        { "text": "Thai", "value": "th" },
+        { "text": "Lao", "value": "La" }
+    ],
+    "slideItems": [{
+            "title": "register your",
+            "desc": "account today",
+            "images": ""
+        },
+        {
+            "title": "deposit amount",
+            "desc": "and bet",
+            "images": ""
+        },
+        {
+            "title": "enjoy your bonus",
+            "desc": "and bet games",
+            "images": ""
+        }
+    ],
+
+    "banner2": [{
+            "title": "business",
+            "src": "/banner/banner2/Business.png"
+        },
+        {
+            "title": "gaming",
+            "src": "/banner/banner2/Gaming.png"
+        },
+        {
+            "title": "casino",
+            "src": "/banner/banner2/Casino.png"
+        },
+        {
+            "title": "classic",
+            "src": "/banner/banner2/Classic.png"
+        }
+    ]
+}
