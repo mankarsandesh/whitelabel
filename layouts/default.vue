@@ -32,18 +32,25 @@
         <v-spacer></v-spacer>
 
         <div class="tnk-app-bar-item-right">
-          <v-select
-            rounded
-            hide-details
-            :items="languages"
-            placeholder="Language"
-            outlined
-            dense
-          >
-            <template v-slot:prepend-inner>
-              <v-icon left>far fa-times</v-icon>
-            </template>
-          </v-select>
+          <div class="select-language-container">
+            <v-select
+              rounded
+              hide-details
+              :items="languages"
+              v-model="selectedLanguage"
+              placeholder="Language"
+              outlined
+              dense
+            >
+              <template v-slot:prepend-inner>
+                <country-flag
+                  class="pa-0"
+                  :country="selectedLanguage"
+                  size="normal"
+                />
+              </template>
+            </v-select>
+          </div>
         </div>
         <div class="tnk-app-bar-item-right">
           <v-btn dark rounded class="button-login">
@@ -93,13 +100,22 @@
 export default {
   data() {
     return {
-      languages: ["English", "Chinese", "Thai", "Lao"],
+      selectedLanguage: "us",
+      languages: [
+        { text: "English", value: "us" },
+        { text: "Chinese", value: "cn" },
+        { text: "Thai", value: "th" },
+        { text: "Lao", value: "La" }
+      ],
       rightDrawer: false
     };
   }
 };
 </script>
 <style>
+.select-language-container {
+  max-width: 220px;
+}
 .v-toolbar__content {
   padding: 0;
 }

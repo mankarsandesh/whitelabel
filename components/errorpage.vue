@@ -16,8 +16,8 @@
               @click="window.location.href = 'http://www.w3schools.com'"
               style="text-align:center; margin-top:700px;"
               class="buttonGreen"
-              >Back to home</v-btn
-            >
+              >Back to home
+            </v-btn>
           </v-img>
         </v-flex>
       </v-layout>
