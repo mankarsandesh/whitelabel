@@ -1,10 +1,17 @@
 <template>
   <v-layout v-model="model">
-    <v-carousel v-model="model" :height="850"  hide-delimiters> 
-      <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src">
+    <v-carousel
+      v-model="model"
+      :show-arrows="false"
+      :height="850"
+      cycle
+      hide-delimiter-background
+      hide-delimiters
+    >
+      <v-carousel-item v-for="(item, i) in items" :key="i">
         <v-sheet height="100%" tile>
           <v-row class="fill-height" align="center" justify="center">
-            <div class="display-3 banner">
+            <div class="display-3">
               <h5>Get</h5>
               <h1>$2000</h1>
               <h5>Get a WELCOME 200% Bonus up to $2000</h5>
@@ -48,7 +55,7 @@ export default {
     return {
       items: [
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
+          src: ""
         },
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
@@ -78,7 +85,13 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.display-3.banner {
+  h1 {
+    font-size: 160px;
+  }
+  font-size: 160px;
+}
 .banner h5 {
   font-size: 25px;
 }
