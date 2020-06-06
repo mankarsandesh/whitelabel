@@ -12,7 +12,13 @@
           </v-btn>
 
           <div class="tnk-app-bar-item">
-            <v-btn dark rounded class="button-login" outlined>
+            <v-btn
+              dark
+              rounded
+              class="button-login"
+              @click="loginDialog = true"
+              outlined
+            >
               <v-icon left size="18">
                 fas fa-user
               </v-icon>
@@ -63,6 +69,51 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
+    <v-dialog
+      dark
+      v-model="loginDialog"
+      max-width="450"
+      style=" border-radius:none !important;"
+    >
+      <div class="loginForm">
+        <h2>
+          <v-icon class="icon" left size="20">
+            fas fa-user
+          </v-icon>
+          login
+        </h2>
+        <p>Doesn't have an account yet? <a href="">Register Now</a></p>
+        <div class="inputClass">
+          <label>Email/Username</label>
+          <input type="text" placeholder="Email/Username" class="input" />
+        </div>
+        <div class="inputClass">
+          <label>Password</label>
+          <input type="password" placeholder="123145" class="input" />
+        </div>
+        <div class="inputClass ">
+          <label>
+            <input class="check" type="checkbox" />
+            <span class="label-text">Remember Me </span></label
+          >
+          <label>
+            <a href="#">Forgot Password?</a>
+          </label>
+        </div>
+        <div class="footerLogin">
+          <div class="loginButton">
+            <span> Login</span>
+            <v-icon class="icon" size="28">
+              fas fa-angle-double-right
+            </v-icon>
+            <v-icon class="icon" size="28">
+              fas fa-angle-double-right
+            </v-icon>
+          </div>
+        </div>
+      </div>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -70,6 +121,7 @@
 export default {
   data() {
     return {
+      loginDialog: false,
       selectedLanguage: "us",
       languages: [
         { text: "English", value: "us" },
@@ -83,17 +135,17 @@ export default {
         {
           icon: "far fa-chart-bar fa-2x",
           title: "Live Stock",
-          to: "/modern/desktop/gamerule"
+          to: "/livestock"
         },
         {
           icon: "fa fa-gamepad fa-2x",
           title: "Game Mode",
-          to: "/modern/desktop/leaderboard"
+          to: "/gameMode"
         },
         {
           icon: "fa fa-gift fa-2x",
           title: "Promotions",
-          to: "/modern/desktop/Promotions"
+          to: "promotions"
         }
       ]
     };
@@ -113,13 +165,13 @@ export default {
   font-style: normal;
 }
 div.display-3 {
-  font-family: Impact;
+  // font-family: Impact;
 }
 .theme--dark.v-sheet {
   background-color: transparent !important;
 }
 #page {
-  font-family: Impact;
+  // font-family: Impact;
   background-image: url("/logo/banner-background.png");
   background-repeat: no-repeat, repeat;
   background-position: center;
@@ -171,5 +223,89 @@ div.display-3 {
 .button-register {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   padding: 15px 30px !important;
+}
+</style>
+<style scoped>
+.remberberme {
+  color: #333 !important;
+}
+.loginForm {
+  background-color: #fff;
+  padding: 20px;
+}
+.loginForm .icon {
+  color: #ff0167;
+}
+.loginForm h2 {
+  color: #ff0167;
+}
+.loginForm p {
+  color: #c1c0c1;
+}
+.loginForm p a {
+  color: #ff0167;
+  text-decoration: none;
+}
+.loginForm .inputClass {
+  width: 100%;
+  /* border:1px solid red; */
+  padding: 5px 10px;
+  margin:10px 0px;
+}
+.loginForm .inputClass label {
+  color: #333;
+  width: 100%;
+  font-weight: 600;
+}
+.loginForm .inputClass .input {
+  border: 1px solid #d2d1d2;
+  width: 100%;
+  border-radius: 30px;
+  padding: 10px 20px;
+  color: #d2d1d2;
+}
+.forgotPassword {
+  float: left;
+}
+.footerLogin {
+  text-align: center;
+  margin: 0px auto;
+}
+.loginButton {
+  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
+  border-radius: 50px;
+  font-size: 27px;
+  padding: 10px 40px;
+  font-weight: 800;
+  width: 250px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.inputClass {
+}
+
+label .label-text {
+  color: #333;
+}
+label input.check:checked + .label-text,
+.check {
+  color: #ff0167;
+  cursor: pointer;
+}
+.label-text {
+  cursor: pointer;
+}
+
+.loginButton .icon {
+  color: #fff;
+  margin-top: 0px;
+}
+.loginButton .icon:last-child {
+  opacity: 0.4;
+  margin-left: -10px;
+  color: #fff;
+}
+input:focus{
+    outline: none;
 }
 </style>
