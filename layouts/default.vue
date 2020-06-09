@@ -103,26 +103,46 @@
           </p>
           <div class="inputClass">
             <label>Username</label>
-            <input type="text" placeholder="Username" class="input" />
+            <input
+              type="text"
+              placeholder="Username"
+              class="input"
+              v-model="username"
+            />
           </div>
           <div class="inputClass">
             <label>Email</label>
-            <input type="text" placeholder="Email" class="input" />
+            <input
+              type="text"
+              placeholder="Email"
+              class="input"
+              v-model="email"
+            />
           </div>
 
           <div class="inputClass">
             <label>Password</label>
-            <input type="password" placeholder="123145" class="input" />
+            <input
+              type="password"
+              placeholder="123145"
+              class="input"
+              v-model="password"
+            />
           </div>
 
           <div class="inputClass">
             <label>Confirm Password</label>
-            <input type="password" placeholder="123145" class="input" />
+            <input
+              type="password"
+              placeholder="123145"
+              class="input"
+              v-model="repeatPassword"
+            />
           </div>
 
           <div class="inputClass float-left">
             <div class="control">
-              <label class="remember">
+              <!-- <label class="remember">
                 <input type="radio" class="check" name="gender" checked />
                 <span class="label-text"> Male</span></label
               >
@@ -133,7 +153,20 @@
               <label class="remember">
                 <input type="radio" class="check" name="gender" />
                 <span class="label-text"> Other</span></label
-              >
+              > -->
+
+               <v-radio-group v-model="gender" :mandatory="false" row>
+            <v-radio              
+              color="#ff0167"
+              light
+              v-for="data in genders"
+              :key="data"
+              :label="`${data}`"
+              :value="data"
+            ></v-radio>           
+          </v-radio-group>
+
+
             </div>
           </div>
 
@@ -240,13 +273,15 @@
 </template>
 <script>
 import json from "~/json/items";
+import config from "../config/config.global";
 export default {
   data() {
     return {
+      genders: ['Male','Female','Other'],
       checkbox: false,
       select: "China",
       items: ["China", "Laos", "Thailand"],
-      gender: "male",
+      gender: "Male",
       loginDialog: false,
       registerDialog: false,
       selectedLanguage: "us",
@@ -263,6 +298,20 @@ export default {
     showLoginDialog() {
       this.registerDialog = false;
       this.loginDialog = true;
+    },
+    // User Login
+    async userLogin() {
+      try {
+        var reqBody = {
+          email: email,
+          password: password
+        };
+        var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
+          headers: config.headers
+        });
+      } catch (ex) {
+        console.log(ex);
+      }
     }
   }
 };
@@ -341,7 +390,7 @@ input[type="radio"]:checked + label {
   width: 100%;
   border-radius: 30px;
   padding: 10px 20px;
-  color: #d2d1d2;
+  color: #333;
 }
 .forgotPassword {
   float: left;
@@ -371,6 +420,7 @@ input[type="radio"]:checked + label {
   right: 0;
 }
 .loginButton {
+  text-align: center;
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
   font-size: 27px;
