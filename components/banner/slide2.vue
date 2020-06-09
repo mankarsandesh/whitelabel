@@ -8,7 +8,7 @@
       >
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="8">
-            <v-card flat>
+            <v-card flat class="ml-20">
               <v-card-title class="display-2 font-weight-bold"
                 >Your mood or Game</v-card-title
               >
@@ -17,9 +17,14 @@
               >
             </v-card>
             <v-row>
-              <v-col cols="3" v-for="(item, index) in items" :key="index">
+              <v-col
+                class="mb-8"
+                cols="3"
+                v-for="(item, index) in items"
+                :key="index"
+              >
                 <v-card dark flat class="banner-2" max-width="344">
-                  <v-img :src="item.src" class=" align-center">
+                  <v-img :src="item.src" class=" align-center opcity-images">
                     <v-card-title
                       class=" text-uppercase justify-center text-center display-1 font-weight-bold"
                       >{{ item.title }}</v-card-title
@@ -27,7 +32,7 @@
                   </v-img>
                 </v-card>
               </v-col>
-              <v-btn x-large rounded color="pink" class="px-8"
+              <v-btn x-large rounded color="pink" class="px-8 ml-4"
                 >bet now
                 <span class=" ml-3">
                   <v-icon size="15"> fas fa-chevron-double-right</v-icon

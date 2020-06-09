@@ -1,10 +1,12 @@
 <template>
   <v-layout v-model="model">
     <v-carousel
+      cycle
       height="100vh"
       v-model="model"
       hide-delimiter-background
       hide-delimiters
+      :show-arrows="false"
     >
       <slide1 />
       <slide2 />

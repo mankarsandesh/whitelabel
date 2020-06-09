@@ -1,20 +1,23 @@
 <template>
   <v-app id="page">
     <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="false"
+      v-model="OpenDrawer"
+      class="top-80"
+      right
       clipped
       temporary
       fixed
+      color="#e91e636e "
+      dark
     >
       <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+        <v-list-item v-for="(item, i) in slideMenu" :key="i" :to="item.path">
+          <v-list-item-icon>
+            <v-icon v-text="item.icon"></v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title"></v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -42,12 +45,12 @@
       <v-btn class="mx-2" large icon>
         <v-icon> fas fa-globe</v-icon>
       </v-btn>
-      <v-btn class="mx-2" large icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
+      <v-btn class="mx-2" large icon @click.stop="OpenDrawer = !OpenDrawer">
+        <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>
       </v-btn>
     </v-app-bar>
 
-     <v-dialog
+    <v-dialog
       dark
       v-model="loginDialog"
       max-width="450"
@@ -92,7 +95,6 @@
       </div>
     </v-dialog>
 
-
     <v-content>
       <nuxt />
     </v-content>
@@ -103,10 +105,12 @@ import json from "~/json/items";
 export default {
   data() {
     return {
-        loginDialog: false,
+      item: 1,
+      loginDialog: false,
       selectedLanguage: "us",
-      rightDrawer: false,
-      menu: json.menu
+      OpenDrawer: false,
+      menu: json.menu,
+      slideMenu: json.slideMenu
     };
   }
 };
@@ -136,7 +140,7 @@ export default {
   width: 100%;
   /* border:1px solid red; */
   padding: 5px 10px;
-  margin:10px 0px;
+  margin: 10px 0px;
 }
 .loginForm .inputClass label {
   color: #333;
@@ -191,7 +195,7 @@ label input.check:checked + .label-text,
   margin-left: -10px;
   color: #fff;
 }
-input:focus{
-    outline: none;
+input:focus {
+  outline: none;
 }
 </style>

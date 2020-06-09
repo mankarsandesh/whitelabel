@@ -6,6 +6,10 @@
     font-style: normal;
 }
 
+.ml-20 {
+    margin-left: -20px;
+}
+
 .v-card .v-card__title .display-1,
 .v-card .v-card__title.display-3,
 .v-card .v-card__title.display-4,
@@ -30,4 +34,17 @@
 .ec-welcome.v-chip.v-size--default {
     height: 45px;
     border-radius: 25px;
+    border: 1px solid #b3a7a7;
+}
+
+.v-card.card-multiple.color-border-blue {
+    border: 5px solid #1a509f !important;
+}
+
+.v-card.card-multiple.color-border-green {
+    border: 5px solid #4da71c !important;
+}
+
+.v-card.card-multiple.color-border-red {
+    border: 5px solid #d1240e !important;
 }

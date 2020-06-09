@@ -3,7 +3,7 @@
             "icon": "far fa-chart-bar fa-2x",
             "title": "Live Stock",
             "text": true,
-            "to": "/modern/desktop/gamerule"
+            "to": "/livestock"
         },
         {
             "icon": "fa fa-gamepad fa-2x",
@@ -42,17 +42,20 @@
     "slideItems": [{
             "title": "register your",
             "desc": "account today",
-            "images": ""
+            "src": "/icon/slider-1.png",
+            "class": "icon-left"
         },
         {
             "title": "deposit amount",
             "desc": "and bet",
-            "images": ""
+            "src": "/icon/slider-1.png",
+            "class": "icon-center"
         },
         {
             "title": "enjoy your bonus",
             "desc": "and bet games",
-            "images": ""
+            "src": "/icon/slider-1.png",
+            "class": "icon-right"
         }
     ],
 
@@ -71,6 +74,61 @@
         {
             "title": "classic",
             "src": "/banner/banner2/Classic.png"
+        }
+    ],
+    "mutiple_bet": [{
+            "icon": "fa fa-dollar-sign ",
+            "iconColor": "#1a509f",
+            "color": "color-border-blue",
+            "title": "USA Stock"
+        },
+        {
+            "icon": "fab fa-btc ",
+            "iconColor": "#4da71c",
+            "color": "color-border-green",
+            "title": "Crypto"
+        },
+        {
+            "icon": "fas fa-yen-sign ",
+            "iconColor": "#d1240e",
+            "color": "color-border-red",
+            "title": "China Stock"
+        }
+    ],
+    "slideMenu": [{
+            "icon": "fas fa-trophy",
+            "title": "leaderboard",
+            "path": "/leaderboard"
+        },
+        {
+            "icon": "fas fa-file-alt",
+            "title": "game rules",
+            "path": "/game_rules"
+        },
+        {
+            "icon": "fas fa-info-circle",
+            "title": "about us",
+            "path": "/aboutus"
+        },
+        {
+            "icon": "far fa-file-alt",
+            "title": "terms & conditions",
+            "path": "terms_conditions"
+        },
+        {
+            "icon": "fas fa-cogs",
+            "title": "privacy policy",
+            "path": "privacy_policy"
+        },
+        {
+            "icon": "fas fa-question",
+            "title": "faq",
+            "path": "/faq"
+        },
+        {
+            "icon": "far fa-handshake-alt",
+            "title": "disconnection policy",
+            "path": "/disconnection_policy"
         }
     ]
 }
