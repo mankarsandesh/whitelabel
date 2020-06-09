@@ -16,22 +16,7 @@
             "title": "Promotions",
             "text": true,
             "to": "/modern/desktop/Promotions"
-        },
-        {
-            "icon": "fas fa-user",
-            "title": "login",
-            "rounded": true,
-            "outline": true,
-            "color": "pink",
-            "to": "/modern/desktop/Promotions"
-        },
-        {
-            "icon": "fas fa-user-plus",
-            "title": "register",
-            "rounded": true,
-            "color": "pink",
-            "to": "/modern/desktop/Promotions"
-        }
+        }      
     ],
     "languages": [
         { "text": "English", "value": "us" },
@@ -58,7 +43,6 @@
             "class": "icon-right"
         }
     ],
-
     "banner2": [{
             "title": "business",
             "src": "/banner/banner2/Business.png"
