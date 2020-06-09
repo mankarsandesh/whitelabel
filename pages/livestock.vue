@@ -1,9 +1,15 @@
 <template>
-  <v-layout> </v-layout>
+  <section>
+    <banner />
+  </section>
 </template>
 
 <script>
+import banner from "~/components/banner";
 export default {
+  components: {
+    banner
+  },
   data() {
     return {};
   }
