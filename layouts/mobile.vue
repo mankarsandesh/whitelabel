@@ -33,7 +33,7 @@
 
       <v-spacer></v-spacer>
       <div class=" menu-list">
-        <v-btn rounded small outlined color="pink">
+        <v-btn rounded small outlined color="pink" @click="loginDialog = true">
           <v-icon size="13">fas fa-user</v-icon>
           Login
         </v-btn>
@@ -49,6 +49,17 @@
         </v-btn>
       </div>
     </v-app-bar>
+  <!-- Login Form -->
+    <v-dialog
+      dark
+      hide-overlay=true
+      v-model="loginDialog"
+      width="550"
+      style=" border-radius:none !important;"
+    >
+      <Login @loginClose="closeLogin" @registerOpen="showRegisterDialog" />
+    </v-dialog>
+    <!-- Ending Login Form -->
 
     <!-- Sizes your content based upon application components -->
     <v-content>
@@ -60,13 +71,19 @@
 
 <script>
 import json from "~/json/items";
-
+import Login from "../components/login";
 export default {
   name: "mobile",
-  data: () => ({
-    slideMenu: json.slideMenu,
-    OpenDrawer: false
-  })
+  data() {
+    return {
+      loginDialog : false,
+      slideMenu: json.slideMenu,
+      OpenDrawer: false
+    };
+  },
+  components : {
+    Login
+  }
 };
 </script>
 
