@@ -132,20 +132,7 @@ import Login from "../components/login";
 import Register from "../components/register";
 export default {
   data() {
-<<<<<<< HEAD
     return {   
-=======
-    return {
-      fav: true,
-      menu1: false,
-      message: false,
-      hints: true,
-      genders: ["Male", "Female", "Other"],
-      checkbox: false,
-      select: "China",
-      items: ["China", "Laos", "Thailand"],
-      gender: "Male",
->>>>>>> 0e7eb47d8d4c9d345eda502b0bdf7a9c25511a54
       loginDialog: false,
       registerDialog: false,
       selectedLanguage: "us",
