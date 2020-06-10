@@ -73,7 +73,7 @@
 export default {
   data() {
     return {
-      valid: true,
+      valid: false,
       loginDialog: false,
       email: "",
       password: "",
@@ -84,21 +84,27 @@ export default {
     };
   },
   methods: {
+    // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
+      if (this.email && this.password) {
+        this.userLogin();
+      }
     },
+    // Close Login Popup
     async closePopup() {
       this.$emit("loginClose");
     },
+    // Close Register Popup
     async openRegister() {
       this.$emit("registerOpen");
     },
-    // User Login
+    // User Login Request to API
     async userLogin() {
       try {
         var reqBody = {
-          email: email,
-          password: password
+          email: this.email,
+          password: this.password
         };
         var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
           headers: config.headers

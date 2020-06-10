@@ -144,10 +144,7 @@ export default {
       gender: "Male",
       agree: "",
       genders: ["Male", "Female", "Other"],
-      checkbox: false,
       countrys: ["China", "Laos", "Thailand"],
-      loginDialog: false,
-      registerDialog: false,
       selectedLanguage: "us",
       OpenDrawer: false,
       emailRules: [
@@ -157,14 +154,45 @@ export default {
     };
   },
   methods: {
+    // Close Register Popup
     async closePopup() {
       this.$emit("registerClose");
     },
+    // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
+      if (
+        this.username &&
+        this.email &&
+        this.password &&
+        this.repeatPassword &&
+        this.gender &&
+        this.country &&
+        this.agree
+      ) {
+        this.userRegistration();
+      }
     },
+    // Show Login model
     async openLogin() {
       this.$emit("loginOpen");
+    },
+    // User Registertion Request TO API
+    async userRegistration() {
+      try {
+        var reqBody = {
+          username: this.username,
+          email: this.email,
+          password: this.repeatPassword,
+          gender: this.gender,
+          country: this.country
+        };
+        var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
+          headers: config.headers
+        });
+      } catch (ex) {
+        console.log(ex);
+      }
     }
   }
 };
