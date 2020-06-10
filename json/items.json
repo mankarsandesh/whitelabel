@@ -16,7 +16,7 @@
             "title": "Promotions",
             "text": true,
             "to": "/modern/desktop/Promotions"
-        }      
+        }
     ],
     "languages": [
         { "text": "English", "value": "us" },
@@ -80,6 +80,21 @@
         }
     ],
     "slideMenu": [{
+            "icon": "fas fa-chart-bar",
+            "title": "live stock",
+            "path": "/live_stock"
+        },
+        {
+            "icon": "far fa-gamepad",
+            "title": "game mode",
+            "path": "/game_mode"
+        },
+        {
+            "icon": "fas fa-gift",
+            "title": "promotions",
+            "path": "/promotions"
+        },
+        {
             "icon": "fas fa-trophy",
             "title": "leaderboard",
             "path": "/leaderboard"

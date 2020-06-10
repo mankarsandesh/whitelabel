@@ -74,9 +74,53 @@
     button {
         left: 50%;
         right: 50%;
-        margin-left: -35px;
+        margin-left: -32px;
     }
 }
 
 
 /* ------------------------------- slider-icon ------------------------------ */
+
+
+/* ------------------------------- mobile-navbar ------------------------------ */
+
+aside.v-navigation-drawer.v-navigation-drawer--clipped.top-60 {
+    top: 60px !important;
+    .v-navigation-drawer__content {
+        .v-list {
+            a {
+                color: rgba(255, 255, 255, 0.7) !important;
+                text-transform: uppercase;
+                .v-list-item__icon {
+                    i {
+                        color: rgba(255, 255, 255, 0.7) !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+header.navbar-mobile {
+    .v-toolbar__content {
+        align-items: center;
+        padding: 5px;
+        .v-toolbar__title {
+            margin-bottom: 7px;
+            a {
+                padding: 0px;
+            }
+        }
+        button.v-btn.v-size--small {
+            padding: 0 8.444444px;
+            margin: 0 2px;
+            .v-btn__content {
+                font-size: 0.6rem;
+                font-weight: 900;
+            }
+        }
+    }
+}
+
+
+/* ------------------------------- mobile-navbar ------------------------------ */

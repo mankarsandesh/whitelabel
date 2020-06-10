@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import slide1 from "~/components/banner/slide1";
-import slide2 from "~/components/banner/slide2";
-import slide3 from "~/components/banner/slide3";
+import slide1 from "~/components/Mobile/banner/slide1";
+import slide2 from "~/components/Mobile/banner/slide2";
+import slide3 from "~/components/Mobile/banner/slide3";
 export default {
   components: {
     slide1,

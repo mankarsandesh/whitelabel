@@ -155,18 +155,16 @@
                 <span class="label-text"> Other</span></label
               > -->
 
-               <v-radio-group v-model="gender" :mandatory="false" row>
-            <v-radio              
-              color="#ff0167"
-              light
-              v-for="data in genders"
-              :key="data"
-              :label="`${data}`"
-              :value="data"
-            ></v-radio>           
-          </v-radio-group>
-
-
+              <v-radio-group v-model="gender" :mandatory="false" row>
+                <v-radio
+                  color="#ff0167"
+                  light
+                  v-for="data in genders"
+                  :key="data"
+                  :label="`${data}`"
+                  :value="data"
+                ></v-radio>
+              </v-radio-group>
             </div>
           </div>
 
@@ -277,7 +275,7 @@ import config from "../config/config.global";
 export default {
   data() {
     return {
-      genders: ['Male','Female','Other'],
+      genders: ["Male", "Female", "Other"],
       checkbox: false,
       select: "China",
       items: ["China", "Laos", "Thailand"],
