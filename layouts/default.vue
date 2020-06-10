@@ -21,7 +21,14 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar fixed height="80" color="white" class="navbar" dark>
+    <v-app-bar
+      :app="$route.name == 'index' ? false : true"
+      fixed
+      height="80"
+      color="white"
+      class="navbar"
+      dark
+    >
       <v-toolbar-title>
         <v-btn to="/" text color="transparent ">
           <v-img width="130" src="/logo/logo.png"></v-img>
@@ -63,6 +70,24 @@
       >
         <v-icon left>fas fa-user-plus</v-icon>
         Register
+      </v-btn>
+
+      <v-btn text dark to="/profile">
+        <v-list>
+          <v-list-item>
+            <v-list-item-avatar>
+              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>John Leider</v-list-item-title>
+            </v-list-item-content>
+
+            <v-list-item-action>
+              <v-icon>mdi-heart</v-icon>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
       </v-btn>
 
       <v-btn class="mx-2" large icon>
@@ -107,7 +132,20 @@ import Login from "../components/login";
 import Register from "../components/register";
 export default {
   data() {
+<<<<<<< HEAD
     return {   
+=======
+    return {
+      fav: true,
+      menu1: false,
+      message: false,
+      hints: true,
+      genders: ["Male", "Female", "Other"],
+      checkbox: false,
+      select: "China",
+      items: ["China", "Laos", "Thailand"],
+      gender: "Male",
+>>>>>>> 0e7eb47d8d4c9d345eda502b0bdf7a9c25511a54
       loginDialog: false,
       registerDialog: false,
       selectedLanguage: "us",
