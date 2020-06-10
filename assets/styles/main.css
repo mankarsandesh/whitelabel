@@ -10,6 +10,10 @@
     margin-left: -20px;
 }
 
+.high-0 {
+    height: 20px !important;
+}
+
 .v-card .v-card__title .display-1,
 .v-card .v-card__title.display-3,
 .v-card .v-card__title.display-4,
