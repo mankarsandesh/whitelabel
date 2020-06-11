@@ -15,6 +15,10 @@
         Already have an account?
         <span @click="openLogin()">Login now</span>
       </p>
+
+      <p class="errorMessage">
+        {{ this.errorMessage }}
+      </p>
       <v-form ref="form" v-model="valid" lazy-validation>
         <label>Username</label>
         <v-text-field
@@ -26,7 +30,7 @@
           rounded
           dense
           required
-          :rules="[v => !!v || 'username is required']"
+          :rules="[v => !!v || 'username is required']"         
         ></v-text-field>
         <label>Email</label>
         <v-text-field
@@ -81,7 +85,7 @@
 
         <div class="inputClassRegi float-left">
           <v-combobox
-            class="inputClassRegi "
+            class="inputClassRegi"
             light
             height="48"
             rounded
@@ -100,17 +104,15 @@
         </div>
 
         <div class="inputClassRegi float-left">
-          <label class="remember">
-            <input
-              class="check"
-              type="checkbox"
+        
+            <v-checkbox
+              light
               v-model="agree"
               :rules="[v => !!v || 'You must agree to continue!']"
-            />
-            <span class="label-text"
-              >Agree with <span>Terms & Conditions?</span>
-            </span></label
-          >
+              label="Agree with Terms & Conditions?"
+              required
+            ></v-checkbox>
+         
         </div>
         <v-btn
           class="registerButton "
@@ -132,11 +134,12 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../config/config.global';
+import axios from "axios";
+import config from "../config/config.global";
 export default {
   data() {
     return {
+      errorMessage: "",
       valid: true,
       username: "",
       email: "",
@@ -144,7 +147,7 @@ export default {
       repeatPassword: "",
       country: "China",
       gender: "Male",
-      agree: "",
+      agree: false,
       genders: ["Male", "Female", "Other"],
       countrys: ["China", "Laos", "Thailand"],
       selectedLanguage: "us",
@@ -187,14 +190,18 @@ export default {
           email: this.email,
           password: this.repeatPassword,
           gender: this.gender,
-          country: this.country
+          country_id: this.country,
+          currency_id: 1,
+          first_name: "Sandesh",
+          last_name: "mankar",
+          last_ip: "127.0.0.2"
         };
-        var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
-          headers: config.headers
-        });
+        var { data } = await axios.post(config.userRegisterAuth.url, reqBody);
         console.log(data);
+        this.errorMessage = "User already exites";
       } catch (ex) {
         console.log(ex);
+        this.errorMessage = "User already exites";
       }
     }
   }

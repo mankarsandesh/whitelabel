@@ -55,6 +55,7 @@
             dense
             required
             hide-details
+            v-model="username"
           ></v-text-field>
         </v-col>
         <v-col cols="6">
@@ -68,6 +69,7 @@
             dense
             required
             hide-details
+            v-model="email"
           >
             <template slot="append">
               <v-icon size="20" color="pink">fas fa-pen</v-icon>
@@ -85,6 +87,7 @@
             rounded
             dense
             required
+             v-model="password"
           >
             <template slot="append">
               <v-icon size="20" color="pink">fas fa-pen</v-icon>
@@ -102,6 +105,7 @@
             dense
             required
             hide-details
+             v-model="country"
           >
             <template slot="prepend-inner">
               <country-flag country="th" size="normal" />
@@ -181,14 +185,15 @@ export default {
     ListItem,
     subheader
   },
-  data: () => ({
-    form: {
-      username: null,
-      email: null,
+  data() {
+    return {
+      username: "Sandesh",
+      email: "sandesh@gmail.com",
+      password: null,
       phone: null,
       country: null
-    }
-  })
+    };
+  }
 };
 </script>
 
