@@ -74,8 +74,8 @@
 
       <v-btn text dark to="/profile">
         <v-list flat>
-          <v-list-item>
-            <v-list-item-avatar>
+          <v-list-item class="px-0">
+            <v-list-item-avatar class="mr-0">
               <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
             </v-list-item-avatar>
 
@@ -84,7 +84,11 @@
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-icon>mdi-heart</v-icon>
+              <v-icon size="15">{{
+                $route.name === "profile"
+                  ? "far fa-chevron-up"
+                  : "far fa-chevron-down"
+              }}</v-icon>
             </v-list-item-action>
           </v-list-item>
         </v-list>
