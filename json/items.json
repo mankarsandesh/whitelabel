@@ -61,21 +61,18 @@
         }
     ],
     "mutiple_bet": [{
-            "icon": "fa fa-dollar-sign ",
-            "iconColor": "#1a509f",
-            "color": "color-border-blue",
+            "src": "/banner/banner3/Stock-img-1.png",
+            "itemsDesc": ["usindex"],
             "title": "USA Stock"
         },
         {
-            "icon": "fab fa-btc ",
-            "iconColor": "#4da71c",
-            "color": "color-border-green",
+            "src": "/banner/banner3/Stock-img-2.png",
+            "itemsDesc": ["btc5", "btc1"],
             "title": "Crypto"
         },
         {
-            "icon": "fas fa-yen-sign ",
-            "iconColor": "#d1240e",
-            "color": "color-border-red",
+            "src": "/banner/banner3/Stock-img-3.png",
+            "itemsDesc": ["sh000001", "sh000300", "sz399415"],
             "title": "China Stock"
         }
     ],
