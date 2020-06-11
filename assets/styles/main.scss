@@ -124,3 +124,30 @@ header.navbar-mobile {
 
 
 /* ------------------------------- mobile-navbar ------------------------------ */
+
+
+/* --------------------------------- profile -------------------------------- */
+
+.v-tabs-slider-wrapper {
+    height: 3px !important;
+}
+
+a.profile-item-link {
+    color: #ffffff !important;
+}
+
+
+/* --------------------------------- profile -------------------------------- */
+
+.text-filed {
+    .v-input__control {
+        .v-input__slot {
+            .v-input__append-inner {
+                margin-top: 15px !important;
+            }
+            .v-input__prepend-inner {
+                margin-top: 3px !important;
+            }
+        }
+    }
+}
