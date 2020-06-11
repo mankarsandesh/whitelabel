@@ -70,6 +70,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+import config from '../config/config.global';
 export default {
   data() {
     return {

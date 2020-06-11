@@ -132,6 +132,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+import config from '../config/config.global';
 export default {
   data() {
     return {
@@ -190,6 +192,7 @@ export default {
         var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
           headers: config.headers
         });
+        console.log(data);
       } catch (ex) {
         console.log(ex);
       }

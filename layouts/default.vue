@@ -132,11 +132,11 @@ import Login from "../components/login";
 import Register from "../components/register";
 export default {
   data() {
-    return {   
+    return {
       loginDialog: false,
       registerDialog: false,
       selectedLanguage: "us",
-      OpenDrawer: false,      
+      OpenDrawer: false,
       menu: json.menu,
       slideMenu: json.slideMenu
     };
@@ -161,7 +161,7 @@ export default {
     showLoginDialog() {
       this.registerDialog = false;
       this.loginDialog = true;
-    }    
+    }
   }
 };
 </script>

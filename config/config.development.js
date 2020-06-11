@@ -12,12 +12,17 @@ const config = {
   header: {
     authorization: "Basic VG5rd2ViQXBpOlRlc3QxMjMh"
   },
+  userRegisterAuth: {
+    url: `${process.env.BASE_URL}/webUserLogin`
+  },
   userLoginAuth: {
     url: `${process.env.BASE_URL}/webUserLogin`
   },
-  url: {
-    getStock: `${process.env.BASE_URL}/getStock`
+  userForgotPassword: {
+    url: `${process.env.BASE_URL}/webUserLogin`
   },
+  stockUrl: {
+    getStock: `${process.env.BASE_URL}/getStock`
+  }
 };
-
 export default config;
