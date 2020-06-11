@@ -73,7 +73,7 @@
       </v-btn>
 
       <v-btn text dark to="/profile">
-        <v-list>
+        <v-list flat>
           <v-list-item>
             <v-list-item-avatar>
               <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
@@ -120,7 +120,7 @@
     </v-dialog>
     <!-- Ending Login Form -->
 
-    <v-content>
+    <v-content :class="$route.name !== 'index' ? 'profile-container' : null">
       <nuxt />
     </v-content>
   </v-app>
@@ -132,11 +132,11 @@ import Login from "../components/login";
 import Register from "../components/register";
 export default {
   data() {
-    return {   
+    return {
       loginDialog: false,
       registerDialog: false,
       selectedLanguage: "us",
-      OpenDrawer: false,      
+      OpenDrawer: false,
       menu: json.menu,
       slideMenu: json.slideMenu
     };
@@ -161,7 +161,7 @@ export default {
     showLoginDialog() {
       this.registerDialog = false;
       this.loginDialog = true;
-    }    
+    }
   }
 };
 </script>

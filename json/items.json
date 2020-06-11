@@ -129,5 +129,21 @@
             "title": "disconnection policy",
             "path": "/disconnection_policy"
         }
+    ],
+    "TabsProfiles": [{
+            "title": "my account",
+            "icon": "fas fa-home",
+            "path": "/profile"
+        },
+        {
+            "title": "deposit",
+            "icon": "fas fa-home",
+            "path": "/profile/deposit"
+        },
+        {
+            "title": "withdrawal",
+            "icon": "fas fa-home",
+            "path": "/profile/withdrawal"
+        }
     ]
 }

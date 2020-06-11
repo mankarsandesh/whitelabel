@@ -39,7 +39,11 @@ export default {
     /*
      ** Plugins to load before mounting the App
      */
-    plugins: ["~/plugins/fontAwesome", "~/plugins/vueDependency"],
+    plugins: [
+        "~/plugins/CountryFlag",
+        "~/plugins/fontAwesome",
+        "~/plugins/vueDependency"
+    ],
     /*
      ** Nuxt.js dev-modules
      */

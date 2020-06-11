@@ -52,3 +52,17 @@
 .v-card.card-multiple.color-border-red {
     border: 5px solid #d1240e !important;
 }
+
+.profile-container {
+    background-image: url("/banner/banner-1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+section.profile-content {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
