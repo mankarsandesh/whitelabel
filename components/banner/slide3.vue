@@ -19,27 +19,25 @@
 
             <v-row class="my-8">
               <v-col cols="4" v-for="(item, index) in items" :key="index">
-                <v-card
-                  height="120"
-                  max-width="344"
-                  :class="item.color"
-                  class="card-multiple"
-                >
-                  <v-btn
-                    absolute
-                    :color="item.iconColor"
-                    class="white--text"
-                    fab
-                    large
-                    top
-                  >
-                    <v-icon size="40">{{ item.icon }}</v-icon>
-                  </v-btn>
+                <v-card max-width="344">
                   <v-img :src="item.src" class=" align-center">
                     <v-card-title
                       class=" text-uppercase justify-center text-center display-1 font-weight-bold"
                       >{{ item.title }}</v-card-title
                     >
+
+                    <v-list-item-subtitle
+                      class=" text-uppercase justify-center text-center "
+                    >
+                      <template v-for="(data, i) in item.itemsDesc">
+                        <span :key="i">
+                          {{ data }}
+                          <span v-if="i + 1 < item.itemsDesc.length" :key="i"
+                            >|</span
+                          >
+                        </span>
+                      </template>
+                    </v-list-item-subtitle>
                   </v-img>
                 </v-card>
               </v-col>

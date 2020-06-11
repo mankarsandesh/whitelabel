@@ -26,6 +26,14 @@
     header.navbar {
         background-color: rgba(255, 255, 255, 0.12) !important;
         box-shadow: 0px 1px 12px rgba(0, 0, 0, 0.2);
+        .v-toolbar__content {
+            a {
+                padding: 0 10px;
+            }
+            a.v-btn:before {
+                background-color: transparent;
+            }
+        }
     }
 }
 

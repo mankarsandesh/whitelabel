@@ -41,18 +41,6 @@
     border: 1px solid #b3a7a7;
 }
 
-.v-card.card-multiple.color-border-blue {
-    border: 5px solid #1a509f !important;
-}
-
-.v-card.card-multiple.color-border-green {
-    border: 5px solid #4da71c !important;
-}
-
-.v-card.card-multiple.color-border-red {
-    border: 5px solid #d1240e !important;
-}
-
 .profile-container {
     background-image: url("/banner/banner-1.png");
     background-position: center;
