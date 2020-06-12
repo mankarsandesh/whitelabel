@@ -49,30 +49,8 @@
           {{ item.title }}
         </v-btn>
       </template>
-
-      <v-btn
-        :rounded="true"
-        :outlined="true"
-        color="pink"
-        @click="loginDialog = true"
-        class="mx-2"
-      >
-        <v-icon left>fas fa-user</v-icon>
-        Login
-      </v-btn>
-
-      <v-btn
-        :rounded="true"
-        :outlined="false"
-        color="pink"
-        @click="registerDialog = true"
-        class="mx-2"
-      >
-        <v-icon left>fas fa-user-plus</v-icon>
-        Register
-      </v-btn>
-
-      <v-btn text dark to="/profile">
+   <div v-if="GetUserData">
+      <v-btn text dark to="/profile" >
         <v-list flat>
           <v-list-item class="px-0">
             <v-list-item-avatar class="mr-0">
@@ -80,7 +58,9 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>John Leider</v-list-item-title>
+              <v-list-item-title>{{
+               GetUserData.username
+              }}</v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-action>
@@ -93,6 +73,33 @@
           </v-list-item>
         </v-list>
       </v-btn>
+      <v-btn text dark @click="userLogout()">
+        Logout
+      </v-btn>
+      </div>
+      <div v-else>
+        <v-btn
+          :rounded="true"
+          :outlined="true"
+          color="pink"
+          @click="loginDialog = true"
+          class="mx-2"
+        >
+          <v-icon left>fas fa-user</v-icon>
+          Login
+        </v-btn>
+
+        <v-btn
+          :rounded="true"
+          :outlined="false"
+          color="pink"
+          @click="registerDialog = true"
+          class="mx-2"
+        >
+          <v-icon left>fas fa-user-plus</v-icon>
+          Register
+        </v-btn>
+      </div>
 
       <v-btn class="mx-2" large icon>
         <v-icon> fas fa-globe</v-icon>
@@ -120,7 +127,10 @@
       width="550"
       style=" border-radius:none !important;"
     >
-      <forgotPassword @forgotClose="closeForgot" @loginOpen="showForgotDialog" />
+      <forgotPassword
+        @forgotClose="closeForgot"
+        @loginOpen="showForgotDialog"
+      />
     </v-dialog>
     <!-- Ending Register Form -->
 
@@ -131,7 +141,11 @@
       width="550"
       style=" border-radius:none !important;"
     >
-      <Login @loginClose="closeLogin" @registerOpen="showRegisterDialog" @forgotPasswordOpen="showForgotDialog" />
+      <Login
+        @loginClose="closeLogin"
+        @registerOpen="showRegisterDialog"
+        @forgotPasswordOpen="showForgotDialog"
+      />
     </v-dialog>
     <!-- Ending Login Form -->
 
@@ -141,21 +155,24 @@
   </v-app>
 </template>
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import json from "~/json/items";
 import config from "../config/config.global";
 import Login from "../components/login";
 import Register from "../components/register";
-import forgotPassword from '../components/forgotPassword';
+import forgotPassword from "../components/forgotPassword";
+import axios from "axios";
 export default {
   data() {
     return {
-      forgotPasswordDialog : false,
+      forgotPasswordDialog: false,
       loginDialog: false,
       registerDialog: false,
       selectedLanguage: "us",
       OpenDrawer: false,
       menu: json.menu,
-      slideMenu: json.slideMenu
+      slideMenu: json.slideMenu,
+      userData: []
     };
   },
   components: {
@@ -163,7 +180,44 @@ export default {
     Register,
     forgotPassword
   },
+  created() {
+    if(this.userUUID){
+          this.userInfo();
+    }
+  },
+  computed: {
+    ...mapGetters("login", ["GetUserData"]),
+  },
   methods: {
+     ...mapMutations("login", ["CLEAR_USER_DATA"]),
+    // Logout Users
+
+    async userLogout(){
+      if(this.GetUserData){ 
+        this.$cookies.remove('userUUID');
+        this.CLEAR_USER_DATA();
+        this.$router.push("/");
+      }
+    },
+    // Get User Info
+    async userInfo() {
+      console.log(this.userUUID);
+      try {
+        var reqBody = {
+          user_uuid: this.userUUID
+        };
+        var { data } = await axios.post(config.getUserProfile.url, reqBody, {
+          headers: config.header
+        });
+        console.log(data.data);
+        if (data.code == 200) {
+          this.userData = data.data[0];
+        }
+        console.log(this.userData["username"]);
+      } catch (ex) {
+        console.log(ex);
+      }
+    },
     // Close Register Screen
     closeRegister() {
       this.registerDialog = false;

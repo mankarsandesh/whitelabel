@@ -15,18 +15,26 @@
         Doesn't have an account yet?
         <span @click="openRegister()">Register Now</span>
       </p>
+      <p class="errorMessage" v-if="this.errorMessage">
+        {{ this.errorMessage }}
+      </p>
+
+      <p class="sucessMessage" v-if="this.sucessMessage">
+        {{ this.sucessMessage }}
+      </p>
+
       <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Email</label>
+        <label>Username</label>
         <v-text-field
           class="inputClassRegi"
           height="48"
           light
-          v-model="email"
+          v-model="username"
           outlined
           rounded
           dense
           required
-          :rules="emailRules"
+          :rules="[v => !!v || 'Username is required']"
         ></v-text-field>
 
         <label>Password</label>
@@ -70,27 +78,27 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../config/config.global';
+import { mapGetters, mapActions, mapMutations } from "vuex";
+import axios from "axios";
+import config from "../config/config.global";
 export default {
   data() {
     return {
+      errorMessage: "",
+      sucessMessage: "",
       valid: false,
       loginDialog: false,
-      email: "",
-      password: "",
-      emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
-      ]
+      username: "",
+      password: ""
     };
   },
   methods: {
+    ...mapMutations("login", ["SET_AUTH", "SET_USER_DATA"]),
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
-      if (this.email && this.password) {
-        this.userLogin();
+      if (this.username && this.password) {
+        this.loginUser();
       }
     },
     // Close Login Popup
@@ -101,20 +109,35 @@ export default {
     async openRegister() {
       this.$emit("registerOpen");
     },
-     // Open Forgot Password
+    // Open Forgot Password
     async openForgotPassword() {
       this.$emit("forgotPasswordOpen");
     },
     // User Login Request to API
-    async userLogin() {
+    async loginUser() {
       try {
         var reqBody = {
-          email: this.email,
-          password: this.password
+          username: this.username,
+          password: this.password,
+          last_ip: "127.0.0.2"
         };
         var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
-          headers: config.headers
+          headers: config.header
         });
+        console.log(data.data[0].uuid);
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";        
+          this.SET_USER_DATA(data.data[0]);
+          this.$cookies.set("userUUID", data.data[0].uuid, {
+            path: "/"
+          });
+          this.$emit("loginClose");
+          this.$router.push("/profile");
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
       } catch (ex) {
         console.log(ex);
       }
@@ -123,6 +146,13 @@ export default {
 };
 </script>
 <style scoped>
+.errorMessage {
+  color: #f17272 !important;
+}
+.sucessMessage {
+  color: green !important;
+}
+
 .errors {
   color: #f17272 !important;
 }

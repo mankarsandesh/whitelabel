@@ -15,7 +15,7 @@
 <script>
 import banner from "~/components/banner";
 import MobileBanner from "~/components/Mobile/banner/banner";
-export default {
+export default {  
   layout: ctx => (ctx.isMobile ? "mobile" : "default"),
   components: {
     banner,

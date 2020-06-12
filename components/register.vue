@@ -16,26 +16,31 @@
         <span @click="openLogin()">Login now</span>
       </p>
 
-      <p class="errorMessage">
+      <p class="errorMessage" v-if="this.errorMessage">
         {{ this.errorMessage }}
       </p>
+
+      <p class="sucessMessage" v-if="this.sucessMessage">
+        {{ this.sucessMessage }}
+      </p>
+
       <v-form ref="form" v-model="valid" lazy-validation>
         <label>Username</label>
         <v-text-field
           class="inputClassRegi"
-          height="48"
+          height="42"
           light
           v-model="username"
           outlined
           rounded
           dense
           required
-          :rules="[v => !!v || 'username is required']"         
+          :rules="[v => !!v || 'username is required']"
         ></v-text-field>
         <label>Email</label>
         <v-text-field
           class="inputClassRegi"
-          height="48"
+          height="42"
           light
           v-model="email"
           outlined
@@ -47,7 +52,7 @@
         <label>Password</label>
         <v-text-field
           class="inputClassRegi"
-          height="48"
+          height="42"
           light
           v-model="password"
           outlined
@@ -59,7 +64,7 @@
         <label>Confirm Password</label>
         <v-text-field
           class="inputClassRegi"
-          height="48"
+          height="42"
           light
           v-model="repeatPassword"
           outlined
@@ -73,6 +78,8 @@
           <label>Gender</label>
           <v-radio-group v-model="gender" :mandatory="false" row>
             <v-radio
+              height="42"
+              class="genderClass"
               color="#ff0167"
               light
               v-for="data in genders"
@@ -84,35 +91,28 @@
         </div>
 
         <div class="inputClassRegi float-left">
-          <v-combobox
-            class="inputClassRegi"
-            light
-            height="48"
+          <v-select
+            height="42"
             rounded
             outlined
+            light
             v-model="country"
             :items="countrys"
-            label="Select Country"
+            item-text="name"
+            item-value="id"
             required
             :rules="[v => !!v || 'Country is required']"
-          >
-            <template slot="item" slot-scope="data">
-              <v-icon class="icon"> fas fa-globe </v-icon>&nbsp;
-              <span class="cb-item"> {{ data.item }}</span>
-            </template>
-          </v-combobox>
+          ></v-select>
         </div>
 
         <div class="inputClassRegi float-left">
-        
-            <v-checkbox
-              light
-              v-model="agree"
-              :rules="[v => !!v || 'You must agree to continue!']"
-              label="Agree with Terms & Conditions?"
-              required
-            ></v-checkbox>
-         
+          <v-checkbox
+            light
+            v-model="agree"
+            :rules="[v => !!v || 'You must agree to continue!']"
+            label="Agree with Terms & Conditions?"
+            required
+          ></v-checkbox>
         </div>
         <v-btn
           class="registerButton "
@@ -140,16 +140,34 @@ export default {
   data() {
     return {
       errorMessage: "",
+      sucessMessage: "",
       valid: true,
       username: "",
       email: "",
       password: "",
       repeatPassword: "",
-      country: "China",
-      gender: "Male",
+      country: 45,
+      gender: "male",
       agree: false,
-      genders: ["Male", "Female", "Other"],
-      countrys: ["China", "Laos", "Thailand"],
+      genders: ["male", "female", "other"],
+      countrys: [
+        {
+          id: 45,
+          name: "China"
+        },
+        {
+          id: 122,
+          name: "Laos"
+        },
+        {
+          id: 220,
+          name: "Thailand"
+        },
+        {
+          id: 236,
+          name: "USA"
+        }
+      ],
       selectedLanguage: "us",
       OpenDrawer: false,
       emailRules: [
@@ -175,7 +193,11 @@ export default {
         this.country &&
         this.agree
       ) {
-        this.userRegistration();
+        if (this.password == this.repeatPassword) {
+          this.userRegistration();
+        } else {
+          this.errorMessage = "Repeat Password did't Match";
+        }
       }
     },
     // Show Login model
@@ -196,18 +218,35 @@ export default {
           last_name: "mankar",
           last_ip: "127.0.0.2"
         };
-        var { data } = await axios.post(config.userRegisterAuth.url, reqBody);
-        console.log(data);
-        this.errorMessage = "User already exites";
+        var { data } = await axios.post(config.userRegisterAuth.url, reqBody, {
+          headers: config.header
+        });
+
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
       } catch (ex) {
         console.log(ex);
-        this.errorMessage = "User already exites";
+        this.errorMessage = data.message[0];
       }
     }
   }
 };
 </script>
 <style scoped>
+.genderClass {
+  text-transform: capitalize;
+}
+.errorMessage {
+  color: red !important;
+}
+.sucessMessage {
+  color: green !important;
+}
 .inputClass .radio {
   padding: 8px 15px;
   cursor: pointer;
@@ -243,7 +282,7 @@ input[type="radio"]:checked + label {
   top: 15px;
   left: 15px;
   background-color: #fff;
-  padding: 30px 20px 65px 20px;
+  padding: 30px 20px 40px 20px;
 }
 .loginForm .icon {
   color: #ff0167;
@@ -300,24 +339,6 @@ input[type="radio"]:checked + label {
   font-weight: 800;
   margin: 0 auto !important;
   width: 280px;
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  bottom: -20px;
-  left: 0;
-  right: 0;
-}
-.loginButton {
-  text-align: center;
-  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
-  border-radius: 50px;
-  font-size: 27px;
-  padding: 10px 40px;
-  font-weight: 800;
-  margin: 0 auto !important;
-  width: 250px;
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
