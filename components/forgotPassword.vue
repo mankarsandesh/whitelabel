@@ -9,14 +9,14 @@
         <v-icon class="icon" left size="20">
           fas fa-user
         </v-icon>
-        login
+        Forgot Password
       </h2>
       <p>
-        Doesn't have an account yet?
-        <span @click="openRegister()">Register Now</span>
+        No problem! Just fill in the email below and we'll send you password
+        reset instructions!
       </p>
       <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Email</label>
+        <label>Your Email</label>
         <v-text-field
           class="inputClassRegi"
           height="48"
@@ -29,34 +29,13 @@
           :rules="emailRules"
         ></v-text-field>
 
-        <label>Password</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="48"
-          light
-          v-model="password"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Password is required']"
-        ></v-text-field>
-
-        <label class="remember">
-          <input class="check" type="checkbox" />
-          <span class="label-text">Remember Me </span></label
-        >
-        <label class="float-right forgotPassword">
-          <a href="#" @click="openForgotPassword">Forgot Password?</a>
-        </label>
-
         <v-btn
           class="loginButton "
           @click="validate"
           :disabled="!valid"
           height="50"
         >
-          Login
+          Reset
           <v-icon class="icon" size="30">
             fas fa-angle-double-right
           </v-icon>
@@ -70,15 +49,13 @@
 </template>
 
 <script>
-import axios from 'axios';
-import config from '../config/config.global';
+import axios from "axios";
+import config from "../config/config.global";
 export default {
   data() {
     return {
       valid: false,
-      loginDialog: false,
-      email: "",
-      password: "",
+      email: "",    
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
@@ -95,18 +72,10 @@ export default {
     },
     // Close Login Popup
     async closePopup() {
-      this.$emit("loginClose");
-    },
-    // Close Register Popup
-    async openRegister() {
-      this.$emit("registerOpen");
-    },
-     // Open Forgot Password
-    async openForgotPassword() {
-      this.$emit("forgotPasswordOpen");
-    },
+      this.$emit("forgotClose");
+    },   
     // User Login Request to API
-    async userLogin() {
+    async forgotPassword() {
       try {
         var reqBody = {
           email: this.email,
@@ -145,8 +114,8 @@ input[type="radio"]:checked + label {
 .triangle-topleft {
   width: 0;
   height: 0;
-  border-top: 250px solid #ff0066;
-  border-right: 250px solid transparent;
+  border-top: 150px solid #ff0066;
+  border-right: 150px solid transparent;
 }
 .forgotPassword a {
   color: #ff0167;
@@ -207,24 +176,6 @@ input[type="radio"]:checked + label {
   text-align: center;
   margin: 0 auto;
   bottom: 0;
-}
-.registerButton {
-  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
-  border-radius: 50px;
-  font-size: 24px;
-  padding: 20px 0px;
-  text-align: center;
-  font-weight: 800;
-  margin: 0 auto !important;
-  width: 280px;
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  bottom: -20px;
-  left: 0;
-  right: 0;
 }
 .loginButton {
   text-align: center;

@@ -113,6 +113,17 @@
     </v-dialog>
     <!-- Ending Register Form -->
 
+    <!-- forgotPasswordDialog Form -->
+    <v-dialog
+      dark
+      v-model="forgotPasswordDialog"
+      width="550"
+      style=" border-radius:none !important;"
+    >
+      <forgotPassword @forgotClose="closeForgot" @loginOpen="showForgotDialog" />
+    </v-dialog>
+    <!-- Ending Register Form -->
+
     <!-- Login Form -->
     <v-dialog
       dark
@@ -120,7 +131,7 @@
       width="550"
       style=" border-radius:none !important;"
     >
-      <Login @loginClose="closeLogin" @registerOpen="showRegisterDialog" />
+      <Login @loginClose="closeLogin" @registerOpen="showRegisterDialog" @forgotPasswordOpen="showForgotDialog" />
     </v-dialog>
     <!-- Ending Login Form -->
 
@@ -134,9 +145,11 @@ import json from "~/json/items";
 import config from "../config/config.global";
 import Login from "../components/login";
 import Register from "../components/register";
+import forgotPassword from '../components/forgotPassword';
 export default {
   data() {
     return {
+      forgotPasswordDialog : false,
       loginDialog: false,
       registerDialog: false,
       selectedLanguage: "us",
@@ -147,7 +160,8 @@ export default {
   },
   components: {
     Login,
-    Register
+    Register,
+    forgotPassword
   },
   computed: {
     checkPageBackground() {
@@ -178,6 +192,10 @@ export default {
     closeLogin() {
       this.loginDialog = false;
     },
+    // Close Login Screen
+    closeForgot() {
+      this.forgotPasswordDialog = false;
+    },
     showRegisterDialog() {
       this.loginDialog = false;
       this.registerDialog = true;
@@ -185,6 +203,10 @@ export default {
     showLoginDialog() {
       this.registerDialog = false;
       this.loginDialog = true;
+    },
+    showForgotDialog() {
+      this.forgotPasswordDialog = true;
+      this.loginDialog = false;
     }
   }
 };

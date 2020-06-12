@@ -13,7 +13,7 @@ const config = {
     authorization: "Basic VG5rd2ViQXBpOlRlc3QxMjMh"
   },
   userRegisterAuth: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+    url: `${process.env.BASE_URL}/register`
   },
   userLoginAuth: {
     url: `${process.env.BASE_URL}/webUserLogin`
