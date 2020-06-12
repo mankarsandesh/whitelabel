@@ -105,7 +105,7 @@
       width="550"
       style=" border-radius:none !important;"
     >
-      <Register @registerClose="closeRegister" @loginOpen="showLoginDialog" />
+      <Register />
     </v-dialog>
     <!-- Ending Register Form -->
 
@@ -116,7 +116,7 @@
       width="550"
       style=" border-radius:none !important;"
     >
-      <Login @loginClose="closeLogin" @registerOpen="showRegisterDialog" />
+      <Login @loginClose="closeLogin" />
     </v-dialog>
     <!-- Ending Login Form -->
 
@@ -147,21 +147,21 @@ export default {
   },
   methods: {
     // Close Register Screen
-    closeRegister() {
-      this.registerDialog = false;
-    },
+    // closeRegister() {
+    //   this.registerDialog = false;
+    // },
     // Close Login Screen
-    closeLogin() {
-      this.loginDialog = false;
-    },
-    showRegisterDialog() {
-      this.loginDialog = false;
-      this.registerDialog = true;
-    },
-    showLoginDialog() {
-      this.registerDialog = false;
-      this.loginDialog = true;
-    }
+    // closeLogin() {
+    //   this.loginDialog = false;
+    // },
+    // showRegisterDialog() {
+    //   this.loginDialog = false;
+    //   this.registerDialog = true;
+    // },
+    // showLoginDialog() {
+    //   this.registerDialog = false;
+    //   this.loginDialog = true;
+    // }
   }
 };
 </script>

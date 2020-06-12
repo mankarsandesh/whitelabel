@@ -4,17 +4,18 @@
       <v-container
         style="
     display: contents;
-    
 "
       >
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="8">
             <v-card flat class="">
-              <v-card-title class="display-1 font-weight-bold" style="margin-top:60px;"
+              <v-card-title
+                class="display-1 font-weight-bold"
+                style="margin-top:60px;"
                 >Your mood or Game</v-card-title
               >
-              <v-card-title class="display-2 font-weight-bold color-pink"
-                > Choose Game</v-card-title
+              <v-card-title class="flex display-2 font-weight-bold color-pink">
+                Choose Game</v-card-title
               >
             </v-card>
             <v-row>
@@ -26,7 +27,13 @@
                 v-for="(item, index) in items"
                 :key="index"
               >
-                <v-card dark flat class="banner-2" max-width="105" max-height="130">
+                <v-card
+                  dark
+                  flat
+                  class="banner-2"
+                  max-width="105"
+                  max-height="130"
+                >
                   <v-img :src="item.src" class=" align-center opcity-images">
                     <v-card-title
                       class=" text-uppercase text-center display-0 font-weight-bold"

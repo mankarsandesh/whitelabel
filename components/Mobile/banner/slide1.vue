@@ -2,11 +2,17 @@
   <v-carousel-item src="/banner/banner-1.png">
     <v-sheet height="100%" tile>
       <v-row class="fill-height" align="center" justify="center">
-        <v-card flat max-width="1000" class="text-center mb-5" style="margin-top:60px;">
+        <v-card
+          flat
+          max-width="1000"
+          class="text-center mb-5"
+          style="margin-top:60px;"
+        >
           <v-card class="display-2 font-weight-bold text-center">Get</v-card>
-          <v-card-text style="color: #e51267;" class="flex display-2 font-weight-bold text-center"
+          <v-card-title
+            class="flex display-2 font-weight-black color-pink justify-center"
             >$2000
-          </v-card-text>
+          </v-card-title>
           <v-card-title class="display-1 font-weight-bold"
             >Get a WELCOME 200% Bonus up to $2000</v-card-title
           >
@@ -21,7 +27,11 @@
               <v-card v-for="(item, index) in titleDetail" :key="index">
                 <v-list-item two-line class="cover-icon justify-center">
                   <v-list-item-avatar width="60">
-                    <v-img :class="item.class" style="height: 45px;" :src="item.src"></v-img>
+                    <v-img
+                      :class="item.class"
+                      style="height: 45px;"
+                      :src="item.src"
+                    ></v-img>
                   </v-list-item-avatar>
                 </v-list-item>
                 <v-list-item>

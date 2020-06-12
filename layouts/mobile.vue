@@ -33,7 +33,7 @@
 
       <v-spacer></v-spacer>
       <div class=" menu-list">
-        <v-btn rounded small outlined color="pink" @click="loginDialog = true">
+        <v-btn rounded small outlined color="pink">
           <v-icon size="13">fas fa-user</v-icon>
           Login
         </v-btn>
@@ -49,15 +49,14 @@
         </v-btn>
       </div>
     </v-app-bar>
-  <!-- Login Form -->
+    <!-- Login Form -->
     <v-dialog
       dark
-      hide-overlay=true
       v-model="loginDialog"
       width="550"
       style=" border-radius:none !important;"
     >
-      <Login @loginClose="closeLogin" @registerOpen="showRegisterDialog" />
+      <Login />
     </v-dialog>
     <!-- Ending Login Form -->
 
@@ -76,12 +75,13 @@ export default {
   name: "mobile",
   data() {
     return {
-      loginDialog : false,
+      loginDialog: false,
       slideMenu: json.slideMenu,
-      OpenDrawer: false
+      OpenDrawer: false,
+      closeLogin: false
     };
   },
-  components : {
+  components: {
     Login
   }
 };
