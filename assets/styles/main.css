@@ -17,6 +17,7 @@
 .v-card .v-card__title .display-1,
 .v-card .v-card__title.display-3,
 .v-card .v-card__title.display-4,
+.my-btn.v-btn--contained span.v-btn__content,
 .v-card .v-card__title.display-2 {
     font-family: Impact !important;
 }
@@ -41,20 +42,15 @@
     border: 1px solid #b3a7a7;
 }
 
-.v-card.card-multiple.color-border-blue {
-    border: 5px solid #1a509f !important;
-}
-
-.v-card.card-multiple.color-border-green {
-    border: 5px solid #4da71c !important;
-}
-
-.v-card.card-multiple.color-border-red {
-    border: 5px solid #d1240e !important;
-}
-
 .profile-container {
     background-image: url("/banner/banner-1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.game_mode-container {
+    background-image: url("/banner/banner-2.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -65,4 +61,23 @@ section.profile-content {
     height: 100%;
     width: 100%;
     position: absolute;
+}
+
+.my-btn.v-btn--contained {
+    min-height: 55px;
+    border-radius: 85px !important;
+    background: rgb(255, 0, 102);
+    background: -moz-linear-gradient( top, rgba(255, 0, 102, 1) 0%, rgba(255, 0, 59, 1) 100%);
+    background: -webkit-linear-gradient( top, rgba(255, 0, 102, 1) 0%, rgba(255, 0, 59, 1) 100%);
+    background: linear-gradient( to bottom, rgba(255, 0, 102, 1) 0%, rgba(255, 0, 59, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#FF0066', endColorstr='#FF003B', GradientType=0);
+    -webkit-box-shadow: 0px 72px 55px -56px rgba(255, 0, 102, 0.43);
+    -moz-box-shadow: 0px 72px 55px -56px rgba(255, 0, 102, 0.43);
+    box-shadow: 0px 72px 55px -56px rgba(255, 0, 102, 0.43) !important;
+}
+
+.my-btn.v-btn--contained span.v-btn__content {
+    font-size: 1.3rem;
+    padding: 0 16px;
+    color: #ffffff;
 }

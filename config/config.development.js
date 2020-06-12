@@ -10,16 +10,16 @@ const config = {
   sessionExpiryTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   isMaintenance: process.env.MAINTENANCE_MODE,
   header: {
-    authorization: "Basic VG5rd2ViQXBpOlRlc3QxMjMh"
+    authorization: "Basic V2hpdGVMYWJlbFN1cGVyOlRlc3QxMjMh"
   },
   userRegisterAuth: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+    url: `${process.env.BASE_URL}/register`
   },
   userLoginAuth: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+    url: `${process.env.BASE_URL}/loginWebUser`
   },
-  userForgotPassword: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+  getUserProfile: {
+    url: `${process.env.BASE_URL}/getUserProfile`
   },
   stockUrl: {
     getStock: `${process.env.BASE_URL}/getStock`

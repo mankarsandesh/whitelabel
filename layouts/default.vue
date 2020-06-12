@@ -49,46 +49,60 @@
           {{ item.title }}
         </v-btn>
       </template>
+      <div v-if="GetUserData">
+        <v-btn text dark to="/profile">
+          <v-list flat>
+            <v-list-item class="px-0">
+              <v-list-item-avatar class="mr-0">
+                <img
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  alt="John"
+                />
+              </v-list-item-avatar>
 
-      <v-btn
-        :rounded="true"
-        :outlined="true"
-        color="pink"
-        @click="loginDialog = true"
-        class="mx-2"
-      >
-        <v-icon left>fas fa-user</v-icon>
-        Login
-      </v-btn>
+              <v-list-item-content>
+                <v-list-item-title>{{
+                  GetUserData.username
+                }}</v-list-item-title>
+              </v-list-item-content>
 
-      <v-btn
-        :rounded="true"
-        :outlined="false"
-        color="pink"
-        @click="registerDialog = true"
-        class="mx-2"
-      >
-        <v-icon left>fas fa-user-plus</v-icon>
-        Register
-      </v-btn>
+              <v-list-item-action>
+                <v-icon size="15">{{
+                  $route.name === "profile"
+                    ? "far fa-chevron-up"
+                    : "far fa-chevron-down"
+                }}</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+        </v-btn>
+        <v-btn text dark @click="userLogout()">
+          Logout
+        </v-btn>
+      </div>
+      <div v-else>
+        <v-btn
+          :rounded="true"
+          :outlined="true"
+          color="pink"
+          @click="loginDialog = true"
+          class="mx-2"
+        >
+          <v-icon left>fas fa-user</v-icon>
+          Login
+        </v-btn>
 
-      <v-btn text dark to="/profile">
-        <v-list flat>
-          <v-list-item>
-            <v-list-item-avatar>
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <v-list-item-title>John Leider</v-list-item-title>
-            </v-list-item-content>
-
-            <v-list-item-action>
-              <v-icon>mdi-heart</v-icon>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
-      </v-btn>
+        <v-btn
+          :rounded="true"
+          :outlined="false"
+          color="pink"
+          @click="registerDialog = true"
+          class="mx-2"
+        >
+          <v-icon left>fas fa-user-plus</v-icon>
+          Register
+        </v-btn>
+      </div>
 
       <v-btn class="mx-2" large icon>
         <v-icon> fas fa-globe</v-icon>
@@ -109,6 +123,20 @@
     </v-dialog>
     <!-- Ending Register Form -->
 
+    <!-- forgotPasswordDialog Form -->
+    <v-dialog
+      dark
+      v-model="forgotPasswordDialog"
+      width="550"
+      style=" border-radius:none !important;"
+    >
+      <forgotPassword
+        @forgotClose="closeForgot"
+        @loginOpen="showForgotDialog"
+      />
+    </v-dialog>
+    <!-- Ending Register Form -->
+
     <!-- Login Form -->
     <v-dialog
       dark
@@ -116,52 +144,125 @@
       width="550"
       style=" border-radius:none !important;"
     >
-      <Login @loginClose="closeLogin" />
+      <Login
+        @loginClose="closeLogin"
+        @registerOpen="showRegisterDialog"
+        @forgotPasswordOpen="showForgotDialog"
+      />
     </v-dialog>
     <!-- Ending Login Form -->
 
-    <v-content :class="$route.name !== 'index' ? 'profile-container' : null">
+    <v-content :class="checkPageBackground">
       <nuxt />
     </v-content>
   </v-app>
 </template>
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import json from "~/json/items";
 import config from "../config/config.global";
 import Login from "../components/login";
 import Register from "../components/register";
+import forgotPassword from "../components/forgotPassword";
+import axios from "axios";
 export default {
   data() {
     return {
+      forgotPasswordDialog: false,
       loginDialog: false,
       registerDialog: false,
       selectedLanguage: "us",
       OpenDrawer: false,
       menu: json.menu,
-      slideMenu: json.slideMenu
+      slideMenu: json.slideMenu,
+      userData: []
     };
   },
   components: {
     Login,
-    Register
+    Register,
+    forgotPassword
+  },
+  created() {
+    if (this.userUUID) {
+      this.userInfo();
+    }
+  },
+  computed: {
+    ...mapGetters("login", ["GetUserData"]),
+    checkPageBackground() {
+      const route = this.$route.name;
+      switch (true) {
+        case route === "index":
+          return null;
+          break;
+        case route === "profile" ||
+          route === "profile-deposit" ||
+          route === "profile-WithDrawal":
+          return "profile-container";
+          break;
+        case route === "game_mode":
+          return "game_mode-container";
+          break;
+        default:
+          return null;
+      }
+    }
   },
   methods: {
+    ...mapMutations("login", ["CLEAR_USER_DATA"]),
+    // Logout Users
+
+    async userLogout() {
+      if (this.GetUserData) {
+        this.$cookies.remove("userUUID");
+        this.CLEAR_USER_DATA();
+        this.$router.push("/");
+      }
+    },
+    // Get User Info
+    async userInfo() {
+      console.log(this.userUUID);
+      try {
+        var reqBody = {
+          user_uuid: this.userUUID
+        };
+        var { data } = await axios.post(config.getUserProfile.url, reqBody, {
+          headers: config.header
+        });
+        console.log(data.data);
+        if (data.code == 200) {
+          this.userData = data.data[0];
+        }
+        console.log(this.userData["username"]);
+      } catch (ex) {
+        console.log(ex);
+      }
+    },
     // Close Register Screen
     // closeRegister() {
     //   this.registerDialog = false;
     // },
     // Close Login Screen
-    // closeLogin() {
-    //   this.loginDialog = false;
-    // },
-    // showRegisterDialog() {
-    //   this.loginDialog = false;
-    //   this.registerDialog = true;
-    // },
-    // showLoginDialog() {
-    //   this.registerDialog = false;
-    //   this.loginDialog = true;
-    // }
+    closeLogin() {
+      this.loginDialog = false;
+    },
+    // Close Login Screen
+    closeForgot() {
+      this.forgotPasswordDialog = false;
+    },
+    showRegisterDialog() {
+      this.loginDialog = false;
+      this.registerDialog = true;
+    },
+    showLoginDialog() {
+      this.registerDialog = false;
+      this.loginDialog = true;
+    },
+    showForgotDialog() {
+      this.forgotPasswordDialog = true;
+      this.loginDialog = false;
+    }
   }
 };
 </script>
