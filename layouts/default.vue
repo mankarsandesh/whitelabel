@@ -49,33 +49,36 @@
           {{ item.title }}
         </v-btn>
       </template>
-   <div v-if="GetUserData">
-      <v-btn text dark to="/profile" >
-        <v-list flat>
-          <v-list-item class="px-0">
-            <v-list-item-avatar class="mr-0">
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-            </v-list-item-avatar>
+      <div v-if="GetUserData">
+        <v-btn text dark to="/profile">
+          <v-list flat>
+            <v-list-item class="px-0">
+              <v-list-item-avatar class="mr-0">
+                <img
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  alt="John"
+                />
+              </v-list-item-avatar>
 
-            <v-list-item-content>
-              <v-list-item-title>{{
-               GetUserData.username
-              }}</v-list-item-title>
-            </v-list-item-content>
+              <v-list-item-content>
+                <v-list-item-title>{{
+                  GetUserData.username
+                }}</v-list-item-title>
+              </v-list-item-content>
 
-            <v-list-item-action>
-              <v-icon size="15">{{
-                $route.name === "profile"
-                  ? "far fa-chevron-up"
-                  : "far fa-chevron-down"
-              }}</v-icon>
-            </v-list-item-action>
-          </v-list-item>
-        </v-list>
-      </v-btn>
-      <v-btn text dark @click="userLogout()">
-        Logout
-      </v-btn>
+              <v-list-item-action>
+                <v-icon size="15">{{
+                  $route.name === "profile"
+                    ? "far fa-chevron-up"
+                    : "far fa-chevron-down"
+                }}</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+        </v-btn>
+        <v-btn text dark @click="userLogout()">
+          Logout
+        </v-btn>
       </div>
       <div v-else>
         <v-btn
@@ -149,7 +152,7 @@
     </v-dialog>
     <!-- Ending Login Form -->
 
-    <v-content :class="$route.name !== 'index' ? 'profile-container' : null">
+    <v-content :class="checkPageBackground">
       <nuxt />
     </v-content>
   </v-app>
@@ -181,20 +184,38 @@ export default {
     forgotPassword
   },
   created() {
-    if(this.userUUID){
-          this.userInfo();
+    if (this.userUUID) {
+      this.userInfo();
     }
   },
   computed: {
     ...mapGetters("login", ["GetUserData"]),
+    checkPageBackground() {
+      const route = this.$route.name;
+      switch (true) {
+        case route === "index":
+          return null;
+          break;
+        case route === "profile" ||
+          route === "profile-deposit" ||
+          route === "profile-WithDrawal":
+          return "profile-container";
+          break;
+        case route === "game_mode":
+          return "game_mode-container";
+          break;
+        default:
+          return null;
+      }
+    }
   },
   methods: {
-     ...mapMutations("login", ["CLEAR_USER_DATA"]),
+    ...mapMutations("login", ["CLEAR_USER_DATA"]),
     // Logout Users
 
-    async userLogout(){
-      if(this.GetUserData){ 
-        this.$cookies.remove('userUUID');
+    async userLogout() {
+      if (this.GetUserData) {
+        this.$cookies.remove("userUUID");
         this.CLEAR_USER_DATA();
         this.$router.push("/");
       }

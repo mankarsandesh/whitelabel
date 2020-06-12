@@ -37,11 +37,6 @@ export default {
       TabsProfiles: json.TabsProfiles,
       userUUID: this.$cookies.get("userUUID")
     };
-  },
-  created() {
-    // if (!this.userUUID) {
-    //   this.$router.go("/");
-    // }
   }
 };
 </script>

@@ -21,7 +21,8 @@
         "@nuxtjs/dotenv": "^1.4.0",
         "cookie-universal-nuxt": "^2.1.4",
         "nuxt": "^2.0.0",
-        "vue-country-flag": "^2.0.1"
+        "vue-country-flag": "^2.0.1",
+        "vuelidate": "^0.7.5"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.13.0",

@@ -9,7 +9,7 @@
             "icon": "fa fa-gamepad fa-2x",
             "title": "Game Mode",
             "text": true,
-            "to": "/modern/desktop/leaderboard"
+            "to": "/game_mode"
         },
         {
             "icon": "fa fa-gift fa-2x",
@@ -141,6 +141,22 @@
             "title": "withdrawal",
             "icon": "fas fa-home",
             "path": "/profile/withdrawal"
+        }
+    ],
+    "gameMode": [{
+            "src": "/gameMode/business-mode.png",
+            "title": "business",
+            "status": "bet now"
+        },
+        {
+            "src": "/gameMode/gaming-mode.png",
+            "title": "gaming",
+            "status": "comming soon"
+        },
+        {
+            "src": "/gameMode/casino-mode.png",
+            "title": "classic",
+            "status": "comming soon"
         }
     ]
 }
