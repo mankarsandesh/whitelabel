@@ -47,6 +47,10 @@
         <v-col cols="6">
           <subheader title="username" />
           <v-text-field
+            :error-messages="usernameErrors"
+            @input="$v.form.username.$touch()"
+            @blur="$v.form.username.$touch()"
+            v-model="form.username"
             class="text-filed"
             height="48"
             light
@@ -54,13 +58,17 @@
             rounded
             dense
             required
-            hide-details
-            v-model="username"
+            :hide-details="usernameErrors.length ? false : true"
           ></v-text-field>
         </v-col>
         <v-col cols="6">
           <subheader title="email" />
           <v-text-field
+            :error-messages="emailErrors"
+            @input="$v.form.email.$touch()"
+            @blur="$v.form.email.$touch()"
+            :hide-details="emailErrors.length ? false : true"
+            v-model="form.email"
             class="text-filed"
             height="48"
             light
@@ -68,8 +76,6 @@
             rounded
             dense
             required
-            hide-details
-            v-model="email"
           >
             <template slot="append">
               <v-icon size="20" color="pink">fas fa-pen</v-icon>
@@ -79,24 +85,32 @@
         <v-col cols="6">
           <subheader title="password" />
           <v-text-field
+            :error-messages="passwordErrors"
+            @input="$v.form.password.$touch()"
+            @blur="$v.form.password.$touch()"
+            :hide-details="passwordErrors.length ? false : true"
+            v-model="form.password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
             class="text-filed"
             height="48"
             light
-            hide-details
             outlined
             rounded
-            dense
             required
-             v-model="password"
+            clearable
+            @click:append="showPassword = !showPassword"
           >
-            <template slot="append">
-              <v-icon size="20" color="pink">fas fa-pen</v-icon>
-            </template>
           </v-text-field>
         </v-col>
         <v-col cols="6">
           <subheader title="country" />
           <v-text-field
+            :error-messages="countryErrors"
+            @input="$v.form.country.$touch()"
+            @blur="$v.form.country.$touch()"
+            :hide-details="countryErrors.length ? false : true"
+            v-model="form.country"
             class="text-filed"
             height="48"
             light
@@ -104,8 +118,6 @@
             rounded
             dense
             required
-            hide-details
-             v-model="country"
           >
             <template slot="prepend-inner">
               <country-flag country="th" size="normal" />
@@ -118,6 +130,11 @@
         <v-col cols="6">
           <subheader title="phone" />
           <v-text-field
+            :error-messages="phoneErrors"
+            @input="$v.form.phone.$touch()"
+            @blur="$v.form.phone.$touch()"
+            :hide-details="phoneErrors.length ? false : true"
+            type="number"
             class="text-filed"
             height="48"
             light
@@ -125,7 +142,6 @@
             rounded
             dense
             required
-            hide-details
           >
             <template slot="append">
               <v-icon size="20" color="pink">fas fa-pen</v-icon>
@@ -163,36 +179,43 @@
         <v-col cols="6" class="py-0">
           <ListItem title="ID" desc="(ID Card ) *******" />
         </v-col>
-        <v-btn rounded color="pink" dark class="px-8 my-5"
-          >Join now
-          <span class=" ml-3">
-            <v-icon size="15"> fas fa-chevron-double-right</v-icon
-            ><v-icon size="15" class=" opcity-1">
-              fas fa-chevron-double-right</v-icon
-            >
-          </span>
-        </v-btn>
+        <Button title="Join now" v-on:methodName="updateProfile" />
       </v-row>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import Button from "~/components/Button";
 import ListItem from "~/components/listItems";
 import subheader from "~/components/profile/subheader";
+import Validate from "~/validation/profile";
 export default {
+  mixins: [Validate],
   components: {
+    Button,
     ListItem,
     subheader
   },
-  data() {
-    return {
-      username: "Sandesh",
-      email: "sandesh@gmail.com",
+  data: () => ({
+    showPassword: false,
+    form: {
+      username: null,
+      email: null,
       password: null,
-      phone: null,
-      country: null
-    };
+      country: null,
+      phone: null
+    }
+  }),
+  methods: {
+    async updateProfile(item) {
+      try {
+        console.log("This is the item", item);
+        this.$v.form.$touch();
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 };
 </script>

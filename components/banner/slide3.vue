@@ -42,15 +42,8 @@
                 </v-card>
               </v-col>
             </v-row>
-            <v-btn x-large rounded color="pink" class="px-8 ml-4"
-              >bet now
-              <span class=" ml-3">
-                <v-icon size="15"> fas fa-chevron-double-right</v-icon
-                ><v-icon size="15" class=" opcity-1">
-                  fas fa-chevron-double-right</v-icon
-                >
-              </span>
-            </v-btn>
+
+            <Button title="bet now" />
           </v-col>
         </v-row>
       </v-container>
@@ -59,8 +52,12 @@
 </template>
 
 <script>
+import Button from "~/components/Button";
 import json from "~/json/items";
 export default {
+  components: {
+    Button
+  },
   data: () => ({
     items: json.mutiple_bet
   })

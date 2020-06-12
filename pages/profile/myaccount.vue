@@ -156,6 +156,7 @@
             >
           </span>
         </v-btn>
+         <Button title="Join now" />
       </v-row>
     </v-col>
   </v-row>

@@ -159,3 +159,11 @@ a.profile-item-link {
         }
     }
 }
+
+.v-skeleton-loader,
+.my-shadow,
+.v-card.pointer.my-shadow,
+.v-card.my-shadow.elevation-0,
+.v-expansion-panel::before {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08) !important;
+}
