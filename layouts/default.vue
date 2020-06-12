@@ -124,7 +124,7 @@
     </v-dialog>
     <!-- Ending Login Form -->
 
-    <v-content :class="$route.name !== 'index' ? 'profile-container' : null">
+    <v-content :class="checkPageBackground">
       <nuxt />
     </v-content>
   </v-app>
@@ -148,6 +148,26 @@ export default {
   components: {
     Login,
     Register
+  },
+  computed: {
+    checkPageBackground() {
+      const route = this.$route.name;
+      switch (true) {
+        case route === "index":
+          return null;
+          break;
+        case route === "profile" ||
+          route === "profile-deposit" ||
+          route === "profile-WithDrawal":
+          return "profile-container";
+          break;
+        case route === "game_mode":
+          return "game_mode-container";
+          break;
+        default:
+          return null;
+      }
+    }
   },
   methods: {
     // Close Register Screen

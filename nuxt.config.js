@@ -40,6 +40,7 @@ export default {
      ** Plugins to load before mounting the App
      */
     plugins: [
+        "~/plugins/vuelidate",
         "~/plugins/CountryFlag",
         "~/plugins/fontAwesome",
         "~/plugins/vueDependency"

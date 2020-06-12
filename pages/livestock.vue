@@ -1,39 +1,42 @@
 <template>
   <v-container>
-    <v-card flat>
-      <v-tabs background-color="white" color="deep-purple accent-4" left>
-        <v-tab>Landscape</v-tab>
-        <v-tab>City</v-tab>
-        <v-tab>Abstract</v-tab>
+    <div class="text-center d-flex justify-center align-center mb-12 flex-wrap">
+      <v-btn class="mx-12 my-4" @click="loading = !loading">
+        Toggle
+      </v-btn>
+    </div>
 
-        <v-tab-item v-for="n in 3" :key="n">
-          <v-container fluid>
-            <v-row>
-              <v-col v-for="i in 6" :key="i" cols="12" md="4">
-                <v-img
-                  :src="`https://picsum.photos/500/300?image=${i * n * 5 + 10}`"
-                  :lazy-src="
-                    `https://picsum.photos/10/6?image=${i * n * 5 + 10}`
-                  "
-                  aspect-ratio="1"
-                ></v-img>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-tab-item>
-      </v-tabs>
-    </v-card>
+    <v-row justify="center">
+      <v-col class="mb-12" cols="12" md="3">
+        <v-skeleton-loader :loading="loading" type="card-avatar, article">
+          <v-card class="my-shadow">
+            <v-img
+              src="https://cdn.vuetifyjs.com/images/cards/plane.jpg"
+            ></v-img>
+            <v-card-text class="text--primary">
+              <div>Whitehaven Beach</div>
+              <div>Whitsunday Island, Whitsunday Islands</div>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="orange" text>
+                Share
+              </v-btn>
+              <v-btn color="orange" text>
+                Explore
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-skeleton-loader>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-import banner from "~/components/banner";
 export default {
-  components: {
-    banner
-  },
-  data() {
-    return {};
-  }
+  data: () => ({
+    loading: true,
+    transition: "fade-transition"
+  })
 };
 </script>

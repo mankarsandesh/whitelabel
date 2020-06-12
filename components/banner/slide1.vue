@@ -35,15 +35,7 @@
                 </v-list-item>
               </v-col>
             </v-row>
-            <v-btn x-large rounded color="pink" class="px-8"
-              >Join now
-              <span class=" ml-3">
-                <v-icon size="15"> fas fa-chevron-double-right</v-icon
-                ><v-icon size="15" class=" opcity-1">
-                  fas fa-chevron-double-right</v-icon
-                >
-              </span>
-            </v-btn>
+            <Button title="Join now" />
           </v-card-actions>
         </v-card>
       </v-row>
@@ -52,8 +44,12 @@
 </template>
 
 <script>
+import Button from "~/components/Button";
 import json from "~/json/items";
 export default {
+  components: {
+    Button
+  },
   data() {
     return {
       titleDetial: json.slideItems
