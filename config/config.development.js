@@ -21,8 +21,8 @@ const config = {
   getUserProfile: {
     url: `${process.env.BASE_URL}/getUserProfile`
   },
-  stockUrl: {
-    getStock: `${process.env.BASE_URL}/getStock`
+  userForgotPassword: {
+    url: `${process.env.BASE_URL}/forgotPassword`
   }
 };
 export default config;

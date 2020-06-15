@@ -13,16 +13,16 @@ const config = {
     authorization: "Basic VG5rd2ViQXBpOlRlc3QxMjMh"
   },
   userRegisterAuth: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+    url: `${process.env.BASE_URL}/register`
   },
   userLoginAuth: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+    url: `${process.env.BASE_URL}/loginWebUser`
+  },
+  getUserProfile: {
+    url: `${process.env.BASE_URL}/getUserProfile`
   },
   userForgotPassword: {
-    url: `${process.env.BASE_URL}/webUserLogin`
-  },
-  stockUrl: {
-    getStock: `${process.env.BASE_URL}/getStock`
+    getStock: `${process.env.BASE_URL}/forgotPassword`
   }
 };
 

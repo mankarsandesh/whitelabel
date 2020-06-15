@@ -154,7 +154,6 @@ export default {
 .sucessMessage {
   color: green !important;
 }
-
 .errors {
   color: #f17272 !important;
 }

@@ -15,18 +15,25 @@
         No problem! Just fill in the email below and we'll send you password
         reset instructions!
       </p>
+      <p class="errorMessage" v-if="this.errorMessage">
+        {{ this.errorMessage }}
+      </p>
+
+      <p class="sucessMessage" v-if="this.sucessMessage">
+        {{ this.sucessMessage }}
+      </p>
       <v-form ref="form" v-model="valid" lazy-validation>
         <label>Your Email</label>
         <v-text-field
           class="inputClassRegi"
           height="48"
           light
-          v-model="email"
+          v-model="userUUID"
           outlined
           rounded
           dense
           required
-          :rules="emailRules"
+           :rules="[v => !!v || 'Username is required']"
         ></v-text-field>
 
         <v-btn
@@ -54,36 +61,44 @@ import config from "../config/config.global";
 export default {
   data() {
     return {
+      errorMessage: "",
+      sucessMessage: "",
       valid: false,
-      email: "",    
-      emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
-      ]
+      userUUID: ""
     };
   },
   methods: {
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
-      if (this.email ) {
+      if (this.userUUID) {       
         this.forgotPassword();
       }
     },
     // Close Login Popup
     async closePopup() {
       this.$emit("forgotClose");
-    },   
+    },
     // User Login Request to API
     async forgotPassword() {
       try {
         var reqBody = {
-          email: this.email,
-          password: this.password
+          user_uuid: this.userUUID
         };
-        var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
-          headers: config.headers
-        });
+        var { data } = await axios.post(
+          config.userForgotPassword.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
       } catch (ex) {
         console.log(ex);
       }
@@ -92,6 +107,12 @@ export default {
 };
 </script>
 <style scoped>
+.errorMessage {
+  color: #f17272 !important;
+}
+.sucessMessage {
+  color: green !important;
+}
 .errors {
   color: #f17272 !important;
 }
