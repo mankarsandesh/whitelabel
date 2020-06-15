@@ -7,14 +7,17 @@
 "
       >
         <v-row class="fill-height" align="center" justify="center">
-          <v-col cols="8">
-            <v-card flat class="">
+          <v-col cols="9">
+            <v-card flat>
               <v-card-title
-                class="display-1 font-weight-bold"
+                class="display-0 font-weight-black justify-center"
                 style="margin-top:60px;"
                 >Your mood or Game</v-card-title
               >
-              <v-card-title class="flex display-2 font-weight-bold color-pink">
+              <v-card-title
+                class="flex display-2 font-weight-bold color-pink justify-center"
+                style="white-space:nowrap;"
+              >
                 Choose Game</v-card-title
               >
             </v-card>
@@ -31,12 +34,13 @@
                   dark
                   flat
                   class="banner-2"
-                  max-width="105"
-                  max-height="130"
+                  max-width="125"
+                  max-height="135"
                 >
                   <v-img :src="item.src" class=" align-center opcity-images">
                     <v-card-title
                       class=" text-uppercase text-center display-0 font-weight-bold"
+                      style="white-space: nowrap;"
                       >{{ item.title }}</v-card-title
                     >
                   </v-img>

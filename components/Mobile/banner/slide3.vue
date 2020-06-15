@@ -7,39 +7,45 @@
 "
       >
         <v-row class="fill-height mt-5" align="center" justify="center">
-          <v-col cols="8">
+          <v-col cols="9">
             <v-card flat class="ml-20">
-              <v-card-title class="display-1 font-weight-bold"
-                >Multiple Bet on</v-card-title
+              <v-card-title
+                class="display-0 font-weight-bold justify-center"
+                style="margin-top:30px;"
+                >Multiple BET on</v-card-title
               >
-              <v-card-title class="display-2 font-weight-black color-pink"
+              <v-card-title
+                class="display-2 font-weight-bold color-pink"
+                style="white-space:nowrap;"
                 >Stock & Digits</v-card-title
               >
             </v-card>
 
-            <v-row class="my-8">
-              <v-col cols="4" v-for="(item, index) in items" :key="index">
+            <v-row>
+              <v-col
+                class="mb-8"
+                lg="3"
+                xs="6"
+                sm="6"
+                v-for="(item, index) in items"
+                :key="index"
+              >
                 <v-card
-                  height="120"
-                  max-width="344"
-                  :class="item.color"
-                  class="card-multiple"
+                  dark
+                  flat
+                  class="stockImg"
+                  max-width="270"
+                  max-height="255"
                 >
-                  <v-btn
-                    absolute
-                    :color="item.iconColor"
-                    class="white--text"
-                    fab
-                    large
-                    top
-                  >
-                    <v-icon size="40">{{ item.icon }}</v-icon>
-                  </v-btn>
-                  <v-img :src="item.src" class=" align-center">
-                    <v-card-title
-                      class=" text-uppercase justify-center text-center display-1 font-weight-bold"
-                      >{{ item.title }}</v-card-title
-                    >
+                  <v-img :src="item.src" class=" align-center opcity-images">
+                    <v-card
+                      class="text-center display-1 stockName font-weight-bold"
+                      style="white-space: nowrap;"
+                      >{{ item.title }}
+                    </v-card>
+                    <p class="text-center display-0 ">
+                      {{ item.desc }}
+                    </p>
                   </v-img>
                 </v-card>
               </v-col>
@@ -64,9 +70,13 @@
 import json from "~/json/items";
 export default {
   data: () => ({
-    items: json.mutiple_bet
+    items: json.stockImg
   })
 };
 </script>
 
-<style></style>
+<style>
+.stockName {
+  color: #a59dbd !important;
+}
+</style>

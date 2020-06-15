@@ -66,3 +66,8 @@ section.profile-content {
     width: 100%;
     position: absolute;
 }
+/* For banner3 stock image box */
+.v-card.stockImg {
+    border: 3px solid #a59dbd;
+    border-color: #a59dbd !important;
+}
