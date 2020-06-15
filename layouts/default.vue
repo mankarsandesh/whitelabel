@@ -244,7 +244,7 @@ export default {
     //   this.registerDialog = false;
     // },
     // Close Login Screen
-<<<<<<< HEAD
+
     // closeLogin() {
     //   this.loginDialog = false;
     // },
@@ -256,7 +256,6 @@ export default {
     //   this.registerDialog = false;
     //   this.loginDialog = true;
     // }
-=======
     closeLogin() {
       this.loginDialog = false;
     },
@@ -276,7 +275,6 @@ export default {
       this.forgotPasswordDialog = true;
       this.loginDialog = false;
     }
->>>>>>> 33bfa52770e3bdf3706eac7e39bee734b9558bde
   }
 };
 </script>
