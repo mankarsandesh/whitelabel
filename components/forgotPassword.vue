@@ -9,54 +9,25 @@
         <v-icon class="icon" left size="20">
           fas fa-user
         </v-icon>
-        login
+        Forgot Password
       </h2>
       <p>
-        Doesn't have an account yet?
-        <span @click="openRegister()">Register Now</span>
+        No problem! Just fill in the email below and we'll send you password
+        reset instructions!
       </p>
-      <p class="errorMessage" v-if="this.errorMessage">
-        {{ this.errorMessage }}
-      </p>
-
-      <p class="sucessMessage" v-if="this.sucessMessage">
-        {{ this.sucessMessage }}
-      </p>
-
       <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Username</label>
+        <label>Your Email</label>
         <v-text-field
           class="inputClassRegi"
           height="48"
           light
-          v-model="username"
+          v-model="email"
           outlined
           rounded
           dense
           required
-          :rules="[v => !!v || 'Username is required']"
+          :rules="emailRules"
         ></v-text-field>
-
-        <label>Password</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="48"
-          light
-          v-model="password"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Password is required']"
-        ></v-text-field>
-
-        <label class="remember">
-          <input class="check" type="checkbox" />
-          <span class="label-text">Remember Me </span></label
-        >
-        <label class="float-right forgotPassword">
-          <a href="#" @click="openForgotPassword">Forgot Password?</a>
-        </label>
 
         <v-btn
           class="loginButton "
@@ -64,7 +35,7 @@
           :disabled="!valid"
           height="50"
         >
-          Login
+          Reset
           <v-icon class="icon" size="30">
             fas fa-angle-double-right
           </v-icon>
@@ -78,66 +49,41 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from "vuex";
 import axios from "axios";
 import config from "../config/config.global";
 export default {
   data() {
     return {
-      errorMessage: "",
-      sucessMessage: "",
       valid: false,
-      loginDialog: false,
-      username: "",
-      password: ""
+      email: "",    
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ]
     };
   },
   methods: {
-    ...mapMutations("login", ["SET_AUTH", "SET_USER_DATA"]),
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
-      if (this.username && this.password) {
-        this.loginUser();
+      if (this.email && this.password) {
+        this.userLogin();
       }
     },
     // Close Login Popup
     async closePopup() {
-      this.$emit("loginClose");
-    },
-    // Close Register Popup
-    async openRegister() {
-      this.$emit("registerOpen");
-    },
-    // Open Forgot Password
-    async openForgotPassword() {
-      this.$emit("forgotPasswordOpen");
-    },
+      this.$emit("forgotClose");
+    },   
     // User Login Request to API
-    async loginUser() {
+    async forgotPassword() {
       try {
         var reqBody = {
-          username: this.username,
-          password: this.password,
-          last_ip: "127.0.0.2"
+          email: this.email,
+          password: this.password
         };
         var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
-          headers: config.header
+          headers: config.headers
         });
-        console.log(data.data[0].uuid);
-        if (data.code == 200) {
-          this.sucessMessage = data.message[0];
-          this.errorMessage = "";        
-          this.SET_USER_DATA(data.data[0]);
-          this.$cookies.set("userUUID", data.data[0].uuid, {
-            path: "/"
-          });
-          this.$emit("loginClose");
-          this.$router.push("/profile");
-        } else {
-          this.errorMessage = data.message[0];
-          this.sucessMessage = "";
-        }
       } catch (ex) {
         console.log(ex);
       }
@@ -146,13 +92,6 @@ export default {
 };
 </script>
 <style scoped>
-.errorMessage {
-  color: #f17272 !important;
-}
-.sucessMessage {
-  color: green !important;
-}
-
 .errors {
   color: #f17272 !important;
 }
@@ -175,8 +114,8 @@ input[type="radio"]:checked + label {
 .triangle-topleft {
   width: 0;
   height: 0;
-  border-top: 250px solid #ff0066;
-  border-right: 250px solid transparent;
+  border-top: 150px solid #ff0066;
+  border-right: 150px solid transparent;
 }
 .forgotPassword a {
   color: #ff0167;
@@ -237,24 +176,6 @@ input[type="radio"]:checked + label {
   text-align: center;
   margin: 0 auto;
   bottom: 0;
-}
-.registerButton {
-  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
-  border-radius: 50px;
-  font-size: 24px;
-  padding: 20px 0px;
-  text-align: center;
-  font-weight: 800;
-  margin: 0 auto !important;
-  width: 280px;
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  bottom: -20px;
-  left: 0;
-  right: 0;
 }
 .loginButton {
   text-align: center;

@@ -25,7 +25,7 @@
                 v-for="(item, index) in items"
                 :key="index"
               >
-                <v-card dark flat class="banner-2"  max-width="344">
+                <v-card dark flat class="banner-2" max-width="344">
                   <v-img :src="item.src" class=" align-center opcity-images">
                     <v-card-title
                       class=" text-uppercase justify-center text-center display-1 font-weight-bold"
@@ -34,15 +34,8 @@
                   </v-img>
                 </v-card>
               </v-col>
-              <v-btn x-large rounded color="pink" class="px-8 ml-4"
-                >bet now
-                <span class=" ml-3">
-                  <v-icon size="15"> fas fa-chevron-double-right</v-icon
-                  ><v-icon size="15" class=" opcity-1">
-                    fas fa-chevron-double-right</v-icon
-                  >
-                </span>
-              </v-btn>
+
+              <Button title="bet now" />
             </v-row>
           </v-col>
         </v-row>
@@ -52,8 +45,12 @@
 </template>
 
 <script>
+import Button from "~/components/Button";
 import json from "~/json/items";
 export default {
+  components: {
+    Button
+  },
   data: () => ({
     items: json.banner2
   })

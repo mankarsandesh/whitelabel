@@ -9,7 +9,7 @@
             "icon": "fa fa-gamepad fa-2x",
             "title": "Game Mode",
             "text": true,
-            "to": "/modern/desktop/leaderboard"
+            "to": "/game_mode"
         },
         {
             "icon": "fa fa-gift fa-2x",
@@ -61,21 +61,18 @@
         }
     ],
     "mutiple_bet": [{
-            "icon": "fa fa-dollar-sign ",
-            "iconColor": "#1a509f",
-            "color": "color-border-blue",
+            "src": "/banner/banner3/Stock-img-1.png",
+            "itemsDesc": ["usindex"],
             "title": "USA Stock"
         },
         {
-            "icon": "fab fa-btc ",
-            "iconColor": "#4da71c",
-            "color": "color-border-green",
+            "src": "/banner/banner3/Stock-img-2.png",
+            "itemsDesc": ["btc5", "btc1"],
             "title": "Crypto"
         },
         {
-            "icon": "fas fa-yen-sign ",
-            "iconColor": "#d1240e",
-            "color": "color-border-red",
+            "src": "/banner/banner3/Stock-img-3.png",
+            "itemsDesc": ["sh000001", "sh000300", "sz399415"],
             "title": "China Stock"
         }
     ],
@@ -160,6 +157,22 @@
             "title": "CHINA STOCK",
             "desc": "SH000001 | SH000300 | SZ399415",
             "src": "/stockImg/Stock-img-3.png"
+        }
+    ],
+    "gameMode": [{
+            "src": "/gameMode/business-mode.png",
+            "title": "business",
+            "status": "bet now"
+        },
+        {
+            "src": "/gameMode/gaming-mode.png",
+            "title": "gaming",
+            "status": "comming soon"
+        },
+        {
+            "src": "/gameMode/casino-mode.png",
+            "title": "classic",
+            "status": "comming soon"
         }
     ]
 }

@@ -30,10 +30,14 @@
 
 <script>
 import json from "~/json/items";
+import axios from "axios";
 export default {
-  data: () => ({
-    TabsProfiles: json.TabsProfiles
-  })
+  data() {
+    return {
+      TabsProfiles: json.TabsProfiles,
+      userUUID: this.$cookies.get("userUUID")
+    };
+  }
 };
 </script>
 
