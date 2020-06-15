@@ -1,25 +1,27 @@
 import config from "~/config/config.global";
+import Cookies from "../plugins/js-cookie";
 
-export const state = () => ({
+const state = () => ({
   // User UUID
   uuid: null,
-  userData: {} // Store user data
+  userData: "" // Store user data
 });
 
-export const getters = {
+const getters = {
   // User UUID Getter
-  GetUserUUID: state => state.auth,
+  GetUserUUID: state => state.uuid,
 
   GetUserData: state => state.userData
 };
 
-export const mutations = {
+// Mutation
+const mutations = {
   // Clear Data
-  CLEAR_USER_DATA(state,payload){
-      state.userData = "";
+  CLEAR_USER_DATA(state, payload) {
+    state.userData = "";
   },
   // User Set Mutation
-  SET_AUTH(state, payload) {
+  SET_USER_UUID(state, payload) {
     state.uuid = payload;
   },
   // Store UserInfo
@@ -27,9 +29,44 @@ export const mutations = {
     state.userData = payload;
   }
 };
-export const actions = {
+
+// Action
+const actions = {
   // User Action
-  userLogin({ commit }, payload) {
-    commit("SET_AUTH", payload);
+  setUserUUID({ commit }, payload) {
+    commit("SET_USER_UUID", payload);
+  },
+  // Set user data from api
+  setUserData({ commit }, payload) {
+    commit("SET_USER_DATA", payload);
+  },
+  async setUserDataLogin(context) {
+    try {
+      var reqBody = {
+        user_uuid:
+          context.state.uuid ||
+          Cookies.getJSON("userUUID")
+      };
+      console.log(reqBody,"Request Body");
+      var res = await this.$axios.$post(config.getUserProfile.url, reqBody, {
+        headers: config.header
+      });
+      console.log(res,"Response Body");
+      if (res.status) {
+        let userInfo = res.data[0];
+        context.commit("SET_USER_DATA",userInfo);
+        context.commit("SET_USER_UUID",userInfo.uuid);         
+      }     
+    } catch (ex) {
+      console.error(ex);
+    }
   }
+};
+
+
+export default {
+  state,
+  mutations,
+  actions,
+  getters
 };

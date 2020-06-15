@@ -66,8 +66,8 @@ export default {
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
-      if (this.email && this.password) {
-        this.userLogin();
+      if (this.email ) {
+        this.forgotPassword();
       }
     },
     // Close Login Popup

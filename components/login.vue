@@ -81,6 +81,7 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import axios from "axios";
 import config from "../config/config.global";
+import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
@@ -93,7 +94,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("login", ["SET_AUTH", "SET_USER_DATA"]),
+    ...mapMutations("login", ["SET_USER_UUID", "SET_USER_DATA"]),
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
@@ -124,14 +125,15 @@ export default {
         var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
           headers: config.header
         });
-        console.log(data.data[0].uuid);
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";        
+          this.SET_USER_UUID(data.data[0].uuid);
           this.SET_USER_DATA(data.data[0]);
-          this.$cookies.set("userUUID", data.data[0].uuid, {
-            path: "/"
-          });
+          //  Cookies.set("userUUID",data.data[0].uuid);
+          Cookies.set("userUUID", data.data[0].uuid, {
+            path: " "
+          });         
           this.$emit("loginClose");
           this.$router.push("/profile");
         } else {

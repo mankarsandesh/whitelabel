@@ -49,7 +49,7 @@
           {{ item.title }}
         </v-btn>
       </template>
-      <div v-if="GetUserData">
+      <div v-if="GetUserData">   
         <v-btn text dark to="/profile">
           <v-list flat>
             <v-list-item class="px-0">
@@ -165,6 +165,7 @@ import Login from "../components/login";
 import Register from "../components/register";
 import forgotPassword from "../components/forgotPassword";
 import axios from "axios";
+import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
@@ -212,17 +213,13 @@ export default {
   methods: {
     ...mapMutations("login", ["CLEAR_USER_DATA"]),
     // Logout Users
-
-    async userLogout() {
-      if (this.GetUserData) {
-        this.$cookies.remove("userUUID");
+    async userLogout() {    
+        Cookies.remove('userUUID');
         this.CLEAR_USER_DATA();
         this.$router.push("/");
-      }
     },
     // Get User Info
     async userInfo() {
-      console.log(this.userUUID);
       try {
         var reqBody = {
           user_uuid: this.userUUID
@@ -230,11 +227,9 @@ export default {
         var { data } = await axios.post(config.getUserProfile.url, reqBody, {
           headers: config.header
         });
-        console.log(data.data);
         if (data.code == 200) {
           this.userData = data.data[0];
         }
-        console.log(this.userData["username"]);
       } catch (ex) {
         console.log(ex);
       }

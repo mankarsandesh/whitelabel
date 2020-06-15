@@ -28,9 +28,13 @@
           <v-col class="py-0">
             <v-list-item color="rgba(0, 0, 0, .4)" light>
               <v-list-item-content>
-                <v-list-item-title class="title"
-                  >Marcus Obrien</v-list-item-title
-                >
+                <v-list-item-title class="title" v-if="!GetUserData.first_name"
+                  >{{ GetUserData.username }}
+                </v-list-item-title>
+                 <v-list-item-title class="title" v-if=" GetUserData.first_name "
+                  >{{ GetUserData.first_name }} {{ GetUserData.last_name }}
+                </v-list-item-title>
+
                 <v-list-item-subtitle>Network Engineer</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -186,6 +190,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import Button from "~/components/Button";
 import ListItem from "~/components/listItems";
 import subheader from "~/components/profile/subheader";
@@ -207,6 +212,9 @@ export default {
       phone: null
     }
   }),
+  computed: {
+    ...mapGetters("login", ["GetUserData"])
+  },
   methods: {
     async updateProfile(item) {
       try {
