@@ -20,7 +20,7 @@
               </template>
               <v-avatar class="profile" color="grey" size="200">
                 <v-img
-                  src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"
+                  :src="this.defaultImage"
                 ></v-img>
               </v-avatar>
             </v-badge>
@@ -31,7 +31,7 @@
                 <v-list-item-title class="title" v-if="!GetUserData.first_name"
                   >{{ GetUserData.username }}
                 </v-list-item-title>
-                 <v-list-item-title class="title" v-if=" GetUserData.first_name "
+                <v-list-item-title class="title" v-if="GetUserData.first_name"
                   >{{ GetUserData.first_name }} {{ GetUserData.last_name }}
                 </v-list-item-title>
 
@@ -50,7 +50,7 @@
       <v-row>
         <v-col cols="6">
           <subheader title="username" />
-          <v-text-field
+          <v-text-field           
             :error-messages="usernameErrors"
             @input="$v.form.username.$touch()"
             @blur="$v.form.username.$touch()"
@@ -87,49 +87,20 @@
           </v-text-field>
         </v-col>
         <v-col cols="6">
-          <subheader title="password" />
-          <v-text-field
-            :error-messages="passwordErrors"
-            @input="$v.form.password.$touch()"
-            @blur="$v.form.password.$touch()"
-            :hide-details="passwordErrors.length ? false : true"
-            v-model="form.password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            class="text-filed"
-            height="48"
-            light
-            outlined
-            rounded
-            required
-            clearable
-            @click:append="showPassword = !showPassword"
-          >
-          </v-text-field>
-        </v-col>
-        <v-col cols="6">
           <subheader title="country" />
-          <v-text-field
-            :error-messages="countryErrors"
-            @input="$v.form.country.$touch()"
-            @blur="$v.form.country.$touch()"
-            :hide-details="countryErrors.length ? false : true"
-            v-model="form.country"
-            class="text-filed"
-            height="48"
-            light
-            outlined
+
+          <v-select
+            height="42"
             rounded
-            dense
+            outlined
+            light
+            v-model="form.country"
+            :items="form.countrys"
+            item-text="name"
+            item-value="id"
             required
-          >
-            <template slot="prepend-inner">
-              <country-flag country="th" size="normal" />
-            </template>
-            <template slot="append">
-              <v-icon size="20" color="pink">fas fa-pen</v-icon>
-            </template>
-          </v-text-field>
+            :rules="[v => !!v || 'Country is required']"
+          ></v-select>
         </v-col>
         <v-col cols="6">
           <subheader title="phone" />
@@ -203,19 +174,51 @@ export default {
     subheader
   },
   data: () => ({
+     defaultImage: "../default.jpg",
     showPassword: false,
     form: {
       username: null,
       email: null,
       password: null,
-      country: null,
+      country: 45,
+      countrys: [
+        {
+          id: 45,
+          name: "China"
+        },
+        {
+          id: 122,
+          name: "Laos"
+        },
+        {
+          id: 220,
+          name: "Thailand"
+        },
+        {
+          id: 236,
+          name: "USA"
+        }
+      ],
       phone: null
     }
   }),
   computed: {
     ...mapGetters("login", ["GetUserData"])
   },
+  created() {
+    this.fetchUserInfo();
+  },
+  updated(){
+    this.fetchUserInfo();
+  },
   methods: {
+    // fetch User Info
+    fetchUserInfo() {
+      this.form.username = this.GetUserData.username;
+      this.form.email = this.GetUserData.email;
+      this.form.country = this.GetUserData.country_id;
+    },
+    // Update Profile
     async updateProfile(item) {
       try {
         console.log("This is the item", item);

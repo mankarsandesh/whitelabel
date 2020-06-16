@@ -163,12 +163,16 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import ListItem from "~/components/listItems";
 import subheader from "~/components/profile/subheader";
 export default {
   components: {
     ListItem,
     subheader
+  },
+  computed:{
+     ...mapGetters("login", ["GetUserData"])
   },
   data: () => ({
     form: {
