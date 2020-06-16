@@ -23,6 +23,9 @@ const config = {
   },
   userForgotPassword: {
     url: `${process.env.BASE_URL}/forgotPassword`
+  },
+  userVerifyOtp: {
+    url: `${process.env.BASE_URL}/verifyOtp`
   }
 };
 export default config;

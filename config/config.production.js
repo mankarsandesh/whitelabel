@@ -23,6 +23,9 @@ const config = {
   },
   userForgotPassword: {
     getStock: `${process.env.BASE_URL}/forgotPassword`
+  },
+  userVerifyOtp: {
+    url: `${process.env.BASE_URL}/verifyOtp`
   }
 };
 

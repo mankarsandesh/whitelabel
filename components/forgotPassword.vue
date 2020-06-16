@@ -23,18 +23,35 @@
         {{ this.sucessMessage }}
       </p>
       <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Your Email</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="48"
-          light
-          v-model="email"
-          outlined
-          rounded
-          dense
-          required
-           :rules="[v => !!v || 'Username is required']"
-        ></v-text-field>
+        
+        <div class="yourEmail" v-if="showStep1">          
+            <label>Your Email</label>
+            <v-text-field
+              class="inputClassRegi"
+              height="48"
+              light
+              v-model="email"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Username is required']"
+            ></v-text-field>
+        </div>
+        <div class="yourEmail" v-if="showStep2">          
+            <label>Enter your OTP</label>
+            <v-text-field
+              class="inputClassRegi"
+              height="48"
+              light
+              v-model="yourOTP"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'OTP is required']"
+            ></v-text-field>
+        </div>
 
         <v-btn
           class="loginButton "
@@ -61,18 +78,23 @@ import config from "../config/config.global";
 export default {
   data() {
     return {
+      showStep1 : true,
+      showStep2 : false,
       errorMessage: "",
       sucessMessage: "",
       valid: false,
-      email: ""
+      email: "",
+      yourOTP : "",
     };
   },
   methods: {
     // Validate Login Empty Filed
     validate() {
-      this.$refs.form.validate();
-      if (this.email) {       
-        this.forgotPassword();
+      this.$refs.form.validate();   
+      if (this.email && this.yourOTP) {       
+         this.OTPRequest();
+      }else{
+         this.forgotPassword();
       }
     },
     // Close Login Popup
@@ -95,6 +117,34 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
+          this.showStep1 = false,
+          this.showStep2 = true;
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
+    },
+    // User Send OTP Request to API
+    async OTPRequest() {
+      try {
+        var reqBody = {
+          email: this.email,
+          otp : this.yourOTP
+        };
+        var { data } = await axios.post(
+          config.userVerifyOtp.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";    
+          this.yourOTP = "";  
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";

@@ -116,7 +116,7 @@
     <v-dialog
       dark
       v-model="registerDialog"
-      width="550"
+      width="600"
       style=" border-radius:none !important;"
     >
       <Register @registerClose="closeRegister" @loginOpen="showLoginDialog" />
