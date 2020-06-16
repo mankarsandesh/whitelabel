@@ -34,7 +34,7 @@
                   class=" text-uppercase justify-center text-center flex display-3 font-weight-black"
                   >{{ item.title }}</v-card-title
                 >
-                <Button :title="item.buttonName" v-on:click="loginStockGame()" />
+                <Button :title="item.buttonName" :link="item.status" />
               </v-img>
             </v-card>
           </v-col>
@@ -55,15 +55,7 @@ export default {
     return {
       items: json.gameMode
     };
-  },
-  methods: { 
-    loginStockGame(){
-      console.log(buttonStatus);
-      if(buttonStatus == true){
-          window.location = "http://www.equitycapitalgaming.com/?radio-73=Avenger&serverLink=http%3A%2F%2Fwww.equitycapitalgaming.com%2F&portalProviderUUID=f2a03874-1b72-46a9-b357-fcdb55ca987b&portalProviderUserID=sandesh12&balance=300"
-      }
-    }
-  },
+  }
 };
 </script>
 

@@ -12,6 +12,12 @@ const config = {
   header: {
     authorization: "Basic V2hpdGVMYWJlbFN1cGVyOlRlc3QxMjMh"
   },
+  mainServer : {
+    url: `${process.env.MAIN_GAME}`
+  },
+  portalProviderID : {
+    url: `${process.env.portalProviderID}`
+  },
   userRegisterAuth: {
     url: `${process.env.BASE_URL}/register`
   },
