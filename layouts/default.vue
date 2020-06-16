@@ -55,14 +55,14 @@
             <v-list-item class="px-0">
               <v-list-item-avatar class="mr-0">
                 <img
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  alt="John"
+                  :src="this.defaultImage"
+                  :alt="GetUserData.username"
                 />
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title>{{
-                  GetUserData.username
+                <v-list-item-title> &nbsp;{{
+                 GetUserData.username
                 }}</v-list-item-title>
               </v-list-item-content>
 
@@ -169,6 +169,7 @@ import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
+      defaultImage: "../default.jpg",
       forgotPasswordDialog: false,
       loginDialog: false,
       registerDialog: false,

@@ -1,6 +1,6 @@
 <template>
   <h1>
-    Hello this is the withdrawal page
+   Comming Soon...
   </h1>
 </template>
 

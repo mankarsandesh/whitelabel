@@ -19,9 +19,7 @@
                 </v-avatar>
               </template>
               <v-avatar class="profile" color="grey" size="200">
-                <v-img
-                  :src="this.defaultImage"
-                ></v-img>
+                <v-img :src="this.defaultImage"></v-img>
               </v-avatar>
             </v-badge>
           </v-col>
@@ -35,7 +33,7 @@
                   >{{ GetUserData.first_name }} {{ GetUserData.last_name }}
                 </v-list-item-title>
 
-                <v-list-item-subtitle>Network Engineer</v-list-item-subtitle>
+                <v-list-item-subtitle>Laos,Vientaine</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -50,13 +48,13 @@
       <v-row>
         <v-col cols="6">
           <subheader title="username" />
-          <v-text-field           
+          <v-text-field
             :error-messages="usernameErrors"
             @input="$v.form.username.$touch()"
             @blur="$v.form.username.$touch()"
             v-model="form.username"
             class="text-filed"
-            height="48"
+             height="48"
             light
             outlined
             rounded
@@ -88,7 +86,6 @@
         </v-col>
         <v-col cols="6">
           <subheader title="country" />
-
           <v-select
             height="42"
             rounded
@@ -111,7 +108,7 @@
             :hide-details="phoneErrors.length ? false : true"
             type="number"
             class="text-filed"
-            height="48"
+              height="48"
             light
             outlined
             rounded
@@ -133,28 +130,153 @@
           title="address information"
         />
         <v-spacer></v-spacer>
-        <v-btn outlined small rounded color="pink">
-          <v-icon left>fas fa-pen</v-icon> edit info
+        <v-btn
+          outlined
+          small
+          rounded
+          color="pink"
+          @click="editProfile"
+          :class="editable ? 'edit-active' : ''"
+        >
+          <v-icon class="active" left>fas fa-pen</v-icon> edit info
         </v-btn>
       </v-row>
       <v-row>
         <v-col cols="6" class="py-0">
-          <ListItem title="Province/State" desc="Gujarat" />
+          <div class="userInfo">
+            <label>Province/State</label>
+            <p v-if="editable == false">{{ this.form.province }}</p>
+
+            <v-text-field
+              v-if="editable"
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.province"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Province is required']"
+            ></v-text-field>
+          </div>
         </v-col>
         <v-col cols="6" class="py-0">
-          <ListItem title="City" desc="LAOS" />
+          <div class="userInfo">
+            <label>City</label>
+            <p v-if="editable == false">{{ form.city }}</p>
+
+            <v-text-field
+              v-if="editable"
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.city"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'City is required']"
+            ></v-text-field>
+          </div>
         </v-col>
         <v-col cols="6" class="py-0">
-          <ListItem title="Address" desc="Vientaine" /> </v-col
+          <div class="userInfo">
+            <label>Address</label>
+            <p v-if="editable == false">{{ this.form.address }}</p>
+
+            <v-text-field
+              v-if="editable"
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.address"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Address is required']"
+            ></v-text-field>
+          </div> </v-col
         ><v-col cols="6" class="py-0">
-          <ListItem title="Sex" desc="male" /> </v-col
+          <div class="userInfo">
+            <label>Gender</label>
+            <p v-if="editable == false" class="genderClass">
+              {{ this.form.gender }}
+            </p>
+            <v-radio-group
+              v-model="form.gender"
+              :mandatory="false"
+              row
+              v-if="editable"
+            >
+              <v-radio
+                height="42"
+                class="genderClass"
+                color="#ff0167"
+                light
+                v-for="data in genders"
+                :key="data"
+                :label="`${data}`"
+                :value="data"
+              ></v-radio>
+            </v-radio-group>
+          </div> </v-col
         ><v-col cols="6" class="py-0">
-          <ListItem title="data of birth" desc="1987-Hune-06" />
+          <div class="userInfo">
+            <label>Data of Birth</label>
+            <p v-if="editable == false">{{ this.form.birthdate }}</p>
+
+            <v-menu
+              v-if="editable"
+              v-model="menu2"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="form.birthdate"
+                  light
+                  height="42"
+                  outlined
+                  rounded
+                  dense
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                  :rules="[v => !!v || 'Birthday is required']"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                v-model="form.birthdate"
+                @input="menu2 = false"
+              ></v-date-picker>
+            </v-menu>
+          </div>
         </v-col>
         <v-col cols="6" class="py-0">
-          <ListItem title="ID" desc="(ID Card ) *******" />
+          <div class="userInfo">
+            <label>Personal ID</label>
+            <p v-if="editable == false">{{ this.form.personalID }}</p>
+
+            <v-text-field
+              v-if="editable"
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.personalID"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Personal ID is required']"
+            ></v-text-field>
+          </div>
         </v-col>
-        <Button title="Join now" v-on:methodName="updateProfile" />
+        <Button title="Save Changes" v-on:methodName="updateProfile" />
       </v-row>
     </v-col>
   </v-row>
@@ -163,18 +285,19 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import Button from "~/components/Button";
-import ListItem from "~/components/listItems";
 import subheader from "~/components/profile/subheader";
 import Validate from "~/validation/profile";
 export default {
   mixins: [Validate],
   components: {
     Button,
-    ListItem,
     subheader
   },
   data: () => ({
-     defaultImage: "../default.jpg",
+    menu2: false,
+    editable: false,
+    genders: ["male", "female", "other"],
+    defaultImage: "../default.jpg",
     showPassword: false,
     form: {
       username: null,
@@ -199,7 +322,13 @@ export default {
           name: "USA"
         }
       ],
-      phone: null
+      phone: null,
+      province: "Vientaine",
+      city: "Laos",
+      address: "12s1a2sa bhjsaghsgahsbhav hbhsaghsgbas",
+      gender: "male",
+      birthdate: new Date().toISOString().substr(0, 10),
+      personalID: "GUGHSG:BAHSG:SVBAHSGH:HJH"
     }
   }),
   computed: {
@@ -208,10 +337,13 @@ export default {
   created() {
     this.fetchUserInfo();
   },
-  updated(){
+  updated() {
     this.fetchUserInfo();
   },
   methods: {
+    editProfile() {
+      this.editable = !this.editable;
+    },
     // fetch User Info
     fetchUserInfo() {
       this.form.username = this.GetUserData.username;
@@ -231,4 +363,25 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.edit-active {
+  background-color: #e91e63;
+  color: #fff !important;
+}
+.edit-active .active {
+  color: #fff;
+}
+.userInfo {
+  padding-left: 10px;
+}
+.userInfo label {
+  padding-bottom: 10px;
+  font-weight: 600;
+}
+.userInfo p{
+  color: #333 !important;
+}
+.genderClass {
+  text-transform: capitalize;
+}</style
+>>

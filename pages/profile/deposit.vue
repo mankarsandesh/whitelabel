@@ -1,5 +1,5 @@
 <template>
-  <h1>Hello world deposit page</h1>
+  <h1>Comming Soon...</h1>
 </template>
 
 <script>
