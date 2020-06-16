@@ -68,12 +68,18 @@
           height="50"
         >
           Login
-          <v-icon class="icon" size="30">
+          <v-icon size="30">
             fas fa-angle-double-right
           </v-icon>
           <v-icon class="icon" size="30">
             fas fa-angle-double-right
           </v-icon>
+          &nbsp;<v-progress-circular
+            v-if="loadingImage"
+            indeterminate
+            color="#FFF"
+            size="22"
+          ></v-progress-circular>
         </v-btn>
       </v-form>
     </div>
@@ -88,6 +94,7 @@ import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
+      loadingImage: false,
       showPassword: false,
       errorMessage: "",
       sucessMessage: "",
@@ -120,6 +127,7 @@ export default {
     },
     // User Login Request to API
     async loginUser() {
+      this.loadingImage = true;
       try {
         var reqBody = {
           username: this.username,
@@ -132,9 +140,9 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
+          this.loadingImage = false;
           this.SET_USER_UUID(data.data[0].uuid);
-          this.SET_USER_DATA(data.data[0]);
-          //  Cookies.set("userUUID",data.data[0].uuid);
+          this.SET_USER_DATA(data.data[0]);         
           Cookies.set("userUUID", data.data[0].uuid, {
             path: " "
           });
@@ -143,6 +151,7 @@ export default {
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
@@ -173,7 +182,7 @@ input[type="radio"]:checked + label {
 }
 .mainLogin {
   width: 450px;
-  height:500px;
+  height: 500px;
   margin: 0 auto;
   position: relative;
 }
@@ -191,6 +200,7 @@ input[type="radio"]:checked + label {
   color: #333 !important;
 }
 .loginForm {
+   width: 100% !important;
   position: absolute;
   top: 15px;
   left: 15px;
@@ -243,24 +253,6 @@ input[type="radio"]:checked + label {
   margin: 0 auto;
   bottom: 0;
 }
-.registerButton {
-  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
-  border-radius: 50px;
-  font-size: 24px;
-  padding: 20px 0px;
-  text-align: center;
-  font-weight: 800;
-  margin: 0 auto !important;
-  width: 280px;
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  bottom: -20px;
-  left: 0;
-  right: 0;
-}
 .loginButton {
   text-align: center;
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
@@ -312,12 +304,8 @@ label input.check:checked + .label-text,
 
 .loginButton .icon {
   color: #fff;
-  margin-top: 0px;
-}
-.loginButton .icon:last-child {
   opacity: 0.4;
-  margin-left: -10px;
-  color: #fff;
+  margin-top: 0px;
 }
 
 input:focus {

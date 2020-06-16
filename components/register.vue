@@ -24,7 +24,7 @@
         {{ this.sucessMessage }}
       </p>
 
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid" lazy-validation v-if="showRegisterForm">
         <label>Username</label>
         <v-text-field
           class="inputClassRegi"
@@ -127,12 +127,18 @@
           height="50"
         >
           Register
-          <v-icon class="icon" size="30">
+          <v-icon size="30">
             fas fa-angle-double-right
           </v-icon>
           <v-icon class="icon" size="30">
             fas fa-angle-double-right
           </v-icon>
+          &nbsp;<v-progress-circular
+            v-if="loadingImage"
+            indeterminate
+            color="#FFF"
+            size="22"
+          ></v-progress-circular>
         </v-btn>
       </v-form>
     </div>
@@ -145,6 +151,8 @@ import config from "../config/config.global";
 export default {
   data() {
     return {
+      showRegisterForm : true,
+      loadingImage: false,
       showRepPassword: false,
       showPassword: false,
       errorMessage: "",
@@ -204,6 +212,7 @@ export default {
         this.registerForm.agree
       ) {
         if (this.registerForm.password == this.registerForm.repeatPassword) {
+          this.loadingImage = true;
           this.userRegistration();
         } else {
           this.errorMessage = "Repeat Password did't Match";
@@ -236,11 +245,14 @@ export default {
           this.registerForm.username = "";
           this.registerForm.email = "";
           this.registerForm.password = "";
-          this.registerForm.repeatPassword = "";  
+          this.registerForm.repeatPassword = "";
           this.registerForm.username = "";
+          this.loadingImage = false;
+          this.showRegisterForm = false;
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
@@ -291,6 +303,7 @@ input[type="radio"]:checked + label {
   color: #333 !important;
 }
 .loginForm {
+  width: 100% !important;
   position: absolute;
   top: 15px;
   left: 15px;
@@ -385,11 +398,7 @@ label input.check:checked + .label-text,
 .registerButton .icon {
   color: #fff;
   margin-top: 0px;
-}
-.registerButton .icon:last-child {
   opacity: 0.4;
-  margin-left: -10px;
-  color: #fff;
 }
 
 .loginButton .icon {

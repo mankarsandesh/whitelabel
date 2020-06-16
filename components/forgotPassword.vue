@@ -80,7 +80,7 @@
         </div>
 
         <v-btn
-            v-if="showButton"
+          v-if="showButton"
           class="loginButton "
           @click="validate"
           :disabled="!valid"
@@ -115,7 +115,7 @@ export default {
       showStep1: true,
       showStep2: false,
       showStep3: false,
-      showButton : true,
+      showButton: true,
       errorMessage: "",
       sucessMessage: "",
       valid: false,
@@ -129,11 +129,7 @@ export default {
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
-      if (
-        this.email &&      
-        this.newPassword &&
-        this.newRepPassword
-      ) {
+      if (this.email && this.newPassword && this.newRepPassword) {
         this.loadingImage = true;
         this.passwordChange();
       } else if (this.email && this.yourOTP) {
@@ -169,13 +165,13 @@ export default {
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
-           this.loadingImage = false;
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
       }
     },
-    // User Send OTP Request to API
+    // User Send OTP Request to API and Send to User Email
     async OTPRequest() {
       try {
         var reqBody = {
@@ -195,13 +191,13 @@ export default {
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
-           this.loadingImage = false;
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
       }
     },
-    // User Send OTP Request to API
+    // User Password Change New Password and Repeat New Password
     async passwordChange() {
       try {
         var reqBody = {
@@ -218,9 +214,9 @@ export default {
           this.loadingImage = false;
           this.newPassword = "";
           this.newRepPassword = "";
-          this.showStep3  = false;
-           this.showStep1  = false;
-           this.showButton = false;
+          this.showStep3 = false;
+          this.showStep1 = false;
+          this.showButton = false;
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
@@ -273,6 +269,7 @@ input[type="radio"]:checked + label {
   color: #333 !important;
 }
 .loginForm {
+  width: 100% !important;
   position: absolute;
   top: 15px;
   left: 15px;
