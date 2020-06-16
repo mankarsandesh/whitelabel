@@ -28,7 +28,7 @@
           class="inputClassRegi"
           height="48"
           light
-          v-model="userUUID"
+          v-model="email"
           outlined
           rounded
           dense
@@ -64,14 +64,14 @@ export default {
       errorMessage: "",
       sucessMessage: "",
       valid: false,
-      userUUID: ""
+      email: ""
     };
   },
   methods: {
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
-      if (this.userUUID) {       
+      if (this.email) {       
         this.forgotPassword();
       }
     },
@@ -83,7 +83,7 @@ export default {
     async forgotPassword() {
       try {
         var reqBody = {
-          user_uuid: this.userUUID
+          email: this.email
         };
         var { data } = await axios.post(
           config.userForgotPassword.url,

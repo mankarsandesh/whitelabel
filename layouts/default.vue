@@ -207,7 +207,7 @@ export default {
           route === "profile-WithDrawal":
           return "profile-container";
           break;
-        case route === "game_mode":
+        case route === "gameMode":
           return "game_mode-container";
           break;
         default:

@@ -27,7 +27,7 @@
         <label>Username</label>
         <v-text-field
           class="inputClassRegi"
-          height="48"
+          height="46"
           light
           v-model="username"
           outlined
@@ -40,13 +40,16 @@
         <label>Password</label>
         <v-text-field
           class="inputClassRegi"
-          height="48"
+          height="46"
           light
           v-model="password"
           outlined
           rounded
           dense
           required
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
 
@@ -85,6 +88,7 @@ import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
+      showPassword: false,
       errorMessage: "",
       sucessMessage: "",
       valid: false,
@@ -127,13 +131,13 @@ export default {
         });
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
-          this.errorMessage = "";        
+          this.errorMessage = "";
           this.SET_USER_UUID(data.data[0].uuid);
           this.SET_USER_DATA(data.data[0]);
           //  Cookies.set("userUUID",data.data[0].uuid);
           Cookies.set("userUUID", data.data[0].uuid, {
             path: " "
-          });         
+          });
           this.$emit("loginClose");
           this.$router.push("/profile");
         } else {

@@ -9,7 +9,7 @@
             "icon": "fa fa-gamepad fa-2x",
             "title": "Game Mode",
             "text": true,
-            "to": "/game_mode"
+            "to": "/gameMode"
         },
         {
             "icon": "fa fa-gift fa-2x",
@@ -146,17 +146,20 @@
     "gameMode": [{
             "src": "/gameMode/business-mode.png",
             "title": "business",
-            "status": "bet now"
+            "buttonName": "bet now",
+            "status" : true
         },
         {
             "src": "/gameMode/gaming-mode.png",
             "title": "gaming",
-            "status": "comming soon"
+            "buttonName": "comming soon",
+            "status": false
         },
         {
             "src": "/gameMode/casino-mode.png",
             "title": "classic",
-            "status": "comming soon"
+            "buttonName": "comming soon",
+            "status" : false
         }
     ]
 }
