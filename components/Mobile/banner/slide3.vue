@@ -7,12 +7,12 @@
 "
       >
         <v-row class="fill-height mt-5" align="center" justify="center">
-          <v-col cols="9">
+          <v-col cols="8">
             <v-card flat class="ml-20">
               <v-card-title
                 class="display-0 font-weight-bold justify-center"
                 style="margin-top:30px;"
-                >Multiple BET on</v-card-title
+                >Multiple BET On</v-card-title
               >
               <v-card-title
                 class="display-2 font-weight-bold color-pink"

@@ -26,14 +26,14 @@
 
     <v-app-bar fixed color="#1E1E1F" class="navbar-mobile" height="60" dens>
       <v-toolbar-title>
-        <v-btn to="/" text color="transparent ">
+        <v-btn to="/" text color="transparent">
           <v-img width="100" src="/logo/logo.png"></v-img>
         </v-btn>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
       <div class=" menu-list">
-        <v-btn rounded small outlined color="pink">
+        <v-btn rounded small outlined color="pink" @click="openloginDialog()">
           <v-icon size="13">fas fa-user</v-icon>
           Login
         </v-btn>
@@ -53,10 +53,17 @@
     <v-dialog
       dark
       v-model="loginDialog"
-      width="550"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      light
       style=" border-radius:none !important;"
     >
-      <Login />
+      <Login 
+        @loginClose="closeTheLogin"
+        @registerOpen="showRegisterDialog"
+        @forgotPasswordOpen="showForgotDialog"
+      />
     </v-dialog>
     <!-- Ending Login Form -->
 
@@ -70,19 +77,36 @@
 
 <script>
 import json from "~/json/items";
-import Login from "../components/login";
+import Login from "../components/Mobile/banner/login/login";
+import forgetPassword from "../components/Mobile/banner/login/forgotPassword";
+import register from "../components/Mobile/banner/login/register";
 export default {
   name: "mobile",
   data() {
     return {
       loginDialog: false,
       slideMenu: json.slideMenu,
-      OpenDrawer: false,
-      closeLogin: false
+      OpenDrawer: false
     };
   },
   components: {
     Login
+  },
+  methods: {
+    closeTheLogin() {
+      this.loginDialog = false;
+    },
+    showRegisterDialog() {
+      this.loginDialog = false;
+      this.registerDialog = true;
+    },
+    showForgotDialog() {
+      this.forgotPasswordDialog = true;
+      this.loginDialog = false;
+    },
+    openloginDialog() {
+      this.loginDialog = true;
+    }
   }
 };
 </script>
