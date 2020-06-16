@@ -23,37 +23,64 @@
         {{ this.sucessMessage }}
       </p>
       <v-form ref="form" v-model="valid" lazy-validation>
-        
-        <div class="yourEmail" v-if="showStep1">          
-            <label>Your Email</label>
-            <v-text-field
-              class="inputClassRegi"
-              height="48"
-              light
-              v-model="email"
-              outlined
-              rounded
-              dense
-              required
-              :rules="[v => !!v || 'Username is required']"
-            ></v-text-field>
+        <div class="yourEmail" v-if="showStep1">
+          <label>Your Email</label>
+          <v-text-field
+            class="inputClassRegi"
+            height="48"
+            light
+            v-model="email"
+            outlined
+            rounded
+            dense
+            required
+            :rules="[v => !!v || 'Email ID is required']"
+          ></v-text-field>
         </div>
-        <div class="yourEmail" v-if="showStep2">          
-            <label>Enter your OTP</label>
-            <v-text-field
-              class="inputClassRegi"
-              height="48"
-              light
-              v-model="yourOTP"
-              outlined
-              rounded
-              dense
-              required
-              :rules="[v => !!v || 'OTP is required']"
-            ></v-text-field>
+        <div class="yourEmail" v-if="showStep2">
+          <label>Enter your OTP</label>
+          <v-text-field
+            class="inputClassRegi"
+            height="48"
+            light
+            v-model="yourOTP"
+            outlined
+            rounded
+            dense
+            required
+            :rules="[v => !!v || 'OTP is required']"
+          ></v-text-field>
+        </div>
+
+        <div class="yourEmail" v-if="showStep3">
+          <label>Enter New Password</label>
+          <v-text-field
+            class="inputClassRegi"
+            height="48"
+            light
+            v-model="newPassword"
+            outlined
+            rounded
+            dense
+            required
+            :rules="[v => !!v || 'New Password is required']"
+          ></v-text-field>
+          <label>Enter Repeat New Password</label>
+          <v-text-field
+            class="inputClassRegi"
+            height="48"
+            light
+            v-model="newRepPassword"
+            outlined
+            rounded
+            dense
+            required
+            :rules="[v => !!v || 'Repeat Password is required']"
+          ></v-text-field>
         </div>
 
         <v-btn
+            v-if="showButton"
           class="loginButton "
           @click="validate"
           :disabled="!valid"
@@ -66,6 +93,12 @@
           <v-icon class="icon" size="30">
             fas fa-angle-double-right
           </v-icon>
+          &nbsp;<v-progress-circular
+            v-if="loadingImage"
+            indeterminate
+            color="#FFF"
+            size="22"
+          ></v-progress-circular>
         </v-btn>
       </v-form>
     </div>
@@ -78,23 +111,37 @@ import config from "../config/config.global";
 export default {
   data() {
     return {
-      showStep1 : true,
-      showStep2 : false,
+      loadingImage: false,
+      showStep1: true,
+      showStep2: false,
+      showStep3: false,
+      showButton : true,
       errorMessage: "",
       sucessMessage: "",
       valid: false,
       email: "",
-      yourOTP : "",
+      yourOTP: "",
+      newPassword: "",
+      newRepPassword: ""
     };
   },
   methods: {
     // Validate Login Empty Filed
     validate() {
-      this.$refs.form.validate();   
-      if (this.email && this.yourOTP) {       
-         this.OTPRequest();
-      }else{
-         this.forgotPassword();
+      this.$refs.form.validate();
+      if (
+        this.email &&      
+        this.newPassword &&
+        this.newRepPassword
+      ) {
+        this.loadingImage = true;
+        this.passwordChange();
+      } else if (this.email && this.yourOTP) {
+        this.loadingImage = true;
+        this.OTPRequest();
+      } else {
+        this.loadingImage = true;
+        this.forgotPassword();
       }
     },
     // Close Login Popup
@@ -117,11 +164,12 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
-          this.showStep1 = false,
           this.showStep2 = true;
+          this.loadingImage = false;
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
+           this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
@@ -132,22 +180,51 @@ export default {
       try {
         var reqBody = {
           email: this.email,
-          otp : this.yourOTP
+          otp: this.yourOTP
         };
-        var { data } = await axios.post(
-          config.userVerifyOtp.url,
-          reqBody,
-          {
-            headers: config.header
-          }
-        );
+        var { data } = await axios.post(config.userVerifyOtp.url, reqBody, {
+          headers: config.header
+        });
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
-          this.errorMessage = "";    
-          this.yourOTP = "";  
+          this.errorMessage = "";
+          this.yourOTP = "";
+          this.showStep2 = false;
+          this.showStep3 = true;
+          this.loadingImage = false;
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
+           this.loadingImage = false;
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
+    },
+    // User Send OTP Request to API
+    async passwordChange() {
+      try {
+        var reqBody = {
+          email: this.email,
+          password: this.newPassword,
+          confirm_password: this.newRepPassword
+        };
+        var { data } = await axios.post(config.userResetPassword.url, reqBody, {
+          headers: config.header
+        });
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.loadingImage = false;
+          this.newPassword = "";
+          this.newRepPassword = "";
+          this.showStep3  = false;
+           this.showStep1  = false;
+           this.showButton = false;
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
@@ -178,7 +255,7 @@ input[type="radio"]:checked + label {
 }
 .mainLogin {
   width: 450px;
-  height: 500px;
+  height: 550px;
   margin: 0 auto;
   position: relative;
 }

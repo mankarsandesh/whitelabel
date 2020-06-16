@@ -32,6 +32,9 @@ const config = {
   },
   userVerifyOtp: {
     url: `${process.env.BASE_URL}/verifyOtp`
+  },
+  userResetPassword: {
+    url: `${process.env.BASE_URL}/resetPassword`
   }
 };
 
