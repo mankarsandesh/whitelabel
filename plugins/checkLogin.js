@@ -2,14 +2,11 @@ import config from "../config/config.global";
 import Cookies from "./js-cookie";
 
 export default async context => {
-  const userUUID = Cookies.get("userUUID"); // => 'value'
-  console.log("Login Check");
-  console.log(userUUID);
-  if(userUUID) {
-    // context.store.dispatch("setUserLoginData");
-    context.store.dispatch("setUserDataLogin");
-    // Check User Login
-    // await checkUserLogin(userUUID, context.store, context.$axios);
+  try {
+    const userUUID = Cookies.get("userUUID"); // => 'value'
+  
+  } catch (ex) {
+    console.log(ex);
   }
 };
 
@@ -37,9 +34,8 @@ const checkUserLogin = async (userUUID, store, axios) => {
       console.log(userUUID);
       console.log(userInfo, "data");
       if (data.code == 200) {
-        store.dispatch("login","setUserData", userInfo);
-        store.dispatch("login","setUserUUID", userUuid);
-       
+        store.dispatch("login", "setUserData", userInfo);
+        store.dispatch("login", "setUserUUID", userUuid);
 
         // store.commit("SET_USER_DATA",userInfo);
         // store.commit("SET_USER_UUID", data.data[0].uuid);

@@ -176,7 +176,8 @@ export default {
       OpenDrawer: false,
       menu: json.menu,
       slideMenu: json.slideMenu,
-      userData: []
+      userData: [],
+      userUUID :  Cookies.get("userUUID")
     };
   },
   components: {
@@ -185,8 +186,11 @@ export default {
     forgotPassword
   },
   created() {
+    
     if (this.userUUID) {
       this.userInfo();
+    }else{
+         this.$router.push("/");
     }
   },
   computed: {
@@ -211,7 +215,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("login", ["CLEAR_USER_DATA"]),
+    ...mapMutations("login", ["CLEAR_USER_DATA","SET_USER_DATA"]), 
     // Logout Users
     async userLogout() {    
         Cookies.remove('userUUID');
@@ -229,6 +233,7 @@ export default {
         });
         if (data.code == 200) {
           this.userData = data.data[0];
+          this.SET_USER_DATA(this.userData);
         }
       } catch (ex) {
         console.log(ex);

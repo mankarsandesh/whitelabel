@@ -39,27 +39,6 @@ const actions = {
   // Set user data from api
   setUserData({ commit }, payload) {
     commit("SET_USER_DATA", payload);
-  },
-  async setUserDataLogin(context) {
-    try {
-      var reqBody = {
-        user_uuid:
-          context.state.uuid ||
-          Cookies.getJSON("userUUID")
-      };
-      console.log(reqBody,"Request Body");
-      var res = await this.$axios.$post(config.getUserProfile.url, reqBody, {
-        headers: config.header
-      });
-      console.log(res,"Response Body");
-      if (res.status) {
-        let userInfo = res.data[0];
-        context.commit("SET_USER_DATA",userInfo);
-        context.commit("SET_USER_UUID",userInfo.uuid);         
-      }     
-    } catch (ex) {
-      console.error(ex);
-    }
   }
 };
 
