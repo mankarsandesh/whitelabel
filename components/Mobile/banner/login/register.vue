@@ -1,6 +1,6 @@
 <template>
   <div class="mainRegister">
-    <div class="loginForm">
+    <div class="registerForm">
       <v-row justify="center">
         <v-icon class="closeButton" @click="closePopup()" right size="20">
           fas fa-times
@@ -15,9 +15,7 @@
       <v-row justify="center">
         <p>
           Already have an account?
-          <span class="terms" @click="openLogin()"
-            >Login now</span
-          >
+          <span class="terms" @click="openLogin()">Login now</span>
         </p>
       </v-row>
 
@@ -118,7 +116,7 @@
             color="#ff1067"
           ></v-checkbox>
         </div>
-        <div class="col xs-12 sm-12 text-center" mt-5 >
+        <div class="col xs-12 sm-12 text-center" mt-5>
           <v-btn
             class="registerButton"
             @click="validate"
@@ -274,12 +272,7 @@ input[type="radio"]:checked + label {
   margin: 0 auto;
   position: relative;
 }
-
-.forgotPassword a {
-  color: #ff0167;
-  text-decoration: none;
-}
-.loginForm {
+.registerForm {
   position: absolute;
   background-image: url(/mobile/mobile-bg-1.jpg);
   padding: 50px 20px 405px 20px;
@@ -289,54 +282,45 @@ input[type="radio"]:checked + label {
   background-color: rgba(4, 1, 17, 0.88);
   background-blend-mode: multiply;
 }
-.loginForm .icon {
+.registerForm .icon {
   color: #ff0167;
 }
-.imp {
-  color: #ff0167;
-}
-.loginForm h2 {
+.registerForm h2 {
   text-transform: uppercase;
   color: #ff0167;
   margin-bottom: 20px;
 }
-.loginForm p {
+.registerForm p {
   color: #ffffff;
 }
-.loginForm p span {
-  color: #ffffff ;
+.registerForm p span {
+  color: #ffffff;
   cursor: pointer;
   font-weight: 600;
 }
-.loginForm .inputClassRegi {
+.registerForm .inputClassRegi {
   /* border:1px solid red; */
   width: 100%;
 }
-.loginForm .inputClass {
+.registerForm .inputClass {
   width: 100%;
   padding: 3px 10px;
   margin: 5px 0px;
 }
-.loginForm label {
+.registerForm label {
   color: #ffffff;
   width: 100%;
   font-weight: 600;
 }
-.loginForm .inputClass .input {
+.registerForm .inputClass .input {
   border: 1px solid #d2d1d2;
   width: 100%;
   border-radius: 30px;
   padding: 10px 20px;
   color: #ffffff;
 }
-.forgotPassword {
-  float: left;
-}
-.footerLogin {
-  position: absolute;
-  text-align: center;
-  margin: 0 auto;
-  bottom: 0;
+.imp {
+  color: #ff0167;
 }
 .registerButton {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
@@ -356,11 +340,9 @@ input[type="radio"]:checked + label {
   left: 0;
   right: 0;
 }
-
 input[type="radio"]:checked + label {
   color: #0b4db7;
 }
-
 label .label-text {
   color: #ffffff;
 }
@@ -386,17 +368,6 @@ label input.check:checked + .label-text,
   margin-left: -10px;
   color: #fff;
 }
-
-.loginButton .icon {
-  color: #fff;
-  margin-top: 0px;
-}
-.loginButton .icon:last-child {
-  opacity: 0.4;
-  margin-left: -10px;
-  color: #fff;
-}
-
 input:focus {
   outline: none;
 }

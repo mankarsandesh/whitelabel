@@ -62,8 +62,8 @@
             </label>
           </div>
           <div class="col xs-3 sm-3">
-            <label class="float-right forgotPassword">
-              <a href="#" @click="openForgotPassword">Forgot Password?</a>
+            <label class="float-right">
+              <span href="#" @click="openRegister()" class="terms">Forgot Password?</span>
             </label>
           </div>
         </div>
@@ -169,11 +169,6 @@ export default {
 .errors {
   color: #ffffff !important;
 }
-.inputClass .radio {
-  padding: 8px 15px;
-  cursor: pointer;
-}
-
 .forgotPassword a {
   color: #ff0167;
   text-decoration: none;
@@ -210,7 +205,6 @@ export default {
   font-weight: 600;
 }
 .loginForm .inputClassRegi {
-  /* border:1px solid red; */
   color: #ffffff;
   border-color: #ff0066;
   width: 100%;
@@ -232,9 +226,6 @@ export default {
   padding: 10px 20px;
   color: #ffffff;
 }
-.forgotPassword {
-  float: left;
-}
 .loginButton {
   text-align: center;
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
@@ -252,11 +243,9 @@ export default {
   left: 0;
   right: 0;
 }
-
 input[type="radio"]:checked + label {
   color: #ffffff;
 }
-
 label .label-text {
   color: #ffffff;
 }
@@ -277,7 +266,6 @@ label input.check:checked + .label-text,
   margin-left: -10px;
   color: #fff;
 }
-
 input:focus {
   outline: none;
 }
