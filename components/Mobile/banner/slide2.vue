@@ -12,7 +12,7 @@
               <v-card-title
                 class="display-0 font-weight-black justify-center"
                 style="margin-top:60px;"
-                >Your mood or Game</v-card-title
+                >Your Mood or Game</v-card-title
               >
               <v-card-title
                 class="flex display-2 font-weight-bold color-pink justify-center"

@@ -36,6 +36,7 @@
                   class="stockImg"
                   max-width="270"
                   max-height="255"
+                  style="border-width: 1px;"
                 >
                   <v-img :src="item.src" class=" align-center opcity-images">
                     <v-card

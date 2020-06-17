@@ -37,7 +37,7 @@
           <v-icon size="13">fas fa-user</v-icon>
           Login
         </v-btn>
-        <v-btn dark small rounded color="pink">
+        <v-btn dark small rounded color="pink" @click="openRegisterDialog()">
           <v-icon size="13">fas fa-user-plus</v-icon>
           Register
         </v-btn>
@@ -59,14 +59,30 @@
       light
       style=" border-radius:none !important;"
     >
-      <Login 
+      <Login
         @loginClose="closeTheLogin"
         @registerOpen="showRegisterDialog"
         @forgotPasswordOpen="showForgotDialog"
       />
     </v-dialog>
     <!-- Ending Login Form -->
-
+    <!-- User Registration Form -->
+    <v-dialog
+      dark
+      v-model="registerDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      light
+      style=" border-radius:none !important;"
+    >
+      <register
+        @registerClose="closeTheRegister"
+        @loginOpen="openloginDialog"
+        @forgotPasswordOpen="showForgotDialog"
+      />
+    </v-dialog>
+    <!-- Ending User Registration Form -->
     <!-- Sizes your content based upon application components -->
     <v-content>
       <!-- Provides the application the proper gutter -->
@@ -85,16 +101,21 @@ export default {
   data() {
     return {
       loginDialog: false,
+      registerDialog: false,
       slideMenu: json.slideMenu,
       OpenDrawer: false
     };
   },
   components: {
-    Login
+    Login,
+    register
   },
   methods: {
     closeTheLogin() {
       this.loginDialog = false;
+    },
+    closeTheRegister() {
+      this.registerDialog = false;
     },
     showRegisterDialog() {
       this.loginDialog = false;
@@ -106,6 +127,9 @@ export default {
     },
     openloginDialog() {
       this.loginDialog = true;
+    },
+    openRegisterDialog() {
+      this.registerDialog = true;
     }
   }
 };

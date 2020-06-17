@@ -14,8 +14,8 @@
       </v-row>
       <v-row justify="center">
         <p style="color: #ffffff;">
-          Doesn't have an account yet?
-          <span @click="openRegister()" style="color : #ff0066;"
+          Don't have an account yet?
+          <span @click="openRegister()" class="terms"
             >Register Now</span
           >
         </p>
@@ -31,39 +31,42 @@
       <v-form ref="form" v-model="valid" lazy-validation class="mt-5">
         <label>Email/Username</label>
         <v-text-field
-          height="48"
+          height="30"
           v-model="username"
+          dark
           outlined
-          color="rgb(255,255,255)"
           rounded
           required
+          dense
           :rules="[v => !!v || 'Username is required']"
         ></v-text-field>
 
         <label>Password</label>
         <v-text-field
-          height="48"
+          height="30"
           v-model="password"
           outlined
           color="rgb(255,255,255)"
           rounded
+          dense
+          type="password"
           required
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
 
-        <v-row>
-          <div class="col sm-9">
-            <label class="remember">
-              <input class="check" type="checkbox" />
-              <span class="label-text">Remember Me </span>
+        <div class="row">
+          <div class="col  xs-9 sm-9">
+            <label >
+              <input class="check" size="13" type="checkbox" />
+              <span class="rememberme">Remember Me </span>
             </label>
           </div>
-          <div class="col sm-3">
+          <div class="col xs-3 sm-3">
             <label class="float-right forgotPassword">
               <a href="#" @click="openForgotPassword">Forgot Password?</a>
             </label>
           </div>
-        </v-row>
+        </div>
         <v-row class="mt-5">
           <v-btn
             class="loginButton"
@@ -96,7 +99,8 @@ export default {
       sucessMessage: "",
       valid: false,
       username: "",
-      password: ""
+      password: "",
+      agree: false
     };
   },
   methods: {
@@ -153,6 +157,9 @@ export default {
 };
 </script>
 <style scoped>
+.terms {
+  color: #ff0167 !important;
+}
 .errorMessage {
   color: #ffffff !important;
 }
@@ -166,21 +173,18 @@ export default {
   padding: 8px 15px;
   cursor: pointer;
 }
-input[type="radio"]:checked + label {
-  color: #ff0066 !important;
-}
-.label-text span {
-  color: #ffffff !important;
-}
+
 .forgotPassword a {
   color: #ff0167;
   text-decoration: none;
 }
-.remberberme {
-  color: #ffffff !important;
+.rememberme {
+  color: #ffffff;
+  font-size:14px;
+  font-weight: 300 !important;
 }
 .loginForm {
-  position: inherit;
+  position: absolute;
   background-image: url(/mobile/mobile-bg-1.jpg);
   padding: 80px 20px 405px 20px;
   background-size: cover;
@@ -235,10 +239,10 @@ input[type="radio"]:checked + label {
   text-align: center;
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
-  font-size: 27px;
+  font-size: 18px;
   font-weight: 800;
   margin: 0 auto !important;
-  width: 250px;
+  width: 180px;
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
@@ -261,15 +265,9 @@ label input.check:checked + .label-text,
   color: #ff0167;
   cursor: pointer;
 }
-label input.check:checked + .label-text,
-.check {
-  color: #ff0167;
-  cursor: pointer;
-}
 .label-text {
   cursor: pointer;
 }
-
 .loginButton .icon {
   color: #fff;
   margin-top: 0px;

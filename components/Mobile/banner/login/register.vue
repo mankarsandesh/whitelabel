@@ -1,20 +1,25 @@
 <template>
   <div class="mainRegister">
-    <div class="triangle-topleft"></div>
     <div class="loginForm">
-      <v-icon class="closeButton" @click="closePopup()" right size="20">
-        fas fa-times
-      </v-icon>
-      <h2>
-        <v-icon class="icon" left size="20">
-          fas fa-user
+      <v-row justify="center">
+        <v-icon class="closeButton" @click="closePopup()" right size="20">
+          fas fa-times
         </v-icon>
-        Register Account
-      </h2>
-      <p>
-        Already have an account?
-        <span @click="openLogin()">Login now</span>
-      </p>
+        <h2>
+          <v-icon class="icon" left size="20">
+            fas fa-user-plus
+          </v-icon>
+          Register
+        </h2>
+      </v-row>
+      <v-row justify="center">
+        <p>
+          Already have an account?
+          <span class="terms" @click="openLogin()"
+            >Login now</span
+          >
+        </p>
+      </v-row>
 
       <p class="errorMessage" v-if="this.errorMessage">
         {{ this.errorMessage }}
@@ -28,20 +33,17 @@
         <label>Username</label>
         <v-text-field
           class="inputClassRegi"
-          height="42"
-          light
+          height="30"
+          dark
           v-model="username"
           outlined
           rounded
           dense
-          required
-          :rules="[v => !!v || 'username is required']"
         ></v-text-field>
-        <label>Email</label>
+        <label>Email<span class="imp">*</span></label>
         <v-text-field
           class="inputClassRegi"
-          height="42"
-          light
+          height="30"
           v-model="email"
           outlined
           rounded
@@ -49,23 +51,22 @@
           required
           :rules="emailRules"
         ></v-text-field>
-        <label>Password</label>
+        <label>Password<span class="imp">*</span></label>
         <v-text-field
           class="inputClassRegi"
-          height="42"
-          light
-          v-model="password"
+          height="30"
+          type="password"
           outlined
           rounded
           dense
           required
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
-        <label>Confirm Password</label>
+        <label>Confirm Password<span class="imp">*</span></label>
         <v-text-field
           class="inputClassRegi"
-          height="42"
-          light
+          height="30"
+          type="password"
           v-model="repeatPassword"
           outlined
           rounded
@@ -74,60 +75,65 @@
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
 
-        <div class="inputClassRegi">
+        <div>
           <label>Gender</label>
           <v-radio-group v-model="gender" :mandatory="false" row>
             <v-radio
-              height="42"
+              height="30"
               class="genderClass"
               color="#ff0167"
-              light
               v-for="data in genders"
               :key="data"
               :label="`${data}`"
               :value="data"
+              required
             ></v-radio>
           </v-radio-group>
         </div>
 
-        <div class="inputClassRegi float-left">
+        <div>
+          <label>Country<span class="imp">*</span></label>
           <v-select
-            height="42"
-            rounded
+            height="30"
+            class="inputClassRegi"
             outlined
-            light
+            rounded
+            dense
+            required
             v-model="country"
             :items="countrys"
             item-text="name"
             item-value="id"
-            required
             :rules="[v => !!v || 'Country is required']"
           ></v-select>
         </div>
 
-        <div class="inputClassRegi float-left">
+        <div class="float-left">
           <v-checkbox
-            light
             v-model="agree"
             :rules="[v => !!v || 'You must agree to continue!']"
-            label="Agree with Terms & Conditions?"
+            label="Agree with Terms & Conditions"
             required
+            dense
+            color="#ff1067"
           ></v-checkbox>
         </div>
-        <v-btn
-          class="registerButton "
-          @click="validate"
-          :disabled="!valid"
-          height="50"
-        >
-          Register
-          <v-icon class="icon" size="30">
-            fas fa-angle-double-right
-          </v-icon>
-          <v-icon class="icon" size="30">
-            fas fa-angle-double-right
-          </v-icon>
-        </v-btn>
+        <div class="col xs-12 sm-12 text-center" mt-5 >
+          <v-btn
+            class="registerButton"
+            @click="validate"
+            :disabled="!valid"
+            height="50"
+          >
+            Sign up
+            <v-icon class="icon" size="30">
+              fas fa-angle-double-right
+            </v-icon>
+            <v-icon class="icon" size="30">
+              fas fa-angle-double-right
+            </v-icon>
+          </v-btn>
+        </div>
       </v-form>
     </div>
   </div>
@@ -142,7 +148,7 @@ export default {
     return {
       errorMessage: "",
       sucessMessage: "",
-      valid: true,
+      valid: false,
       username: "",
       email: "",
       password: "",
@@ -197,7 +203,7 @@ export default {
         if (this.password == this.repeatPassword) {
           this.userRegistration();
         } else {
-          this.errorMessage = "Repeat Password did't Match";
+          this.errorMessage = "Repeat Password didn't match";
         }
       }
     },
@@ -239,8 +245,12 @@ export default {
 };
 </script>
 <style scoped>
+.terms {
+  color: #ff0167 !important;
+}
 .genderClass {
   text-transform: capitalize;
+  color: #ffffff !important;
 }
 .errorMessage {
   color: red !important;
@@ -256,36 +266,33 @@ input[type="radio"]:checked + label {
   color: #ff0066 !important;
 }
 .label-text span {
-  color: #ff0066 !important;
+  color: #ffffff !important;
 }
 .mainRegister {
-  width: 450px;
-  height: 850px;
+  width: 380px;
+  height: 950px;
   margin: 0 auto;
   position: relative;
 }
 
-.triangle-topleft {
-  width: 0;
-  height: 0;
-  border-top: 250px solid #ff0066;
-  border-right: 250px solid transparent;
-}
 .forgotPassword a {
   color: #ff0167;
   text-decoration: none;
 }
-.remberberme {
-  color: #333 !important;
-}
 .loginForm {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  background-color: #fff;
-  padding: 30px 20px 40px 20px;
+  background-image: url(/mobile/mobile-bg-1.jpg);
+  padding: 50px 20px 405px 20px;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(4, 1, 17, 0.88);
+  background-blend-mode: multiply;
 }
 .loginForm .icon {
+  color: #ff0167;
+}
+.imp {
   color: #ff0167;
 }
 .loginForm h2 {
@@ -294,10 +301,10 @@ input[type="radio"]:checked + label {
   margin-bottom: 20px;
 }
 .loginForm p {
-  color: #c1c0c1;
+  color: #ffffff;
 }
 .loginForm p span {
-  color: #ff0167;
+  color: #ffffff ;
   cursor: pointer;
   font-weight: 600;
 }
@@ -311,7 +318,7 @@ input[type="radio"]:checked + label {
   margin: 5px 0px;
 }
 .loginForm label {
-  color: #333;
+  color: #ffffff;
   width: 100%;
   font-weight: 600;
 }
@@ -320,7 +327,7 @@ input[type="radio"]:checked + label {
   width: 100%;
   border-radius: 30px;
   padding: 10px 20px;
-  color: #333;
+  color: #ffffff;
 }
 .forgotPassword {
   float: left;
@@ -334,18 +341,18 @@ input[type="radio"]:checked + label {
 .registerButton {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
-  font-size: 24px;
+  font-size: 18px;
   padding: 20px 0px;
   text-align: center;
   font-weight: 800;
   margin: 0 auto !important;
-  width: 280px;
+  width: 180px;
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
-  position: absolute;
+  position: inherit;
   z-index: 999;
-  bottom: -20px;
+  bottom: 10px;
   left: 0;
   right: 0;
 }
@@ -355,7 +362,7 @@ input[type="radio"]:checked + label {
 }
 
 label .label-text {
-  color: #333;
+  color: #ffffff;
 }
 label input.check:checked + .label-text,
 .check {
@@ -394,8 +401,8 @@ input:focus {
   outline: none;
 }
 .closeButton {
-  top: -15px;
-  right: -15px;
+  top: 15px;
+  right: 15px;
   position: absolute;
   background-color: #ff0167;
   color: #fff;
