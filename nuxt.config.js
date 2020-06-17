@@ -40,7 +40,9 @@ export default {
     "~/plugins/vuelidate",
     "~/plugins/CountryFlag",
     "~/plugins/fontAwesome",
-    "~/plugins/vueDependency"
+    "~/plugins/vueDependency",
+    "~/plugins/checkLogin",
+    "~/plugins/js-cookie", // for setting and reading cookies
   ],
   /*
    ** Nuxt.js dev-modules

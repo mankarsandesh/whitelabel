@@ -15,19 +15,15 @@
         Doesn't have an account yet?
         <span @click="openRegister()">Register Now</span>
       </p>
-      <p class="errorMessage" v-if="this.errorMessage">
-        {{ this.errorMessage }}
-      </p>
-
-      <p class="sucessMessage" v-if="this.sucessMessage">
-        {{ this.sucessMessage }}
-      </p>
+      <p v-bind:class="{ 'sucessMessage': sucessMessage, 'errorMessage' : errorMessage }"  >
+        {{ this.errorMessage }}  {{ this.sucessMessage }}
+      </p>   
 
       <v-form ref="form" v-model="valid" lazy-validation>
         <label>Username</label>
         <v-text-field
           class="inputClassRegi"
-          height="48"
+          height="46"
           light
           v-model="username"
           outlined
@@ -40,23 +36,31 @@
         <label>Password</label>
         <v-text-field
           class="inputClassRegi"
-          height="48"
+          height="46"
           light
           v-model="password"
           outlined
           rounded
           dense
           required
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
-
-        <label class="remember">
-          <input class="check" type="checkbox" />
-          <span class="label-text">Remember Me </span></label
-        >
-        <label class="float-right forgotPassword">
-          <a href="#" @click="openForgotPassword">Forgot Password?</a>
-        </label>
+        <v-layout>
+          <v-flex>
+            <label class="remember float-left ">
+              <input class="check" type="checkbox" />
+              <span class="label-text">Remember Me </span></label
+            >
+          </v-flex>
+          <v-flex style="text-align:right;">
+            <label class="forgotPassword">
+              <a href="#" @click="openForgotPassword">Forgot Password?</a>
+            </label>
+          </v-flex>
+        </v-layout>
 
         <v-btn
           class="loginButton "
@@ -65,12 +69,18 @@
           height="50"
         >
           Login
-          <v-icon class="icon" size="30">
+          <v-icon size="30">
             fas fa-angle-double-right
           </v-icon>
           <v-icon class="icon" size="30">
             fas fa-angle-double-right
           </v-icon>
+          &nbsp;<v-progress-circular
+            v-if="loadingImage"
+            indeterminate
+            color="#FFF"
+            size="22"
+          ></v-progress-circular>
         </v-btn>
       </v-form>
     </div>
@@ -81,9 +91,12 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import axios from "axios";
 import config from "../config/config.global";
+import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
+      loadingImage: false,
+      showPassword: false,
       errorMessage: "",
       sucessMessage: "",
       valid: false,
@@ -93,7 +106,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("login", ["SET_AUTH", "SET_USER_DATA"]),
+    ...mapMutations("login", ["SET_USER_UUID", "SET_USER_DATA"]),
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
@@ -115,6 +128,7 @@ export default {
     },
     // User Login Request to API
     async loginUser() {
+      this.loadingImage = true;
       try {
         var reqBody = {
           username: this.username,
@@ -124,19 +138,21 @@ export default {
         var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
           headers: config.header
         });
-        console.log(data.data[0].uuid);
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
-          this.errorMessage = "";        
+          this.errorMessage = "";
+          this.loadingImage = false;
+          this.SET_USER_UUID(data.data[0].uuid);
           this.SET_USER_DATA(data.data[0]);
-          this.$cookies.set("userUUID", data.data[0].uuid, {
-            path: "/"
+          Cookies.set("userUUID", data.data[0].uuid, {
+            path: " "
           });
           this.$emit("loginClose");
           this.$router.push("/profile");
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
@@ -152,7 +168,6 @@ export default {
 .sucessMessage {
   color: green !important;
 }
-
 .errors {
   color: #f17272 !important;
 }
@@ -186,6 +201,7 @@ input[type="radio"]:checked + label {
   color: #333 !important;
 }
 .loginForm {
+  width: 100% !important;
   position: absolute;
   top: 15px;
   left: 15px;
@@ -229,32 +245,12 @@ input[type="radio"]:checked + label {
   padding: 10px 20px;
   color: #333;
 }
-.forgotPassword {
-  float: left;
-}
+
 .footerLogin {
   position: absolute;
   text-align: center;
   margin: 0 auto;
   bottom: 0;
-}
-.registerButton {
-  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
-  border-radius: 50px;
-  font-size: 24px;
-  padding: 20px 0px;
-  text-align: center;
-  font-weight: 800;
-  margin: 0 auto !important;
-  width: 280px;
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  bottom: -20px;
-  left: 0;
-  right: 0;
 }
 .loginButton {
   text-align: center;
@@ -307,12 +303,8 @@ label input.check:checked + .label-text,
 
 .loginButton .icon {
   color: #fff;
-  margin-top: 0px;
-}
-.loginButton .icon:last-child {
   opacity: 0.4;
-  margin-left: -10px;
-  color: #fff;
+  margin-top: 0px;
 }
 
 input:focus {

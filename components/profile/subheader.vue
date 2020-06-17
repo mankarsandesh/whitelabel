@@ -1,5 +1,5 @@
 <template>
-  <v-subheader class=" high-0 text-capitalize">{{ title }}</v-subheader>
+  <v-subheader class="header high-0 text-capitalize">{{ title }}</v-subheader>
 </template>
 
 <script>
@@ -8,4 +8,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.header{
+color: #333 !important;
+font-weight: 600 !important;
+}
+</style>>
+

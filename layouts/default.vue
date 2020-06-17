@@ -49,20 +49,20 @@
           {{ item.title }}
         </v-btn>
       </template>
-      <div v-if="GetUserData">
+      <div v-if="GetUserData">   
         <v-btn text dark to="/profile">
           <v-list flat>
             <v-list-item class="px-0">
               <v-list-item-avatar class="mr-0">
                 <img
-                  src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  alt="John"
+                  :src="this.defaultImage"
+                  :alt="GetUserData.username"
                 />
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title>{{
-                  GetUserData.username
+                <v-list-item-title> &nbsp;{{
+                 GetUserData.username
                 }}</v-list-item-title>
               </v-list-item-content>
 
@@ -116,7 +116,7 @@
     <v-dialog
       dark
       v-model="registerDialog"
-      width="550"
+      width="600"
       style=" border-radius:none !important;"
     >
       <Register />
@@ -165,9 +165,11 @@ import Login from "../components/login";
 import Register from "../components/register";
 import forgotPassword from "../components/forgotPassword";
 import axios from "axios";
+import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
+      defaultImage: "../default.jpg",
       forgotPasswordDialog: false,
       loginDialog: false,
       registerDialog: false,
@@ -175,7 +177,8 @@ export default {
       OpenDrawer: false,
       menu: json.menu,
       slideMenu: json.slideMenu,
-      userData: []
+      userData: [],
+      userUUID :  Cookies.get("userUUID")
     };
   },
   components: {
@@ -184,8 +187,11 @@ export default {
     forgotPassword
   },
   created() {
+    
     if (this.userUUID) {
       this.userInfo();
+    }else{
+         this.$router.push("/");
     }
   },
   computed: {
@@ -201,7 +207,7 @@ export default {
           route === "profile-WithDrawal":
           return "profile-container";
           break;
-        case route === "game_mode":
+        case route === "gameMode":
           return "game_mode-container";
           break;
         default:
@@ -210,19 +216,15 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("login", ["CLEAR_USER_DATA"]),
+    ...mapMutations("login", ["CLEAR_USER_DATA","SET_USER_DATA"]), 
     // Logout Users
-
-    async userLogout() {
-      if (this.GetUserData) {
-        this.$cookies.remove("userUUID");
+    async userLogout() {    
+        Cookies.remove('userUUID');
         this.CLEAR_USER_DATA();
         this.$router.push("/");
-      }
     },
     // Get User Info
     async userInfo() {
-      console.log(this.userUUID);
       try {
         var reqBody = {
           user_uuid: this.userUUID
@@ -230,11 +232,10 @@ export default {
         var { data } = await axios.post(config.getUserProfile.url, reqBody, {
           headers: config.header
         });
-        console.log(data.data);
         if (data.code == 200) {
           this.userData = data.data[0];
+          this.SET_USER_DATA(this.userData);
         }
-        console.log(this.userData["username"]);
       } catch (ex) {
         console.log(ex);
       }

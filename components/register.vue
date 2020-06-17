@@ -24,13 +24,13 @@
         {{ this.sucessMessage }}
       </p>
 
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid" lazy-validation v-if="showRegisterForm">
         <label>Username</label>
         <v-text-field
           class="inputClassRegi"
           height="42"
           light
-          v-model="username"
+          v-model="registerForm.username"
           outlined
           rounded
           dense
@@ -42,7 +42,7 @@
           class="inputClassRegi"
           height="42"
           light
-          v-model="email"
+          v-model="registerForm.email"
           outlined
           rounded
           dense
@@ -54,11 +54,14 @@
           class="inputClassRegi"
           height="42"
           light
-          v-model="password"
+          v-model="registerForm.password"
           outlined
           rounded
           dense
           required
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
         <label>Confirm Password</label>
@@ -66,17 +69,20 @@
           class="inputClassRegi"
           height="42"
           light
-          v-model="repeatPassword"
+          v-model="registerForm.repeatPassword"
           outlined
           rounded
           dense
           required
+          :append-icon="showRepPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showRepPassword ? 'text' : 'password'"
+          @click:append="showRepPassword = !showRepPassword"
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
 
         <div class="inputClassRegi">
           <label>Gender</label>
-          <v-radio-group v-model="gender" :mandatory="false" row>
+          <v-radio-group v-model="registerForm.gender" :mandatory="false" row>
             <v-radio
               height="42"
               class="genderClass"
@@ -96,7 +102,7 @@
             rounded
             outlined
             light
-            v-model="country"
+            v-model="registerForm.country"
             :items="countrys"
             item-text="name"
             item-value="id"
@@ -108,7 +114,7 @@
         <div class="inputClassRegi float-left">
           <v-checkbox
             light
-            v-model="agree"
+            v-model="registerForm.agree"
             :rules="[v => !!v || 'You must agree to continue!']"
             label="Agree with Terms & Conditions?"
             required
@@ -121,12 +127,18 @@
           height="50"
         >
           Register
-          <v-icon class="icon" size="30">
+          <v-icon size="30">
             fas fa-angle-double-right
           </v-icon>
           <v-icon class="icon" size="30">
             fas fa-angle-double-right
           </v-icon>
+          &nbsp;<v-progress-circular
+            v-if="loadingImage"
+            indeterminate
+            color="#FFF"
+            size="22"
+          ></v-progress-circular>
         </v-btn>
       </v-form>
     </div>
@@ -139,16 +151,22 @@ import config from "../config/config.global";
 export default {
   data() {
     return {
+      showRegisterForm : true,
+      loadingImage: false,
+      showRepPassword: false,
+      showPassword: false,
       errorMessage: "",
       sucessMessage: "",
       valid: true,
-      username: "",
-      email: "",
-      password: "",
-      repeatPassword: "",
-      country: 45,
-      gender: "male",
-      agree: false,
+      registerForm: {
+        username: "",
+        email: "",
+        password: "",
+        repeatPassword: "",
+        country: 45,
+        gender: "male",
+        agree: false
+      },
       genders: ["male", "female", "other"],
       countrys: [
         {
@@ -185,15 +203,16 @@ export default {
     validate() {
       this.$refs.form.validate();
       if (
-        this.username &&
-        this.email &&
-        this.password &&
-        this.repeatPassword &&
-        this.gender &&
-        this.country &&
-        this.agree
+        this.registerForm.username &&
+        this.registerForm.email &&
+        this.registerForm.password &&
+        this.registerForm.repeatPassword &&
+        this.registerForm.gender &&
+        this.registerForm.country &&
+        this.registerForm.agree
       ) {
-        if (this.password == this.repeatPassword) {
+        if (this.registerForm.password == this.registerForm.repeatPassword) {
+          this.loadingImage = true;
           this.userRegistration();
         } else {
           this.errorMessage = "Repeat Password did't Match";
@@ -208,14 +227,12 @@ export default {
     async userRegistration() {
       try {
         var reqBody = {
-          username: this.username,
-          email: this.email,
-          password: this.repeatPassword,
-          gender: this.gender,
-          country_id: this.country,
+          username: this.registerForm.username,
+          email: this.registerForm.email,
+          password: this.registerForm.repeatPassword,
+          gender: this.registerForm.gender,
+          country_id: this.registerForm.country,
           currency_id: 1,
-          first_name: "Sandesh",
-          last_name: "mankar",
           last_ip: "127.0.0.2"
         };
         var { data } = await axios.post(config.userRegisterAuth.url, reqBody, {
@@ -225,9 +242,17 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
+          this.registerForm.username = "";
+          this.registerForm.email = "";
+          this.registerForm.password = "";
+          this.registerForm.repeatPassword = "";
+          this.registerForm.username = "";
+          this.loadingImage = false;
+          this.showRegisterForm = false;
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
@@ -278,6 +303,7 @@ input[type="radio"]:checked + label {
   color: #333 !important;
 }
 .loginForm {
+  width: 100% !important;
   position: absolute;
   top: 15px;
   left: 15px;
@@ -372,11 +398,7 @@ label input.check:checked + .label-text,
 .registerButton .icon {
   color: #fff;
   margin-top: 0px;
-}
-.registerButton .icon:last-child {
   opacity: 0.4;
-  margin-left: -10px;
-  color: #fff;
 }
 
 .loginButton .icon {

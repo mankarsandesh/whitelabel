@@ -12,18 +12,32 @@ const config = {
   header: {
     authorization: "Basic VG5rd2ViQXBpOlRlc3QxMjMh"
   },
+  mainServer : {
+    url: `${process.env.MAIN_GAME}`
+  },
+  portalProviderID : {
+    url: `${process.env.portalProviderID}`
+  },
   userRegisterAuth: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+    url: `${process.env.BASE_URL}/register`
   },
   userLoginAuth: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+    url: `${process.env.BASE_URL}/loginWebUser`
+  },
+  getUserProfile: {
+    url: `${process.env.BASE_URL}/getUserProfile`
   },
   userForgotPassword: {
-    url: `${process.env.BASE_URL}/webUserLogin`
+    url: `${process.env.BASE_URL}/forgotPassword`
   },
-  stockUrl: {
-    getStock: `${process.env.BASE_URL}/getStock`
+  userVerifyOtp: {
+    url: `${process.env.BASE_URL}/verifyOtp`
+  },
+  userResetPassword: {
+    url: `${process.env.BASE_URL}/resetPassword`
+  },
+  userUpdateDetails:{
+    url: `${process.env.BASE_URL}/updateUserProfile`
   }
 };
-
 export default config;
