@@ -28,14 +28,16 @@ const config = {
     url: `${process.env.BASE_URL}/getUserProfile`
   },
   userForgotPassword: {
-    getStock: `${process.env.BASE_URL}/forgotPassword`
+    url: `${process.env.BASE_URL}/forgotPassword`
   },
   userVerifyOtp: {
     url: `${process.env.BASE_URL}/verifyOtp`
   },
   userResetPassword: {
     url: `${process.env.BASE_URL}/resetPassword`
+  },
+  userUpdateDetails:{
+    url: `${process.env.BASE_URL}/updateUserProfile`
   }
 };
-
 export default config;

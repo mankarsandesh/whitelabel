@@ -41,11 +41,54 @@
       </v-card>
     </v-col>
     <v-col cols="8">
+      <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
+      </p>
+
       <subheader
         class=" font-weight-bold text-capitalize "
         title="personal information"
       />
       <v-row>
+        <v-col cols="6">
+          <subheader title="First Name" />
+          <v-text-field
+            :error-messages="firstNameErrors"
+            @input="$v.form.firstName.$touch()"
+            @blur="$v.form.firstName.$touch()"
+            v-model="form.firstName"
+            class="text-filed"
+            height="48"
+            light
+            outlined
+            rounded
+            dense
+            required
+            :hide-details="firstNameErrors.length ? false : true"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="6">
+          <subheader title="Last Name" />
+          <v-text-field
+            :error-messages="lastNameErrors"
+            @input="$v.form.lastName.$touch()"
+            @blur="$v.form.lastName.$touch()"
+            v-model="form.lastName"
+            class="text-filed"
+            height="48"
+            light
+            outlined
+            rounded
+            dense
+            required
+            :hide-details="lastNameErrors.length ? false : true"
+          ></v-text-field>
+        </v-col>
         <v-col cols="6">
           <subheader title="username" />
           <v-text-field
@@ -54,7 +97,7 @@
             @blur="$v.form.username.$touch()"
             v-model="form.username"
             class="text-filed"
-             height="48"
+            height="48"
             light
             outlined
             rounded
@@ -99,7 +142,7 @@
             :rules="[v => !!v || 'Country is required']"
           ></v-select>
         </v-col>
-        <v-col cols="6">
+        <!-- <v-col cols="6">
           <subheader title="phone" />
           <v-text-field
             :error-messages="phoneErrors"
@@ -108,7 +151,7 @@
             :hide-details="phoneErrors.length ? false : true"
             type="number"
             class="text-filed"
-              height="48"
+            height="48"
             light
             outlined
             rounded
@@ -119,7 +162,7 @@
               <v-icon size="20" color="pink">fas fa-pen</v-icon>
             </template>
           </v-text-field>
-        </v-col>
+        </v-col> -->
       </v-row>
 
       <v-divider></v-divider>
@@ -229,7 +272,7 @@
 
             <v-menu
               v-if="editable"
-              v-model="menu2"
+              v-model="birthday"
               :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
@@ -252,7 +295,7 @@
               </template>
               <v-date-picker
                 v-model="form.birthdate"
-                @input="menu2 = false"
+                @input="birthday = false"
               ></v-date-picker>
             </v-menu>
           </div>
@@ -276,7 +319,22 @@
             ></v-text-field>
           </div>
         </v-col>
-        <Button title="Save Changes" v-on:methodName="updateProfile" />
+
+        <v-btn class="justify-center text-center my-btn" @click="updateProfile"
+          >Save Changes
+          <span class=" ml-3">
+            <v-icon size="15"> fas fa-chevron-double-right</v-icon
+            ><v-icon size="15" class=" opcity-1">
+              fas fa-chevron-double-right</v-icon
+            >
+            <v-progress-circular
+              v-if="loadingImage"
+              indeterminate
+              color="#FFF"
+              size="22"
+            ></v-progress-circular>
+          </span>
+        </v-btn>
       </v-row>
     </v-col>
   </v-row>
@@ -287,6 +345,9 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 import Button from "~/components/Button";
 import subheader from "~/components/profile/subheader";
 import Validate from "~/validation/profile";
+import axios from "axios";
+import config from "../../config/config.global";
+
 export default {
   mixins: [Validate],
   components: {
@@ -294,15 +355,20 @@ export default {
     subheader
   },
   data: () => ({
-    menu2: false,
+    errorMessage: "",
+    sucessMessage: "",
+    loadingImage: false, // Loading Loader Bar in Button
+    birthday: false,
     editable: false,
     genders: ["male", "female", "other"],
     defaultImage: "../default.jpg",
     showPassword: false,
     form: {
-      username: null,
-      email: null,
-      password: null,
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
       country: 45,
       countrys: [
         {
@@ -329,41 +395,69 @@ export default {
       gender: "male",
       birthdate: new Date().toISOString().substr(0, 10),
       personalID: "GUGHSG:BAHSG:SVBAHSGH:HJH"
-    }
+    },
+    editInfo: {}
   }),
   computed: {
     ...mapGetters("login", ["GetUserData"])
   },
   created() {
-    this.fetchUserInfo();
-  },
-  updated() {
-    this.fetchUserInfo();
+    this.form.username = this.GetUserData.username;
+    this.form.email = this.GetUserData.email;
+    this.form.country = this.GetUserData.country_id;
+    this.form.firstName = this.GetUserData.first_name;
+    this.form.lastName = this.GetUserData.last_name;
   },
   methods: {
+    async updateProfile() {
+      this.loadingImage = true;
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          first_name: this.form.firstName,
+          last_name: this.form.lastName,
+          username: this.form.username,
+          country_id: this.form.country
+        };
+        var { data } = await axios.post(config.userUpdateDetails.url, reqBody, {
+          headers: config.header
+        });
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.loadingImage = false;
+          // this.SET_USER_UUID(data.data[0].uuid);
+          // this.SET_USER_DATA(data.data[0]);
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+          this.loadingImage = false;
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
+    },
+    // Edit Info Toggle
     editProfile() {
       this.editable = !this.editable;
-    },
-    // fetch User Info
-    fetchUserInfo() {
-      this.form.username = this.GetUserData.username;
-      this.form.email = this.GetUserData.email;
-      this.form.country = this.GetUserData.country_id;
-    },
-    // Update Profile
-    async updateProfile(item) {
-      try {
-        console.log("This is the item", item);
-        this.$v.form.$touch();
-      } catch (error) {
-        console.error(error);
-      }
     }
+    // Update Profile
+    // async updateProfile(item) {
+    //   try {
+    //     console.log("This is the item", item);
+    //     this.$v.form.$touch();
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
   }
 };
 </script>
 
 <style scoped>
+.title {
+  text-transform: capitalize;
+}
 .edit-active {
   background-color: #e91e63;
   color: #fff !important;
@@ -378,7 +472,7 @@ export default {
   padding-bottom: 10px;
   font-weight: 600;
 }
-.userInfo p{
+.userInfo p {
   color: #333 !important;
 }
 .genderClass {

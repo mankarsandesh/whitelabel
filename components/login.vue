@@ -15,13 +15,9 @@
         Doesn't have an account yet?
         <span @click="openRegister()">Register Now</span>
       </p>
-      <p class="errorMessage" v-if="this.errorMessage">
-        {{ this.errorMessage }}
-      </p>
-
-      <p class="sucessMessage" v-if="this.sucessMessage">
-        {{ this.sucessMessage }}
-      </p>
+      <p v-bind:class="{ 'sucessMessage': sucessMessage, 'errorMessage' : errorMessage }"  >
+        {{ this.errorMessage }}  {{ this.sucessMessage }}
+      </p>   
 
       <v-form ref="form" v-model="valid" lazy-validation>
         <label>Username</label>
@@ -52,14 +48,19 @@
           @click:append="showPassword = !showPassword"
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
-
-        <label class="remember">
-          <input class="check" type="checkbox" />
-          <span class="label-text">Remember Me </span></label
-        >
-        <label class="float-right forgotPassword">
-          <a href="#" @click="openForgotPassword">Forgot Password?</a>
-        </label>
+        <v-layout>
+          <v-flex>
+            <label class="remember float-left ">
+              <input class="check" type="checkbox" />
+              <span class="label-text">Remember Me </span></label
+            >
+          </v-flex>
+          <v-flex style="text-align:right;">
+            <label class="forgotPassword">
+              <a href="#" @click="openForgotPassword">Forgot Password?</a>
+            </label>
+          </v-flex>
+        </v-layout>
 
         <v-btn
           class="loginButton "
@@ -142,7 +143,7 @@ export default {
           this.errorMessage = "";
           this.loadingImage = false;
           this.SET_USER_UUID(data.data[0].uuid);
-          this.SET_USER_DATA(data.data[0]);         
+          this.SET_USER_DATA(data.data[0]);
           Cookies.set("userUUID", data.data[0].uuid, {
             path: " "
           });
@@ -200,7 +201,7 @@ input[type="radio"]:checked + label {
   color: #333 !important;
 }
 .loginForm {
-   width: 100% !important;
+  width: 100% !important;
   position: absolute;
   top: 15px;
   left: 15px;
@@ -244,9 +245,7 @@ input[type="radio"]:checked + label {
   padding: 10px 20px;
   color: #333;
 }
-.forgotPassword {
-  float: left;
-}
+
 .footerLogin {
   position: absolute;
   text-align: center;

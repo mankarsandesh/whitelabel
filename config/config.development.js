@@ -35,6 +35,9 @@ const config = {
   },
   userResetPassword: {
     url: `${process.env.BASE_URL}/resetPassword`
+  },
+  userUpdateDetails:{
+    url: `${process.env.BASE_URL}/updateUserProfile`
   }
 };
 export default config;
