@@ -36,7 +36,6 @@ const checkUserLogin = async (userUUID, store, axios) => {
       if (data.code == 200) {
         store.dispatch("login", "setUserData", userInfo);
         store.dispatch("login", "setUserUUID", userUuid);
-
         // store.commit("SET_USER_DATA",userInfo);
         // store.commit("SET_USER_UUID", data.data[0].uuid);
       }

@@ -34,6 +34,16 @@
                 </v-list-item-title>
 
                 <v-list-item-subtitle>Laos,Vientaine</v-list-item-subtitle>
+
+                <v-list-item-subtitle>
+                   <v-icon class="userWallet" left size="20">fas fa-wallet</v-icon>
+                   <!-- <span class="userBalance">{{GetUserData.balance}}</span> -->
+                  <animated-number
+                    :value="GetUserData.balance"
+                    :formatValue="formatToPrice"
+                    class="userBalance"
+                  />
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -347,12 +357,13 @@ import subheader from "~/components/profile/subheader";
 import Validate from "~/validation/profile";
 import axios from "axios";
 import config from "../../config/config.global";
-
+import AnimatedNumber from "animated-number-vue";
 export default {
   mixins: [Validate],
   components: {
     Button,
-    subheader
+    subheader,
+    AnimatedNumber
   },
   data: () => ({
     errorMessage: "",
@@ -409,6 +420,13 @@ export default {
     this.form.lastName = this.GetUserData.last_name;
   },
   methods: {
+    formatToPrice(value) {
+      return `${Number(value)
+        .toFixed(2)
+        .toString()
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}`;
+    },
+    //update Profile
     async updateProfile() {
       this.loadingImage = true;
       try {
@@ -455,6 +473,12 @@ export default {
 </script>
 
 <style scoped>
+.userBalance{
+  color:#e91e63;
+  font-size: 25px;
+   align-items: center;
+    justify-content: center;
+}
 .title {
   text-transform: capitalize;
 }
@@ -477,5 +501,7 @@ export default {
 }
 .genderClass {
   text-transform: capitalize;
-}</style
->>
+}
+
+    
+    </style>
