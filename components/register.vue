@@ -15,14 +15,15 @@
         Already have an account?
         <span @click="openLogin()">Login now</span>
       </p>
-
-      <p class="errorMessage" v-if="this.errorMessage">
-        {{ this.errorMessage }}
+          <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
 
-      <p class="sucessMessage" v-if="this.sucessMessage">
-        {{ this.sucessMessage }}
-      </p>
 
       <v-form ref="form" v-model="valid" lazy-validation v-if="showRegisterForm">
         <label>Username</label>
@@ -265,12 +266,6 @@ export default {
 <style scoped>
 .genderClass {
   text-transform: capitalize;
-}
-.errorMessage {
-  color: red !important;
-}
-.sucessMessage {
-  color: green !important;
 }
 .inputClass .radio {
   padding: 8px 15px;
