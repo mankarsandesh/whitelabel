@@ -101,12 +101,12 @@
         </v-btn>
       </div>
 
-      <v-btn class="mx-2" large icon>
+      <!-- <v-btn class="mx-2" large icon>
         <v-icon> fas fa-globe</v-icon>
-      </v-btn>
-      <v-btn class="mx-2" large icon @click.stop="OpenDrawer = !OpenDrawer">
+      </v-btn> -->
+      <!-- <v-btn class="mx-2" large icon @click.stop="OpenDrawer = !OpenDrawer">
         <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
 
     <!-- Register Form -->

@@ -79,52 +79,52 @@
     "slideMenu": [{
             "icon": "fas fa-chart-bar",
             "title": "live stock",
-            "path": "/live_stock"
+            "path": "/"
         },
         {
             "icon": "far fa-gamepad",
             "title": "game mode",
-            "path": "/game_mode"
+            "path": "/gameMode"
         },
         {
             "icon": "fas fa-gift",
             "title": "promotions",
-            "path": "/promotions"
+            "path": "/"
         },
         {
             "icon": "fas fa-trophy",
             "title": "leaderboard",
-            "path": "/leaderboard"
+            "path": "/"
         },
         {
             "icon": "fas fa-file-alt",
             "title": "game rules",
-            "path": "/game_rules"
+            "path": "/"
         },
         {
             "icon": "fas fa-info-circle",
             "title": "about us",
-            "path": "/aboutus"
+            "path": "/"
         },
         {
             "icon": "far fa-file-alt",
             "title": "terms & conditions",
-            "path": "terms_conditions"
+            "path": "/"
         },
         {
             "icon": "fas fa-cogs",
             "title": "privacy policy",
-            "path": "privacy_policy"
+            "path": "/"
         },
         {
             "icon": "fas fa-question",
             "title": "faq",
-            "path": "/faq"
+            "path": "/"
         },
         {
             "icon": "far fa-handshake-alt",
             "title": "disconnection policy",
-            "path": "/disconnection_policy"
+            "path": "/"
         }
     ],
     "TabsProfiles": [{
