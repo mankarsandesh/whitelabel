@@ -151,12 +151,12 @@
           >Join now
           <span class=" ml-3">
             <v-icon size="15"> fas fa-chevron-double-right</v-icon
-            ><v-icon size="15" class=" opcity-1">
+            ><v-icon size="15" class=" opacity-1">
               fas fa-chevron-double-right</v-icon
             >
           </span>
         </v-btn>
-         <Button title="Join now" />
+        <Button title="Join now" />
       </v-row>
     </v-col>
   </v-row>
@@ -171,8 +171,8 @@ export default {
     ListItem,
     subheader
   },
-  computed:{
-     ...mapGetters("login", ["GetUserData"])
+  computed: {
+    ...mapGetters("login", ["GetUserData"])
   },
   data: () => ({
     form: {

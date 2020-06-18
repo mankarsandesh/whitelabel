@@ -37,6 +37,7 @@
           outlined
           rounded
           dense
+          autofocus
         ></v-text-field>
         <label>Email<span class="imp">*</span></label>
         <v-text-field
@@ -124,11 +125,11 @@
             height="50"
           >
             Sign up
-            <v-icon class="icon" size="30">
-              fas fa-angle-double-right
+            <v-icon class="icon" size="20">
+              fas fa-chevron-double-right
             </v-icon>
-            <v-icon class="icon" size="30">
-              fas fa-angle-double-right
+            <v-icon class="icon" size="20">
+              fas fa-chevron-double-right
             </v-icon>
           </v-btn>
         </div>

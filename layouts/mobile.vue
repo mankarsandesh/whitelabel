@@ -79,10 +79,25 @@
       <register
         @registerClose="closeTheRegister"
         @loginOpen="openloginDialog"
-        @forgotPasswordOpen="showForgotDialog"
       />
     </v-dialog>
     <!-- Ending User Registration Form -->
+    <!-- Forgot Password Dialog -->
+    <v-dialog
+      dark
+      v-model="forgotPasswordDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      light
+      style=" border-radius:none !important;"
+    >
+      <forgotPassword
+        @forgotPasswordClose="closeTheForgetPassword"
+        @loginOpen="openloginDialog"
+      />
+    </v-dialog>
+    <!--End of Forgot Password Dialog -->
     <!-- Sizes your content based upon application components -->
     <v-content>
       <!-- Provides the application the proper getter -->
@@ -94,7 +109,7 @@
 <script>
 import json from "~/json/items";
 import Login from "../components/Mobile/banner/login/login";
-import forgetPassword from "../components/Mobile/banner/login/forgotPassword";
+import forgotPassword from "../components/Mobile/banner/login/forgotPassword";
 import register from "../components/Mobile/banner/login/register";
 export default {
   name: "mobile",
@@ -102,13 +117,15 @@ export default {
     return {
       loginDialog: false,
       registerDialog: false,
+      forgotPasswordDialog: false,
       slideMenu: json.slideMenu,
       OpenDrawer: false
     };
   },
   components: {
     Login,
-    register
+    register,
+    forgotPassword
   },
   methods: {
     closeTheLogin() {
@@ -116,6 +133,9 @@ export default {
     },
     closeTheRegister() {
       this.registerDialog = false;
+    },
+    closeTheForgetPassword() {
+      this.forgotPasswordDialog = false;
     },
     showRegisterDialog() {
       this.loginDialog = false;

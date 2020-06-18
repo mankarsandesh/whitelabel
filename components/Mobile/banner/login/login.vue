@@ -15,9 +15,7 @@
       <v-row justify="center">
         <p style="color: #ffffff;">
           Don't have an account yet?
-          <span @click="openRegister()" class="terms"
-            >Register Now</span
-          >
+          <span @click="openRegister()" class="terms">Register Now</span>
         </p>
       </v-row>
       <p class="errorMessage" v-if="this.errorMessage">
@@ -38,6 +36,9 @@
           rounded
           required
           dense
+          pill
+          autofocus
+          color="#fff"
           :rules="[v => !!v || 'Username is required']"
         ></v-text-field>
 
@@ -56,14 +57,16 @@
 
         <div class="row">
           <div class="col  xs-9 sm-9">
-            <label >
+            <label>
               <input class="check" size="13" type="checkbox" />
               <span class="rememberme">Remember Me </span>
             </label>
           </div>
           <div class="col xs-3 sm-3">
             <label class="float-right">
-              <span href="#" @click="openRegister()" class="terms">Forgot Password?</span>
+              <span href="#" @click="openForgotPassword()" class="terms"
+                >Forgot Password?</span
+              >
             </label>
           </div>
         </div>
@@ -75,11 +78,11 @@
             height="50"
           >
             Login
-            <v-icon class="icon" size="30">
-              fas fa-angle-double-right
+            <v-icon class="icon" size="20">
+              fas fa-chevron-double-right
             </v-icon>
-            <v-icon class="icon" size="30">
-              fas fa-angle-double-right
+            <v-icon class="icon" size="20">
+              fas fa-chevron-double-right
             </v-icon>
           </v-btn>
         </v-row>
@@ -175,7 +178,7 @@ export default {
 }
 .rememberme {
   color: #ffffff;
-  font-size:14px;
+  font-size: 14px;
   font-weight: 300 !important;
 }
 .loginForm {

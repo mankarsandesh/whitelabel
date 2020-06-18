@@ -8,20 +8,27 @@
           class="text-center mb-5"
           style="margin-top:60px;"
         >
-          <v-card class="display-2 font-weight-bold text-center">Get</v-card>
-          <v-card-title
+          <v-card
+            class="display-0 font-weight-bold justify-center mt-3 bonusLine"
+            >Get</v-card
+          >
+          <v-row
             class="flex display-2 font-weight-black color-pink justify-center"
             >$2000
-          </v-card-title>
-          <v-card-title
-            class="display-1 font-weight-bold"
-            style="word-break:keep-all;"
+          </v-row>
+          <v-card-title class="display-0 font-weight-bold bonusLine"
             >Get a WELCOME 200% Bonus up to $2000</v-card-title
           >
-          <v-card class="headline font-weight-light text-center text-center">
+          <v-card class="font-weight-thin text-center text-center">
             Use bonus code :
           </v-card>
-          <v-chip outlined class="ma-2 ec-welcome white--text display-1 t">
+          <v-chip
+            outlined
+            pill
+            solo
+            color="#252747"
+            class="ma-2 ec-welcome white--text display-1 "
+          >
             ecwelcome
           </v-chip>
           <v-card-actions class="d-block">
@@ -49,7 +56,7 @@
               >Bet now
               <span class=" ml-3">
                 <v-icon size="15"> fas fa-chevron-double-right</v-icon
-                ><v-icon size="15" class=" opcity-1">
+                ><v-icon size="15" class=" opacity-1">
                   fas fa-chevron-double-right</v-icon
                 >
               </span>
@@ -72,4 +79,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.bonusLine {
+  font-size: 18px !important;
+  word-break: keep-all;
+}
+</style>

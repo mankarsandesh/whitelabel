@@ -7,7 +7,7 @@
 "
       >
         <v-row class="fill-height" align="center" justify="center">
-          <v-col cols="9">
+          <v-col cols="9" align="center">
             <v-card flat>
               <v-card-title
                 class="display-0 font-weight-black justify-center"
@@ -46,16 +46,16 @@
                   </v-img>
                 </v-card>
               </v-col>
-              <v-btn x-large rounded color="pink" class="px-8 ml-4"
-                >bet now
-                <span class=" ml-3">
-                  <v-icon size="15"> fas fa-chevron-double-right</v-icon
-                  ><v-icon size="15" class=" opcity-1">
-                    fas fa-chevron-double-right</v-icon
-                  >
-                </span>
-              </v-btn>
             </v-row>
+            <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-2"
+              >bet now
+              <span class="ml-3">
+                <v-icon size="15"> fas fa-chevron-double-right</v-icon
+                ><v-icon size="15" class="opacity-1">
+                  fas fa-chevron-double-right</v-icon
+                >
+              </span>
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
