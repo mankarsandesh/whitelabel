@@ -140,7 +140,7 @@
 
 <script>
 import axios from "axios";
-import config from "../../../../config/config.global";
+import config from "../../../config/config.global";
 
 export default {
   data() {
@@ -340,6 +340,7 @@ input[type="radio"]:checked + label {
   bottom: 10px;
   left: 0;
   right: 0;
+  box-shadow: 2px 11px 35px 13px #6e0221;
 }
 input[type="radio"]:checked + label {
   color: #0b4db7;

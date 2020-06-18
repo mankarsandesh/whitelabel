@@ -108,9 +108,9 @@
 
 <script>
 import json from "~/json/items";
-import Login from "../components/Mobile/banner/login/login";
-import forgotPassword from "../components/Mobile/banner/login/forgotPassword";
-import register from "../components/Mobile/banner/login/register";
+import Login from "../components/Mobile/login/login";
+import forgotPassword from "../components/Mobile/login/forgotPassword";
+import register from "../components/Mobile/login/register";
 export default {
   name: "mobile",
   data() {

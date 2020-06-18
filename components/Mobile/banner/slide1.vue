@@ -52,7 +52,7 @@
                 </v-list-item>
               </v-card>
             </v-card>
-            <v-btn x-large rounded color="pink" class="px-8 mb-5"
+            <v-btn x-large rounded color="pink" class="px-8 mb-5 btnShadow"
               >Bet now
               <span class=" ml-3">
                 <v-icon size="15"> fas fa-chevron-double-right</v-icon
@@ -83,5 +83,8 @@ export default {
 .bonusLine {
   font-size: 18px !important;
   word-break: keep-all;
+}
+.btnShadow {
+  box-shadow: 2px 11px 35px 13px #6e0221;
 }
 </style>

@@ -1,10 +1,14 @@
 <template>
   <v-layout v-model="model">
     <v-carousel
+      cycle="true"
       height="100vh"
       v-model="model"
       hide-delimiter-background
       hide-delimiters
+      :show-arrows="false"
+      continuous
+      touch
     >
       <slide1 />
       <slide2 />

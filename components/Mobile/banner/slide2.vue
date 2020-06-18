@@ -47,7 +47,7 @@
                 </v-card>
               </v-col>
             </v-row>
-            <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-2"
+            <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-2 btnShadow"
               >bet now
               <span class="ml-3">
                 <v-icon size="15"> fas fa-chevron-double-right</v-icon
@@ -72,4 +72,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.btnShadow {
+  box-shadow: 2px 11px 35px 13px #6e0221;
+}
+</style>

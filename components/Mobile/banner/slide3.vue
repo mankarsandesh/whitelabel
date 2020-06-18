@@ -48,7 +48,7 @@
                 </v-card>
               </v-col>
             </v-row>
-            <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-4"
+            <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-4 btnShadow"
               >bet now
               <span class="ml-3">
                 <v-icon size="15"> fas fa-chevron-double-right</v-icon
@@ -81,5 +81,8 @@ export default {
 }
 .stockDesc {
   font-size: 14px !important;
+}
+.btnShadow {
+  box-shadow: 2px 11px 35px 13px #6e0221;
 }
 </style>
