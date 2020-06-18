@@ -415,9 +415,12 @@ export default {
   computed: {
     ...mapGetters("login", ["GetUserData"])
   },
-  created() {},
+  updated() {
+    // this.updateUserData();
+   
+  },
   methods: {
-    // ...mapActions("login",["setUserData"]),
+    ...mapActions("login",["setUserData"]),
     // Set All User Exiting Value
     updateUserData() {
       this.form.username = this.GetUserData.username;
@@ -451,9 +454,7 @@ export default {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
           this.loadingImage = false;
-          // this.SET_USER_UUID(data.data[0].uuid);
           this.setUserData(data.data[0]);
-          console.log(data);
           this.updateUserData();
         } else {
           this.errorMessage = data.message[0];

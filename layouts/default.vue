@@ -82,7 +82,7 @@
           :rounded="true"
           :outlined="true"
           color="pink"
-          @click="loginDialog = true"
+          @click="openLoginForm()"
           class="mx-2"
         >
           <v-icon left>fas fa-user</v-icon>
@@ -93,7 +93,7 @@
           :rounded="true"
           :outlined="false"
           color="pink"
-          @click="registerDialog = true"
+          @click="openRegisterForm()"
           class="mx-2"
         >
           <v-icon left>fas fa-user-plus</v-icon>
@@ -116,7 +116,11 @@
       width="600"
       style=" border-radius:none !important;"
     >
-      <Register @registerClose="closeRegister" @loginOpen="showLoginDialog" />
+      <Register
+        v-if="renderRegister"
+        @registerClose="closeRegister"
+        @loginOpen="showLoginDialog"
+      />
     </v-dialog>
     <!-- Ending Register Form -->
 
@@ -128,6 +132,7 @@
       style=" border-radius:none !important;"
     >
       <forgotPassword
+        v-if="renderForgot"
         @forgotClose="closeForgot"
         @loginOpen="showForgotDialog"
       />
@@ -142,6 +147,7 @@
       style=" border-radius:none !important;"
     >
       <Login
+        v-if="renderLogin"
         @loginClose="closeLogin"
         @registerOpen="showRegisterDialog"
         @forgotPasswordOpen="showForgotDialog"
@@ -166,6 +172,9 @@ import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
+      renderLogin: false,
+      renderRegister: false,
+      renderForgot: false,
       defaultImage: "../default.jpg",
       forgotPasswordDialog: false,
       loginDialog: false,
@@ -215,8 +224,8 @@ export default {
     ...mapMutations("login", ["CLEAR_USER_DATA", "SET_USER_DATA"]),
     // Logout Users
     async userLogout() {
-      this.CLEAR_USER_DATA();        
-      Cookies.remove('userUUID', { path: '' }); // removed! UserUUID Cookies
+      this.CLEAR_USER_DATA();
+      Cookies.remove("userUUID", { path: "" }); // removed! UserUUID Cookies
       this.$router.push("/");
     },
     // Get User Info
@@ -235,6 +244,27 @@ export default {
       } catch (ex) {
         console.log(ex);
       }
+    },
+    forceRerender() {
+      this.renderLogin = false;
+      this.renderRegister = false;
+      this.renderForgot = false;
+
+      this.$nextTick(() => {
+        this.renderLogin = true;
+        this.renderRegister = true;
+        this.renderForgot = true;
+      });
+    },
+    // open Register Form
+    openRegisterForm() {
+      this.forceRerender();
+      this.registerDialog = true;
+    },
+    //openLogin Form
+    openLoginForm() {
+      this.forceRerender();
+      this.loginDialog = true;
     },
     // Close Register Screen
     closeRegister() {
