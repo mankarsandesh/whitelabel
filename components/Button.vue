@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn class="justify-center text-center my-btn" @click="methodRuning"
-      >{{ title }}
+      >{{ title }} 
       <span class=" ml-3">
         <v-icon size="15"> fas fa-chevron-double-right</v-icon
         ><v-icon size="15" class=" opcity-1">
@@ -18,9 +18,7 @@ import config from "../config/config.global";
 import userForms from "../components/userForms";
 export default {
   data() {
-    return {
-    
-    };
+    return {};
   },
   components: {
     config,
@@ -35,16 +33,28 @@ export default {
       try {
         if (this.GetUserData) {
           if (this.link == true) {
-            window.location =
-              config.mainServer.url +
-              "?portalProviderUUID=" +
-              config.portalProviderID.url +
-              "&portalProviderUserID=" +
-              this.GetUserData.username +
-              "&balance=300";
+            if (this.GetUserData.balance > 300) {
+              window.location =
+                config.mainServer.url +
+                "?portalProviderUUID=" +
+                config.portalProviderID.url +
+                "&portalProviderUserID=" +
+                this.GetUserData.username +
+                "&balance=" +
+                this.GetUserData.balance;
+            } else {
+              this.$swal({
+                title: "Your Balance is Low",
+                type: "error",
+              });
+            }
           }
         } else {
-         console.log("Please Login");
+          this.$swal({
+            title: "Please Login",
+            type: "error",
+            timer: 1000
+          });
         }
       } catch (error) {
         console.log(error);

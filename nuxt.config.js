@@ -66,6 +66,7 @@ export default {
     "@nuxtjs/dotenv",
     "@nuxtjs/auth",
     "cookie-universal-nuxt",
+    'nuxt-sweetalert2'
   ],
   /*
    ** Axios module configuration

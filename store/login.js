@@ -19,6 +19,7 @@ const mutations = {
   // Clear Data
   CLEAR_USER_DATA(state, payload) {
     state.userData = "";
+    state.uuid = "";
   },
   // User Set Mutation
   SET_USER_UUID(state, payload) {

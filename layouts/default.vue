@@ -49,21 +49,18 @@
           {{ item.title }}
         </v-btn>
       </template>
-      <div v-if="GetUserData">   
+      <div v-if="GetUserData">
         <v-btn text dark to="/profile">
           <v-list flat>
             <v-list-item class="px-0">
               <v-list-item-avatar class="mr-0">
-                <img
-                  :src="this.defaultImage"
-                  :alt="GetUserData.username"
-                />
+                <img :src="this.defaultImage" :alt="GetUserData.username" />
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title> &nbsp;{{
-                 GetUserData.username
-                }}</v-list-item-title>
+                <v-list-item-title>
+                  &nbsp;{{ GetUserData.username }}</v-list-item-title
+                >
               </v-list-item-content>
 
               <v-list-item-action>
@@ -178,7 +175,7 @@ export default {
       menu: json.menu,
       slideMenu: json.slideMenu,
       userData: [],
-      userUUID :  Cookies.get("userUUID")
+      userUUID: Cookies.get("userUUID")
     };
   },
   components: {
@@ -187,11 +184,10 @@ export default {
     forgotPassword
   },
   created() {
-    
     if (this.userUUID) {
       this.userInfo();
-    }else{
-         this.$router.push("/");
+    } else {
+      this.$router.push("/");
     }
   },
   computed: {
@@ -216,12 +212,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("login", ["CLEAR_USER_DATA","SET_USER_DATA"]), 
+    ...mapMutations("login", ["CLEAR_USER_DATA", "SET_USER_DATA"]),
     // Logout Users
-    async userLogout() {    
-        Cookies.remove('userUUID');
-        this.CLEAR_USER_DATA();
-        this.$router.push("/");
+    async userLogout() {
+      this.CLEAR_USER_DATA();        
+      Cookies.remove('userUUID', { path: '' }); // removed! UserUUID Cookies
+      this.$router.push("/");
     },
     // Get User Info
     async userInfo() {
