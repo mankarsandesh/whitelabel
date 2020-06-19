@@ -34,6 +34,16 @@
                 </v-list-item-title>
 
                 <v-list-item-subtitle>Laos,Vientaine</v-list-item-subtitle>
+
+                <v-list-item-subtitle>
+                  <!-- <v-icon class="userWallet" left size="20">fas fa-wallet</v-icon> -->
+                  <!-- <span class="userBalance">{{GetUserData.balance}}</span> -->
+                  <animated-number
+                    :value="GetUserData.balance"
+                    :formatValue="formatToPrice"
+                    class="userBalance"
+                  />
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-col>
@@ -347,12 +357,13 @@ import subheader from "~/components/profile/subheader";
 import Validate from "~/validation/profile";
 import axios from "axios";
 import config from "../../config/config.global";
-
+import AnimatedNumber from "animated-number-vue";
 export default {
   mixins: [Validate],
   components: {
     Button,
-    subheader
+    subheader,
+    AnimatedNumber
   },
   data: () => ({
     errorMessage: "",
@@ -398,17 +409,39 @@ export default {
     },
     editInfo: {}
   }),
+  async mounted() {
+    await this.usersData();
+    this.updateUserData();
+      console.log("mounted");
+  },
   computed: {
     ...mapGetters("login", ["GetUserData"])
   },
-  created() {
-    this.form.username = this.GetUserData.username;
-    this.form.email = this.GetUserData.email;
-    this.form.country = this.GetUserData.country_id;
-    this.form.firstName = this.GetUserData.first_name;
-    this.form.lastName = this.GetUserData.last_name;
+  created(){
+    // this.updateUserData();
+    // console.log("cREATED");
+  },
+  updated() {
+   
   },
   methods: {
+    ...mapActions("login",["setUserData","usersData"]),
+    // Set All User Exiting Value
+    updateUserData() {
+      this.form.username = this.GetUserData.username;
+      this.form.email = this.GetUserData.email;
+      this.form.country = this.GetUserData.country_id;
+      this.form.firstName = this.GetUserData.first_name;
+      this.form.lastName = this.GetUserData.last_name;
+    },
+    // Format User balance
+    formatToPrice(value) {
+      return `$ ${Number(value)
+        .toFixed(2)
+        .toString()
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}`;
+    },
+    //update Profile
     async updateProfile() {
       this.loadingImage = true;
       try {
@@ -426,8 +459,8 @@ export default {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
           this.loadingImage = false;
-          // this.SET_USER_UUID(data.data[0].uuid);
-          // this.SET_USER_DATA(data.data[0]);
+          this.setUserData(data.data[0]);
+          this.updateUserData();
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
@@ -441,20 +474,17 @@ export default {
     editProfile() {
       this.editable = !this.editable;
     }
-    // Update Profile
-    // async updateProfile(item) {
-    //   try {
-    //     console.log("This is the item", item);
-    //     this.$v.form.$touch();
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
   }
 };
 </script>
 
 <style scoped>
+.userBalance {
+  color: #e91e63;
+  font-size: 25px;
+  align-items: center;
+  justify-content: center;
+}
 .title {
   text-transform: capitalize;
 }
@@ -477,5 +507,5 @@ export default {
 }
 .genderClass {
   text-transform: capitalize;
-}</style
->>
+}
+</style>

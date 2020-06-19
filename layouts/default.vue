@@ -49,21 +49,18 @@
           {{ item.title }}
         </v-btn>
       </template>
-      <div v-if="GetUserData">   
+      <div v-if="GetUserData">
         <v-btn text dark to="/profile">
           <v-list flat>
             <v-list-item class="px-0">
               <v-list-item-avatar class="mr-0">
-                <img
-                  :src="this.defaultImage"
-                  :alt="GetUserData.username"
-                />
+                <img :src="this.defaultImage" :alt="GetUserData.username" />
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title> &nbsp;{{
-                 GetUserData.username
-                }}</v-list-item-title>
+                <v-list-item-title>
+                  &nbsp;{{ GetUserData.username }}</v-list-item-title
+                >
               </v-list-item-content>
 
               <v-list-item-action>
@@ -85,7 +82,7 @@
           :rounded="true"
           :outlined="true"
           color="pink"
-          @click="loginDialog = true"
+          @click="openLoginForm()"
           class="mx-2"
         >
           <v-icon left>fas fa-user</v-icon>
@@ -96,7 +93,7 @@
           :rounded="true"
           :outlined="false"
           color="pink"
-          @click="registerDialog = true"
+          @click="openRegisterForm()"
           class="mx-2"
         >
           <v-icon left>fas fa-user-plus</v-icon>
@@ -104,12 +101,12 @@
         </v-btn>
       </div>
 
-      <v-btn class="mx-2" large icon>
+      <!-- <v-btn class="mx-2" large icon>
         <v-icon> fas fa-globe</v-icon>
-      </v-btn>
-      <v-btn class="mx-2" large icon @click.stop="OpenDrawer = !OpenDrawer">
+      </v-btn> -->
+      <!-- <v-btn class="mx-2" large icon @click.stop="OpenDrawer = !OpenDrawer">
         <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-app-bar>
 
     <!-- Register Form -->
@@ -119,7 +116,11 @@
       width="600"
       style=" border-radius:none !important;"
     >
-      <Register />
+      <Register
+        v-if="renderRegister"
+        @registerClose="closeRegister"
+        @loginOpen="showLoginDialog"
+      />
     </v-dialog>
     <!-- Ending Register Form -->
 
@@ -131,6 +132,7 @@
       style=" border-radius:none !important;"
     >
       <forgotPassword
+        v-if="renderForgot"
         @forgotClose="closeForgot"
         @loginOpen="showForgotDialog"
       />
@@ -145,6 +147,7 @@
       style=" border-radius:none !important;"
     >
       <Login
+        v-if="renderLogin"
         @loginClose="closeLogin"
         @registerOpen="showRegisterDialog"
         @forgotPasswordOpen="showForgotDialog"
@@ -169,6 +172,9 @@ import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
+      renderLogin: false,
+      renderRegister: false,
+      renderForgot: false,
       defaultImage: "../default.jpg",
       forgotPasswordDialog: false,
       loginDialog: false,
@@ -178,7 +184,7 @@ export default {
       menu: json.menu,
       slideMenu: json.slideMenu,
       userData: [],
-      userUUID :  Cookies.get("userUUID")
+      userUUID: Cookies.get("userUUID")
     };
   },
   components: {
@@ -187,11 +193,10 @@ export default {
     forgotPassword
   },
   created() {
-    
     if (this.userUUID) {
       this.userInfo();
-    }else{
-         this.$router.push("/");
+    } else {
+      this.$router.push("/");
     }
   },
   computed: {
@@ -216,12 +221,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("login", ["CLEAR_USER_DATA","SET_USER_DATA"]), 
+    ...mapMutations("login", ["CLEAR_USER_DATA", "SET_USER_DATA"]),
     // Logout Users
-    async userLogout() {    
-        Cookies.remove('userUUID');
-        this.CLEAR_USER_DATA();
-        this.$router.push("/");
+    async userLogout() {
+      this.CLEAR_USER_DATA();
+      Cookies.remove("userUUID", { path: "" }); // removed! UserUUID Cookies
+      this.$router.push("/");
     },
     // Get User Info
     async userInfo() {
@@ -239,6 +244,27 @@ export default {
       } catch (ex) {
         console.log(ex);
       }
+    },
+    forceRerender() {
+      this.renderLogin = false;
+      this.renderRegister = false;
+      this.renderForgot = false;
+
+      this.$nextTick(() => {
+        this.renderLogin = true;
+        this.renderRegister = true;
+        this.renderForgot = true;
+      });
+    },
+    // open Register Form
+    openRegisterForm() {
+      this.forceRerender();
+      this.registerDialog = true;
+    },
+    //openLogin Form
+    openLoginForm() {
+      this.forceRerender();
+      this.loginDialog = true;
     },
     // Close Register Screen
     // closeRegister() {

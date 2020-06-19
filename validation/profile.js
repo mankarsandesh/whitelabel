@@ -6,14 +6,14 @@ export default {
             const errors = [];
             if (!this.$v.form.firstName.$dirty) return errors;
             !this.$v.form.firstName.required && errors.push('First Name is is required');
-            !this.$v.form.firstName.minLength && errors.push('First Name must be at most 7 characters long');
+            !this.$v.form.firstName.minLength && errors.push('First Name must be at most 3 characters long');
             return errors;
         },
         lastNameErrors() {
             const errors = [];
             if (!this.$v.form.lastName.$dirty) return errors;
             !this.$v.form.lastName.required && errors.push('Last Name is is required');
-            !this.$v.form.lastName.minLength && errors.push('Last Name must be at most 7 characters long');
+            !this.$v.form.lastName.minLength && errors.push('Last Name must be at most 3 characters long');
             return errors;
         },
         usernameErrors() {
@@ -58,11 +58,11 @@ export default {
         form: {
             firstName: {
                 required,
-                minLength: minLength(7),
+                minLength: minLength(3),
             },
             lastName: {
                 required,
-                minLength: minLength(7),
+                minLength: minLength(3),
             },
             username: {
                 required,

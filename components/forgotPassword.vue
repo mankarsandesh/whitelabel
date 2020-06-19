@@ -15,12 +15,13 @@
         No problem! Just fill in the email below and we'll send you password
         reset instructions!
       </p>
-      <p class="errorMessage" v-if="this.errorMessage">
-        {{ this.errorMessage }}
-      </p>
-
-      <p class="sucessMessage" v-if="this.sucessMessage">
-        {{ this.sucessMessage }}
+      <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
       <v-form ref="form" v-model="valid" lazy-validation>
         <div class="yourEmail" v-if="showStep1">
@@ -230,12 +231,6 @@ export default {
 };
 </script>
 <style scoped>
-.errorMessage {
-  color: #f17272 !important;
-}
-.sucessMessage {
-  color: green !important;
-}
 .errors {
   color: #f17272 !important;
 }
