@@ -76,6 +76,7 @@
             @click="validate"
             :disabled="!valid"
             height="50"
+            to="/mobile/profile"
           >
             Login
             <v-icon class="icon" size="20">

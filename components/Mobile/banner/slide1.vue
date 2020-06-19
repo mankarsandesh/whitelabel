@@ -19,7 +19,7 @@
           <v-card-title class="display-0 font-weight-bold bonusLine"
             >Get a WELCOME 200% Bonus up to $2000</v-card-title
           >
-          <v-card class="font-weight-thin text-center text-center">
+          <v-card class="font-weight-thin text-center">
             Use bonus code :
           </v-card>
           <v-chip

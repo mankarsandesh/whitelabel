@@ -26,7 +26,7 @@
 
     <v-app-bar fixed color="#1E1E1F" class="navbar-mobile" height="60" dens>
       <v-toolbar-title>
-        <v-btn to="/" text color="transparent">
+        <v-btn to="/mobile/profile" text color="transparent">
           <v-img width="100" src="/logo/logo.png"></v-img>
         </v-btn>
       </v-toolbar-title>

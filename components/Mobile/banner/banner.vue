@@ -1,18 +1,16 @@
 <template>
   <v-layout v-model="model">
     <v-carousel
-      cycle="true"
+      cycle
       height="100vh"
       v-model="model"
       hide-delimiter-background
       hide-delimiters
       :show-arrows="false"
-      continuous
-      touch
-    >
+      continuous>
       <slide1 />
       <slide2 />
-      <slide3 />
+      <slide3 />      
     </v-carousel>
   </v-layout>
 </template>
