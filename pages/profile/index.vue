@@ -410,17 +410,22 @@ export default {
     editInfo: {}
   }),
   async mounted() {
+    await this.usersData();
     this.updateUserData();
+      console.log("mounted");
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
   },
-  updated() {
+  created(){
     // this.updateUserData();
+    // console.log("cREATED");
+  },
+  updated() {
    
   },
   methods: {
-    ...mapActions("login",["setUserData"]),
+    ...mapActions("login",["setUserData","usersData"]),
     // Set All User Exiting Value
     updateUserData() {
       this.form.username = this.GetUserData.username;
