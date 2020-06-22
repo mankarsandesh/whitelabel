@@ -18,14 +18,14 @@
           <span @click="openRegister()" class="terms">Register Now</span>
         </p>
       </v-row>
-      <p class="errorMessage" v-if="this.errorMessage">
-        {{ this.errorMessage }}
+      <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
-
-      <p class="sucessMessage" v-if="this.sucessMessage">
-        {{ this.sucessMessage }}
-      </p>
-
       <v-form ref="form" v-model="valid" lazy-validation class="mt-5">
         <label>Email/Username</label>
         <v-text-field
@@ -78,13 +78,19 @@
             height="50"
             to="/mobile/profile"
           >
-            Login
+            Login&nbsp;
             <v-icon class="icon" size="20">
               fas fa-chevron-double-right
             </v-icon>
             <v-icon class="icon" size="20">
               fas fa-chevron-double-right
             </v-icon>
+            &nbsp;<v-progress-circular
+              v-if="loadingImage"
+              indeterminate
+              color="#FFF"
+              size="20"
+            ></v-progress-circular>
           </v-btn>
         </v-row>
       </v-form>
@@ -101,6 +107,7 @@ export default {
     return {
       errorMessage: "",
       sucessMessage: "",
+      loadingImage: false,
       valid: false,
       username: "",
       password: "",
@@ -108,11 +115,12 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("login", ["SET_AUTH", "SET_USER_DATA"]),
+    ...mapMutations("login", ["SET_USER_UUID", "SET_USER_DATA"]),
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
       if (this.username && this.password) {
+        this.loadingImage = true;
         this.loginUser();
       }
     },
@@ -139,19 +147,21 @@ export default {
         var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
           headers: config.header
         });
-        console.log(data.data[0].uuid);
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
+          this.loadingImage = false;
+          this.SET_USER_UUID(data.data[0].uuid);
           this.SET_USER_DATA(data.data[0]);
           this.$cookies.set("userUUID", data.data[0].uuid, {
             path: "/"
           });
           this.$emit("loginClose");
-          this.$router.push("/profile");
+          this.$router.push("/mobile/profile");
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
@@ -164,12 +174,7 @@ export default {
 .terms {
   color: #ff0167 !important;
 }
-.errorMessage {
-  color: #ffffff !important;
-}
-.sucessMessage {
-  color: green !important;
-}
+
 .errors {
   color: #ffffff !important;
 }
@@ -230,6 +235,20 @@ export default {
   padding: 10px 20px;
   color: #ffffff;
 }
+input[type="radio"]:checked + label {
+  color: #ffffff;
+}
+label .label-text {
+  color: #ffffff;
+}
+label input.check:checked + .label-text,
+.check {
+  color: #ff0167;
+  cursor: pointer;
+}
+.label-text {
+  cursor: pointer;
+}
 .loginButton {
   text-align: center;
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
@@ -247,20 +266,6 @@ export default {
   left: 0;
   right: 0;
   box-shadow: 2px 11px 35px 13px #6e0221;
-}
-input[type="radio"]:checked + label {
-  color: #ffffff;
-}
-label .label-text {
-  color: #ffffff;
-}
-label input.check:checked + .label-text,
-.check {
-  color: #ff0167;
-  cursor: pointer;
-}
-.label-text {
-  cursor: pointer;
 }
 .loginButton .icon {
   color: #fff;

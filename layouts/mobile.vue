@@ -26,20 +26,36 @@
 
     <v-app-bar fixed color="#1E1E1F" class="navbar-mobile" height="60" dens>
       <v-toolbar-title>
-        <v-btn to="/mobile/profile" text color="transparent">
+        <v-btn to="/" text color="transparent">
           <v-img width="100" src="/logo/logo.png"></v-img>
         </v-btn>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <div class=" menu-list">
+      <div class="menu-list" v-if="GetUserData">
+      <v-btn dark class="userLogout" to="/mobile/profile">
+          <v-avatar size="35" mr-1>
+            <img :src="this.defaultImage" alt />
+          </v-avatar>
+          <div class="userLogoutMenu">
+            <span> &nbsp; &nbsp;{{ GetUserData.username }} </span>
+          </div>
+        </v-btn>
+
+        <v-btn dark small icon @click.stop="OpenDrawer = !OpenDrawer">
+          <v-icon>
+            {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }}
+          </v-icon>
+        </v-btn>
+      </div>
+      <div v-else class="menu-list">
         <v-btn rounded small outlined color="pink" @click="openloginDialog()">
-          <v-icon size="13">fas fa-user</v-icon>
-          Login
+          <v-icon size="18">fas fa-user</v-icon>
+          &nbsp;Login
         </v-btn>
         <v-btn dark small rounded color="pink" @click="openRegisterDialog()">
-          <v-icon size="13">fas fa-user-plus</v-icon>
-          Register
+          <v-icon size="18">fas fa-user-plus</v-icon>
+          &nbsp;Register
         </v-btn>
         <v-btn dark small icon>
           <v-icon size="18">fas fa-globe-americas</v-icon>
@@ -107,6 +123,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import json from "~/json/items";
 import Login from "../components/Mobile/login/login";
 import forgotPassword from "../components/Mobile/login/forgotPassword";
@@ -115,6 +132,7 @@ export default {
   name: "mobile",
   data() {
     return {
+      defaultImage: "../../default.jpg",
       loginDialog: false,
       registerDialog: false,
       forgotPasswordDialog: false,
@@ -127,7 +145,17 @@ export default {
     register,
     forgotPassword
   },
+  computed: {
+    ...mapGetters("login", ["GetUserData"])
+  },
   methods: {
+    // ...mapMutations("login", ["CLEAR_USER_DATA", "SET_USER_DATA"]),
+    // Logout Users
+    userLogout() {
+      this.CLEAR_USER_DATA();
+      Cookies.remove("userUUID", { path: "" }); // removed! UserUUID Cookies
+      this.$router.push("/");
+    },
     closeTheLogin() {
       this.loginDialog = false;
     },
@@ -155,4 +183,57 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.v-menu__content {
+  border-radius: 15px;
+}
+
+.v-list {
+  padding: 0px;
+}
+
+.userLogoutMenu {
+  float: left;
+  text-align: left;
+  color: #fff;
+  font-size: 16px;
+  display: inline-grid;
+}
+
+.userLogoutMenu .balance {
+  color: #fff;
+  font-size: 16px;
+}
+
+.v-list__tile i {
+  font-size: 16px;
+}
+
+.v-list__tile .v-list__tile__title {
+  margin-left: 5px;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.fa-15x {
+  font-size: 1.45em;
+}
+
+.margin-right-5 {
+  margin-right: 4px;
+}
+
+.v-avatar {
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 50%;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  border: 2px solid;
+}
+</style>

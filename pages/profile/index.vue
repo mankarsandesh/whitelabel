@@ -411,18 +411,10 @@ export default {
   }),
   async mounted() {
     await this.usersData();
-    this.updateUserData();
-      console.log("mounted");
+    this.updateUserData();      
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
-  },
-  created(){
-    // this.updateUserData();
-    // console.log("cREATED");
-  },
-  updated() {
-   
   },
   methods: {
     ...mapActions("login",["setUserData","usersData"]),

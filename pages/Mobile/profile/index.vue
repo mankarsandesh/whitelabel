@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex class="profileForm mt-5">
+    <v-flex class="profileForm ">
       <v-row justify="center">
         <v-col cols="6">
           <v-card class="mx-auto text-center" flat>
@@ -25,9 +25,18 @@
                   </v-avatar>
                 </v-badge>
                 <v-list-item color="rgba(0, 0, 0, .4)" light>
-                  <v-list-item-content>
-                    <v-list-item-title class="display-0">
-                      Ritesh Naik
+                  <v-list-item-content class="title">
+                    <v-list-item-title
+                      class="display-0"
+                      v-if="!GetUserData.first_name"
+                    >
+                      {{ GetUserData.username }}
+                    </v-list-item-title>
+                    <v-list-item-title
+                      class="display-0"
+                      v-if="GetUserData.first_name"
+                    >
+                      {{ GetUserData.first_name }} {{ GetUserData.last_name }}
                     </v-list-item-title>
                     <v-list-item-subtitle class="display-0"
                       >Vientiane,Laos
@@ -40,10 +49,10 @@
         </v-col>
         <v-col cols="6" class="mt-5">
           <v-card
-            height="60"
+            height="80"
             align="center"
             justify="center"
-            class="mt-2 account"
+            class="mt-2 pt-3 account"
             style="font-size: 18px;"
             light
             rounded="true"
@@ -51,7 +60,13 @@
             <span class="font-weight-light" align="center" justify="center"
               >Account Balance</span
             >
-            <span class="display-0 balance font-weight-black">$2500.00</span>
+            <div class="display-0 balance font-weight-black">
+              <animated-number
+                :value="GetUserData.balance"
+                :formatValue="formatToPrice"
+                class="userBalance"
+              />
+            </div>
           </v-card>
         </v-col>
       </v-row>
@@ -66,23 +81,41 @@
                 </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                <p class="errorMessage" v-if="this.errorMessage">
-                  {{ this.errorMessage }}
-                </p>
-
-                <p class="sucessMessage" v-if="this.sucessMessage">
-                  {{ this.sucessMessage }}
+                <p
+                  v-bind:class="{
+                    sucessMessage: sucessMessage,
+                    errorMessage: errorMessage
+                  }"
+                >
+                  {{ this.errorMessage }} {{ this.sucessMessage }}
                 </p>
 
                 <v-form ref="form" v-model="valid" lazy-validation>
+                  <label class="labelFont">First Name</label>
+                  <v-text-field
+                    class="inputClass"
+                    height="30"
+                    v-model="form.firstName"
+                    outlined
+                    rounded
+                    dense
+                  ></v-text-field>
+                  <label class="labelFont">Last Name</label>
+                  <v-text-field
+                    class="inputClass"
+                    height="30"
+                    v-model="form.lastName"
+                    outlined
+                    rounded
+                    dense
+                  ></v-text-field>
                   <label class="labelFont">Username</label>
                   <v-text-field
                     class="inputClass"
                     height="30"
-                    v-model="username"
+                    v-model="form.username"
                     outlined
                     rounded
-                    readonly
                     dense
                   ></v-text-field>
                   <label class="labelFont"
@@ -91,7 +124,7 @@
                   <v-text-field
                     class="inputClass"
                     height="30"
-                    v-model="email"
+                    v-model="form.email"
                     outlined
                     rounded
                     dense
@@ -105,46 +138,21 @@
                       <span>Tooltip</span>
                     </v-tooltip></v-text-field
                   >
-                  <label class="labelFont"
-                    >Password<span class="balance">*</span></label
-                  >
-                  <v-text-field
-                    class="inputClass"
-                    height="30"
-                    type="password"
-                    outlined
-                    rounded
-                    dense
-                    required
-                    :rules="[v => !!v || 'Password is required']"
-                    v-slot:ativator="{ on }"
-                    ><v-tooltip slot="append" bottom>
-                      <v-icon v-on="on" color="#e91e63" dark size="18"
-                        >fa fa-pencil</v-icon
-                      >
-                      <span>Tooltip</span>
-                    </v-tooltip></v-text-field
-                  >
+
                   <label class="labelFont"
                     >Phone<span class="balance">*</span></label
                   >
                   <v-text-field
                     class="inputClass"
                     height="30"
-                    v-model="phone"
+                    v-model="form.phone"
                     outlined
                     rounded
                     dense
                     required
                     :rules="[v => !!v || 'Phone number is required']"
-                    v-slot:activator ="{ on }"
-                    ><v-tooltip slot="append" bottom>
-                      <v-icon v-on="on" color="#e91e63" dark size="18"
-                        >fa fa-pencil</v-icon
-                      >
-                      <span>Tooltip</span>
-                    </v-tooltip></v-text-field
-                  >
+                    v-slot:activator="{ on }"
+                  ></v-text-field>
                   <label class="labelFont"
                     >Country<span class="balance">*</span></label
                   >
@@ -155,12 +163,28 @@
                     rounded
                     dense
                     required
-                    v-model="country"
-                    :items="countries"
+                    v-model="form.country"
+                    :items="form.countrys"
                     item-text="name"
                     item-value="id"
                     :rules="[v => !!v || 'Country is required']"
                   ></v-select>
+
+                  <v-btn @click="updateProfile" class="loginButton" height="50">
+                    Save&nbsp;
+                    <v-icon class="icon" size="20">
+                      fas fa-chevron-double-right
+                    </v-icon>
+                    <v-icon class="icon" size="20">
+                      fas fa-chevron-double-right
+                    </v-icon>
+                    &nbsp;<v-progress-circular
+                      v-if="loadingImage"
+                      indeterminate
+                      color="#FFF"
+                      size="20"
+                    ></v-progress-circular>
+                  </v-btn>
                 </v-form>
               </v-expansion-panel-content>
             </v-expansion-panel>
@@ -174,7 +198,7 @@
                 </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                Address
+                Comming Soon
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -185,53 +209,140 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import Validate from "~/validation/profile";
 import axios from "axios";
 import config from "../../../config/config.global";
+import AnimatedNumber from "animated-number-vue";
 
 export default {
   layout: ctx => (ctx.isMobile ? "mobile" : "default"),
+  components: {
+    AnimatedNumber
+  },
   data() {
     return {
+      loadingImage: false,
       defaultImage: "../../default.jpg",
       panel: 0,
       errorMessage: "",
       sucessMessage: "",
       valid: false,
-      username: "",
-      email: "",
-      phone: "",
-      password: "",
-      country: 45,
-      countries: [
-        {
-          id: 45,
-          name: "China"
-        },
-        {
-          id: 122,
-          name: "Laos"
-        },
-        {
-          id: 220,
-          name: "Thailand"
-        },
-        {
-          id: 236,
-          name: "USA"
-        }
-      ],
+      form: {
+        firstName: "",
+        lastName: "",
+        username: "",
+        email: "",
+        country: 45,
+        countrys: [
+          {
+            id: 45,
+            name: "China"
+          },
+          {
+            id: 122,
+            name: "Laos"
+          },
+          {
+            id: 220,
+            name: "Thailand"
+          },
+          {
+            id: 236,
+            name: "USA"
+          }
+        ],
+        phone: null
+      },
       selectedLanguage: "us",
       emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+/.test(v) || "E-mail must be valid"
       ]
     };
+  },
+  async mounted() {
+    await this.usersData();
+    this.updateUserData();
+    console.log("Mounted");
+  },
+  computed: {
+    ...mapGetters("login", ["GetUserData"])
+  },
+  methods: {
+    ...mapActions("login", ["setUserData", "usersData"]),
+    // Format User balance
+    formatToPrice(value) {
+      return `$ ${Number(value)
+        .toFixed(2)
+        .toString()
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}`;
+    },
+    // Set All User Exiting Value
+    updateUserData() {
+      this.form.username = this.GetUserData.username;
+      this.form.email = this.GetUserData.email;
+      this.form.country = this.GetUserData.country_id;
+      this.form.firstName = this.GetUserData.first_name;
+      this.form.lastName = this.GetUserData.last_name;
+    },
+    //update Profile
+    async updateProfile() {
+      this.loadingImage = true;
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          first_name: this.form.firstName,
+          last_name: this.form.lastName,
+          username: this.form.username,
+          country_id: this.form.country
+        };
+        var { data } = await axios.post(config.userUpdateDetails.url, reqBody, {
+          headers: config.header
+        });
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.loadingImage = false;
+          this.setUserData(data.data[0]);
+          this.updateUserData();
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+          this.loadingImage = false;
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
+    }
   }
 };
 </script>
 
 <style scoped>
+.loginButton {
+  text-align: center;
+  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
+  border-radius: 50px;
+  font-size: 20px;
+  padding: 10px 20px;
+  font-weight: 800;
+  margin: 10px auto !important;
+  width: 100%;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.loginButton .icon {
+  color: #fff;
+  margin-right: 10px;
+  margin-top: 0px;
+}
+.loginButton .icon:last-child {
+  opacity: 0.4;
+  margin-left: -10px;
+  color: #fff;
+}
 .title {
   text-transform: capitalize;
 }
