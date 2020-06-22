@@ -141,6 +141,16 @@
             "title": "withdrawal",
             "icon": "fas fa-home",
             "path": "/profile/withdrawal"
+        },
+        {
+            "title": "Order History",
+            "icon": "fas fa-home",
+            "path": "/profile/order_history"
+        },
+        {
+            "title": "Track Your Order",
+            "icon": "fas fa-home",
+            "path": "/profile/track_order"
         }
     ],
     "gameMode": [{

@@ -209,6 +209,8 @@ export default {
           break;
         case route === "profile" ||
           route === "profile-deposit" ||
+          route === "order_history" ||
+          route === "track_order" ||
           route === "profile-WithDrawal":
           return "profile-container";
           break;
