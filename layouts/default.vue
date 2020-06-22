@@ -269,10 +269,22 @@ export default {
       this.loginDialog = true;
     },
     // Close Register Screen
-    closeRegister() {
-      this.registerDialog = false;
-    },
+    // closeRegister() {
+    //   this.registerDialog = false;
+    // },
     // Close Login Screen
+
+    // closeLogin() {
+    //   this.loginDialog = false;
+    // },
+    // showRegisterDialog() {
+    //   this.loginDialog = false;
+    //   this.registerDialog = true;
+    // },
+    // showLoginDialog() {
+    //   this.registerDialog = false;
+    //   this.loginDialog = true;
+    // }
     closeLogin() {
       this.loginDialog = false;
     },

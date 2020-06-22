@@ -153,6 +153,22 @@
             "path": "/profile/track_order"
         }
     ],
+    "stockImg": [{
+            "title": "USA STOCK",
+            "desc": "USINDEX",
+            "src": "/stockImg/Stock-img-1.png"
+        },
+        {
+            "title": "CRYPTO",
+            "desc": "BTC5 | BTC1",
+            "src": "/stockImg/Stock-img-2.png"
+        },
+        {
+            "title": "CHINA STOCK",
+            "desc": "SH000001 | SH000300 | SZ399415",
+            "src": "/stockImg/Stock-img-3.png"
+        }
+    ],
     "gameMode": [{
             "src": "/gameMode/business-mode.png",
             "title": "business",

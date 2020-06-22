@@ -7,13 +7,18 @@
 "
       >
         <v-row class="fill-height" align="center" justify="center">
-          <v-col cols="8">
-            <v-card flat class="ml-20">
-              <v-card-title class="display-2 font-weight-bold"
-                >Your mood or Game</v-card-title
+          <v-col cols="9" align="center">
+            <v-card flat>
+              <v-card-title
+                class="display-0 font-weight-black justify-center"
+                style="margin-top:60px;"
+                >Your Mood or Game</v-card-title
               >
-              <v-card-title class="flex display-4 font-weight-black color-pink"
-                >Choose game</v-card-title
+              <v-card-title
+                class="flex display-2 font-weight-bold color-pink justify-center"
+                style="white-space:nowrap;"
+              >
+                Choose Game</v-card-title
               >
             </v-card>
             <v-row>
@@ -25,25 +30,32 @@
                 v-for="(item, index) in items"
                 :key="index"
               >
-                <v-card dark flat class="banner-2"  max-width="344">
+                <v-card
+                  dark
+                  flat
+                  class="banner-2"
+                  max-width="125"
+                  max-height="135"
+                >
                   <v-img :src="item.src" class=" align-center opcity-images">
                     <v-card-title
-                      class=" text-uppercase justify-center text-center display-1 font-weight-bold"
+                      class=" text-uppercase text-center display-0 font-weight-bold"
+                      style="white-space: nowrap;"
                       >{{ item.title }}</v-card-title
                     >
                   </v-img>
                 </v-card>
               </v-col>
-              <v-btn x-large rounded color="pink" class="px-8 ml-4"
-                >bet now
-                <span class=" ml-3">
-                  <v-icon size="15"> fas fa-chevron-double-right</v-icon
-                  ><v-icon size="15" class=" opcity-1">
-                    fas fa-chevron-double-right</v-icon
-                  >
-                </span>
-              </v-btn>
             </v-row>
+            <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-2 btnShadow"
+              >bet now
+              <span class="ml-3">
+                <v-icon size="15"> fas fa-chevron-double-right</v-icon
+                ><v-icon size="15" class="opacity-1">
+                  fas fa-chevron-double-right</v-icon
+                >
+              </span>
+            </v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -60,4 +72,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.btnShadow {
+  box-shadow: 2px 11px 35px 13px #6e0221;
+}
+</style>
