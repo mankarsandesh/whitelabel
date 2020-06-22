@@ -136,6 +136,7 @@
                     rounded
                     dense
                     required
+                    :rules="[v => !!v || 'Phone number is required']"
                     v-slot:activator ="{ on }"
                     ><v-tooltip slot="append" bottom>
                       <v-icon v-on="on" color="#e91e63" dark size="18"

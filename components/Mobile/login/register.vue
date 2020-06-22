@@ -1,140 +1,138 @@
 <template>
-  <div class="mainRegister">
-    <div class="registerForm">
-      <v-row justify="center">
-        <v-icon class="closeButton" @click="closePopup()" right size="20">
-          fas fa-times
+  <div class="registerForm">
+    <v-row justify="center">
+      <v-icon class="closeButton" @click="closePopup()" right size="20">
+        fas fa-times
+      </v-icon>
+      <h2>
+        <v-icon class="icon" left size="20">
+          fas fa-user-plus
         </v-icon>
-        <h2>
-          <v-icon class="icon" left size="20">
-            fas fa-user-plus
-          </v-icon>
-          Register
-        </h2>
-      </v-row>
-      <v-row justify="center">
-        <p>
-          Already have an account?
-          <span class="terms" @click="openLogin()">Login now</span>
-        </p>
-      </v-row>
-
-      <p class="errorMessage" v-if="this.errorMessage">
-        {{ this.errorMessage }}
+        Register
+      </h2>
+    </v-row>
+    <v-row justify="center">
+      <p>
+        Already have an account?
+        <span class="terms" @click="openLogin()">Login now</span>
       </p>
+    </v-row>
 
-      <p class="sucessMessage" v-if="this.sucessMessage">
-        {{ this.sucessMessage }}
-      </p>
+    <p class="errorMessage" v-if="this.errorMessage">
+      {{ this.errorMessage }}
+    </p>
 
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Username</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="30"
-          dark
-          v-model="username"
-          outlined
-          rounded
-          dense
-          autofocus
-        ></v-text-field>
-        <label>Email<span class="imp">*</span></label>
-        <v-text-field
-          class="inputClassRegi"
-          height="30"
-          v-model="email"
-          outlined
-          rounded
-          dense
-          required
-          :rules="emailRules"
-        ></v-text-field>
-        <label>Password<span class="imp">*</span></label>
-        <v-text-field
-          class="inputClassRegi"
-          height="30"
-          type="password"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Password is required']"
-        ></v-text-field>
-        <label>Confirm Password<span class="imp">*</span></label>
-        <v-text-field
-          class="inputClassRegi"
-          height="30"
-          type="password"
-          v-model="repeatPassword"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Password is required']"
-        ></v-text-field>
+    <p class="sucessMessage" v-if="this.sucessMessage">
+      {{ this.sucessMessage }}
+    </p>
 
-        <div>
-          <label>Gender</label>
-          <v-radio-group v-model="gender" :mandatory="false" row>
-            <v-radio
-              height="30"
-              class="genderClass"
-              color="#ff0167"
-              v-for="data in genders"
-              :key="data"
-              :label="`${data}`"
-              :value="data"
-              required
-            ></v-radio>
-          </v-radio-group>
-        </div>
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <label>Username</label>
+      <v-text-field
+        class="inputClassRegi"
+        height="30"
+        dark
+        v-model="username"
+        outlined
+        rounded
+        dense
+        autofocus
+      ></v-text-field>
+      <label>Email<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClassRegi"
+        height="30"
+        v-model="email"
+        outlined
+        rounded
+        dense
+        required
+        :rules="emailRules"
+      ></v-text-field>
+      <label>Password<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClassRegi"
+        height="30"
+        type="password"
+        outlined
+        rounded
+        dense
+        required
+        :rules="[v => !!v || 'Password is required']"
+      ></v-text-field>
+      <label>Confirm Password<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClassRegi"
+        height="30"
+        type="password"
+        v-model="repeatPassword"
+        outlined
+        rounded
+        dense
+        required
+        :rules="[v => !!v || 'Password is required']"
+      ></v-text-field>
 
-        <div>
-          <label>Country<span class="imp">*</span></label>
-          <v-select
+      <div>
+        <label>Gender</label>
+        <v-radio-group v-model="gender" :mandatory="false" row>
+          <v-radio
             height="30"
-            class="inputClassRegi"
-            outlined
-            rounded
-            dense
+            class="genderClass"
+            color="#ff0167"
+            v-for="data in genders"
+            :key="data"
+            :label="`${data}`"
+            :value="data"
             required
-            v-model="country"
-            :items="countrys"
-            item-text="name"
-            item-value="id"
-            :rules="[v => !!v || 'Country is required']"
-          ></v-select>
-        </div>
+          ></v-radio>
+        </v-radio-group>
+      </div>
 
-        <div class="float-left">
-          <v-checkbox
-            v-model="agree"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            label="Agree with Terms & Conditions"
-            required
-            dense
-            color="#ff1067"
-          ></v-checkbox>
-        </div>
-        <div class="col xs-12 sm-12 text-center" mt-5>
-          <v-btn
-            class="registerButton"
-            @click="validate"
-            :disabled="!valid"
-            height="50"
-          >
-            Sign up
-            <v-icon class="icon" size="20">
-              fas fa-chevron-double-right
-            </v-icon>
-            <v-icon class="icon" size="20">
-              fas fa-chevron-double-right
-            </v-icon>
-          </v-btn>
-        </div>
-      </v-form>
-    </div>
+      <div>
+        <label>Country<span class="imp">*</span></label>
+        <v-select
+          height="30"
+          class="inputClassRegi"
+          outlined
+          rounded
+          dense
+          required
+          v-model="country"
+          :items="countrys"
+          item-text="name"
+          item-value="id"
+          :rules="[v => !!v || 'Country is required']"
+        ></v-select>
+      </div>
+
+      <div class="float-left">
+        <v-checkbox
+          v-model="agree"
+          :rules="[v => !!v || 'You must agree to continue!']"
+          label="Agree with Terms & Conditions"
+          required
+          dense
+          color="#ff1067"
+        ></v-checkbox>
+      </div>
+      <div class="col xs-12 sm-12 text-center" mt-5>
+        <v-btn
+          class="registerButton"
+          @click="validate"
+          :disabled="!valid"
+          height="50"
+        >
+          Sign up
+          <v-icon class="icon" size="20">
+            fas fa-chevron-double-right
+          </v-icon>
+          <v-icon class="icon" size="20">
+            fas fa-chevron-double-right
+          </v-icon>
+        </v-btn>
+      </div>
+    </v-form>
   </div>
 </template>
 
@@ -267,12 +265,7 @@ input[type="radio"]:checked + label {
 .label-text span {
   color: #ffffff !important;
 }
-.mainRegister {
-  width: 380px;
-  height: 950px;
-  margin: 0 auto;
-  position: relative;
-}
+
 .registerForm {
   position: absolute;
   background-image: url(/mobile/mobile-bg-1.jpg);
