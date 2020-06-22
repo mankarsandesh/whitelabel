@@ -18,12 +18,13 @@
       </p>
     </v-row>
 
-    <p class="errorMessage" v-if="this.errorMessage">
-      {{ this.errorMessage }}
-    </p>
-
-    <p class="sucessMessage" v-if="this.sucessMessage">
-      {{ this.sucessMessage }}
+    <p
+      v-bind:class="{
+        sucessMessage: sucessMessage,
+        errorMessage: errorMessage
+      }"
+    >
+      {{ this.errorMessage }} {{ this.sucessMessage }}
     </p>
 
     <v-form ref="form" v-model="valid" lazy-validation>
@@ -32,17 +33,19 @@
         class="inputClassRegi"
         height="30"
         dark
-        v-model="username"
+        v-model="registerForm.username"
         outlined
         rounded
         dense
+        required
         autofocus
+        :rules="[v => !!v || 'Username is required']"
       ></v-text-field>
       <label>Email<span class="imp">*</span></label>
       <v-text-field
         class="inputClassRegi"
         height="30"
-        v-model="email"
+        v-model="registerForm.email"
         outlined
         rounded
         dense
@@ -54,6 +57,7 @@
         class="inputClassRegi"
         height="30"
         type="password"
+        v-model="registerForm.password"
         outlined
         rounded
         dense
@@ -65,7 +69,7 @@
         class="inputClassRegi"
         height="30"
         type="password"
-        v-model="repeatPassword"
+        v-model="registerForm.repeatPassword"
         outlined
         rounded
         dense
@@ -75,7 +79,7 @@
 
       <div>
         <label>Gender</label>
-        <v-radio-group v-model="gender" :mandatory="false" row>
+        <v-radio-group v-model="registerForm.gender" :mandatory="false" row>
           <v-radio
             height="30"
             class="genderClass"
@@ -98,7 +102,7 @@
           rounded
           dense
           required
-          v-model="country"
+          v-model="registerForm.country"
           :items="countrys"
           item-text="name"
           item-value="id"
@@ -108,7 +112,7 @@
 
       <div class="float-left">
         <v-checkbox
-          v-model="agree"
+          v-model="registerForm.agree"
           :rules="[v => !!v || 'You must agree to continue!']"
           label="Agree with Terms & Conditions"
           required
@@ -130,6 +134,12 @@
           <v-icon class="icon" size="20">
             fas fa-chevron-double-right
           </v-icon>
+          &nbsp;<v-progress-circular
+            v-if="loadingImage"
+            indeterminate
+            color="#FFF"
+            size="20"
+          ></v-progress-circular>
         </v-btn>
       </div>
     </v-form>
@@ -143,16 +153,19 @@ import config from "../../../config/config.global";
 export default {
   data() {
     return {
+      loadingImage: false,
       errorMessage: "",
       sucessMessage: "",
       valid: false,
-      username: "",
-      email: "",
-      password: "",
-      repeatPassword: "",
-      country: 45,
-      gender: "male",
-      agree: false,
+      registerForm: {
+        username: "",
+        email: "",
+        password: "",
+        repeatPassword: "",
+        country: 45,
+        gender: "male",
+        agree: false
+      },
       genders: ["male", "female", "other"],
       countrys: [
         {
@@ -189,18 +202,19 @@ export default {
     validate() {
       this.$refs.form.validate();
       if (
-        this.username &&
-        this.email &&
-        this.password &&
-        this.repeatPassword &&
-        this.gender &&
-        this.country &&
-        this.agree
+        this.registerForm.username &&
+        this.registerForm.email &&
+        this.registerForm.password &&
+        this.registerForm.repeatPassword &&
+        this.registerForm.gender &&
+        this.registerForm.country &&
+        this.registerForm.agree
       ) {
-        if (this.password == this.repeatPassword) {
+        if (this.registerForm.password == this.registerForm.repeatPassword) {
+          this.loadingImage = true;
           this.userRegistration();
         } else {
-          this.errorMessage = "Repeat Password didn't match";
+          this.errorMessage = "Repeat Password did't Match";
         }
       }
     },
@@ -212,14 +226,12 @@ export default {
     async userRegistration() {
       try {
         var reqBody = {
-          username: this.username,
-          email: this.email,
-          password: this.repeatPassword,
-          gender: this.gender,
-          country_id: this.country,
+          username: this.registerForm.username,
+          email: this.registerForm.email,
+          password: this.registerForm.repeatPassword,
+          gender: this.registerForm.gender,
+          country_id: this.registerForm.country,
           currency_id: 1,
-          first_name: "Sandesh",
-          last_name: "mankar",
           last_ip: "127.0.0.2"
         };
         var { data } = await axios.post(config.userRegisterAuth.url, reqBody, {
@@ -229,9 +241,16 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
+          this.registerForm.username = "";
+          this.registerForm.email = "";
+          this.registerForm.password = "";
+          this.registerForm.repeatPassword = "";
+          this.registerForm.username = "";
+          this.loadingImage = false;         
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
+          this.loadingImage = false;
         }
       } catch (ex) {
         console.log(ex);
@@ -269,10 +288,10 @@ input[type="radio"]:checked + label {
 .registerForm {
   position: absolute;
   background-image: url(/mobile/mobile-bg-1.jpg);
-  padding: 50px 20px 405px 20px;
+  padding: 50px 20px 0px 20px;
   background-size: cover;
   width: 100%;
-  height: 100%;
+  height: auto;
   background-color: rgba(4, 1, 17, 0.88);
   background-blend-mode: multiply;
 }
