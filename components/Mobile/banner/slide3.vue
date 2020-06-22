@@ -6,49 +6,53 @@
     display: contents;
 "
       >
-        <v-row class="fill-height" align="center" justify="center">
-          <v-col cols="8">
-            <v-card flat class="ml-20">
-              <v-card-title class="display-2 font-weight-bold"
-                >Multiple Bet on</v-card-title
+        <v-row class="fill-height mt-5" align="center">
+          <v-col cols="12" align="center">
+            <v-card flat>
+              <v-row
+                class="display-0 font-weight-bold justify-center"
+                style="margin-top:30px;"
+                >Multiple BET On</v-row
               >
-              <v-card-title class="flex display-4 font-weight-black color-pink"
-                >Stock & Digits</v-card-title
+              <v-card-title
+                flat
+                class="display-2 font-weight-bold color-pink justify-center"
+                style="white-space:nowrap;"
+                >Stocks & Digits</v-card-title
               >
             </v-card>
-
-            <v-row class="my-8">
-              <v-col cols="4" v-for="(item, index) in items" :key="index">
+            <v-row>
+              <v-col
+                lg="3"
+                xs="6"
+                sm="6"
+                v-for="(item, index) in items"
+                :key="index"
+              >
                 <v-card
-                  height="120"
-                  max-width="344"
-                  :class="item.color"
-                  class="card-multiple"
+                  dark
+                  flat
+                  class="stockImg"
+                  max-width="270"
+                  max-height="235"
+                  style="border-width: 1px;"
                 >
-                  <v-btn
-                    absolute
-                    :color="item.iconColor"
-                    class="white--text"
-                    fab
-                    large
-                    top
-                  >
-                    <v-icon size="40">{{ item.icon }}</v-icon>
-                  </v-btn>
-                  <v-img :src="item.src" class=" align-center">
-                    <v-card-title
-                      class=" text-uppercase justify-center text-center display-1 font-weight-bold"
-                      >{{ item.title }}</v-card-title
-                    >
+                  <v-img :src="item.src" class="align-center opcity-images">
+                    <v-card class="text-center stockName font-weight-bold"
+                      >{{ item.title }}
+                    </v-card>
+                    <p class="text-center stockDesc display-0">
+                      {{ item.desc }}
+                    </p>
                   </v-img>
                 </v-card>
               </v-col>
             </v-row>
-            <v-btn x-large rounded color="pink" class="px-8 ml-4"
+            <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-4 btnShadow"
               >bet now
-              <span class=" ml-3">
+              <span class="ml-3">
                 <v-icon size="15"> fas fa-chevron-double-right</v-icon
-                ><v-icon size="15" class=" opcity-1">
+                ><v-icon size="15" class=" opacity-1">
                   fas fa-chevron-double-right</v-icon
                 >
               </span>
@@ -64,9 +68,21 @@
 import json from "~/json/items";
 export default {
   data: () => ({
-    items: json.mutiple_bet
+    items: json.stockImg
   })
 };
 </script>
 
-<style></style>
+<style>
+.stockName {
+  color: #a59dbd !important;
+  white-space: nowrap;
+  font-size: 30px;
+}
+.stockDesc {
+  font-size: 14px !important;
+}
+.btnShadow {
+  box-shadow: 2px 11px 35px 13px #6e0221;
+}
+</style>
