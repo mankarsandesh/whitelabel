@@ -84,7 +84,7 @@
         {
             "icon": "far fa-gamepad",
             "title": "game mode",
-            "path": "/gameMode"
+            "path": "/mobile/gameMode"
         },
         {
             "icon": "fas fa-gift",

@@ -57,9 +57,10 @@
           <v-icon size="18">fas fa-user-plus</v-icon>
           &nbsp;Register
         </v-btn>
-        <v-btn dark small icon>
+        <!-- Transalte Language -->
+        <!-- <v-btn dark small icon>
           <v-icon size="18">fas fa-globe-americas</v-icon>
-        </v-btn>
+        </v-btn> -->
         <v-btn dark small icon @click.stop="OpenDrawer = !OpenDrawer">
           <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>
         </v-btn>
