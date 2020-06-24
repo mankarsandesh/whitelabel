@@ -41,6 +41,9 @@ const config = {
   },
   userToPupBalance:{
     url: `${process.env.BASE_URL}/updateUserProfile`
+  },
+  registerBankDetail:{
+    url: `${process.env.BASE_URL}/registerBankDetail`
   }
 };
 export default config;

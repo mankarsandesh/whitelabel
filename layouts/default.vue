@@ -209,9 +209,9 @@ export default {
           break;
         case route === "profile" ||
           route === "profile-deposit" ||
-          route === "order_history" ||
-          route === "track_order" ||
-          route === "profile-WithDrawal":
+          route === "profile-withdrawal" ||
+          route === "profile-order_history" ||
+          route === "profile-track_order":
           return "profile-container";
           break;
         case route === "gameMode":
@@ -247,18 +247,18 @@ export default {
         console.log(ex);
       }
     },
+    // Force Render Login/Regisrer and Forgot Component
     forceRerender() {
       this.renderLogin = false;
       this.renderRegister = false;
       this.renderForgot = false;
-
       this.$nextTick(() => {
         this.renderLogin = true;
         this.renderRegister = true;
         this.renderForgot = true;
       });
     },
-    // open Register Form
+    // Open Register Form
     openRegisterForm() {
       this.forceRerender();
       this.registerDialog = true;
