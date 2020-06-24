@@ -38,6 +38,9 @@ const config = {
   },
   userUpdateDetails:{
     url: `${process.env.BASE_URL}/updateUserProfile`
+  },
+  userToPupBalance:{
+    url: `${process.env.BASE_URL}/updateUserProfile`
   }
 };
 export default config;

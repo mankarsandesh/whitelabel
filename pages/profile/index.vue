@@ -151,28 +151,7 @@
             required
             :rules="[v => !!v || 'Country is required']"
           ></v-select>
-        </v-col>
-        <!-- <v-col cols="6">
-          <subheader title="phone" />
-          <v-text-field
-            :error-messages="phoneErrors"
-            @input="$v.form.phone.$touch()"
-            @blur="$v.form.phone.$touch()"
-            :hide-details="phoneErrors.length ? false : true"
-            type="number"
-            class="text-filed"
-            height="48"
-            light
-            outlined
-            rounded
-            dense
-            required
-          >
-            <template slot="append">
-              <v-icon size="20" color="pink">fas fa-pen</v-icon>
-            </template>
-          </v-text-field>
-        </v-col> -->
+        </v-col>       
       </v-row>
 
       <v-divider></v-divider>
