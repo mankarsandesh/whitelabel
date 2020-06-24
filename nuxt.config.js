@@ -43,6 +43,7 @@ export default {
     "~/plugins/vueDependency",
     "~/plugins/checkLogin",
     "~/plugins/js-cookie", // for setting and reading cookies
+    "~/plugins/i18n",
   ],
   /*
    ** Nuxt.js dev-modules

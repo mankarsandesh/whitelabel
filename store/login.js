@@ -8,7 +8,7 @@ const state = () => ({
   uuid: null,
   userData: "" ,// Store user data
   locales: ["cn", "us", "th", "la"], // Store language locales
-  locale: secureStorage.getItem("lang"), // Store locale
+  locale: "cn", // Store locale
 });
 
 //Getters

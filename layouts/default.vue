@@ -49,11 +49,10 @@
           {{ item.title }}
         </v-btn>
       </template>
-      <!-- <v-btn class="mx-2" large icon  @click="$refs.language.showDialog()">
+      <v-btn class="mx-5" large icon  @click="$refs.language.showDialog()">
         <country-flag :country="getLocale" size="normal" />
-        <span>English</span>
-        <v-icon> fas fa-globe</v-icon>
-      </v-btn> -->
+        <!-- <v-icon> fas fa-globe</v-icon> -->
+      </v-btn>
       <languageDialog ref="language" />
       <div v-if="GetUserData">
         <v-btn text dark to="/profile">
