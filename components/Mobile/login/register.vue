@@ -286,7 +286,7 @@ input[type="radio"]:checked + label {
 }
 
 .registerForm {
-  position: absolute;
+  position: sticky;
   background-image: url(/mobile/mobile-bg-1.jpg);
   padding: 50px 20px 0px 20px;
   background-size: cover;

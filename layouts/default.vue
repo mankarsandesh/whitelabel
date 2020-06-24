@@ -49,6 +49,12 @@
           {{ item.title }}
         </v-btn>
       </template>
+      <!-- <v-btn class="mx-2" large icon  @click="$refs.language.showDialog()">
+        <country-flag :country="getLocale" size="normal" />
+        <span>English</span>
+        <v-icon> fas fa-globe</v-icon>
+      </v-btn> -->
+      <languageDialog ref="language" />
       <div v-if="GetUserData">
         <v-btn text dark to="/profile">
           <v-list flat>
@@ -101,9 +107,6 @@
         </v-btn>
       </div>
 
-      <!-- <v-btn class="mx-2" large icon>
-        <v-icon> fas fa-globe</v-icon>
-      </v-btn> -->
       <!-- <v-btn class="mx-2" large icon @click.stop="OpenDrawer = !OpenDrawer">
         <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>
       </v-btn> -->
@@ -169,6 +172,8 @@ import Register from "../components/register";
 import forgotPassword from "../components/forgotPassword";
 import axios from "axios";
 import Cookies from "../plugins/js-cookie";
+import countryFlag from "vue-country-flag"; 
+import languageDialog from "../components/languageDialog";
 export default {
   data() {
     return {
@@ -190,7 +195,9 @@ export default {
   components: {
     Login,
     Register,
-    forgotPassword
+    forgotPassword,
+    countryFlag,
+    languageDialog
   },
   created() {
     if (this.userUUID) {
@@ -200,7 +207,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("login", ["GetUserData"]),
+    ...mapGetters("login",  ["getLocale", "GetUserData"]),
     checkPageBackground() {
       const route = this.$route.name;
       switch (true) {
@@ -268,15 +275,7 @@ export default {
       this.forceRerender();
       this.loginDialog = true;
     },
-    // Close Register Screen
-    // closeRegister() {
-    //   this.registerDialog = false;
-    // },
-    // Close Login Screen
 
-    // closeLogin() {
-    //   this.loginDialog = false;
-    // },
     // showRegisterDialog() {
     //   this.loginDialog = false;
     //   this.registerDialog = true;

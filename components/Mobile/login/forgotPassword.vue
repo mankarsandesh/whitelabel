@@ -101,7 +101,7 @@ export default {
   font-weight: 300 !important;
 }
 .forgotPassForm {
-  position: absolute;
+  position: sticky;
   background-image: url(/mobile/mobile-bg-1.jpg);
   padding: 180px 20px 405px 20px;
   background-size: cover;

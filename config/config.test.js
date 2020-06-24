@@ -94,6 +94,12 @@ const config = {
   },
   logDomain: process.env.LOG_DOMAIN,
   defaultLanguageLocale: "cn",
+  language: {
+    cn: "chinese",
+    us: "english",
+    th: "thai",
+    la: "lao"
+  }
   defaultCoinsModern: ["100", "500", "1000", "5000", "10000"],
   homePageStockName: "btc1"
 };
