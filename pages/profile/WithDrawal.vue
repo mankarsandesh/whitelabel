@@ -37,51 +37,58 @@
                     <v-col>
                       <v-select
                         v-if="this.userBankList.length > 0"
+                        placeholder="Select Bank"
                         class="bankList"
                         rounded
                         outlined
                         light
                         v-model="bank"
                         :items="banks"
-                        item-text="name"
-                        item-value="id"
+                        item-text="ac_bank_name"
+                        item-value="ac_bank_name"
                         required
                         height="5"
                         :rules="[v => !!v || 'Bank is required']"
                       ></v-select>
 
                       <div id="myBank" v-if="this.userBankList.length > 0">
-                        <div class="bankName">
-                          Sandesh Mankar
-                          <span style="float:right;">
-                            <v-icon class="icon" size="18">
-                              fas fa-pencil
-                            </v-icon>
-                            <v-icon class="icon" size="18">
-                              fas fa-trash
-                            </v-icon>
-                          </span>
-                        </div>
-                        <div class="banInfo">
-                          <v-row>
-                            <v-col>Bank Name</v-col>
-                            <v-col class="text-right">HDFC Name</v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col>Bank Address</v-col>
-                            <v-col class="text-right"
-                              >Mumbai Ghatkopar West</v-col
-                            >
-                          </v-row>
-                          <v-row>
-                            <v-col>SWIFT</v-col>
-                            <v-col class="text-right">GUGUD54524242</v-col>
-                          </v-row>
-                          <v-row>
-                            <v-col>Beneficiary name</v-col>
-                            <v-col class="text-right">Sandesh Mankar</v-col>
-                          </v-row>
-                        </div>
+                        <v-flex
+                          v-for="(data, index) in userBankList"
+                          :key="index"
+                          class="listBank"
+                        >
+                          <div class="bankName">
+                            {{ data.ac_bank_name}}
+                            <span style="float:right;">
+                              <v-icon class="icon" size="18" @click="openBankForm()">
+                                fas fa-pencil
+                              </v-icon>
+                              <v-icon class="icon" size="18" >
+                                fas fa-trash
+                              </v-icon>
+                            </span>
+                          </div>
+                          <div class="banInfo">
+                            <v-row>
+                              <v-col>Account Holder name </v-col>
+                              <v-col class="text-right">{{ data.ac_holder_name }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>IFSC Code</v-col>
+                              <v-col class="text-right"
+                                >{{ data.ac_ifsc_code }}</v-col
+                              >
+                            </v-row>
+                            <v-row>
+                              <v-col>Account Number</v-col>
+                              <v-col class="text-right">{{ data.ac_number }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>Account Type</v-col>
+                              <v-col class="text-right">{{ data.account_type }}</v-col>
+                            </v-row>
+                          </div>
+                        </v-flex>
                       </div>
 
                       <div id="myBank" v-if="this.userBankList.length == 0">
@@ -93,7 +100,7 @@
                           </span>
                         </div>
                         <div class="banInfo">
-                          <div class="noBank" @click="bankDialog = true">
+                          <div class="noBank" @click="openBankForm()">
                             <v-icon class="icon" size="100">
                               fa-plus-square
                             </v-icon>
@@ -105,7 +112,7 @@
                     <v-col>
                       <div
                         class="addBank"
-                        @click="bankDialog = true"
+                        @click="openBankForm()"
                         v-if="this.userBankList.length > 0"
                       >
                         <v-icon size="20" color="#ff0167">
@@ -181,24 +188,7 @@ export default {
       valid: true,
       loadingImage: false,
       bank: 45,
-      banks: [
-        {
-          id: 45,
-          name: "China"
-        },
-        {
-          id: 122,
-          name: "Laos"
-        },
-        {
-          id: 220,
-          name: "Thailand"
-        },
-        {
-          id: 236,
-          name: "USA"
-        }
-      ],
+      banks: [],
       userBankList: ""
     };
   },
@@ -206,13 +196,19 @@ export default {
     addBank
   },
   mounted() {
+    console.log(this.GetUserData.uuid);
     this.fetchUsersBankList();
-    console.log(this.userBankList);
+    console.log(this.userBankList, "Data");
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
   },
   methods: {
+    // Open Bank
+    openBankForm(){
+      this.bankDialog = true;
+    },
+    // Close Bank Form
     closeBank() {
       this.bankDialog = false;
     },
@@ -236,11 +232,13 @@ export default {
           {
             headers: config.header
           }
-        );
-        console.log(reqBody);
-        console.log(data);
+        );     
         if (data.code == 200) {
-          this.userBankList = data.data[0];
+          this.userBankList = data.data;
+          console.log(data.data.length);
+          for(var i=0;i<data.data.length;i++){
+            this.banks.push(data.data[i]);
+          }         
           this.errorMessage = "";
         } else {
           this.loadingImage = false;
@@ -256,7 +254,9 @@ export default {
 .v-text-field.v-text-field--solo .v-input__control {
   min-height: 10px;
 }
-
+.listBank{
+  margin:10px 0px;
+}
 .v-label {
   font-size: 10px;
 }

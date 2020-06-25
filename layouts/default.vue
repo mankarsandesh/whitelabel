@@ -50,32 +50,52 @@
         </v-btn>
       </template>
       <div v-if="GetUserData">
-        <v-btn text dark to="/profile">
-          <v-list flat>
-            <v-list-item class="px-0">
-              <v-list-item-avatar class="mr-0">
-                <img :src="this.defaultImage" :alt="GetUserData.username" />
-              </v-list-item-avatar>
+        <v-list flat>
+          <v-list-item class="px-0">
+            <v-list-item-avatar class="mr-0">
+              <img :src="this.defaultImage" :alt="GetUserData.username" />
+            </v-list-item-avatar>
+            <v-menu  offset-y >
+              <template v-slot:activator="{ attrs, on }">
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="white--text ma-8 "
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    &nbsp;{{ GetUserData.username }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </template>
+              <v-list >
+                <v-list-item link class="menuList" to="/profile">
+                  <v-list-item-title> My Account</v-list-item-title>
+                </v-list-item>
+                <v-list-item link class="menuList"  to="/profile/change_password">
+                  <v-list-item-title>Change Password</v-list-item-title>
+                </v-list-item>
+                <!-- <v-list-item link class="menuList"  to="/settings">
+                  <v-list-item-title>Settings</v-list-item-title>
+                </v-list-item> -->
+                <v-list-item link class="menuList" @click="userLogout()">
+                  <v-list-item-title>Logout</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
 
-              <v-list-item-content>
-                <v-list-item-title>
-                  &nbsp;{{ GetUserData.username }}</v-list-item-title
-                >
-              </v-list-item-content>
+            <v-list-item-action>
+              <v-icon size="15">{{
+                $route.name === "profile"
+                  ? "far fa-chevron-up"
+                  : "far fa-chevron-down"
+              }}</v-icon>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
 
-              <v-list-item-action>
-                <v-icon size="15">{{
-                  $route.name === "profile"
-                    ? "far fa-chevron-up"
-                    : "far fa-chevron-down"
-                }}</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list>
-        </v-btn>
-        <v-btn text dark @click="userLogout()">
+        <!-- <v-btn text dark @click="userLogout()">
           Logout
-        </v-btn>
+        </v-btn> -->
       </div>
       <div v-else>
         <v-btn
@@ -211,7 +231,7 @@ export default {
         case route === "profile" ||
           route === "profile-deposit" ||
           route === "profile-withdrawal" ||
-          route === "profile-order_history" || 
+          route === "profile-order_history" ||
           route === "profile-change_password" ||
           route === "profile-track_order":
           return "profile-container";
@@ -309,3 +329,15 @@ export default {
   }
 };
 </script>
+<style scoped>
+.profileName {
+  text-transform: capitalize !important;
+}
+.menuList:hover {
+  background-color: #ff0167;
+  color: #fff !important;
+}
+.menuList .link:hover {
+  color: #fff !important;
+}
+</style>
