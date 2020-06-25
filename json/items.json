@@ -89,7 +89,7 @@
         {
             "icon": "fas fa-gift",
             "title": "promotions",
-            "path": "/"
+            "path": "/mobile/payment/wireNextStep"
         },
         {
             "icon": "fas fa-trophy",

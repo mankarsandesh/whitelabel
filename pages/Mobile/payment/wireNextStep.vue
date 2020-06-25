@@ -3,7 +3,7 @@
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
         <h4 class="text-uppercase display-0">
-          Wire Transfer - ADD BANK
+          Wire Transfer
         </h4>
       </v-row>
     </v-row>
@@ -18,89 +18,69 @@
     </p> -->
 
     <v-form ref="form" v-model="valid" lazy-validation>
-      <label>Bank Name<span class="imp">*</span></label>
+      <label>Account<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.bankName"
+        v-model="wireForm.account"
         outlined
         rounded
         dense
         required
         autofocus
-        placeholder="Please enter Bank Name"
+        placeholder="EC Game/WhiteLabel - 12346 USD 2000.80"
         :rules="[v => !!v || 'Bank Name is required']"
       ></v-text-field>
-      <label>Account Holder Name<span class="imp">*</span></label>
+      <label
+        >Withdrawable Amount
+        <v-icon size="14">fa fa-question-circle</v-icon></label
+      >
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.accountHolderName"
+        v-model="wireForm.withdrawAmount"
+        outlined
+        rounded
+        dense
+        readonly
+      ></v-text-field>
+      <label>Amount<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClasswire"
+        height="30"
+        v-model="wireForm.amount"
         outlined
         rounded
         dense
         required
-        placeholder="Please enter Account Holder Name"
-        :rules="[v => !!v || 'Account holder name is required']"
+        placeholder="Please enter Amount"
+        :rules="[v => !!v || 'Amount is required']"
       ></v-text-field>
-      <label>Account Number<span class="imp">*</span></label>
+      <label>Note</label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.accountNumber"
+        v-model="wireForm.note"
         outlined
         rounded
         dense
-        required
-        placeholder="Please enter Account Number"
-        :rules="[v => !!v || 'Account Number is required']"
+        placeholder="Please enter Note"
       ></v-text-field>
-      <label>IFSC Code<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="wireForm.accountIFSC"
-        outlined
-        rounded
-        dense
-        required
-        placeholder="Please enter IFSC Code"
-        :rules="[v => !!v || 'IFSC Code is required']"
-      ></v-text-field>
-      <label>SWIFT Code<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        type="password"
-        v-model="wireForm.accountSWIFT"
-        outlined
-        rounded
-        dense
-        required
-        placeholder="Please enter SWIFT Code"
-        :rules="[v => !!v || 'SWIFT Code is required']"
-      ></v-text-field>
+
       <v-row justify="center">
+        <v-col xs="9" sm="9">
+          <v-btn class="closeButton" :disabled="!valid" height="30">
+            PREVIOUS STEP
+          </v-btn>
+        </v-col>
         <v-col xs="3" sm="3">
           <v-btn class="saveButton " :disabled="!valid" height="30">
-            Save
-            <v-icon class="icon" size="15">
-              fas fa-chevron-double-right
-            </v-icon>
-            <v-icon class="icon" size="15">
-              fas fa-chevron-double-right
-            </v-icon>
-            &nbsp;<v-progress-circular
+            NEXT STEP &nbsp;<v-progress-circular
               v-if="loadingImage"
               indeterminate
               color="#FFF"
               size="15"
             ></v-progress-circular>
-          </v-btn>
-        </v-col>
-        <v-col xs="9" sm="9">
-          <v-btn class="closeButton" :disabled="!valid" height="30">
-            Cancel
           </v-btn>
         </v-col>
       </v-row>
@@ -116,15 +96,14 @@ export default {
   data() {
     return {
       loadingImage: false,
-      // errorMessage: "",
-      // sucessMessage: "",
+      //   errorMessage: "",
+      //   sucessMessage: "",
       valid: false,
       wireForm: {
-        bankName: "",
-        accountHolderName: "",
-        accountNumber: "",
-        accountIFSC: "",
-        accountSWIFT: ""
+        account: "",
+        withdrawAmount: "2000.80 USD",
+        amount: "",
+        note: ""
       }
     };
   }
@@ -200,11 +179,11 @@ export default {
 .saveButton {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
-  font-size: 15px;
+  font-size: 13px;
   /* text-align: center; */
-  font-weight: 800;
+  font-weight: 400;
   margin: 0 auto !important;
-  width: 180px;
+  width: 170px;
   color: #fff !important;
   text-transform: uppercase;
   max-width: 130px;
@@ -248,9 +227,10 @@ input:focus {
   background-color: #ffffff;
   color: #000 !important;
   border-radius: 50px;
-  font-size: 18px;
-  max-width: 130px;
+  font-size: 13px;
+  max-width: 170px;
   text-align: center;
+  font-weight: 400;
 }
 .headline1 {
   background-color: rgb(255, 16, 103);

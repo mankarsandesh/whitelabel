@@ -99,7 +99,7 @@ const config = {
     us: "english",
     th: "thai",
     la: "lao"
-  }
+  },
   defaultCoinsModern: ["100", "500", "1000", "5000", "10000"],
   homePageStockName: "btc1"
 };
