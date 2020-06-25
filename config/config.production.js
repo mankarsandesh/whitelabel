@@ -45,6 +45,18 @@ const config = {
     us: "english",
     th: "thai",
     la: "lao"
+  },
+  userToPupBalance:{
+    url: `${process.env.BASE_URL}/updateUserProfile`
+  },
+  registerBankDetail:{
+    url: `${process.env.BASE_URL}/registerBankDetail`
+  },
+  getUserBankDetails:{
+    url: `${process.env.BASE_URL}/getUserBankDetails`
+  },
+  userChangePassword:{
+    url: `${process.env.BASE_URL}/changePassword`
   }
 };
 export default config;

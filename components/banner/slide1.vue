@@ -8,7 +8,7 @@
           <v-card-title class="flex display-4 font-weight-black color-pink"
             >$2000</v-card-title
           >
-          <v-card-title class="display-3 .font-weight-medium"
+          <v-card-title class="display-3 font-weight-medium"
             >Get a WELCOME 200% Bonus up to $2000</v-card-title
           >
 
