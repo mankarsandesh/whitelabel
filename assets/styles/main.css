@@ -36,6 +36,24 @@
 .required{
   color:red;
 }
+.orderPending{
+  background-color: #dbbb04;
+  border-radius: 15px;
+  padding: 4px 8px;
+  color: #FFF;
+}
+.orderSuccess{
+  background-color: #04db04;
+  border-radius: 15px;
+  padding: 4px 8px;
+  color: #FFF;
+}
+.orderCancel{
+  background-color: #db041d;
+  border-radius: 15px;
+  padding: 4px 8px;
+  color: #FFF;
+}
 .ml-20 {
   margin-left: -20px;
 }
