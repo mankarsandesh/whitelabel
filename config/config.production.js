@@ -47,6 +47,9 @@ const config = {
   },
   getUserBankDetails:{
     url: `${process.env.BASE_URL}/getUserBankDetails`
+  },
+  userChangePassword:{
+    url: `${process.env.BASE_URL}/changePassword`
   }
 };
 export default config;

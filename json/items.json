@@ -151,6 +151,11 @@
             "title": "Track Your Order",
             "icon": "fas fa-home",
             "path": "/profile/track_order"
+        },
+        {
+            "title": "Change Password",
+            "icon": "fas fa-home",
+            "path": "/profile/change_password"
         }
     ],
     "stockImg": [{

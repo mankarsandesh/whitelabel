@@ -203,6 +203,7 @@ export default {
     ...mapGetters("login", ["GetUserData"]),
     checkPageBackground() {
       const route = this.$route.name;
+      console.log(route);
       switch (true) {
         case route === "index":
           return null;
@@ -210,7 +211,8 @@ export default {
         case route === "profile" ||
           route === "profile-deposit" ||
           route === "profile-withdrawal" ||
-          route === "profile-order_history" ||
+          route === "profile-order_history" || 
+          route === "profile-change_password" ||
           route === "profile-track_order":
           return "profile-container";
           break;
