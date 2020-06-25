@@ -94,7 +94,7 @@
         {
             "icon": "fas fa-trophy",
             "title": "leaderboard",
-            "path": "/"
+            "path": "/mobile/payment/withdrawal"
         },
         {
             "icon": "fas fa-file-alt",
