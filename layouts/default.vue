@@ -269,9 +269,9 @@ export default {
       this.loginDialog = true;
     },
     // Close Register Screen
-    // closeRegister() {
-    //   this.registerDialog = false;
-    // },
+    closeRegister() {
+      this.registerDialog = false;
+    },
     // Close Login Screen
 
     // closeLogin() {

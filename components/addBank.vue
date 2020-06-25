@@ -106,7 +106,7 @@
             size="22"
           ></v-progress-circular>
         </v-btn>
-        <v-btn class="cancelButton" height="38">
+        <v-btn class="cancelButton" height="38"  @click="closePopup()">
           Cancel
         </v-btn>
       </v-form>
@@ -180,6 +180,7 @@ export default {
             headers: config.header
           }
         );
+        console.log(reqBody);
         console.log(data);
         if (data.code == 200) {
           this.sucessMessage = data.message[0];

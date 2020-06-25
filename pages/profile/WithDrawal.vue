@@ -36,6 +36,7 @@
                   <v-row>
                     <v-col>
                       <v-select
+                        v-if="this.userBankList.length > 0"
                         class="bankList"
                         rounded
                         outlined
@@ -45,10 +46,11 @@
                         item-text="name"
                         item-value="id"
                         required
+                        height="5"
                         :rules="[v => !!v || 'Bank is required']"
                       ></v-select>
 
-                      <div id="myBank">
+                      <div id="myBank" v-if="this.userBankList.length > 0">
                         <div class="bankName">
                           Sandesh Mankar
                           <span style="float:right;">
@@ -81,9 +83,31 @@
                           </v-row>
                         </div>
                       </div>
+
+                      <div id="myBank" v-if="this.userBankList.length == 0">
+                        <div class="bankName">
+                          <span style="float:right;">
+                            <v-icon class="icon" size="18">
+                              fas fa-id-card
+                            </v-icon>
+                          </span>
+                        </div>
+                        <div class="banInfo">
+                          <div class="noBank" @click="bankDialog = true">
+                            <v-icon class="icon" size="100">
+                              fa-plus-square
+                            </v-icon>
+                            <h3>Add Bank</h3>
+                          </div>
+                        </div>
+                      </div>
                     </v-col>
                     <v-col>
-                      <div class="addBank" @click="bankDialog = true">
+                      <div
+                        class="addBank"
+                        @click="bankDialog = true"
+                        v-if="this.userBankList.length > 0"
+                      >
                         <v-icon size="20" color="#ff0167">
                           fas fa-university
                         </v-icon>
@@ -95,12 +119,12 @@
               </v-tab-item>
               <v-tab-item :value="'tab-2'">
                 <div class="wrapperDiv">
-                  <label>Beneficiary Account Number/BAN</label>
+                  <label>Coming Soon</label>
                 </div>
               </v-tab-item>
               <v-tab-item :value="'tab-3'">
                 <div class="wrapperDiv">
-                  <label>Beneficiary Account Number/BAN</label>
+                  <label>Coming Soon</label>
                 </div>
               </v-tab-item>
             </v-tabs-items>
@@ -108,7 +132,8 @@
 
           <v-btn
             class="saveButton"
-            height="50"
+            small
+            height="35"
             @click="validate"
             :disabled="!valid"
           >
@@ -137,17 +162,14 @@
     </v-row>
 
     <!-- Add Bank Form -->
-    <v-dialog
-      content-class="addBankBox"
-      v-model="bankDialog"
-       max-width="550px"
-    >
+    <v-dialog content-class="addBankBox" v-model="bankDialog" max-width="550px">
       <addBank @bankClose="closeBank" />
     </v-dialog>
     <!-- Ending Bank Form -->
   </div>
 </template>
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import config from "../../config/config.global";
 import addBank from "../../components/addBank";
 import axios from "axios";
@@ -158,30 +180,6 @@ export default {
       tab: 0,
       valid: true,
       loadingImage: false,
-      amount: "",
-      Topuptype: "alipay_qrcode",
-      TopupTypeList: [
-        {
-          id: 1,
-          name: "Alipay scan code",
-          value: "alipay_qrcode"
-        },
-        {
-          id: 2,
-          name: "Alipay transfer",
-          value: "alipay_trans"
-        },
-        {
-          id: 3,
-          name: "WeChat scan code",
-          value: "wxpay_qrcode"
-        },
-        {
-          id: 4,
-          name: "WeChat transfer",
-          value: "wxpay_trans"
-        }
-      ],
       bank: 45,
       banks: [
         {
@@ -201,15 +199,18 @@ export default {
           name: "USA"
         }
       ],
-      amountRule: [
-        v => !!v || "Amount should be Required",
-        v => v >= 10 || "Amount should be above $10",
-        v => v <= 50000000 || "Max should not be above $50000000"
-      ]
+      userBankList: ""
     };
   },
   components: {
     addBank
+  },
+  mounted() {
+    this.fetchUsersBankList();
+    console.log(this.userBankList);
+  },
+  computed: {
+    ...mapGetters("login", ["GetUserData"])
   },
   methods: {
     closeBank() {
@@ -224,20 +225,24 @@ export default {
       }
     },
     // User Topuop Balance
-    async userTotpupBalance() {
+    async fetchUsersBankList() {
       try {
         var reqBody = {
-          amount: this.amount,
-          topuptype: this.Topuptype
+          user_uuid: this.GetUserData.uuid
         };
-        var { data } = await axios.post(config.userToPupBalance.url, reqBody, {
-          headers: config.header
-        });
+        var { data } = await axios.post(
+          config.getUserBankDetails.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        console.log(reqBody);
+        console.log(data);
         if (data.code == 200) {
-          this.sucessMessage = data.message[0];
+          this.userBankList = data.data[0];
           this.errorMessage = "";
         } else {
-          this.errorMessage = data.message[0];
           this.loadingImage = false;
         }
       } catch (ex) {
@@ -248,15 +253,35 @@ export default {
 };
 </script>
 <style scoped>
-.addBankBox{
+.v-text-field.v-text-field--solo .v-input__control {
+  min-height: 10px;
+}
+
+.v-label {
+  font-size: 10px;
+}
+.addBankBox {
   box-shadow: none !important;
-  border:1px solid red;
+  border: 1px solid red;
+}
+.noBank {
+  height: 200px;
+  padding-top: 50px;
+  text-align: center;
+}
+.noBank .icon {
+  text-align: center;
+  color: #dddddd;
+}
+.noBank h3 {
+  color: #dddddd !important;
 }
 .bankName {
   border: 1px solid #dddddd;
   padding: 5px 10px;
   font-weight: 600;
   font-size: 16px;
+  height: 35px;
 }
 .icon {
   margin: 0px 5px;

@@ -44,6 +44,9 @@ const config = {
   },
   registerBankDetail:{
     url: `${process.env.BASE_URL}/registerBankDetail`
+  },
+  getUserBankDetails:{
+    url: `${process.env.BASE_URL}/getUserBankDetails`
   }
 };
 export default config;
