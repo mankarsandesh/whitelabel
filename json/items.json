@@ -79,7 +79,7 @@
     "slideMenu": [{
             "icon": "fas fa-chart-bar",
             "title": "live stock",
-            "path": "/"
+            "path": "/mobile/payment/wireTransferAddBank"
         },
         {
             "icon": "far fa-gamepad",
