@@ -24,7 +24,7 @@
         <label>Bank name </label>
         <v-text-field
           class="inputClassRegi"
-          height="46"
+          height="42"
           light
           v-model="form.bankName"
           outlined
@@ -37,7 +37,7 @@
         <label>Account Holder Name</label>
         <v-text-field
           class="inputClassRegi"
-          height="46"
+          height="42"
           light
           v-model="form.accountName"
           outlined
@@ -50,7 +50,7 @@
         <label>Account Number</label>
         <v-text-field
           class="inputClassRegi"
-          height="46"
+          height="42"
           light
           v-model="form.accountNumber"
           outlined
@@ -63,7 +63,7 @@
         <label>Account IFSC Code</label>
         <v-text-field
           class="inputClassRegi"
-          height="46"
+          height="42"
           light
           v-model="form.accountIFSC"
           outlined
@@ -76,7 +76,7 @@
         <label>Account Swift Code</label>
         <v-text-field
           class="inputClassRegi"
-          height="46"
+          height="42"
           light
           v-model="form.accountSWIFT"
           outlined

@@ -17,6 +17,7 @@
             <label>Current Password <label class="required">*</label></label>
             <v-text-field
               type="password"
+              height="42"
               light
               v-model="oldPassword"
               outlined
@@ -30,6 +31,7 @@
             <label>New Password <label class="required">*</label></label>
             <v-text-field
               type="password"
+              height="42"
               light
               v-model="newPassword"
               outlined
@@ -45,6 +47,7 @@
             >
             <v-text-field
               type="password"
+              height="42"
               light
               v-model="repeatNewPassword"
               outlined

@@ -38,16 +38,17 @@
                       <v-select
                         v-if="this.userBankList.length > 0"
                         placeholder="Select Bank"
-                        class="bankList"
-                        rounded
+                        class="inputClasswire"
+                        height="42"
                         outlined
-                        light
+                        rounded
+                        dense
+                        required
+                        autofocus
                         v-model="bank"
                         :items="banks"
                         item-text="ac_bank_name"
-                        item-value="ac_bank_name"
-                        required
-                        height="5"
+                        item-value="ac_bank_name"                        
                         :rules="[v => !!v || 'Bank is required']"
                       ></v-select>
 
@@ -58,12 +59,16 @@
                           class="listBank"
                         >
                           <div class="bankName">
-                            {{ data.ac_bank_name}}
+                            {{ data.ac_bank_name }}
                             <span style="float:right;">
-                              <v-icon class="icon" size="18" @click="openBankForm()">
+                              <v-icon
+                                class="icon"
+                                size="18"
+                                @click="openEditBankForm(data.ac_bank_name,data.ac_holder_name, data.ac_ifsc_code,data.ac_number)"
+                              >
                                 fas fa-pencil
                               </v-icon>
-                              <v-icon class="icon" size="18" >
+                              <v-icon class="icon" size="18">
                                 fas fa-trash
                               </v-icon>
                             </span>
@@ -71,21 +76,27 @@
                           <div class="banInfo">
                             <v-row>
                               <v-col>Account Holder name </v-col>
-                              <v-col class="text-right">{{ data.ac_holder_name }}</v-col>
+                              <v-col class="text-right">{{
+                                data.ac_holder_name
+                              }}</v-col>
                             </v-row>
                             <v-row>
                               <v-col>IFSC Code</v-col>
-                              <v-col class="text-right"
-                                >{{ data.ac_ifsc_code }}</v-col
-                              >
+                              <v-col class="text-right">{{
+                                data.ac_ifsc_code
+                              }}</v-col>
                             </v-row>
                             <v-row>
                               <v-col>Account Number</v-col>
-                              <v-col class="text-right">{{ data.ac_number }}</v-col>
+                              <v-col class="text-right">{{
+                                data.ac_number
+                              }}</v-col>
                             </v-row>
                             <v-row>
                               <v-col>Account Type</v-col>
-                              <v-col class="text-right">{{ data.account_type }}</v-col>
+                              <v-col class="text-right">{{
+                                data.account_type
+                              }}</v-col>
                             </v-row>
                           </div>
                         </v-flex>
@@ -170,7 +181,7 @@
 
     <!-- Add Bank Form -->
     <v-dialog content-class="addBankBox" v-model="bankDialog" max-width="550px">
-      <addBank @bankClose="closeBank" />
+      <addBank @bankClose="closeBank"  />
     </v-dialog>
     <!-- Ending Bank Form -->
   </div>
@@ -205,7 +216,11 @@ export default {
   },
   methods: {
     // Open Bank
-    openBankForm(){
+    openEditBankForm() {
+      this.bankDialog = true;
+    },
+    // Open Bank
+    openBankForm() {
       this.bankDialog = true;
     },
     // Close Bank Form
@@ -232,13 +247,13 @@ export default {
           {
             headers: config.header
           }
-        );     
+        );
         if (data.code == 200) {
           this.userBankList = data.data;
           console.log(data.data.length);
-          for(var i=0;i<data.data.length;i++){
+          for (var i = 0; i < data.data.length; i++) {
             this.banks.push(data.data[i]);
-          }         
+          }
           this.errorMessage = "";
         } else {
           this.loadingImage = false;
@@ -251,11 +266,31 @@ export default {
 };
 </script>
 <style scoped>
+#myBank::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+#myBank::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+
+#myBank::-webkit-scrollbar-thumb {
+  background-color: #ff0167;
+}
+
+#myBank {
+  padding: 0px 10px;
+  overflow-y: scroll;
+  height: 320px;
+  overflow-x: hidden;
+}
 .v-text-field.v-text-field--solo .v-input__control {
   min-height: 10px;
 }
-.listBank{
-  margin:10px 0px;
+.listBank {
+  margin: 10px 0px;
 }
 .v-label {
   font-size: 10px;

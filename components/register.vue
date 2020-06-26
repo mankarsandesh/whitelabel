@@ -15,7 +15,7 @@
         Already have an account?
         <span @click="openLogin()">Login now</span>
       </p>
-          <p
+      <p
         v-bind:class="{
           sucessMessage: sucessMessage,
           errorMessage: errorMessage
@@ -24,8 +24,12 @@
         {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
 
-
-      <v-form ref="form" v-model="valid" lazy-validation v-if="showRegisterForm">
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
+        v-if="showRegisterForm"
+      >
         <label>Username</label>
         <v-text-field
           class="inputClassRegi"
@@ -86,6 +90,7 @@
           <v-radio-group v-model="registerForm.gender" :mandatory="false" row>
             <v-radio
               height="42"
+              dense
               class="genderClass"
               color="#ff0167"
               light
@@ -100,6 +105,7 @@
         <div class="inputClassRegi float-left">
           <v-select
             height="42"
+            dense
             rounded
             outlined
             light
@@ -152,7 +158,7 @@ import config from "../config/config.global";
 export default {
   data() {
     return {
-      showRegisterForm : true,
+      showRegisterForm: true,
       loadingImage: false,
       showRepPassword: false,
       showPassword: false,
