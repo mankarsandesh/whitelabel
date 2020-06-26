@@ -10,12 +10,12 @@ const config = {
   sessionExpiryTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   isMaintenance: process.env.MAINTENANCE_MODE,
   header: {
-    authorization: "Basic V2hpdGVMYWJlbFN1cGVyOlRlc3QxMjMh"
+    authorization: `${process.env.BASIC_AUTH}`
   },
-  mainServer : {
+  mainServer: {
     url: `${process.env.MAIN_GAME}`
   },
-  portalProviderID : {
+  portalProviderID: {
     url: `${process.env.portalProviderID}`
   },
   userRegisterAuth: {
@@ -36,8 +36,20 @@ const config = {
   userResetPassword: {
     url: `${process.env.BASE_URL}/resetPassword`
   },
-  userUpdateDetails:{
+  userUpdateDetails: {
     url: `${process.env.BASE_URL}/updateUserProfile`
+  },
+  userToPupBalance: {
+    url: `${process.env.BASE_URL}/userToPupBalance`
+  },
+  registerBankDetail: {
+    url: `${process.env.BASE_URL}/registerBankDetail`
+  },
+  getUserBankDetails: {
+    url: `${process.env.BASE_URL}/getUserBankDetails`
+  },
+  userChangePassword: {
+    url: `${process.env.BASE_URL}/changePassword`
   },
   defaultLanguageLocale: "cn",
   language: {
@@ -46,17 +58,5 @@ const config = {
     th: "thai",
     la: "lao"
   },
-  userToPupBalance:{
-    url: `${process.env.BASE_URL}/updateUserProfile`
-  },
-  registerBankDetail:{
-    url: `${process.env.BASE_URL}/registerBankDetail`
-  },
-  getUserBankDetails:{
-    url: `${process.env.BASE_URL}/getUserBankDetails`
-  },
-  userChangePassword:{
-    url: `${process.env.BASE_URL}/changePassword`
-  }  
 };
 export default config;
