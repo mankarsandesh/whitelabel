@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import Button from "~/components/Button";
+import Button from "~/components/Mobile/Button"
 import json from "~/json/items";
 export default {
   layout: "mobile",
@@ -63,8 +63,5 @@ export default {
 <style scoped>
 .gameModeImage {
   background-color: #333;
-}
-.banner-2{
-    
 }
 </style>

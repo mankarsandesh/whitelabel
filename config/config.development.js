@@ -40,7 +40,7 @@ const config = {
     url: `${process.env.BASE_URL}/updateUserProfile`
   },
   userToPupBalance: {
-    url: `${process.env.BASE_URL}/updateUserProfile`
+    url: `${process.env.BASE_URL}/userToPupBalance`
   },
   registerBankDetail: {
     url: `${process.env.BASE_URL}/registerBankDetail`
@@ -50,6 +50,13 @@ const config = {
   },
   userChangePassword: {
     url: `${process.env.BASE_URL}/changePassword`
-  }
+  },
+  defaultLanguageLocale: "cn",
+  language: {
+    cn: "chinese",
+    us: "english",
+    th: "thai",
+    la: "lao"
+  },
 };
 export default config;

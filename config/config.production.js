@@ -12,10 +12,10 @@ const config = {
   header: {
     authorization: `${process.env.BASIC_AUTH}`
   },
-  mainServer : {
+  mainServer: {
     url: `${process.env.MAIN_GAME}`
   },
-  portalProviderID : {
+  portalProviderID: {
     url: `${process.env.portalProviderID}`
   },
   userRegisterAuth: {
@@ -36,20 +36,27 @@ const config = {
   userResetPassword: {
     url: `${process.env.BASE_URL}/resetPassword`
   },
-  userUpdateDetails:{
+  userUpdateDetails: {
     url: `${process.env.BASE_URL}/updateUserProfile`
   },
-  userToPupBalance:{
-    url: `${process.env.BASE_URL}/updateUserProfile`
+  userToPupBalance: {
+    url: `${process.env.BASE_URL}/userToPupBalance`
   },
-  registerBankDetail:{
+  registerBankDetail: {
     url: `${process.env.BASE_URL}/registerBankDetail`
   },
-  getUserBankDetails:{
+  getUserBankDetails: {
     url: `${process.env.BASE_URL}/getUserBankDetails`
   },
-  userChangePassword:{
+  userChangePassword: {
     url: `${process.env.BASE_URL}/changePassword`
-  }
+  },
+  defaultLanguageLocale: "cn",
+  language: {
+    cn: "chinese",
+    us: "english",
+    th: "thai",
+    la: "lao"
+  },
 };
 export default config;
