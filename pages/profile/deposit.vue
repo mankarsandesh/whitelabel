@@ -23,7 +23,7 @@
             ></v-text-field>
           </div>
           <div>
-            <label>Gender</label>
+            <label>Select Payment Type</label>
             <v-radio-group v-model="Topuptype" :mandatory="false" row>
               <v-radio
                 class="listTopupType"

@@ -50,7 +50,7 @@
         </v-row>
       </v-card>
     </v-col>
-    <v-col cols="8">
+    <v-col cols="6">
       <p
         v-bind:class="{
           sucessMessage: sucessMessage,
@@ -73,7 +73,7 @@
             @blur="$v.form.firstName.$touch()"
             v-model="form.firstName"
             class="text-filed"
-            height="48"
+            height="42"
             light
             outlined
             rounded
@@ -90,7 +90,7 @@
             @blur="$v.form.lastName.$touch()"
             v-model="form.lastName"
             class="text-filed"
-            height="48"
+            height="42"
             light
             outlined
             rounded
@@ -107,7 +107,7 @@
             @blur="$v.form.username.$touch()"
             v-model="form.username"
             class="text-filed"
-            height="48"
+            height="42"
             light
             outlined
             rounded
@@ -125,7 +125,7 @@
             :hide-details="emailErrors.length ? false : true"
             v-model="form.email"
             class="text-filed"
-            height="48"
+            height="42"
             light
             outlined
             rounded
@@ -141,6 +141,7 @@
           <subheader title="country" />
           <v-select
             height="42"
+            dense
             rounded
             outlined
             light
