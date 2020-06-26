@@ -2,7 +2,7 @@
   <div class="wireForm">
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
-        <h4 class="text-uppercase display-0">
+        <h4 class="text-uppercase display-0 pl-4">
           Withdrawal
         </h4>
       </v-row>
@@ -17,8 +17,8 @@
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p> -->
 
-    <v-row align="center" justify="center">
-      <v-col cols="11">
+    <v-row class="mt-5" align="center" justify="center">
+      <v-col>
         <v-expansion-panels rounded v-model="panel">
           <v-expansion-panel class="account">
             <v-expansion-panel-header class="font-weight-bold"
@@ -66,18 +66,17 @@
                   max-width="120"
                   :disabled="!valid"
                 >
-                  Next Step &nbsp;<v-progress-circular
+                  Next Step &nbsp;
+                  <v-progress-circular
                     v-if="loadingImage"
                     indeterminate
                     color="#FFF"
                     size="20"
-                  ></v-progress-circular>
-                </v-btn>
+                  ></v-progress-circular
+                ></v-btn>
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
           <v-expansion-panel class="mt-5 account">
             <v-expansion-panel-header class="balance font-weight-bold">
               <span
@@ -104,8 +103,7 @@
               <p>Coming Soon</p>
             </v-expansion-panel-content>
           </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
+
           <v-expansion-panel class="mt-5 account">
             <v-expansion-panel-header class="balance font-weight-bold">
               <span
@@ -148,7 +146,7 @@
                 <v-btn
                   class="saveButton"
                   small
-                  height="30"
+                  height="35"
                   max-width="120"
                   :disabled="!valid"
                 >
@@ -165,6 +163,19 @@
         </v-expansion-panels>
       </v-col>
     </v-row>
+    <div class="wrapperDiv">
+      <h4>
+        <v-icon size="22" color="#fdc84f">
+          fas fa-info-circle
+        </v-icon>
+        Wire Transfer Prompt
+      </h4>
+      <p>
+        If you would like to have some demo content on your WordPress website,
+        there are basically three different ways to do so. First, you could just
+        quickly create some (sample) posts,
+      </p>
+    </div>
   </div>
 </template>
 
@@ -179,13 +190,7 @@ export default {
       loadingImage: false,
       errorMessage: "",
       sucessMessage: "",
-      valid: false,
-      wireForm: {
-        account: "",
-        withdrawAmount: "2000.80 USD",
-        amount: "",
-        note: ""
-      }
+      valid: false
     };
   }
 };
@@ -267,7 +272,6 @@ export default {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
   font-size: 13px;
-  /* text-align: center; */
   font-weight: 400;
   margin: 0 auto !important;
   width: 170px;
@@ -281,7 +285,6 @@ export default {
   left: 0;
   right: 0;
 }
-
 .theme--light.v-btn.v-btn--disabled {
   color: rgb(254, 251, 251) !important;
 }
@@ -321,6 +324,9 @@ input:focus {
   max-width: 170px;
   text-align: center;
   font-weight: 400;
+}
+.wrapperDiv {
+  padding: 30px 0px;
 }
 .headline1 {
   background-color: rgb(255, 16, 103);

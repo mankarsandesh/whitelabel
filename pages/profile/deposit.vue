@@ -88,9 +88,10 @@ export default {
         }
       ],
       amountRule: [
-        v => !!v || "Amount should be Required",
-        v => v >= 10 || "Amount should be above $10",
-        v => v <= 50000000 || "Max should not be above $50000000"
+        v => !!v || "Topup amount is required",
+        v => v >= 10 || "Topup amount should be above $10",
+        v =>
+          v <= 50000000 || "Topup amount should not be greater than $50000000"
       ]
     };
   },

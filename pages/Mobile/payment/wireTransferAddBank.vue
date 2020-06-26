@@ -2,7 +2,7 @@
   <div class="wireForm">
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
-        <h4 class="text-uppercase display-0">
+        <h4 class="text-uppercase display-0 pl-4">
           Wire Transfer - ADD BANK
         </h4>
       </v-row>
@@ -17,7 +17,7 @@
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p> -->
 
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
       <label>Bank Name<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"

@@ -151,7 +151,7 @@
                     dense
                     required
                     :rules="[v => !!v || 'Phone number is required']"
-                    v-slot:activator="{ on }"
+                    
                   ></v-text-field>
                   <label class="labelFont"
                     >Country<span class="balance">*</span></label
@@ -170,7 +170,7 @@
                     :rules="[v => !!v || 'Country is required']"
                   ></v-select>
 
-                  <v-btn @click="updateProfile" class="loginButton" height="50">
+                  <v-btn @click="updateProfile" class="loginButton" height="40">
                     Save&nbsp;
                     <v-icon class="icon" size="20">
                       fas fa-chevron-double-right

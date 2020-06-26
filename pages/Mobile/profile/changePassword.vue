@@ -1,9 +1,9 @@
 <template>
-  <div class="wireForm">
+  <div class="passwordForm">
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
         <h4 class="text-uppercase display-0 pl-4">
-          Wire Transfer
+          Change password
         </h4>
       </v-row>
     </v-row>
@@ -17,70 +17,66 @@
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p> -->
 
-    <v-form class="mt-5" ref="form" v-model="valid" lazy-validation>
-      <label>Account<span class="imp">*</span></label>
+    <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
+      <label>Old Password<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.account"
+        v-model="passwordForm.oldPassword"
         outlined
         rounded
         dense
         required
         autofocus
-        placeholder="EC Game/WhiteLabel - 12346 USD 2000.80"
-        :rules="[v => !!v || 'Bank Name is required']"
+        type="password"
+        :rules="[v => !!v || 'Old password is required']"
       ></v-text-field>
-      <label
-        >Withdrawable Amount
-        <v-icon size="14">fa fa-question-circle</v-icon></label
-      >
+      <label>New Password<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.withdrawAmount"
-        outlined
-        rounded
-        dense
-        readonly
-      ></v-text-field>
-      <label>Amount<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="wireForm.amount"
+        v-model="passwordForm.newPassword"
         outlined
         rounded
         dense
         required
-        placeholder="Please enter Amount"
-        :rules="[v => !!v || 'Amount is required']"
+        type="password"
+        :rules="[v => !!v || 'New password is required']"
       ></v-text-field>
-      <label>Note</label>
+      <label>Confirm password<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.note"
+        v-model="passwordForm.cofirmPassword"
         outlined
         rounded
         dense
-        placeholder="Please enter Note"
+        required
+        type="password"
+        :rules="[v => !!v || 'Please re-enter new password']"
       ></v-text-field>
 
       <v-row justify="center">
-        <v-col xs="9" sm="9">
-          <v-btn class="closeButton" :disabled="!valid" height="30">
-            PREVIOUS STEP
-          </v-btn>
-        </v-col>
         <v-col xs="3" sm="3">
           <v-btn class="saveButton " :disabled="!valid" height="30">
-            NEXT STEP &nbsp;<v-progress-circular
+            Save
+            <v-icon class="icon" size="15">
+              fas fa-chevron-double-right
+            </v-icon>
+            <v-icon class="icon" size="15">
+              fas fa-chevron-double-right
+            </v-icon>
+            &nbsp;<v-progress-circular
               v-if="loadingImage"
               indeterminate
               color="#FFF"
               size="15"
             ></v-progress-circular>
+          </v-btn>
+        </v-col>
+        <v-col xs="9" sm="9">
+          <v-btn class="closeButton" :disabled="!valid" height="30">
+            Cancel
           </v-btn>
         </v-col>
       </v-row>
@@ -96,14 +92,13 @@ export default {
   data() {
     return {
       loadingImage: false,
-      //   errorMessage: "",
-      //   sucessMessage: "",
+      // errorMessage: "",
+      // sucessMessage: "",
       valid: false,
-      wireForm: {
-        account: "",
-        withdrawAmount: "2000.80 USD",
-        amount: "",
-        note: ""
+      passwordForm: {
+        oldPassword: "",
+        newPassword: "",
+        cofirmPassword: ""
       }
     };
   }
@@ -126,7 +121,7 @@ export default {
 .label-text span {
   color: #000 !important;
 }
-.wireForm {
+.passwordForm {
   position: sticky;
   padding: 0px 20px 20px 20px;
   background-size: cover;
@@ -135,38 +130,38 @@ export default {
   background-color: #ffffff;
   background-blend-mode: multiply;
 }
-.wireForm .icon {
+.passwordForm .icon {
   color: #ff0167;
 }
-.wireForm h2 {
+.passwordForm h2 {
   text-transform: uppercase;
   color: #ff0167;
   margin-bottom: 20px;
 }
-.wireForm p {
+.passwordForm p {
   color: #000;
 }
-.wireForm p span {
+.passwordForm p span {
   color: #000;
   cursor: pointer;
   font-weight: 600;
 }
-.wireForm .inputClasswire {
+.passwordForm .inputClasswire {
   width: 100%;
   font-size: 13px;
 }
-.wireForm .inputClass {
+.passwordForm .inputClass {
   width: 100%;
   padding: 3px 10px;
   margin: 5px 0px;
 }
-.wireForm label {
+.passwordForm label {
   color: #000;
   width: 100%;
   font-weight: 700;
   font-size: 13px;
 }
-.wireForm .inputClass .input {
+.passwordForm .inputClass .input {
   border: 1px solid #d2d1d2;
   width: 100%;
   border-radius: 30px;
@@ -179,11 +174,11 @@ export default {
 .saveButton {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
-  font-size: 13px;
+  font-size: 15px;
   /* text-align: center; */
-  font-weight: 400;
+  font-weight: 800;
   margin: 0 auto !important;
-  width: 170px;
+  width: 180px;
   color: #fff !important;
   text-transform: uppercase;
   max-width: 130px;
@@ -227,10 +222,9 @@ input:focus {
   background-color: #ffffff;
   color: #000 !important;
   border-radius: 50px;
-  font-size: 13px;
-  max-width: 170px;
+  font-size: 18px;
+  max-width: 130px;
   text-align: center;
-  font-weight: 400;
 }
 .headline1 {
   background-color: rgb(255, 16, 103);

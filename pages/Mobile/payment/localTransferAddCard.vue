@@ -3,7 +3,7 @@
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
         <h4 class="text-uppercase display-0 pl-4">
-          Wire Transfer
+          Local bank transfer-Add card
         </h4>
       </v-row>
     </v-row>
@@ -18,7 +18,21 @@
     </p> -->
 
     <v-form class="mt-5" ref="form" v-model="valid" lazy-validation>
-      <label>Account<span class="imp">*</span></label>
+      <label>Name<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClasswire"
+        height="30"
+        v-model="wireForm.name"
+        outlined
+        rounded
+        dense
+        required
+        autofocus
+        placeholder="Please enter name"
+        :rules="[v => !!v || 'Bank Name is required']"
+      ></v-text-field>
+
+      <label>Account Number<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
@@ -29,58 +43,74 @@
         required
         autofocus
         placeholder="EC Game/WhiteLabel - 12346 USD 2000.80"
-        :rules="[v => !!v || 'Bank Name is required']"
+        :rules="[v => !!v || 'Account number is required']"
       ></v-text-field>
-      <label
-        >Withdrawable Amount
-        <v-icon size="14">fa fa-question-circle</v-icon></label
-      >
-      <v-text-field
-        class="inputClasswire"
+
+      <label>Bank<span class="imp">*</span></label>
+      <v-select
         height="30"
-        v-model="wireForm.withdrawAmount"
-        outlined
-        rounded
-        dense
-        readonly
-      ></v-text-field>
-      <label>Amount<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="wireForm.amount"
+        class="inputClassRegi"
         outlined
         rounded
         dense
         required
-        placeholder="Please enter Amount"
-        :rules="[v => !!v || 'Amount is required']"
-      ></v-text-field>
-      <label>Note</label>
-      <v-text-field
-        class="inputClasswire"
+        v-model="wireForm.bank"
+        :items="bank"
+        item-text="name"
+        item-value="id"
+        placeholder="Please select bank"
+        :rules="[v => !!v || 'Country is required']"
+      ></v-select>
+
+      <label>Area<span class="imp">*</span></label>
+      <v-select
         height="30"
-        v-model="wireForm.note"
+        class="inputClassRegi"
         outlined
         rounded
         dense
-        placeholder="Please enter Note"
-      ></v-text-field>
+        required
+        v-model="wireForm.area"
+        :items="area"
+        item-text="name"
+        item-value="id"
+        placeholder="Please select area"
+        :rules="[v => !!v || 'Country is required']"
+      ></v-select>
 
+      <label>Branch<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClasswire"
+        height="30"
+        v-model="wireForm.branch"
+        outlined
+        rounded
+        dense
+        required
+        placeholder="Please enter branch"
+        :rules="[v => !!v || 'Branch is required']"
+      ></v-text-field>
       <v-row justify="center">
-        <v-col xs="9" sm="9">
-          <v-btn class="closeButton" :disabled="!valid" height="30">
-            PREVIOUS STEP
-          </v-btn>
-        </v-col>
         <v-col xs="3" sm="3">
           <v-btn class="saveButton " :disabled="!valid" height="30">
-            NEXT STEP &nbsp;<v-progress-circular
+            Save
+            <v-icon class="icon" size="15">
+              fas fa-chevron-double-right
+            </v-icon>
+            <v-icon class="icon" size="15">
+              fas fa-chevron-double-right
+            </v-icon>
+            &nbsp;<v-progress-circular
               v-if="loadingImage"
               indeterminate
               color="#FFF"
               size="15"
             ></v-progress-circular>
+          </v-btn>
+        </v-col>
+        <v-col xs="9" sm="9">
+          <v-btn class="closeButton" :disabled="!valid" height="30">
+            Cancel
           </v-btn>
         </v-col>
       </v-row>
@@ -100,11 +130,48 @@ export default {
       //   sucessMessage: "",
       valid: false,
       wireForm: {
+        name: "",
         account: "",
-        withdrawAmount: "2000.80 USD",
-        amount: "",
-        note: ""
-      }
+        bank: "US Bank",
+        area: "California",
+        branch: ""
+      },
+      bank: [
+        {
+          id: 1,
+          name: "China bank"
+        },
+        {
+          id: 2,
+          name: "Laos bank"
+        },
+        {
+          id: 3,
+          name: "Thailand bank"
+        },
+        {
+          id: 4,
+          name: "USA bank"
+        }
+      ],
+      area: [
+        {
+          id: 1,
+          name: "east"
+        },
+        {
+          id: 2,
+          name: "west"
+        },
+        {
+          id: 3,
+          name: "north"
+        },
+        {
+          id: 4,
+          name: "south"
+        }
+      ]
     };
   }
 };
