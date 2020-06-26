@@ -78,7 +78,7 @@
     ],
     "slideMenu": [{
             "icon": "fas fa-chart-bar",
-            "title": "live stock",
+            "title": "Wire Transfer",
             "path": "/mobile/payment/wireTransferAddBank"
         },
         {
@@ -88,28 +88,28 @@
         },
         {
             "icon": "fas fa-gift",
-            "title": "promotions",
+            "title": "Wire Transfer Next Step",
             "path": "/mobile/payment/wireNextStep"
         },
         {
             "icon": "fas fa-trophy",
-            "title": "leaderboard",
+            "title": "Withdrawal",
             "path": "/mobile/payment/withdrawal"
         },
         {
             "icon": "fas fa-file-alt",
-            "title": "game rules",
+            "title": "Local Transfer",
             "path": "/mobile/payment/localTransferAddCard"
         },
         {
             "icon": "fas fa-info-circle",
-            "title": "about us",
+            "title": "Add Local Bank",
             "path": "/mobile/payment/localTransferAddBank"
         },
         {
             "icon": "far fa-file-alt",
-            "title": "terms & conditions",
-            "path": "/"
+            "title": "Change password",
+            "path": "/mobile/profile/changePassword"
         },
         {
             "icon": "fas fa-cogs",

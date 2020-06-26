@@ -8,7 +8,7 @@
     >
       <v-col cols="10">
         <v-card flat class="ml-20" color=" transparent" dark>
-          <v-card-title class="display-2 font-weight-bold"
+          <v-card-title class="display-2 font-weight-bold" style="word-break: keep-all;"
             >Your mood or Game</v-card-title
           >
           <v-card-title class="flex display-1 font-weight-black color-pink"

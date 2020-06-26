@@ -76,8 +76,6 @@
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
           <v-expansion-panel class="mt-5 account">
             <v-expansion-panel-header class="balance font-weight-bold">
               <span
@@ -104,8 +102,7 @@
               <p>Coming Soon</p>
             </v-expansion-panel-content>
           </v-expansion-panel>
-        </v-expansion-panels>
-        <v-expansion-panels>
+
           <v-expansion-panel class="mt-5 account">
             <v-expansion-panel-header class="balance font-weight-bold">
               <span
