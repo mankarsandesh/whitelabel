@@ -2,7 +2,7 @@
   <div class="wireForm">
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
-        <h4 class="text-uppercase display-0">
+        <h4 class="text-uppercase display-0 pl-4">
           Local bank transfer-Add card
         </h4>
       </v-row>

@@ -2,7 +2,7 @@
   <div class="wireForm">
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
-        <h4 class="text-uppercase display-0">
+        <h4 class="text-uppercase display-0 pl-4">
           Withdrawal
         </h4>
       </v-row>
@@ -66,13 +66,14 @@
                   max-width="120"
                   :disabled="!valid"
                 >
-                  Next Step &nbsp;<v-progress-circular
+                  Next Step &nbsp;
+                  <v-progress-circular
                     v-if="loadingImage"
                     indeterminate
                     color="#FFF"
                     size="20"
-                  ></v-progress-circular>
-                </v-btn>
+                  ></v-progress-circular
+                ></v-btn>
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -189,13 +190,7 @@ export default {
       loadingImage: false,
       errorMessage: "",
       sucessMessage: "",
-      valid: false,
-      wireForm: {
-        account: "",
-        withdrawAmount: "2000.80 USD",
-        amount: "",
-        note: ""
-      }
+      valid: false
     };
   }
 };
@@ -277,7 +272,6 @@ export default {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
   font-size: 13px;
-  /* text-align: center; */
   font-weight: 400;
   margin: 0 auto !important;
   width: 170px;
@@ -291,7 +285,6 @@ export default {
   left: 0;
   right: 0;
 }
-
 .theme--light.v-btn.v-btn--disabled {
   color: rgb(254, 251, 251) !important;
 }

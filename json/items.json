@@ -118,8 +118,8 @@
         },
         {
             "icon": "fas fa-cogs",
-            "title": "privacy policy",
-            "path": "/"
+            "title": "Order history",
+            "path": "/mobile/payment/orderHistory"
         },
         {
             "icon": "fas fa-question",
