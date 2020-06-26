@@ -77,19 +77,24 @@
         }
     ],
     "slideMenu": [{
+        "icon": "far fa-gamepad",
+        "title": "game mode",
+        "path": "/mobile/gameMode"
+    },
+    {
             "icon": "fas fa-chart-bar",
             "title": "Wire Transfer",
             "path": "/mobile/payment/wireTransferAddBank"
         },
         {
-            "icon": "far fa-gamepad",
-            "title": "game mode",
-            "path": "/mobile/gameMode"
-        },
-        {
             "icon": "fas fa-gift",
             "title": "Wire Transfer Next Step",
             "path": "/mobile/payment/wireNextStep"
+        },
+        {
+            "icon": "fas fa-cogs",
+            "title": "deposit",
+            "path": "/mobile/payment/deposit"
         },
         {
             "icon": "fas fa-trophy",

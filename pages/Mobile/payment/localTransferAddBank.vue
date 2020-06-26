@@ -1,5 +1,5 @@
 <template>
-  <div class="localform">
+  <div class="localForm">
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
         <h4 class="text-uppercase display-0">
@@ -22,7 +22,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="localform.bankName"
+        v-model="localForm.bankName"
         outlined
         rounded
         dense
@@ -35,7 +35,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="localform.accountHolderName"
+        v-model="localForm.accountHolderName"
         outlined
         rounded
         dense
@@ -47,7 +47,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="localform.accountNumber"
+        v-model="localForm.accountNumber"
         outlined
         rounded
         dense
@@ -59,7 +59,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="localform.accountIFSC"
+        v-model="localForm.accountIFSC"
         outlined
         rounded
         dense
@@ -72,7 +72,7 @@
         class="inputClasswire"
         height="30"
         type="password"
-        v-model="localform.accountSWIFT"
+        v-model="localForm.accountSWIFT"
         outlined
         rounded
         dense
@@ -119,7 +119,7 @@ export default {
       // errorMessage: "",
       // sucessMessage: "",
       valid: false,
-      localform: {
+      localForm: {
         bankName: "",
         accountHolderName: "",
         accountNumber: "",
@@ -147,7 +147,7 @@ export default {
 .label-text span {
   color: #000 !important;
 }
-.localform {
+.localForm {
   position: sticky;
   padding: 0px 20px 20px 20px;
   background-size: cover;
@@ -156,38 +156,38 @@ export default {
   background-color: #ffffff;
   background-blend-mode: multiply;
 }
-.localform .icon {
+.localForm .icon {
   color: #ff0167;
 }
-.localform h2 {
+.localForm h2 {
   text-transform: uppercase;
   color: #ff0167;
   margin-bottom: 20px;
 }
-.localform p {
+.localForm p {
   color: #000;
 }
-.localform p span {
+.localForm p span {
   color: #000;
   cursor: pointer;
   font-weight: 600;
 }
-.localform .inputClasswire {
+.localForm .inputClasswire {
   width: 100%;
   font-size: 13px;
 }
-.localform .inputClass {
+.localForm .inputClass {
   width: 100%;
   padding: 3px 10px;
   margin: 5px 0px;
 }
-.localform label {
+.localForm label {
   color: #000;
   width: 100%;
   font-weight: 700;
   font-size: 13px;
 }
-.localform .inputClass .input {
+.localForm .inputClass .input {
   border: 1px solid #d2d1d2;
   width: 100%;
   border-radius: 30px;

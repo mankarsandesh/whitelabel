@@ -162,6 +162,19 @@
         </v-expansion-panels>
       </v-col>
     </v-row>
+    <div class="wrapperDiv">
+      <h4>
+        <v-icon size="22" color="#fdc84f">
+          fas fa-info-circle
+        </v-icon>
+        Wire Transfer Prompt
+      </h4>
+      <p>
+        If you would like to have some demo content on your WordPress website,
+        there are basically three different ways to do so. First, you could just
+        quickly create some (sample) posts,
+      </p>
+    </div>
   </div>
 </template>
 
@@ -318,6 +331,9 @@ input:focus {
   max-width: 170px;
   text-align: center;
   font-weight: 400;
+}
+.wrapperDiv {
+  padding: 30px 0px;
 }
 .headline1 {
   background-color: rgb(255, 16, 103);
