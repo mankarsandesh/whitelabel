@@ -23,7 +23,7 @@
         <label>Username</label>
         <v-text-field
           class="inputClassRegi"
-          height="46"
+          height="42"
           light
           v-model="username"
           outlined
@@ -36,7 +36,7 @@
         <label>Password</label>
         <v-text-field
           class="inputClassRegi"
-          height="46"
+          height="42"
           light
           v-model="password"
           outlined
