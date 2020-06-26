@@ -55,7 +55,7 @@
             <v-list-item-avatar class="mr-0">
               <img :src="this.defaultImage" :alt="GetUserData.username" />
             </v-list-item-avatar>
-            <v-menu  offset-y >
+            <v-menu offset-y>
               <template v-slot:activator="{ attrs, on }">
                 <v-list-item-content>
                   <v-list-item-title
@@ -63,20 +63,27 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    &nbsp;{{ GetUserData.username }}
+                    <span v-if="GetUserData.first_name">
+                      {{ GetUserData.first_name }}
+                      {{ GetUserData.last_name }}</span
+                    >
+                    <span v-if="!GetUserData.first_name">
+                      {{ GetUserData.username }}
+                    </span>
                   </v-list-item-title>
                 </v-list-item-content>
               </template>
-              <v-list >
+              <v-list>
                 <v-list-item link class="menuList" to="/profile">
                   <v-list-item-title> My Account</v-list-item-title>
                 </v-list-item>
-                <v-list-item link class="menuList"  to="/profile/change_password">
+                <v-list-item
+                  link
+                  class="menuList"
+                  to="/profile/change_password"
+                >
                   <v-list-item-title>Change Password</v-list-item-title>
                 </v-list-item>
-                <!-- <v-list-item link class="menuList"  to="/settings">
-                  <v-list-item-title>Settings</v-list-item-title>
-                </v-list-item> -->
                 <v-list-item link class="menuList" @click="userLogout()">
                   <v-list-item-title>Logout</v-list-item-title>
                 </v-list-item>
@@ -92,10 +99,6 @@
             </v-list-item-action>
           </v-list-item>
         </v-list>
-
-        <!-- <v-btn text dark @click="userLogout()">
-          Logout
-        </v-btn> -->
       </div>
       <div v-else>
         <v-btn

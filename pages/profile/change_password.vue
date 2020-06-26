@@ -16,6 +16,7 @@
           <div class="userInfo">
             <label>Current Password <label class="required">*</label></label>
             <v-text-field
+              type="password"
               light
               v-model="oldPassword"
               outlined
@@ -28,6 +29,7 @@
           <div class="userInfo">
             <label>New Password <label class="required">*</label></label>
             <v-text-field
+              type="password"
               light
               v-model="newPassword"
               outlined
@@ -42,6 +44,7 @@
               >Confirm New Password <label class="required">*</label></label
             >
             <v-text-field
+              type="password"
               light
               v-model="repeatNewPassword"
               outlined
@@ -90,7 +93,7 @@ export default {
     ...mapGetters("login", ["GetUserData"])
   },
   methods: {
-    // Validation Users Topup form
+    // Validation Password Change Form
     validate() {
       this.$refs.form.validate();
       if (this.oldPassword && this.newPassword && this.repeatNewPassword) {
@@ -102,7 +105,7 @@ export default {
         }
       }
     },
-    // User Topuop Balance
+    // User Password Change
     async userChangePassword() {
       try {
         var reqBody = {
@@ -118,14 +121,17 @@ export default {
             headers: config.header
           }
         );
-        console.log(data);
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
+          this.oldPassword = "";
+          this.newPassword = "";
+          this.repeatNewPassword = "";
         } else {
           this.errorMessage = data.message[0];
-          this.loadingImage = false;
+          this.sucessMessage = "";
         }
+        this.loadingImage = false;
       } catch (ex) {
         this.errorMessage = data.message[0];
       }

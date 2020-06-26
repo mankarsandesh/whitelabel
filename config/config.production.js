@@ -10,7 +10,7 @@ const config = {
   sessionExpiryTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   isMaintenance: process.env.MAINTENANCE_MODE,
   header: {
-    authorization: "Basic VG5rd2ViQXBpOlRlc3QxMjMh"
+    authorization: `${process.env.BASIC_AUTH}`
   },
   mainServer : {
     url: `${process.env.MAIN_GAME}`
