@@ -17,8 +17,8 @@
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p> -->
 
-    <v-row align="center" justify="center">
-      <v-col cols="11">
+    <v-row class="mt-5" align="center" justify="center">
+      <v-col>
         <v-expansion-panels rounded v-model="panel">
           <v-expansion-panel class="account">
             <v-expansion-panel-header class="font-weight-bold"
@@ -148,7 +148,7 @@
                 <v-btn
                   class="saveButton"
                   small
-                  height="30"
+                  height="35"
                   max-width="120"
                   :disabled="!valid"
                 >

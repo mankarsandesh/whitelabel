@@ -3,7 +3,7 @@
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
         <h4 class="text-uppercase display-0">
-          Wire Transfer - ADD BANK
+          Local bank transfer-Add card
         </h4>
       </v-row>
     </v-row>
@@ -17,68 +17,78 @@
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p> -->
 
-    <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
-      <label>Bank Name<span class="imp">*</span></label>
+    <v-form class="mt-5" ref="form" v-model="valid" lazy-validation>
+      <label>Name<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.bankName"
+        v-model="wireForm.name"
         outlined
         rounded
         dense
         required
         autofocus
-        placeholder="Please enter Bank Name"
+        placeholder="Please enter name"
         :rules="[v => !!v || 'Bank Name is required']"
       ></v-text-field>
-      <label>Account Holder Name<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="wireForm.accountHolderName"
-        outlined
-        rounded
-        dense
-        required
-        placeholder="Please enter Account Holder Name"
-        :rules="[v => !!v || 'Account holder name is required']"
-      ></v-text-field>
+
       <label>Account Number<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.accountNumber"
+        v-model="wireForm.account"
         outlined
         rounded
         dense
         required
-        placeholder="Please enter Account Number"
-        :rules="[v => !!v || 'Account Number is required']"
+        autofocus
+        placeholder="EC Game/WhiteLabel - 12346 USD 2000.80"
+        :rules="[v => !!v || 'Account number is required']"
       ></v-text-field>
-      <label>IFSC Code<span class="imp">*</span></label>
+
+      <label>Bank<span class="imp">*</span></label>
+      <v-select
+        height="30"
+        class="inputClassRegi"
+        outlined
+        rounded
+        dense
+        required
+        v-model="wireForm.bank"
+        :items="bank"
+        item-text="name"
+        item-value="id"
+        placeholder="Please select bank"
+        :rules="[v => !!v || 'Country is required']"
+      ></v-select>
+
+      <label>Area<span class="imp">*</span></label>
+      <v-select
+        height="30"
+        class="inputClassRegi"
+        outlined
+        rounded
+        dense
+        required
+        v-model="wireForm.area"
+        :items="area"
+        item-text="name"
+        item-value="id"
+        placeholder="Please select area"
+        :rules="[v => !!v || 'Country is required']"
+      ></v-select>
+
+      <label>Branch<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.accountIFSC"
+        v-model="wireForm.branch"
         outlined
         rounded
         dense
         required
-        placeholder="Please enter IFSC Code"
-        :rules="[v => !!v || 'IFSC Code is required']"
-      ></v-text-field>
-      <label>SWIFT Code<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        type="password"
-        v-model="wireForm.accountSWIFT"
-        outlined
-        rounded
-        dense
-        required
-        placeholder="Please enter SWIFT Code"
-        :rules="[v => !!v || 'SWIFT Code is required']"
+        placeholder="Please enter branch"
+        :rules="[v => !!v || 'Branch is required']"
       ></v-text-field>
       <v-row justify="center">
         <v-col xs="3" sm="3">
@@ -116,16 +126,52 @@ export default {
   data() {
     return {
       loadingImage: false,
-      // errorMessage: "",
-      // sucessMessage: "",
+      //   errorMessage: "",
+      //   sucessMessage: "",
       valid: false,
       wireForm: {
-        bankName: "",
-        accountHolderName: "",
-        accountNumber: "",
-        accountIFSC: "",
-        accountSWIFT: ""
-      }
+        name: "",
+        account: "",
+        bank: "US Bank",
+        area: "California",
+        branch: ""
+      },
+      bank: [
+        {
+          id: 1,
+          name: "China bank"
+        },
+        {
+          id: 2,
+          name: "Laos bank"
+        },
+        {
+          id: 3,
+          name: "Thailand bank"
+        },
+        {
+          id: 4,
+          name: "USA bank"
+        }
+      ],
+      area: [
+        {
+          id: 1,
+          name: "east"
+        },
+        {
+          id: 2,
+          name: "west"
+        },
+        {
+          id: 3,
+          name: "north"
+        },
+        {
+          id: 4,
+          name: "south"
+        }
+      ]
     };
   }
 };
@@ -200,11 +246,11 @@ export default {
 .saveButton {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
-  font-size: 15px;
+  font-size: 13px;
   /* text-align: center; */
-  font-weight: 800;
+  font-weight: 400;
   margin: 0 auto !important;
-  width: 180px;
+  width: 170px;
   color: #fff !important;
   text-transform: uppercase;
   max-width: 130px;
@@ -248,9 +294,10 @@ input:focus {
   background-color: #ffffff;
   color: #000 !important;
   border-radius: 50px;
-  font-size: 18px;
-  max-width: 130px;
+  font-size: 13px;
+  max-width: 170px;
   text-align: center;
+  font-weight: 400;
 }
 .headline1 {
   background-color: rgb(255, 16, 103);

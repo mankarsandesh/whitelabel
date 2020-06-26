@@ -99,12 +99,12 @@
         {
             "icon": "fas fa-file-alt",
             "title": "game rules",
-            "path": "/"
+            "path": "/mobile/payment/localTransferAddCard"
         },
         {
             "icon": "fas fa-info-circle",
             "title": "about us",
-            "path": "/"
+            "path": "/mobile/payment/localTransferAddBank"
         },
         {
             "icon": "far fa-file-alt",

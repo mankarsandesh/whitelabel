@@ -1,9 +1,9 @@
 <template>
-  <div class="wireForm">
+  <div class="localform">
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
         <h4 class="text-uppercase display-0">
-          Wire Transfer - ADD BANK
+          Local Transfer - ADD BANK
         </h4>
       </v-row>
     </v-row>
@@ -22,7 +22,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.bankName"
+        v-model="localform.bankName"
         outlined
         rounded
         dense
@@ -35,7 +35,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.accountHolderName"
+        v-model="localform.accountHolderName"
         outlined
         rounded
         dense
@@ -47,7 +47,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.accountNumber"
+        v-model="localform.accountNumber"
         outlined
         rounded
         dense
@@ -59,7 +59,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="wireForm.accountIFSC"
+        v-model="localform.accountIFSC"
         outlined
         rounded
         dense
@@ -72,7 +72,7 @@
         class="inputClasswire"
         height="30"
         type="password"
-        v-model="wireForm.accountSWIFT"
+        v-model="localform.accountSWIFT"
         outlined
         rounded
         dense
@@ -119,7 +119,7 @@ export default {
       // errorMessage: "",
       // sucessMessage: "",
       valid: false,
-      wireForm: {
+      localform: {
         bankName: "",
         accountHolderName: "",
         accountNumber: "",
@@ -147,7 +147,7 @@ export default {
 .label-text span {
   color: #000 !important;
 }
-.wireForm {
+.localform {
   position: sticky;
   padding: 0px 20px 20px 20px;
   background-size: cover;
@@ -156,38 +156,38 @@ export default {
   background-color: #ffffff;
   background-blend-mode: multiply;
 }
-.wireForm .icon {
+.localform .icon {
   color: #ff0167;
 }
-.wireForm h2 {
+.localform h2 {
   text-transform: uppercase;
   color: #ff0167;
   margin-bottom: 20px;
 }
-.wireForm p {
+.localform p {
   color: #000;
 }
-.wireForm p span {
+.localform p span {
   color: #000;
   cursor: pointer;
   font-weight: 600;
 }
-.wireForm .inputClasswire {
+.localform .inputClasswire {
   width: 100%;
   font-size: 13px;
 }
-.wireForm .inputClass {
+.localform .inputClass {
   width: 100%;
   padding: 3px 10px;
   margin: 5px 0px;
 }
-.wireForm label {
+.localform label {
   color: #000;
   width: 100%;
   font-weight: 700;
   font-size: 13px;
 }
-.wireForm .inputClass .input {
+.localform .inputClass .input {
   border: 1px solid #d2d1d2;
   width: 100%;
   border-radius: 30px;

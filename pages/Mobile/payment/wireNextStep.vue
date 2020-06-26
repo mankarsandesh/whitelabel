@@ -17,7 +17,7 @@
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p> -->
 
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form class="mt-5" ref="form" v-model="valid" lazy-validation>
       <label>Account<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
