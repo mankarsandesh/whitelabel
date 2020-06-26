@@ -4,6 +4,7 @@
       <v-row class="fill-height" align="center" justify="center">
         <v-card flat max-width="1000">
           <v-card-title class="display-2 font-weight-bold">Get</v-card-title>
+          
           <v-card-title class="flex display-4 font-weight-black color-pink"
             >$2000</v-card-title
           >

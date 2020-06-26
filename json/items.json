@@ -79,7 +79,7 @@
     "slideMenu": [{
             "icon": "fas fa-chart-bar",
             "title": "live stock",
-            "path": "/"
+            "path": "/mobile/payment/wireTransferAddBank"
         },
         {
             "icon": "far fa-gamepad",
@@ -89,12 +89,12 @@
         {
             "icon": "fas fa-gift",
             "title": "promotions",
-            "path": "/"
+            "path": "/mobile/payment/wireNextStep"
         },
         {
             "icon": "fas fa-trophy",
             "title": "leaderboard",
-            "path": "/"
+            "path": "/mobile/payment/withdrawal"
         },
         {
             "icon": "fas fa-file-alt",

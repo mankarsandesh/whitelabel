@@ -39,6 +39,13 @@ const config = {
   userUpdateDetails:{
     url: `${process.env.BASE_URL}/updateUserProfile`
   },
+  defaultLanguageLocale: "cn",
+  language: {
+    cn: "chinese",
+    us: "english",
+    th: "thai",
+    la: "lao"
+  },
   userToPupBalance:{
     url: `${process.env.BASE_URL}/updateUserProfile`
   },
