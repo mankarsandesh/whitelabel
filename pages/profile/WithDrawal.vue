@@ -4,37 +4,45 @@
     <v-divider></v-divider>
     <v-row class="topupDiv">
       <v-col cols="8" class="py-0">
-        <v-form ref="form" v-model="valid" lazy-validation>
-          <div class="userInfo">
-            <label>Method</label>
+        <div class="userInfo">
+          <label>Method</label>
 
-            <v-tabs v-model="tab" color="#ff003b">
-              <v-tab class="text-capitalize" href="#tab-1">
-                <v-icon size="20">
-                  fas fa-university
-                </v-icon>
-                &nbsp;Local Bank Transfer</v-tab
-              >
-              <v-tab class="text-capitalize" href="#tab-2">
-                <v-icon size="20">
-                  fas fa-exchange
-                </v-icon>
-                &nbsp; Wire Transfer</v-tab
-              >
-              <v-tab class="text-capitalize" href="#tab-3">
-                <v-icon size="20">
-                  fas fa-university
-                </v-icon>
-                &nbsp; CryptoCurrency</v-tab
-              >
-            </v-tabs>
+          <v-tabs v-model="tab" color="#ff003b">
+            <v-tab class="text-capitalize" href="#tab-1">
+              <v-icon size="20">
+                fas fa-university
+              </v-icon>
+              &nbsp;Local Bank Transfer</v-tab
+            >
+            <v-tab class="text-capitalize" href="#tab-2">
+              <v-icon size="20">
+                fas fa-exchange
+              </v-icon>
+              &nbsp; Wire Transfer</v-tab
+            >
+            <v-tab class="text-capitalize" href="#tab-3">
+              <v-icon size="20">
+                fas fa-university
+              </v-icon>
+              &nbsp; CryptoCurrency</v-tab
+            >
+          </v-tabs>
 
-            <v-tabs-items v-model="tab">
-              <v-tab-item :value="'tab-1'">
-                <div class="wrapperDiv">
-                  <label>Beneficiary Account Number/BAN</label>
-                  <v-row>
-                    <v-col>
+          <v-tabs-items v-model="tab">
+            <v-tab-item :value="'tab-1'">
+              <div class="wrapperDiv">
+                <p
+                  v-bind:class="{
+                    sucessMessage: sucessMessage,
+                    errorMessage: errorMessage
+                  }"
+                >
+                  {{ this.errorMessage }} {{ this.sucessMessage }}
+                </p>
+                <label>Beneficiary Account Number/BAN</label>
+                <v-row>
+                  <v-col>
+                    <v-form ref="form" v-model="valid" lazy-validation>
                       <v-select
                         v-if="this.userBankList.length > 0"
                         placeholder="Select Bank"
@@ -48,10 +56,99 @@
                         v-model="bank"
                         :items="banks"
                         item-text="ac_bank_name"
-                        item-value="ac_bank_name"                        
+                        item-value="bank_account_uuid"
                         :rules="[v => !!v || 'Bank is required']"
                       ></v-select>
 
+                      <div id="wireNextStep" v-if="lastStepWire">
+                        <label
+                          >Your Balance
+                          <v-icon size="18">
+                            fas fa-info-circle
+                          </v-icon>
+                        </label>
+                        <v-text-field
+                          readonly=""
+                          height="42"
+                          width="130"
+                          light
+                          v-model="userBalance"
+                          outlined
+                          rounded
+                          dense
+                          required
+                        ></v-text-field>
+
+                        <label>Withdrawable Amount</label>
+                        <v-text-field
+                          type="number"
+                          height="42"
+                          width="130"
+                          light
+                          v-model="withdrawableAmount"
+                          outlined
+                          rounded
+                          dense
+                          required
+                          prefix="$"
+                          :rules="amountRule"
+                          placeholder="Please enter Withdrawable Amount"
+                        ></v-text-field>
+
+                        <label>Note</label>
+                        <v-text-field
+                          height="42"
+                          width="130"
+                          light
+                          v-model="userNote"
+                          outlined
+                          rounded
+                          dense
+                          required
+                          placeholder="Please enter Note"
+                        ></v-text-field>
+
+                        <v-btn
+                          class="cancelButton"
+                          small
+                          height="35"
+                          @click="previousStep()"
+                        >
+                          Previous Step
+                        </v-btn>
+
+                        <v-btn
+                          class="saveButton"
+                          small
+                          height="35"
+                          @click="wireTransfter"
+                        >
+                          Finsh &nbsp;<v-progress-circular
+                            v-if="loadingImage"
+                            indeterminate
+                            color="#FFF"
+                            size="20"
+                          ></v-progress-circular>
+                        </v-btn>
+                      </div>
+                    </v-form>
+                  </v-col>
+                  <v-col>
+                    <div
+                      class="addBank"
+                      @click="openBankForm()"
+                      v-if="this.userBankList.length > 0 && firstStepWire"
+                    >
+                      <v-icon size="20" color="#ff0167">
+                        fas fa-university
+                      </v-icon>
+                      Add bank
+                    </div>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col>
+                    <div id="wireFirstStep" v-if="firstStepWire">
                       <div id="myBank" v-if="this.userBankList.length > 0">
                         <v-flex
                           v-for="(data, index) in userBankList"
@@ -64,7 +161,14 @@
                               <v-icon
                                 class="icon"
                                 size="18"
-                                @click="openEditBankForm(data.ac_bank_name,data.ac_holder_name, data.ac_ifsc_code,data.ac_number)"
+                                @click="
+                                  openEditBankForm(
+                                    data.ac_bank_name,
+                                    data.ac_holder_name,
+                                    data.ac_ifsc_code,
+                                    data.ac_number
+                                  )
+                                "
                               >
                                 fas fa-pencil
                               </v-icon>
@@ -119,50 +223,35 @@
                           </div>
                         </div>
                       </div>
-                    </v-col>
-                    <v-col>
-                      <div
-                        class="addBank"
-                        @click="openBankForm()"
-                        v-if="this.userBankList.length > 0"
-                      >
-                        <v-icon size="20" color="#ff0167">
-                          fas fa-university
-                        </v-icon>
-                        Add bank
-                      </div>
-                    </v-col>
-                  </v-row>
-                </div>
-              </v-tab-item>
-              <v-tab-item :value="'tab-2'">
-                <div class="wrapperDiv">
-                  <label>Coming Soon</label>
-                </div>
-              </v-tab-item>
-              <v-tab-item :value="'tab-3'">
-                <div class="wrapperDiv">
-                  <label>Coming Soon</label>
-                </div>
-              </v-tab-item>
-            </v-tabs-items>
-          </div>
 
-          <v-btn
-            class="saveButton"
-            small
-            height="35"
-            @click="validate"
-            :disabled="!valid"
-          >
-            Next Step &nbsp;<v-progress-circular
-              v-if="loadingImage"
-              indeterminate
-              color="#FFF"
-              size="20"
-            ></v-progress-circular>
-          </v-btn>
-        </v-form>
+                      <v-btn
+                        class="saveButton"
+                        small
+                        height="35"
+                        @click="validate"
+                        :disabled="!valid"
+                      >
+                        Next Step
+                      </v-btn>
+                    </div>
+                  </v-col>
+                  <v-col></v-col>
+                </v-row>
+              </div>
+            </v-tab-item>
+            <v-tab-item :value="'tab-2'">
+              <div class="wrapperDiv">
+                <label>Coming Soon</label>
+              </div>
+            </v-tab-item>
+            <v-tab-item :value="'tab-3'">
+              <div class="wrapperDiv">
+                <label>Coming Soon</label>
+              </div>
+            </v-tab-item>
+          </v-tabs-items>
+        </div>
+
         <div class="wrapperDiv">
           <h4>
             <v-icon size="22" color="#fdc84f">
@@ -181,7 +270,7 @@
 
     <!-- Add Bank Form -->
     <v-dialog content-class="addBankBox" v-model="bankDialog" max-width="550px">
-      <addBank @bankClose="closeBank"  />
+      <addBank @bankClose="closeBank" />
     </v-dialog>
     <!-- Ending Bank Form -->
   </div>
@@ -194,22 +283,41 @@ import axios from "axios";
 export default {
   data() {
     return {
+      sucessMessage: "",
+      errorMessage: "",
+      firstStepWire: true,
+      lastStepWire: false,
       bankDialog: false,
       tab: 0,
       valid: true,
       loadingImage: false,
-      bank: 45,
+      bank: "",
       banks: [],
-      userBankList: ""
+      userBankList: "",
+      // Next Step
+      userAccountDetails: "",
+      accountName: "",
+      userBalance: 5000,
+      userNote: "",
+      withdrawableAmount: "",
+      // Amount Validation
+      amountRule: [
+        v => !!v || "Withdrawable amount is required",
+        v => v >= 10 || "Withdrawable amount should be above $10",
+        v =>
+          v <= 50000000 ||
+          "Withdrawable amount should not be greater than $50000000"
+      ]
     };
   },
   components: {
     addBank
   },
+  created() {
+    console.log("Created");
+  },
   mounted() {
-    console.log(this.GetUserData.uuid);
     this.fetchUsersBankList();
-    console.log(this.userBankList, "Data");
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
@@ -226,13 +334,57 @@ export default {
     // Close Bank Form
     closeBank() {
       this.bankDialog = false;
+      this.fetchUsersBankList();
+    },
+    //previous Step
+    previousStep() {
+      this.firstStepWire = true;
+      this.lastStepWire = false;
+    },
+    validateWireTransfer() {},
+    wireTransfter() {
+      if (this.bank && this.userBalance && this.withdrawableAmount) {
+        this.userwithdrawalRequest();
+      } else {
+        this.errorMessage = "Please Fill All fileds";
+      }
     },
     // Validation Users Topup form
     validate() {
-      this.$refs.form.validate();
-      if (this.amount && this.Topuptype) {
-        this.loadingImage = true;
-        this.userTotpupBalance();
+      if (this.bank) {
+        this.firstStepWire = false;
+        this.lastStepWire = true;
+        this.accountName = this.bank;
+        this.userBalance = this.GetUserData.balance;
+      }
+    },
+
+    // User Topuop Balance
+    async userwithdrawalRequest() {
+      this.loadingImage = true;
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          bank_account_uuid: this.accountName,
+          amount: this.userBalance
+        };
+        var { data } = await axios.post(
+          config.userWithdrawalRequest.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+        this.loadingImage = false;
+      } catch (ex) {
+        this.errorMessage = data.message[0];
       }
     },
     // User Topuop Balance
@@ -250,7 +402,6 @@ export default {
         );
         if (data.code == 200) {
           this.userBankList = data.data;
-          console.log(data.data.length);
           for (var i = 0; i < data.data.length; i++) {
             this.banks.push(data.data[i]);
           }
@@ -266,25 +417,29 @@ export default {
 };
 </script>
 <style scoped>
+#wireNextStep {
+  margin-top: 20px;
+}
+.wireNextFiled {
+  padding: 0px 20px;
+}
 #myBank::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;
 }
-
 #myBank::-webkit-scrollbar {
   width: 6px;
   background-color: #f5f5f5;
 }
-
 #myBank::-webkit-scrollbar-thumb {
   background-color: #ff0167;
 }
-
 #myBank {
   padding: 0px 10px;
   overflow-y: scroll;
-  height: 320px;
+  height: 300px;
   overflow-x: hidden;
+  margin-bottom: 20px;
 }
 .v-text-field.v-text-field--solo .v-input__control {
   min-height: 10px;
