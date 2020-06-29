@@ -151,7 +151,6 @@
                     dense
                     required
                     :rules="[v => !!v || 'Phone number is required']"
-                    
                   ></v-text-field>
                   <label class="labelFont"
                     >Country<span class="balance">*</span></label
@@ -202,6 +201,14 @@
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
+          <v-btn @click="userLogout" class="loginButton" height="40">
+            Logout &nbsp;<v-progress-circular
+              v-if="loadingImage"
+              indeterminate
+              color="#FFF"
+              size="20"
+            ></v-progress-circular>
+          </v-btn>
         </v-col>
       </v-row>
     </v-flex>
@@ -271,6 +278,13 @@ export default {
   },
   methods: {
     ...mapActions("login", ["setUserData", "usersData"]),
+    ...mapMutations("login", ["CLEAR_USER_DATA"]),
+    // Logout Users
+    async userLogout() {
+      this.CLEAR_USER_DATA();
+      // Cookies.remove("userUUID", { path: "" }); // removed! UserUUID Cookies
+      this.$router.push("/");
+    },
     // Format User balance
     formatToPrice(value) {
       return `$ ${Number(value)
