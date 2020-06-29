@@ -9,7 +9,7 @@
             <thead>
               <tr class="tableHead">
                 <th class="text-left">#ORDER ID</th>
-                <th class="text-center">ACCOUNT NAME</th>
+                <th>ACCOUNT NAME</th>
                 <th class="text-center">TYPE</th>
                 <th class="text-center">METHOD</th>
                 <th class="text-left">AMOUNT</th>
@@ -19,21 +19,26 @@
             </thead>
             <tbody v-if="userOrderData.length > 0">
               <tr v-for="item in userOrderData" :key="item.name">
-                <td><a href="#">{{ item.uuid }}</a></td>
-                <td class="text-center">{{ item.type }}</td>
-                <td class="text-center">{{ item.bank_account_id }}</td>
+                <td>
+                  <a href="#">{{ item.bank_account_uuid }}</a>
+                </td>
+                <td>{{ item.ac_bank_name }}, {{ item.ac_holder_name }}</td>
+                <td class="text-center">
+                  <span v-if="item.type == 2"> Withdraw </span>
+                  <span v-if="item.type == 3"> Top-up </span>
+                </td>
                 <td class="text-center">Local Bank Transfer</td>
                 <td class="text-left">${{ item.amount }}</td>
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center">
                   <span class="orderPending" v-if="item.status == 1">
-                    Pending
+                    in Progress
                   </span>
                   <span class="orderSuccess" v-if="item.status == 2">
-                    Approved
+                    Done
                   </span>
                   <span class="orderCancel" v-if="item.status == 3">
-                    Error
+                    Cancel
                   </span>
                 </td>
               </tr>
@@ -45,7 +50,6 @@
                 </td>
               </tr>
             </tbody>
-
           </template>
         </v-simple-table>
       </v-col>
@@ -85,8 +89,6 @@ export default {
             headers: config.header
           }
         );
-        console.log(reqBody);
-        console.log(data);
         this.userOrderData = data.data;
       } catch (ex) {
         this.errorMessage = data.message[0];
