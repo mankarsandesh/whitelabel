@@ -46,7 +46,7 @@ const config = {
     url: `${process.env.BASE_URL}/registerBankDetail`
   },
   getUserBankDetails: {
-    url: `${process.env.BASE_URL}/getUserBankDetails`
+    url: `${process.env.BASE_URL}/getUserBankDetail`
   },
   userChangePassword: {
     url: `${process.env.BASE_URL}/changePassword`

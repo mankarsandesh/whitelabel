@@ -301,6 +301,7 @@ export default {
     },
     // Close Register Screen
     closeRegister() {
+      
       this.registerDialog = false;
     },
     closeLogin() {

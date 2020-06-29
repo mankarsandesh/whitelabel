@@ -356,7 +356,7 @@ export default {
       }
     },
 
-    // User Topuop Balance
+    // User withdrawal Request
     async userwithdrawalRequest() {
       this.loadingImage = true;
       try {
@@ -384,12 +384,13 @@ export default {
         this.errorMessage = data.message[0];
       }
     },
-    // User Topuop Balance
+    // User FETCH BANK lIST
     async fetchUsersBankList() {
       try {
         var reqBody = {
           user_uuid: this.GetUserData.uuid
         };
+         console.log(reqBody);
         var { data } = await axios.post(
           config.getUserBankDetails.url,
           reqBody,
@@ -407,7 +408,7 @@ export default {
           this.loadingImage = false;
         }
       } catch (ex) {
-        this.errorMessage = data.message[0];
+        console.log(ex);
       }
     }
   }
