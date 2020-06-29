@@ -225,6 +225,7 @@
                       </div>
 
                       <v-btn
+                        v-if="this.userBankList.length > 0"
                         class="saveButton"
                         small
                         height="35"
@@ -260,9 +261,8 @@
             Wire TransferPrompt
           </h4>
           <p>
-            if you would like to have some demo content on your WordPress
-            website, there are basically three different ways to do so. First,
-            you could just quickly create some (sample) posts,
+            Wire transfer, bank transfer or credit transfer, is a method of
+            Electronic Funds Transfer from one person or entity to another.
           </p>
         </div>
       </v-col>
@@ -312,9 +312,6 @@ export default {
   },
   components: {
     addBank
-  },
-  created() {
-    console.log("Created");
   },
   mounted() {
     this.fetchUsersBankList();
@@ -440,6 +437,7 @@ export default {
   height: 300px;
   overflow-x: hidden;
   margin-bottom: 20px;
+  overflow-y:auto;
 }
 .v-text-field.v-text-field--solo .v-input__control {
   min-height: 10px;

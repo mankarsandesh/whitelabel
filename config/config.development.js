@@ -51,8 +51,11 @@ const config = {
   userChangePassword: {
     url: `${process.env.BASE_URL}/changePassword`
   },
-  userWithdrawalRequest : {
+  userWithdrawalRequest: {
     url: `${process.env.BASE_URL}/userWithdrawalRequest`
+  },
+  userTransactionHistory: {
+    url: `${process.env.BASE_URL}/transactionHistory`
   },
   defaultLanguageLocale: "cn",
   language: {
