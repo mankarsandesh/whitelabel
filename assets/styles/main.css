@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: "Impact";
   src: url("../fonts/Impact.eot");
   src: url("../fonts/Impact.eot?#iefix") format("embedded-opentype"),
@@ -8,8 +8,50 @@
     url("../fonts/Impact.svg#Impact") format("svg");
   font-weight: normal;
   font-style: normal;
+} */
+.saveButton {
+  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
+  border-radius: 30px !important;
+  font-size: 26px;
+  padding: 10px 20px !important;
+  text-align: center;
+  font-weight: 800; 
+  color: #fff !important;
+  text-transform: uppercase;
+  cursor: pointer;
 }
-
+.cancelButton {
+  background: #dddddd;
+  border-radius: 30px !important;
+  font-size: 24px;
+  padding: 0px 20px !important;
+  text-align: center;
+  font-weight: 800; 
+  color: #333 !important;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.required{
+  color:red;
+}
+.orderPending{
+  background-color: #dbbb04;
+  border-radius: 15px;
+  padding: 4px 8px;
+  color: #FFF;
+}
+.orderSuccess{
+  background-color: #04db04;
+  border-radius: 15px;
+  padding: 4px 8px;
+  color: #FFF;
+}
+.orderCancel{
+  background-color: #db041d;
+  border-radius: 15px;
+  padding: 4px 8px;
+  color: #FFF;
+}
 .ml-20 {
   margin-left: -20px;
 }
@@ -66,7 +108,11 @@ section.profile-content {
   width: 100%;
   position: absolute;
 }
-
+/* For banner3 stock image box */
+.v-card.stockImg {
+    border: 3px solid #a59dbd;
+    border-color: #a59dbd !important;
+}
 .my-btn.v-btn--contained {
   min-height: 55px;
   border-radius: 85px !important;

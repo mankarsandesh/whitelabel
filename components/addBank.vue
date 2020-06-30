@@ -9,70 +9,95 @@
         <v-icon class="icon" left size="20">
           fas fa-user
         </v-icon>
-        login
+        <span v-if="bankUUID">Edit bank</span>
+        <span v-if="!bankUUID">Add bank</span>
       </h2>
-      <p>
-        Doesn't have an account yet?
-        <span @click="openRegister()">Register Now</span>
+      <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
-      <p v-bind:class="{ 'sucessMessage': sucessMessage, 'errorMessage' : errorMessage }"  >
-        {{ this.errorMessage }}  {{ this.sucessMessage }}
-      </p>   
 
       <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Username</label>
+        <label>Bank name </label>
         <v-text-field
           class="inputClassRegi"
           height="42"
           light
-          v-model="username"
+          v-model="form.bankName"
           outlined
           rounded
           dense
           required
-          :rules="[v => !!v || 'Username is required']"
+          :rules="[v => !!v || 'Bank Name is required']"
         ></v-text-field>
 
-        <label>Password</label>
+        <label>Account Holder Name</label>
         <v-text-field
           class="inputClassRegi"
           height="42"
           light
-          v-model="password"
+          v-model="form.accountName"
           outlined
           rounded
           dense
           required
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
-          :rules="[v => !!v || 'Password is required']"
+          :rules="[v => !!v || 'Account Holder Name is required']"
         ></v-text-field>
-        <v-layout>
-          <v-flex>
-            <label class="remember float-left ">
-              <input class="check" type="checkbox" />
-              <span class="label-text">Remember Me </span></label
-            >
-          </v-flex>
-          <v-flex style="text-align:right;">
-            <label class="forgotPassword">
-              <a href="#" @click="openForgotPassword">Forgot Password?</a>
-            </label>
-          </v-flex>
-        </v-layout>
+
+        <label>Account Number</label>
+        <v-text-field
+          class="inputClassRegi"
+          height="42"
+          light
+          v-model="form.accountNumber"
+          outlined
+          rounded
+          dense
+          required
+          :rules="[v => !!v || 'Account Number is required']"
+        ></v-text-field>
+
+        <label>Account IFSC Code</label>
+        <v-text-field
+          class="inputClassRegi"
+          height="42"
+          light
+          v-model="form.accountIFSC"
+          outlined
+          rounded
+          dense
+          required
+          :rules="[v => !!v || 'Account IFSC Code is required']"
+        ></v-text-field>
+
+        <label>Account Swift Code</label>
+        <v-text-field
+          class="inputClassRegi"
+          height="42"
+          light
+          v-model="form.accountSWIFT"
+          outlined
+          rounded
+          dense
+          required
+          :rules="[v => !!v || 'Account Swift Code is required']"
+        ></v-text-field>
 
         <v-btn
-          class="loginButton "
+          class="saveButton"
           @click="validate"
           :disabled="!valid"
-          height="50"
+          height="38"
         >
-          Login
-          <v-icon size="30">
+          Save &nbsp;
+          <v-icon size="22">
             fas fa-angle-double-right
           </v-icon>
-          <v-icon class="icon" size="30">
+          <v-icon class="iconArrow" size="22">
             fas fa-angle-double-right
           </v-icon>
           &nbsp;<v-progress-circular
@@ -81,6 +106,9 @@
             color="#FFF"
             size="22"
           ></v-progress-circular>
+        </v-btn>
+        <v-btn class="cancelButton" height="38" @click="closePopup()">
+          Cancel
         </v-btn>
       </v-form>
     </div>
@@ -91,69 +119,118 @@
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import axios from "axios";
 import config from "../config/config.global";
-import Cookies from "../plugins/js-cookie";
 export default {
   data() {
     return {
+      form: [
+        {
+          bankName: "",
+          accountName: "",
+          accountNumber: "",
+          accountIFSC: "",
+          accountSWIFT: ""
+        }
+      ],
       loadingImage: false,
       showPassword: false,
       errorMessage: "",
       sucessMessage: "",
-      valid: false,
-      loginDialog: false,
-      username: "",
-      password: ""
+      valid: false
     };
+  },
+  props: [
+    "bankUUID",
+    "bankName",
+    "AccountName",
+    "IFSCCode",
+    "ACNumber",
+    "SWIFTCode"
+  ],
+  computed: {
+    ...mapGetters("login", ["GetUserData"])
+  },
+  created() {
+    this.form.bankName = this.bankName;
+    this.form.accountName = this.AccountName;
+    this.form.accountNumber = this.ACNumber;
+    this.form.accountIFSC = this.IFSCCode;
+    this.form.accountSWIFT = this.SWIFTCode;
+  },
+  mounted() {
+    console.log("Mounted");
   },
   methods: {
     ...mapMutations("login", ["SET_USER_UUID", "SET_USER_DATA"]),
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
-      if (this.username && this.password) {
-        this.loginUser();
+      if (
+        this.form.bankName &&
+        this.form.accountName &&
+        this.form.accountNumber &&
+        this.form.accountIFSC &&
+        this.form.accountSWIFT
+      ) {
+        this.addBank();
       }
     },
     // Close Login Popup
     async closePopup() {
-      this.$emit("loginClose");
-    },
-    // Close Register Popup
-    async openRegister() {
-      this.$emit("registerOpen");
-    },
-    // Open Forgot Password
-    async openForgotPassword() {
-      this.$emit("forgotPasswordOpen");
+      this.$emit("bankClose");
     },
     // User Login Request to API
-    async loginUser() {
+    async addBank() {
       this.loadingImage = true;
       try {
-        var reqBody = {
-          username: this.username,
-          password: this.password,
-          last_ip: "127.0.0.2"
-        };
-        var { data } = await axios.post(config.userLoginAuth.url, reqBody, {
-          headers: config.header
-        });
+        if (this.bankUUID) {
+          var reqBody = {
+            user_uuid: this.GetUserData.uuid,
+            bank_uuid: this.bankUUID,
+            account_bank_name: this.form.bankName,
+            account_holder_name: this.form.accountName,
+            account_number: this.form.accountNumber,
+            account_ifsc_code: this.form.accountIFSC,
+            account_swift_code: this.form.accountSWIFT,
+            account_type: 1,
+            is_default: true
+          };
+
+          var { data } = await axios.post(
+            config.userUpdateBankDetail.url,
+            reqBody,
+            {
+              headers: config.header
+            }
+          );
+        } else {
+          var reqBody = {
+            user_uuid: this.GetUserData.uuid,
+            account_bank_name: this.form.bankName,
+            account_holder_name: this.form.accountName,
+            account_number: this.form.accountNumber,
+            account_ifsc_code: this.form.accountIFSC,
+            account_swift_code: this.form.accountSWIFT,
+            account_type: 1,
+            is_default: true
+          };
+
+          var { data } = await axios.post(
+            config.registerBankDetail.url,
+            reqBody,
+            {
+              headers: config.header
+            }
+          );
+        }
+
         if (data.code == 200) {
-          this.sucessMessage = data.message[0];
-          this.errorMessage = "";
-          this.loadingImage = false;
-          this.SET_USER_UUID(data.data[0].uuid);
-          this.SET_USER_DATA(data.data[0]);
-          Cookies.set("userUUID", data.data[0].uuid, {
-            path: " "
-          });
-          this.$emit("loginClose");
-          this.$router.push("/profile");
+          this.closePopup();
+          this.$swal(data.message[0]);
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
-          this.loadingImage = false;
         }
+        this.loadingImage = false;
       } catch (ex) {
         console.log(ex);
       }
@@ -183,7 +260,7 @@ input[type="radio"]:checked + label {
 }
 .mainLogin {
   width: 450px;
-  height: 500px;
+  height: 700px;
   margin: 0 auto;
   position: relative;
 }
@@ -210,6 +287,11 @@ input[type="radio"]:checked + label {
 }
 .loginForm .icon {
   color: #ff0167;
+}
+.loginForm .iconArrow {
+  color: #fff;
+  margin-top: 0px;
+  opacity: 0.4;
 }
 .loginForm h2 {
   text-transform: uppercase;

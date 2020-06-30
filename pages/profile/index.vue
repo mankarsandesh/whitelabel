@@ -50,7 +50,7 @@
         </v-row>
       </v-card>
     </v-col>
-    <v-col cols="8">
+    <v-col cols="6">
       <p
         v-bind:class="{
           sucessMessage: sucessMessage,
@@ -73,7 +73,7 @@
             @blur="$v.form.firstName.$touch()"
             v-model="form.firstName"
             class="text-filed"
-            height="48"
+            height="42"
             light
             outlined
             rounded
@@ -90,7 +90,7 @@
             @blur="$v.form.lastName.$touch()"
             v-model="form.lastName"
             class="text-filed"
-            height="48"
+            height="42"
             light
             outlined
             rounded
@@ -107,7 +107,7 @@
             @blur="$v.form.username.$touch()"
             v-model="form.username"
             class="text-filed"
-            height="48"
+            height="42"
             light
             outlined
             rounded
@@ -125,7 +125,7 @@
             :hide-details="emailErrors.length ? false : true"
             v-model="form.email"
             class="text-filed"
-            height="48"
+            height="42"
             light
             outlined
             rounded
@@ -141,6 +141,7 @@
           <subheader title="country" />
           <v-select
             height="42"
+            dense
             rounded
             outlined
             light
@@ -151,28 +152,7 @@
             required
             :rules="[v => !!v || 'Country is required']"
           ></v-select>
-        </v-col>
-        <!-- <v-col cols="6">
-          <subheader title="phone" />
-          <v-text-field
-            :error-messages="phoneErrors"
-            @input="$v.form.phone.$touch()"
-            @blur="$v.form.phone.$touch()"
-            :hide-details="phoneErrors.length ? false : true"
-            type="number"
-            class="text-filed"
-            height="48"
-            light
-            outlined
-            rounded
-            dense
-            required
-          >
-            <template slot="append">
-              <v-icon size="20" color="pink">fas fa-pen</v-icon>
-            </template>
-          </v-text-field>
-        </v-col> -->
+        </v-col>       
       </v-row>
 
       <v-divider></v-divider>
@@ -334,7 +314,7 @@
           >Save Changes
           <span class=" ml-3">
             <v-icon size="15"> fas fa-chevron-double-right</v-icon
-            ><v-icon size="15" class=" opcity-1">
+            ><v-icon size="15" class=" opacity-1">
               fas fa-chevron-double-right</v-icon
             >
             <v-progress-circular
@@ -411,18 +391,10 @@ export default {
   }),
   async mounted() {
     await this.usersData();
-    this.updateUserData();
-      console.log("mounted");
+    this.updateUserData();      
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
-  },
-  created(){
-    // this.updateUserData();
-    // console.log("cREATED");
-  },
-  updated() {
-   
   },
   methods: {
     ...mapActions("login",["setUserData","usersData"]),

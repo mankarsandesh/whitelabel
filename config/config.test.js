@@ -5,97 +5,58 @@ const config = {
   apiDomain: process.env.API_DOMAIN,
   socketUrl: process.env.SOCKET_URL,
   baseUrl: process.env.BASE_URL,
-  secretKey: "GYXMAKGDYAWDW4K1C6HWWQHXH2W",
+  secretKey: "CC21128A312FAF7817C93D1B51CB9",
   secureStorageSecretKey: process.env.SECURE_STORAGE_SECRET_KEY,
   sessionExpiryTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   isMaintenance: process.env.MAINTENANCE_MODE,
   header: {
-    authorization: "Basic VG5rd2ViQXBpOlRlc3QxMjMh"
+    authorization: `${process.env.BASIC_AUTH}`
+  },
+  mainServer: {
+    url: `${process.env.MAIN_GAME}`
+  },
+  portalProviderID: {
+    url: `${process.env.portalProviderID}`
+  },
+  userRegisterAuth: {
+    url: `${process.env.BASE_URL}/register`
   },
   userLoginAuth: {
-    url: `${process.env.BASE_URL}/webUserLogin`
-  },
-  getStock: {
-    url: `${process.env.BASE_URL}/getStock`
-  },
-  getAllStock: {
-    url: `${process.env.BASE_URL}/getAllStock`
-  },
-  getAllBets: {
-    url: `${process.env.BASE_URL}/getAllBets`
-  },
-  updateUserProfile: {
-    url: `${process.env.BASE_URL}/updateUserProfile`
+    url: `${process.env.BASE_URL}/loginWebUser`
   },
   getUserProfile: {
     url: `${process.env.BASE_URL}/getUserProfile`
   },
-  updateUserSetting: {
-    url: `${process.env.BASE_URL}/updateUserSetting`
+  userForgotPassword: {
+    url: `${process.env.BASE_URL}/forgotPassword`
   },
-  getRoadMap: {
-    url: `${process.env.BASE_URL}/getRoadMap`
+  userVerifyOtp: {
+    url: `${process.env.BASE_URL}/verifyOtp`
   },
-  storeBet: {
-    url: `${process.env.BASE_URL}/storeBet`
+  userResetPassword: {
+    url: `${process.env.BASE_URL}/resetPassword`
   },
-  sendMessage: {
-    url: `${process.env.BASE_URL}/messages/send`
+  userUpdateDetails: {
+    url: `${process.env.BASE_URL}/updateUserProfile`
   },
-  getActiveGamesByCategory: {
-    url: `${process.env.BASE_URL}/getActiveGamesByCategory`
+  userToPupBalance: {
+    url: `${process.env.BASE_URL}/userToPupBalance`
   },
-  getAllAnnouncements: {
-    url: `${process.env.BASE_URL}/getAllAnnouncements`
+  registerBankDetail: {
+    url: `${process.env.BASE_URL}/registerBankDetail`
   },
-  followUser: {
-    url: `${process.env.BASE_URL}/followUser`
+  getUserBankDetails: {
+    url: `${process.env.BASE_URL}/getUserBankDetails`
   },
-  getLeaderBoard: {
-    url: `${process.env.BASE_URL}/getLeaderBoard`
+  userChangePassword: {
+    url: `${process.env.BASE_URL}/changePassword`
   },
-  getUserBetAnalysis: {
-    url: `${process.env.BASE_URL}/getUserBetAnalysis`
-  },
-  getUserInvitation: {
-    url: `${process.env.BASE_URL}/sendInvitation`
-  },
-  getUserFollower: {
-    url: `${process.env.BASE_URL}/followUserList`
-  },
-  getUserNotification: {
-    url: `${process.env.BASE_URL}/getNotification`
-  },
-  liveBetCount: {
-    url: `${process.env.BASE_URL}/liveBetCount`
-  },
-  liveCountBetData: {
-    url: `${process.env.BASE_URL}/liveCountBetData`
-  },
-  getUserInvitationDetails: {
-    url: `${process.env.BASE_URL}/getUserInvitationDetail`
-  },
-  userLogout: {
-    url: `${process.env.BASE_URL}/appUsersLogout`
-  },
-  serverConfig: {
-    port: 8000,
-    host: "0.0.0.0"
-  },
-  error: {
-    general: "Something went wrong!",
-    lowBalance: "Insufficient Balance. Please topup your balance"
-  },
-  loginError: {
-    portalProvider: "Portal Provider UUID is invalid",
-    portalProviderUserId: "Portal Provider User Id is invalid",
-    balance: "Balance is invalid",
-    authError: "Authentication authUser & authPassword is Missing."
-  },
-  logDomain: process.env.LOG_DOMAIN,
   defaultLanguageLocale: "cn",
-  defaultCoinsModern: ["100", "500", "1000", "5000", "10000"],
-  homePageStockName: "btc1"
+  language: {
+    cn: "chinese",
+    us: "english",
+    th: "thai",
+    la: "lao"
+  }
 };
-
 export default config;

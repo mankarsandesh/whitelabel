@@ -37,12 +37,14 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    "~/plugins/sweetAlert",
     "~/plugins/vuelidate",
     "~/plugins/CountryFlag",
     "~/plugins/fontAwesome",
     "~/plugins/vueDependency",
     "~/plugins/checkLogin",
     "~/plugins/js-cookie", // for setting and reading cookies
+    "~/plugins/i18n",
   ],
   /*
    ** Nuxt.js dev-modules

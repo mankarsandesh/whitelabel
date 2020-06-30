@@ -77,44 +77,49 @@
         }
     ],
     "slideMenu": [{
+        "icon": "far fa-gamepad",
+        "title": "game mode",
+        "path": "/mobile/gameMode"
+    },
+    {
             "icon": "fas fa-chart-bar",
-            "title": "live stock",
-            "path": "/"
-        },
-        {
-            "icon": "far fa-gamepad",
-            "title": "game mode",
-            "path": "/gameMode"
+            "title": "Wire Transfer",
+            "path": "/mobile/payment/wireTransferAddBank"
         },
         {
             "icon": "fas fa-gift",
-            "title": "promotions",
-            "path": "/"
-        },
-        {
-            "icon": "fas fa-trophy",
-            "title": "leaderboard",
-            "path": "/"
-        },
-        {
-            "icon": "fas fa-file-alt",
-            "title": "game rules",
-            "path": "/"
-        },
-        {
-            "icon": "fas fa-info-circle",
-            "title": "about us",
-            "path": "/"
-        },
-        {
-            "icon": "far fa-file-alt",
-            "title": "terms & conditions",
-            "path": "/"
+            "title": "Wire Transfer Next Step",
+            "path": "/mobile/payment/wireNextStep"
         },
         {
             "icon": "fas fa-cogs",
-            "title": "privacy policy",
-            "path": "/"
+            "title": "deposit",
+            "path": "/mobile/payment/deposit"
+        },
+        {
+            "icon": "fas fa-trophy",
+            "title": "Withdrawal",
+            "path": "/mobile/payment/withdrawal"
+        },
+        {
+            "icon": "fas fa-file-alt",
+            "title": "Local Transfer",
+            "path": "/mobile/payment/localTransferAddCard"
+        },
+        {
+            "icon": "fas fa-info-circle",
+            "title": "Add Local Bank",
+            "path": "/mobile/payment/localTransferAddBank"
+        },
+        {
+            "icon": "far fa-file-alt",
+            "title": "Change password",
+            "path": "/mobile/profile/changePassword"
+        },
+        {
+            "icon": "fas fa-cogs",
+            "title": "Order history",
+            "path": "/mobile/payment/orderHistory"
         },
         {
             "icon": "fas fa-question",
@@ -141,6 +146,32 @@
             "title": "withdrawal",
             "icon": "fas fa-home",
             "path": "/profile/withdrawal"
+        },
+        {
+            "title": "Order History",
+            "icon": "fas fa-home",
+            "path": "/profile/order_history"
+        },
+        {
+            "title": "Change Password",
+            "icon": "fas fa-home",
+            "path": "/profile/change_password"
+        }
+    ],
+    "stockImg": [{
+            "title": "USA STOCK",
+            "desc": "USINDEX",
+            "src": "/stockImg/Stock-img-1.png"
+        },
+        {
+            "title": "CRYPTO",
+            "desc": "BTC5 | BTC1",
+            "src": "/stockImg/Stock-img-2.png"
+        },
+        {
+            "title": "CHINA STOCK",
+            "desc": "SH000001 | SH000300 | SZ399415",
+            "src": "/stockImg/Stock-img-3.png"
         }
     ],
     "gameMode": [{

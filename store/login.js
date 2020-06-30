@@ -1,17 +1,27 @@
 import config from "~/config/config.global";
 import Cookies from "../plugins/js-cookie";
+import secureStorage from "../plugins/secure-storage"
 
+//States
 const state = () => ({
   // User UUID
   uuid: null,
-  userData: "" // Store user data
+  userData: "" ,// Store user data
+  locales: ["cn", "us", "th", "la"], // Store language locales
+  locale: "cn", // Store locale
 });
 
+//Getters
 const getters = {
   // User UUID Getter
   GetUserUUID: state => state.uuid,
 
-  GetUserData: state => state.userData
+  GetUserData: state => state.userData,
+
+  getLocale(state) {
+    return state.locale;
+  }
+
 };
 
 // Mutation
@@ -28,6 +38,12 @@ const mutations = {
   // Store UserInfo
   SET_USER_DATA(state, payload) {
     state.userData = payload;
+  },
+  //Store language
+  SET_LANGUAGE(state, payload) {
+    state.locale = payload;
+    secureStorage.setItem("lang", payload);
+
   }
 };
 
@@ -49,7 +65,7 @@ const actions = {
       };
       var res = await this.$axios.$post(config.getUserProfile.url, reqBody, {
         headers: config.header
-      });
+      });     
       if (res.status) {
         let userInfo = res.data[0];
         context.commit("SET_USER_DATA", userInfo);
@@ -60,7 +76,12 @@ const actions = {
     } catch (ex) {
       console.error(ex);
     }
+  },
+  //Set Language locale
+  setLanguage({ commit }, payload) {
+    commit("SET_LANGUAGE", payload);
   }
+
 };
 
 export default {

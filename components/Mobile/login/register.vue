@@ -1,170 +1,162 @@
 <template>
-  <div class="mainRegister">
-    <div class="triangle-topleft"></div>
-    <div class="loginForm">
+  <div class="registerForm">
+    <v-row justify="center">
       <v-icon class="closeButton" @click="closePopup()" right size="20">
         fas fa-times
       </v-icon>
       <h2>
         <v-icon class="icon" left size="20">
-          fas fa-user
+          fas fa-user-plus
         </v-icon>
-        Register Account
+        Register
       </h2>
+    </v-row>
+    <v-row justify="center">
       <p>
         Already have an account?
-        <span @click="openLogin()">Login now</span>
+        <span class="terms" @click="openLogin()">Login now</span>
       </p>
-      <p
-        v-bind:class="{
-          sucessMessage: sucessMessage,
-          errorMessage: errorMessage
-        }"
-      >
-        {{ this.errorMessage }} {{ this.sucessMessage }}
-      </p>
+    </v-row>
 
-      <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-        v-if="showRegisterForm"
-      >
-        <label>Username</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="registerForm.username"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'username is required']"
-        ></v-text-field>
-        <label>Email</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="registerForm.email"
-          outlined
-          rounded
-          dense
-          required
-          :rules="emailRules"
-        ></v-text-field>
-        <label>Password</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="registerForm.password"
-          outlined
-          rounded
-          dense
-          required
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
-          :rules="[v => !!v || 'Password is required']"
-        ></v-text-field>
-        <label>Confirm Password</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="registerForm.repeatPassword"
-          outlined
-          rounded
-          dense
-          required
-          :append-icon="showRepPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showRepPassword ? 'text' : 'password'"
-          @click:append="showRepPassword = !showRepPassword"
-          :rules="[v => !!v || 'Password is required']"
-        ></v-text-field>
+    <p
+      v-bind:class="{
+        sucessMessage: sucessMessage,
+        errorMessage: errorMessage
+      }"
+    >
+      {{ this.errorMessage }} {{ this.sucessMessage }}
+    </p>
 
-        <div class="inputClassRegi">
-          <label>Gender</label>
-          <v-radio-group v-model="registerForm.gender" :mandatory="false" row>
-            <v-radio
-              height="42"
-              dense
-              class="genderClass"
-              color="#ff0167"
-              light
-              v-for="data in genders"
-              :key="data"
-              :label="`${data}`"
-              :value="data"
-            ></v-radio>
-          </v-radio-group>
-        </div>
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <label>Username</label>
+      <v-text-field
+        class="inputClassRegi"
+        height="30"
+        dark
+        v-model="registerForm.username"
+        outlined
+        rounded
+        dense
+        required
+        autofocus
+        :rules="[v => !!v || 'Username is required']"
+      ></v-text-field>
+      <label>Email<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClassRegi"
+        height="30"
+        v-model="registerForm.email"
+        outlined
+        rounded
+        dense
+        required
+        :rules="emailRules"
+      ></v-text-field>
+      <label>Password<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClassRegi"
+        height="30"
+        type="password"
+        v-model="registerForm.password"
+        outlined
+        rounded
+        dense
+        required
+        :rules="[v => !!v || 'Password is required']"
+      ></v-text-field>
+      <label>Confirm Password<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClassRegi"
+        height="30"
+        type="password"
+        v-model="registerForm.repeatPassword"
+        outlined
+        rounded
+        dense
+        required
+        :rules="[v => !!v || 'Password is required']"
+      ></v-text-field>
 
-        <div class="inputClassRegi float-left">
-          <v-select
-            height="42"
-            dense
-            rounded
-            outlined
-            light
-            v-model="registerForm.country"
-            :items="countrys"
-            item-text="name"
-            item-value="id"
+      <div>
+        <label>Gender</label>
+        <v-radio-group v-model="registerForm.gender" :mandatory="false" row>
+          <v-radio
+            height="30"
+            class="genderClass"
+            color="#ff0167"
+            v-for="data in genders"
+            :key="data"
+            :label="`${data}`"
+            :value="data"
             required
-            :rules="[v => !!v || 'Country is required']"
-          ></v-select>
-        </div>
+          ></v-radio>
+        </v-radio-group>
+      </div>
 
-        <div class="inputClassRegi float-left">
-          <v-checkbox
-            light
-            v-model="registerForm.agree"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            label="Agree with Terms & Conditions?"
-            required
-          ></v-checkbox>
-        </div>
+      <div>
+        <label>Country<span class="imp">*</span></label>
+        <v-select
+          height="30"
+          class="inputClassRegi"
+          outlined
+          rounded
+          dense
+          required
+          v-model="registerForm.country"
+          :items="countrys"
+          item-text="name"
+          item-value="id"
+          :rules="[v => !!v || 'Country is required']"
+        ></v-select>
+      </div>
+
+      <div class="float-left">
+        <v-checkbox
+          v-model="registerForm.agree"
+          :rules="[v => !!v || 'You must agree to continue!']"
+          label="Agree with Terms & Conditions"
+          required
+          dense
+          color="#ff1067"
+        ></v-checkbox>
+      </div>
+      <div class="col xs-12 sm-12 text-center" mt-5>
         <v-btn
-          class="registerButton "
+          class="registerButton"
           @click="validate"
           :disabled="!valid"
           height="50"
         >
-          Register
-          <v-icon size="30">
-            fas fa-angle-double-right
+          Sign up
+          <v-icon class="icon" size="20">
+            fas fa-chevron-double-right
           </v-icon>
-          <v-icon class="icon" size="30">
-            fas fa-angle-double-right
+          <v-icon class="icon" size="20">
+            fas fa-chevron-double-right
           </v-icon>
           &nbsp;<v-progress-circular
             v-if="loadingImage"
             indeterminate
             color="#FFF"
-            size="22"
+            size="20"
           ></v-progress-circular>
         </v-btn>
-      </v-form>
-    </div>
+      </div>
+    </v-form>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import config from "../config/config.global";
+import config from "../../../config/config.global";
+
 export default {
   data() {
     return {
-      showRegisterForm: true,
       loadingImage: false,
-      showRepPassword: false,
-      showPassword: false,
       errorMessage: "",
       sucessMessage: "",
-      valid: true,
+      valid: false,
       registerForm: {
         username: "",
         email: "",
@@ -254,8 +246,7 @@ export default {
           this.registerForm.password = "";
           this.registerForm.repeatPassword = "";
           this.registerForm.username = "";
-          this.loadingImage = false;
-          this.showRegisterForm = false;
+          this.loadingImage = false;         
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
@@ -270,8 +261,18 @@ export default {
 };
 </script>
 <style scoped>
+.terms {
+  color: #ff0167 !important;
+}
 .genderClass {
   text-transform: capitalize;
+  color: #ffffff !important;
+}
+.errorMessage {
+  color: red !important;
+}
+.sucessMessage {
+  color: green !important;
 }
 .inputClass .radio {
   padding: 8px 15px;
@@ -281,107 +282,83 @@ input[type="radio"]:checked + label {
   color: #ff0066 !important;
 }
 .label-text span {
-  color: #ff0066 !important;
-}
-.mainRegister {
-  width: 450px;
-  height: 850px;
-  margin: 0 auto;
-  position: relative;
+  color: #ffffff !important;
 }
 
-.triangle-topleft {
-  width: 0;
-  height: 0;
-  border-top: 250px solid #ff0066;
-  border-right: 250px solid transparent;
+.registerForm {
+  position: sticky;
+  background-image: url(/mobile/mobile-bg-1.jpg);
+  padding: 50px 20px 0px 20px;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  background-color: rgba(4, 1, 17, 0.88);
+  background-blend-mode: multiply;
 }
-.forgotPassword a {
-  color: #ff0167;
-  text-decoration: none;
-}
-.remberberme {
-  color: #333 !important;
-}
-.loginForm {
-  width: 100% !important;
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background-color: #fff;
-  padding: 30px 20px 40px 20px;
-}
-.loginForm .icon {
+.registerForm .icon {
   color: #ff0167;
 }
-.loginForm h2 {
+.registerForm h2 {
   text-transform: uppercase;
   color: #ff0167;
   margin-bottom: 20px;
 }
-.loginForm p {
-  color: #c1c0c1;
+.registerForm p {
+  color: #ffffff;
 }
-.loginForm p span {
-  color: #ff0167;
+.registerForm p span {
+  color: #ffffff;
   cursor: pointer;
   font-weight: 600;
 }
-.loginForm .inputClassRegi {
+.registerForm .inputClassRegi {
   /* border:1px solid red; */
   width: 100%;
 }
-.loginForm .inputClass {
+.registerForm .inputClass {
   width: 100%;
   padding: 3px 10px;
   margin: 5px 0px;
 }
-.loginForm label {
-  color: #333;
+.registerForm label {
+  color: #ffffff;
   width: 100%;
   font-weight: 600;
 }
-.loginForm .inputClass .input {
+.registerForm .inputClass .input {
   border: 1px solid #d2d1d2;
   width: 100%;
   border-radius: 30px;
   padding: 10px 20px;
-  color: #333;
+  color: #ffffff;
 }
-.forgotPassword {
-  float: left;
-}
-.footerLogin {
-  position: absolute;
-  text-align: center;
-  margin: 0 auto;
-  bottom: 0;
+.imp {
+  color: #ff0167;
 }
 .registerButton {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
-  font-size: 24px;
+  font-size: 18px;
   padding: 20px 0px;
   text-align: center;
   font-weight: 800;
   margin: 0 auto !important;
-  width: 280px;
+  width: 180px;
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
-  position: absolute;
+  position: inherit;
   z-index: 999;
-  bottom: -20px;
+  bottom: 10px;
   left: 0;
   right: 0;
+  box-shadow: 2px 11px 35px 13px #6e0221;
 }
-
 input[type="radio"]:checked + label {
   color: #0b4db7;
 }
-
 label .label-text {
-  color: #333;
+  color: #ffffff;
 }
 label input.check:checked + .label-text,
 .check {
@@ -399,25 +376,18 @@ label input.check:checked + .label-text,
 .registerButton .icon {
   color: #fff;
   margin-top: 0px;
-  opacity: 0.4;
 }
-
-.loginButton .icon {
-  color: #fff;
-  margin-top: 0px;
-}
-.loginButton .icon:last-child {
+.registerButton .icon:last-child {
   opacity: 0.4;
   margin-left: -10px;
   color: #fff;
 }
-
 input:focus {
   outline: none;
 }
 .closeButton {
-  top: -15px;
-  right: -15px;
+  top: 15px;
+  right: 15px;
   position: absolute;
   background-color: #ff0167;
   color: #fff;

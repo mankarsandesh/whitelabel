@@ -28,7 +28,7 @@
           <label>Your Email</label>
           <v-text-field
             class="inputClassRegi"
-            height="48"
+            height="42"
             light
             v-model="email"
             outlined
@@ -42,7 +42,7 @@
           <label>Enter your OTP</label>
           <v-text-field
             class="inputClassRegi"
-            height="48"
+            height="42"
             light
             v-model="yourOTP"
             outlined
@@ -57,7 +57,7 @@
           <label>Enter New Password</label>
           <v-text-field
             class="inputClassRegi"
-            height="48"
+            height="42"
             light
             v-model="newPassword"
             outlined
@@ -69,7 +69,7 @@
           <label>Enter Repeat New Password</label>
           <v-text-field
             class="inputClassRegi"
-            height="48"
+            height="42"
             light
             v-model="newRepPassword"
             outlined

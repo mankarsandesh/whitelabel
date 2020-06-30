@@ -39,9 +39,43 @@ const config = {
   userUpdateDetails: {
     url: `${process.env.BASE_URL}/updateUserProfile`
   },
+  userToPupBalance: {
+    url: `${process.env.BASE_URL}/userToPupBalance`
+  },
+  registerBankDetail: {
+    url: `${process.env.BASE_URL}/registerBankDetail`
+  },
+  userUpdateBankDetail: {
+    url: `${process.env.BASE_URL}/updateBankDetail`
+  },
+  getUserBankDetails: {
+    url: `${process.env.BASE_URL}/getUserBankDetail`
+  },
+  userChangePassword: {
+    url: `${process.env.BASE_URL}/changePassword`
+  },
+  userWithdrawalRequest: {
+    url: `${process.env.BASE_URL}/userWithdrawalRequest`
+  },
+  userTransactionHistory: {
+    url: `${process.env.BASE_URL}/transactionHistory`
+  },
+  deleteUserBankDetail: {
+    url: `${process.env.BASE_URL}/deleteUserBankDetail`
+  },
+  ECGameLogin :{
+    url: `${process.env.BASE_URL}/ecGameLogin`
+  },
   serverConfig: {
     port: 8000,
     host: "0.0.0.0"
-  }
+  },
+  defaultLanguageLocale: "cn",
+  language: {
+    cn: "chinese",
+    us: "english",
+    th: "thai",
+    la: "lao"
+  },
 };
 export default config;

@@ -49,33 +49,61 @@
           {{ item.title }}
         </v-btn>
       </template>
+      <v-btn class="mx-5 countryFlag" large icon  @click="$refs.language.showDialog()">
+        <country-flag :country="getLocale" size="normal"  />
+        <!-- <v-icon> fas fa-globe</v-icon> -->
+      </v-btn>
+      <languageDialog ref="language" />
       <div v-if="GetUserData">
-        <v-btn text dark to="/profile">
-          <v-list flat>
-            <v-list-item class="px-0">
-              <v-list-item-avatar class="mr-0">
-                <img :src="this.defaultImage" :alt="GetUserData.username" />
-              </v-list-item-avatar>
-
-              <v-list-item-content>
-                <v-list-item-title>
-                  &nbsp;{{ GetUserData.username }}</v-list-item-title
+        <v-list flat>
+          <v-list-item class="px-0">
+            <v-list-item-avatar class="mr-0">
+              <img :src="this.defaultImage" :alt="GetUserData.username" />
+            </v-list-item-avatar>
+            <v-menu offset-y>
+              <template v-slot:activator="{ attrs, on }">
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="white--text ma-8 "
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <span v-if="GetUserData.first_name">
+                      {{ GetUserData.first_name }}
+                      {{ GetUserData.last_name }}</span
+                    >
+                    <span v-if="!GetUserData.first_name">
+                      {{ GetUserData.username }}
+                    </span>
+                  </v-list-item-title>
+                </v-list-item-content>
+              </template>
+              <v-list>
+                <v-list-item link class="menuList" to="/profile">
+                  <v-list-item-title> My Account</v-list-item-title>
+                </v-list-item>
+                <v-list-item
+                  link
+                  class="menuList"
+                  to="/profile/change_password"
                 >
-              </v-list-item-content>
+                  <v-list-item-title>Change Password</v-list-item-title>
+                </v-list-item>
+                <v-list-item link class="menuList" @click="userLogout()">
+                  <v-list-item-title>Logout</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
 
-              <v-list-item-action>
-                <v-icon size="15">{{
-                  $route.name === "profile"
-                    ? "far fa-chevron-up"
-                    : "far fa-chevron-down"
-                }}</v-icon>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list>
-        </v-btn>
-        <v-btn text dark @click="userLogout()">
-          Logout
-        </v-btn>
+            <v-list-item-action>
+              <v-icon size="15">{{
+                $route.name === "profile"
+                  ? "far fa-chevron-up"
+                  : "far fa-chevron-down"
+              }}</v-icon>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
       </div>
       <div v-else>
         <v-btn
@@ -101,9 +129,6 @@
         </v-btn>
       </div>
 
-      <!-- <v-btn class="mx-2" large icon>
-        <v-icon> fas fa-globe</v-icon>
-      </v-btn> -->
       <!-- <v-btn class="mx-2" large icon @click.stop="OpenDrawer = !OpenDrawer">
         <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>
       </v-btn> -->
@@ -169,6 +194,8 @@ import Register from "../components/register";
 import forgotPassword from "../components/forgotPassword";
 import axios from "axios";
 import Cookies from "../plugins/js-cookie";
+import countryFlag from "vue-country-flag"; 
+import languageDialog from "../components/languageDialog";
 export default {
   data() {
     return {
@@ -190,7 +217,9 @@ export default {
   components: {
     Login,
     Register,
-    forgotPassword
+    forgotPassword,
+    countryFlag,
+    languageDialog
   },
   created() {
     if (this.userUUID) {
@@ -200,16 +229,20 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("login", ["GetUserData"]),
+    ...mapGetters("login",  ["getLocale", "GetUserData"]),
     checkPageBackground() {
       const route = this.$route.name;
+      console.log(route);
       switch (true) {
         case route === "index":
           return null;
           break;
         case route === "profile" ||
           route === "profile-deposit" ||
-          route === "profile-WithDrawal":
+          route === "profile-withdrawal" ||
+          route === "profile-order_history" ||
+          route === "profile-change_password" ||
+          route === "profile-track_order":
           return "profile-container";
           break;
         case route === "gameMode":
@@ -245,18 +278,18 @@ export default {
         console.log(ex);
       }
     },
+    // Force Render Login/Regisrer and Forgot Component
     forceRerender() {
       this.renderLogin = false;
       this.renderRegister = false;
       this.renderForgot = false;
-
       this.$nextTick(() => {
         this.renderLogin = true;
         this.renderRegister = true;
         this.renderForgot = true;
       });
     },
-    // open Register Form
+    // Open Register Form
     openRegisterForm() {
       this.forceRerender();
       this.registerDialog = true;
@@ -268,9 +301,9 @@ export default {
     },
     // Close Register Screen
     closeRegister() {
+      
       this.registerDialog = false;
     },
-    // Close Login Screen
     closeLogin() {
       this.loginDialog = false;
     },
@@ -278,14 +311,17 @@ export default {
     closeForgot() {
       this.forgotPasswordDialog = false;
     },
+    // Show Register Form 
     showRegisterDialog() {
       this.loginDialog = false;
       this.registerDialog = true;
     },
+    // Show Login Form 
     showLoginDialog() {
       this.registerDialog = false;
       this.loginDialog = true;
     },
+    // Show Forgot Password Popup
     showForgotDialog() {
       this.forgotPasswordDialog = true;
       this.loginDialog = false;
@@ -293,3 +329,23 @@ export default {
   }
 };
 </script>
+<style scoped>
+.countryFlag{
+  border:1px solid #dddddd;
+  background-color: #dddddd;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  padding: 5px;
+}
+.profileName {
+  text-transform: capitalize !important;
+}
+.menuList:hover {
+  background-color: #ff0167;
+  color: #fff !important;
+}
+.menuList .link:hover {
+  color: #fff !important;
+}
+</style>

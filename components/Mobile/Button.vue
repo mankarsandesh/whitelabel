@@ -7,19 +7,12 @@
         ><v-icon size="15" class=" opcity-1">
           fas fa-chevron-double-right</v-icon
         >
-        &nbsp;<v-progress-circular
-          v-if="loadingImage"
-          indeterminate
-          color="#FFF"
-          size="22"
-        ></v-progress-circular>
       </span>
     </v-btn>
     <!-- Register Form -->
     <v-dialog
       dark
       v-model="registerDialog"
-      width="600"
       style=" border-radius:none !important;"
     >
       <Register @registerClose="closeRegister" @loginOpen="showLoginDialog" />
@@ -30,11 +23,10 @@
     <v-dialog
       dark
       v-model="forgotPasswordDialog"
-      width="550"
       style=" border-radius:none !important;"
     >
       <forgotPassword
-        @forgotClose="closeForgot"
+        @forgotPasswordClose="closeForgot"
         @loginOpen="showForgotDialog"
       />
     </v-dialog>
@@ -44,7 +36,6 @@
     <v-dialog
       dark
       v-model="loginDialog"
-      width="550"
       style=" border-radius:none !important;"
     >
       <Login
@@ -59,15 +50,13 @@
 
 <script>
 import { mapGetters } from "vuex";
-import config from "../config/config.global";
-import Login from "../components/login";
-import Register from "../components/register";
-import forgotPassword from "../components/forgotPassword";
-import axios from "axios";
+import config from "../../config/config.global";
+import Login from "../../components/Mobile/login/login";
+import Register from "../../components/Mobile/login/register";
+import forgotPassword from "../../components/Mobile/login/forgotPassword";
 export default {
   data() {
     return {
-      loadingImage: false,
       forgotPasswordDialog: false,
       loginDialog: false,
       registerDialog: false
@@ -89,8 +78,14 @@ export default {
         if (this.GetUserData) {
           if (this.link == true) {
             if (this.GetUserData.balance > 300) {
-              this.loadingImage = true;
-              this.loginECgame();
+              window.location =
+                config.mainServer.url +
+                "?portalProviderUUID=" +
+                config.portalProviderID.url +
+                "&portalProviderUserID=" +
+                this.GetUserData.username +
+                "&balance=" +
+                this.GetUserData.balance;
             } else {
               this.$swal({
                 title: "Your Balance is Low",
@@ -104,25 +99,6 @@ export default {
         }
       } catch (error) {
         console.log(error);
-      }
-    },
-    // Login User Another API
-    // User Delete Bank Data
-    async loginECgame() {
-      try {
-        var reqBody = {
-          user_uuid: this.GetUserData.uuid,
-          balance: this.GetUserData.balance
-        };
-        var { data } = await axios.post(config.ECGameLogin.url, reqBody, {
-          headers: config.header
-        });
-        if (data.status) {
-          window.open(data.data.URL, "_blank");
-        }
-        this.loadingImage = false;
-      } catch (ex) {
-        console.log(ex);
       }
     },
     // Close Register Screen

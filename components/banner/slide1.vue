@@ -1,13 +1,20 @@
 <template>
   <v-carousel-item src="/banner/banner-1.png">
     <v-sheet height="100%" tile>
+          <v-container
+        style="
+    display: contents;
+"
+      >
       <v-row class="fill-height" align="center" justify="center">
-        <v-card flat max-width="1000">
+         <v-col cols="6" align="center">
+        <v-card flat >
           <v-card-title class="display-2 font-weight-bold">Get</v-card-title>
+          
           <v-card-title class="flex display-4 font-weight-black color-pink"
             >$2000</v-card-title
           >
-          <v-card-title class="display-3 .font-weight-medium"
+          <v-card-title class="display-3 font-weight-medium"
             >Get a WELCOME 200% Bonus up to $2000</v-card-title
           >
 
@@ -38,7 +45,9 @@
             <Button title="Join now" />
           </v-card-actions>
         </v-card>
+         </v-col>
       </v-row>
+          </v-container>
     </v-sheet>
   </v-carousel-item>
 </template>
