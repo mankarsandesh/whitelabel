@@ -8,21 +8,21 @@
       </v-row>
     </v-row>
 
-    <!-- <p
+    <p
       v-bind:class="{
         sucessMessage: sucessMessage,
         errorMessage: errorMessage
       }"
     >
       {{ this.errorMessage }} {{ this.sucessMessage }}
-    </p> -->
+    </p>
 
     <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
       <label>Old Password<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="passwordForm.oldPassword"
+        v-model="oldPassword"
         outlined
         rounded
         dense
@@ -35,7 +35,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="passwordForm.newPassword"
+        v-model="newPassword"
         outlined
         rounded
         dense
@@ -47,7 +47,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="passwordForm.cofirmPassword"
+        v-model="repeatNewPassword"
         outlined
         rounded
         dense
@@ -58,7 +58,12 @@
 
       <v-row justify="center">
         <v-col xs="3" sm="3">
-          <v-btn class="saveButton " :disabled="!valid" height="30">
+          <v-btn
+            class="saveButton"
+            @click="validate"
+            :disabled="!valid"
+            height="30"
+          >
             Save
             <v-icon class="icon" size="15">
               fas fa-chevron-double-right
@@ -86,21 +91,68 @@
 
 <script>
 import config from "../../../config/config.global";
-
+import { mapGetters, mapActions, mapMutations } from "vuex";
+import axios from "axios";
 export default {
   layout: "mobile",
   data() {
     return {
+      errorMessage: "",
+      sucessMessage: "",
+      valid: true,
       loadingImage: false,
-      // errorMessage: "",
-      // sucessMessage: "",
-      valid: false,
-      passwordForm: {
-        oldPassword: "",
-        newPassword: "",
-        cofirmPassword: ""
-      }
+      oldPassword: "",
+      newPassword: "",
+      repeatNewPassword: ""
     };
+  },
+  computed: {
+    ...mapGetters("login", ["GetUserData"])
+  },
+  methods: {
+    // Validation Password Change Form
+    validate() {
+      this.$refs.form.validate();
+      if (this.oldPassword && this.newPassword && this.repeatNewPassword) {
+        if (this.newPassword == this.repeatNewPassword) {
+          this.loadingImage = true;
+          this.userChangePassword();
+        } else {
+          this.errorMessage = "New Password Does't Match.";
+        }
+      }
+    },
+    // User Password Change
+    async userChangePassword() {
+      try {
+        var reqBody = {
+          username: this.GetUserData.username,
+          old_password: this.oldPassword,
+          new_password: this.newPassword,
+          confirm_new_password: this.repeatNewPassword
+        };
+        var { data } = await axios.post(
+          config.userChangePassword.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.oldPassword = "";
+          this.newPassword = "";
+          this.repeatNewPassword = "";
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+        this.loadingImage = false;
+      } catch (ex) {
+        this.errorMessage = data.message[0];
+      }
+    }
   }
 };
 </script>

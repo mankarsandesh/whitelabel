@@ -81,7 +81,6 @@
                           dense
                           required
                         ></v-text-field>
-
                         <label>Withdrawable Amount</label>
                         <v-text-field
                           type="number"
@@ -97,7 +96,6 @@
                           :rules="amountRule"
                           placeholder="Please enter Withdrawable Amount"
                         ></v-text-field>
-
                         <label>Note</label>
                         <v-text-field
                           height="42"
@@ -110,7 +108,6 @@
                           required
                           placeholder="Please enter Note"
                         ></v-text-field>
-
                         <v-btn
                           class="cancelButton"
                           small
@@ -119,7 +116,6 @@
                         >
                           Previous Step
                         </v-btn>
-
                         <v-btn
                           class="saveButton"
                           small
@@ -151,7 +147,7 @@
                 </v-row>
                 <div>
                   <v-row>
-
+                    <v-col cols="12">
                     <div id="wireFirstStep" v-if="firstStepWire">
                       <div id="myBank" v-if="this.userBankList.length > 0">
                         <v-flex
@@ -238,6 +234,7 @@
                         Next Step
                       </v-btn>
                     </div>
+                    </v-col>
                   </v-row>
                 </div>
                 <div>
@@ -445,7 +442,6 @@ import config from "../../../config/config.global";
 import { mapGetters } from "vuex";
 import axios from "axios";
 import addBank from "../../../components/addBank";
-
 export default {
   layout: "mobile",
   data() {
@@ -524,7 +520,7 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid
         };
-        
+        console.log(reqBody);
         var { data } = await axios.post(
           config.getUserBankDetails.url,
           reqBody,
@@ -596,13 +592,11 @@ export default {
   cursor: pointer;
   font-weight: 600;
 }
-
 .wireForm .inputClass {
   width: 100%;
   padding: 3px 10px;
   margin: 5px 0px;
 }
-
 .wireForm .inputClass .input {
   border: 1px solid #d2d1d2;
   width: 100%;
