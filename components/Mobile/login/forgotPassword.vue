@@ -16,22 +16,74 @@
         No problem! Just fill in the email below and we'll send you password
         reset instructions!
       </p>
+      <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+        h
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
+      </p>
 
       <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Your Email</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="30"
-          v-model="email"
-          outlined
-          rounded
-          dense
-          required
-          autofocus
-          :rules="emailRules"
-        ></v-text-field>
+        <div v-if="showStep1">
+          <label>Your Email</label>
+          <v-text-field
+            class="inputClassRegi"
+            height="30"
+            v-model="email"
+            outlined
+            rounded
+            dense
+            required
+            autofocus
+            :rules="emailRules"
+          ></v-text-field>
+        </div>
+        <div v-if="showStep2">
+          <label>Enter your OTP</label>
+          <v-text-field
+            class="inputClassRegi"
+            height="30"
+            v-model="yourOTP"
+            outlined
+            rounded
+            dense
+            required
+            :rules="[v => !!v || 'OTP is required']"
+          ></v-text-field>
+        </div>
+
+        <div v-if="showStep3">
+          <label>Enter New Password</label>
+          <v-text-field
+            class="inputClassRegi"
+            height="30"
+            v-model="newPassword"
+            outlined
+            rounded
+            dense
+            required
+            type="password"
+            :rules="[v => !!v || 'New Password is required']"
+          ></v-text-field>
+          <label>Enter Repeat New Password</label>
+          <v-text-field
+            class="inputClassRegi"
+            height="30"
+            v-model="newRepPassword"
+            outlined
+            rounded
+            dense
+            required
+            type="password"
+            :rules="[v => !!v || 'Repeat Password is required']"
+          ></v-text-field>
+        </div>
         <v-row class="mt-5">
           <v-btn
+            v-if="showButton"
             class="resetButton"
             @click="validate"
             :disabled="!valid"
@@ -44,6 +96,12 @@
             <v-icon class="icon" size="20">
               fas fa-chevron-double-right
             </v-icon>
+            <v-progress-circular
+              v-if="loadingImage"
+              indeterminate
+              color="#FFF"
+              size="22"
+            ></v-progress-circular>
           </v-btn>
         </v-row>
       </v-form>
@@ -57,7 +115,15 @@ import config from "../../../config/config.global";
 export default {
   data() {
     return {
+      loadingImage: false,
+      showStep1: true,
+      showStep2: false,
+      showStep3: false,
       valid: false,
+      showButton: true,
+      yourOTP: "",
+      newPassword: "",
+      newRepPassword: "",
       email: "",
       emailRules: [
         v => !!v || "E-mail is required",
@@ -66,15 +132,112 @@ export default {
     };
   },
   methods: {
+    // Close Login Popup
+    async closePopup() {
+      this.errorMessage = "";
+      this.sucessMessage = "";
+      this.email = "";
+      this.newPassword = "";
+      this.newRepPassword = "";
+      this.yourOTP = "";
+      this.$emit("forgotPasswordClose");
+    },
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
+      if (this.email && this.newPassword && this.newRepPassword) {
+        this.loadingImage = true;
+        this.passwordChange();
+      } else if (this.email && this.yourOTP) {
+        this.loadingImage = true;
+        this.OTPRequest();
+      } else {
+        this.loadingImage = true;
+        this.forgotPassword();
+      }
     },
-    // Close Login Popup
-    async closePopup() {
-      this.$emit("forgotPasswordClose");
+    // User Login Request to API
+    async forgotPassword() {
+      try {
+        var reqBody = {
+          email: this.email
+        };
+        var { data } = await axios.post(
+          config.userForgotPassword.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.showStep2 = true;
+          this.loadingImage = false;
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+          this.loadingImage = false;
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
+    },
+    // User Send OTP Request to API and Send to User Email
+    async OTPRequest() {
+      try {
+        var reqBody = {
+          email: this.email,
+          otp: this.yourOTP
+        };
+        var { data } = await axios.post(config.userVerifyOtp.url, reqBody, {
+          headers: config.header
+        });
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.yourOTP = "";
+          this.showStep2 = false;
+          this.showStep3 = true;
+          this.loadingImage = false;
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+          this.loadingImage = false;
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
+    },
+    // User Password Change New Password and Repeat New Password
+    async passwordChange() {
+      try {
+        var reqBody = {
+          email: this.email,
+          password: this.newPassword,
+          confirm_password: this.newRepPassword
+        };
+        var { data } = await axios.post(config.userResetPassword.url, reqBody, {
+          headers: config.header
+        });
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.loadingImage = false;
+          this.newPassword = "";
+          this.newRepPassword = "";
+          this.showStep3 = false;
+          this.showStep1 = false;
+          this.showButton = false;
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+          this.loadingImage = false;
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
     }
-    // User Forgot password Request to API
   }
 };
 </script>
@@ -128,8 +291,8 @@ export default {
   font-weight: 600;
 }
 .forgotPassForm .inputClassRegi {
-  /* color: #ffffff; */
-  /* border-color: #ff0066; */
+  color: #ffffff;
+  border-color: #ff0066;
   width: 100%;
 }
 .forgotPassForm .inputClass {

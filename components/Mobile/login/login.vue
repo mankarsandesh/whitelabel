@@ -138,6 +138,7 @@ export default {
     },
     // User Login Request to API
     async loginUser() {
+      this.loadingImage = true;
       try {
         var reqBody = {
           username: this.username,
