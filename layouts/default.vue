@@ -231,15 +231,15 @@ export default {
   computed: {
     ...mapGetters("login",  ["getLocale", "GetUserData"]),
     checkPageBackground() {
-      const route = this.$route.name;
-      console.log(route);
+      const route = this.$route.name;    
       switch (true) {
         case route === "index":
           return null;
           break;
         case route === "profile" ||
           route === "profile-deposit" ||
-          route === "profile-withdrawal" ||
+          route === "profile-WithDrawal" ||
+           route === "profile-withdrawal" ||
           route === "profile-order_history" ||
           route === "profile-change_password" ||
           route === "profile-track_order":
