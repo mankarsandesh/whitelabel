@@ -45,6 +45,9 @@ const config = {
   registerBankDetail: {
     url: `${process.env.BASE_URL}/registerBankDetail`
   },
+  userUpdateBankDetail: {
+    url: `${process.env.BASE_URL}/updateBankDetail`
+  },
   getUserBankDetails: {
     url: `${process.env.BASE_URL}/getUserBankDetail`
   },
@@ -56,6 +59,9 @@ const config = {
   },
   userTransactionHistory: {
     url: `${process.env.BASE_URL}/transactionHistory`
+  },
+  deleteUserBankDetail : {
+    url: `${process.env.BASE_URL}/deleteUserBankDetail`
   },
   defaultLanguageLocale: "cn",
   language: {

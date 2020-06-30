@@ -9,7 +9,8 @@
         <v-icon class="icon" left size="20">
           fas fa-user
         </v-icon>
-        Add bank
+        <span v-if="bankUUID">Edit bank</span>
+        <span v-if="!bankUUID">Add bank</span>
       </h2>
       <p
         v-bind:class="{
@@ -137,8 +138,26 @@ export default {
       valid: false
     };
   },
+  props: [
+    "bankUUID",
+    "bankName",
+    "AccountName",
+    "IFSCCode",
+    "ACNumber",
+    "SWIFTCode"
+  ],
   computed: {
     ...mapGetters("login", ["GetUserData"])
+  },
+  created() {
+    this.form.bankName = this.bankName;
+    this.form.accountName = this.AccountName;
+    this.form.accountNumber = this.ACNumber;
+    this.form.accountIFSC = this.IFSCCode;
+    this.form.accountSWIFT = this.SWIFTCode;
+  },
+  mounted() {
+    console.log("Mounted");
   },
   methods: {
     ...mapMutations("login", ["SET_USER_UUID", "SET_USER_DATA"]),
@@ -163,33 +182,56 @@ export default {
     async addBank() {
       this.loadingImage = true;
       try {
-        var reqBody = {
-          user_uuid: this.GetUserData.uuid,
-          account_bank_name: this.form.bankName,
-          account_holder_name: this.form.accountName,
-          account_number: this.form.accountNumber,
-          account_ifsc_code: this.form.accountIFSC,
-          account_swift_code: this.form.accountSWIFT,
-          account_type: 1,
-          is_default: true
-        };
-        var { data } = await axios.post(
-          config.registerBankDetail.url,
-          reqBody,
-          {
-            headers: config.header
-          }
-        );
+        if (this.bankUUID) {
+          var reqBody = {
+            user_uuid: this.GetUserData.uuid,
+            bank_uuid: this.bankUUID,
+            account_bank_name: this.form.bankName,
+            account_holder_name: this.form.accountName,
+            account_number: this.form.accountNumber,
+            account_ifsc_code: this.form.accountIFSC,
+            account_swift_code: this.form.accountSWIFT,
+            account_type: 1,
+            is_default: true
+          };
+
+          var { data } = await axios.post(
+            config.userUpdateBankDetail.url,
+            reqBody,
+            {
+              headers: config.header
+            }
+          );
+        } else {
+          var reqBody = {
+            user_uuid: this.GetUserData.uuid,
+            account_bank_name: this.form.bankName,
+            account_holder_name: this.form.accountName,
+            account_number: this.form.accountNumber,
+            account_ifsc_code: this.form.accountIFSC,
+            account_swift_code: this.form.accountSWIFT,
+            account_type: 1,
+            is_default: true
+          };
+
+          var { data } = await axios.post(
+            config.registerBankDetail.url,
+            reqBody,
+            {
+              headers: config.header
+            }
+          );
+        }
+
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
-          
+
           this.form.bankName = "";
           this.form.accountName = "";
           this.form.accountNumber = "";
           this.form.accountIFSC = "";
           this.form.accountSWIFT = "";
-
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";

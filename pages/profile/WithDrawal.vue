@@ -163,16 +163,22 @@
                                 size="18"
                                 @click="
                                   openEditBankForm(
+                                    data.bank_account_uuid,
                                     data.ac_bank_name,
                                     data.ac_holder_name,
                                     data.ac_ifsc_code,
-                                    data.ac_number
+                                    data.ac_number,
+                                    data.ac_swift_code
                                   )
                                 "
                               >
                                 fas fa-pencil
                               </v-icon>
-                              <v-icon class="icon" size="18">
+                              <v-icon
+                                class="icon"
+                                size="18"
+                                @click="deleteBankData(data.bank_account_uuid)"
+                              >
                                 fas fa-trash
                               </v-icon>
                             </span>
@@ -185,21 +191,21 @@
                               }}</v-col>
                             </v-row>
                             <v-row>
-                              <v-col>IFSC Code</v-col>
-                              <v-col class="text-right">{{
-                                data.ac_ifsc_code
-                              }}</v-col>
-                            </v-row>
-                            <v-row>
                               <v-col>Account Number</v-col>
                               <v-col class="text-right">{{
                                 data.ac_number
                               }}</v-col>
                             </v-row>
                             <v-row>
-                              <v-col>Account Type</v-col>
+                              <v-col>IFSC Code</v-col>
                               <v-col class="text-right">{{
-                                data.account_type
+                                data.ac_ifsc_code
+                              }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>SWIFT Code</v-col>
+                              <v-col class="text-right">{{
+                                data.ac_swift_code
                               }}</v-col>
                             </v-row>
                           </div>
@@ -270,7 +276,16 @@
 
     <!-- Add Bank Form -->
     <v-dialog content-class="addBankBox" v-model="bankDialog" max-width="550px">
-      <addBank @bankClose="closeBank" />
+      <addBank
+        v-if="renderComponent"
+        @bankClose="closeBank"
+        :bankUUID="this.editUserUUID"
+        :bankName="this.editUserBankName"
+        :AccountName="this.editUserName"
+        :IFSCCode="this.editUserIFSC"
+        :ACNumber="this.editUserNumber"
+        :SWIFTCode="this.editUserSwiftCode"
+      />
     </v-dialog>
     <!-- Ending Bank Form -->
   </div>
@@ -283,6 +298,16 @@ import axios from "axios";
 export default {
   data() {
     return {
+      renderComponent: true,
+      //Edit Bank Form
+      editUserUUID: "",
+      editUserBankName: "",
+      editUserName: "",
+      editUserIFSC: "",
+      editUserNumber: "",
+      editUserType: "",
+      editUserSwiftCode: "",
+
       sucessMessage: "",
       errorMessage: "",
       firstStepWire: true,
@@ -320,13 +345,38 @@ export default {
     ...mapGetters("login", ["GetUserData"])
   },
   methods: {
+    // Forece Render
+    forceRerender() {
+      // Remove my-component from the DOM
+      this.renderComponent = false;
+
+      this.$nextTick(() => {
+        // Add the component back in
+        this.renderComponent = true;
+      });
+    },
     // Open Bank
-    openEditBankForm() {
+    openEditBankForm(UUID, bankName, ACNAME, IFSCCode, ACNumber, SWIFTCode) {
+      this.editUserUUID = UUID;
+      this.editUserBankName = bankName;
+      this.editUserName = ACNAME;
+      this.editUserIFSC = IFSCCode;
+      this.editUserNumber = ACNumber;
+      this.editUserSwiftCode = SWIFTCode;
+
       this.bankDialog = true;
+      this.forceRerender();
     },
     // Open Bank
     openBankForm() {
       this.bankDialog = true;
+      this.forceRerender();
+      this.editUserUUID = "";
+      this.editUserBankName = "";
+      this.editUserName = "";
+      this.editUserIFSC = "";
+      this.editUserNumber = "";
+      this.editUserSwiftCode = "";
     },
     // Close Bank Form
     closeBank() {
@@ -338,7 +388,6 @@ export default {
       this.firstStepWire = true;
       this.lastStepWire = false;
     },
-    validateWireTransfer() {},
     wireTransfter() {
       if (this.bank && this.userBalance && this.withdrawableAmount) {
         this.userwithdrawalRequest();
@@ -355,7 +404,32 @@ export default {
         this.userBalance = this.GetUserData.balance;
       }
     },
-
+    // User Delete Bank Data
+    async deleteBankData(bankUUID) {
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          bank_account_uuid: bankUUID
+        };
+        var { data } = await axios.post(
+          config.deleteUserBankDetail.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.fetchUsersBankList();
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+      } catch (ex) {
+        this.errorMessage = data.message[0];
+      }
+    },
     // User withdrawal Request
     async userwithdrawalRequest() {
       this.loadingImage = true;
@@ -363,7 +437,7 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid,
           bank_account_uuid: this.accountName,
-          amount: this.userBalance
+          amount: this.withdrawableAmount
         };
         var { data } = await axios.post(
           config.userWithdrawalRequest.url,
@@ -390,7 +464,6 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid
         };
-         console.log(reqBody);
         var { data } = await axios.post(
           config.getUserBankDetails.url,
           reqBody,
@@ -398,6 +471,7 @@ export default {
             headers: config.header
           }
         );
+        console.log(data);
         if (data.code == 200) {
           this.userBankList = data.data;
           for (var i = 0; i < data.data.length; i++) {
@@ -438,7 +512,7 @@ export default {
   height: 300px;
   overflow-x: hidden;
   margin-bottom: 20px;
-  overflow-y:auto;
+  overflow-y: auto;
 }
 .v-text-field.v-text-field--solo .v-input__control {
   min-height: 10px;
