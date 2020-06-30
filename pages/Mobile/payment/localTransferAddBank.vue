@@ -8,21 +8,21 @@
       </v-row>
     </v-row>
 
-    <!-- <p
+    <p
       v-bind:class="{
         sucessMessage: sucessMessage,
         errorMessage: errorMessage
       }"
     >
       {{ this.errorMessage }} {{ this.sucessMessage }}
-    </p> -->
+    </p>
 
     <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
       <label>Bank Name<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="localForm.bankName"
+        v-model="form.bankName"
         outlined
         rounded
         dense
@@ -35,7 +35,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="localForm.accountHolderName"
+        v-model="form.accountName"
         outlined
         rounded
         dense
@@ -47,7 +47,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="localForm.accountNumber"
+        v-model="form.accountNumber"
         outlined
         rounded
         dense
@@ -59,7 +59,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        v-model="localForm.accountIFSC"
+        v-model="form.accountIFSC"
         outlined
         rounded
         dense
@@ -71,8 +71,7 @@
       <v-text-field
         class="inputClasswire"
         height="30"
-        type="password"
-        v-model="localForm.accountSWIFT"
+        v-model="form.accountSWIFT"
         outlined
         rounded
         dense
@@ -82,7 +81,12 @@
       ></v-text-field>
       <v-row justify="center">
         <v-col xs="3" sm="3">
-          <v-btn class="saveButton " :disabled="!valid" height="30">
+          <v-btn
+            class="saveButton"
+            @click="validate"
+            :disabled="!valid"
+            height="30"
+          >
             Save
             <v-icon class="icon" size="15">
               fas fa-chevron-double-right
@@ -109,24 +113,87 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import config from "../../../config/config.global";
+import axios from "axios";
 
 export default {
   layout: "mobile",
   data() {
     return {
       loadingImage: false,
-      // errorMessage: "",
-      // sucessMessage: "",
+      errorMessage: "",
+      sucessMessage: "",
       valid: false,
-      localForm: {
+      form: {
         bankName: "",
-        accountHolderName: "",
+        accountName: "",
         accountNumber: "",
         accountIFSC: "",
         accountSWIFT: ""
       }
     };
+  },
+  computed: {
+    ...mapGetters("login", ["GetUserData"])
+  },
+
+  methods: {
+    // Validate Login Empty Filed
+    validate() {
+      this.$refs.form.validate();
+      if (
+        this.form.bankName &&
+        this.form.accountName &&
+        this.form.accountNumber &&
+        this.form.accountIFSC &&
+        this.form.accountSWIFT
+      ) {
+        this.addBank();
+      }
+    },
+    // User Login Request to API
+    async addBank() {
+      this.loadingImage = true;
+      console.log("Hiii");
+
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          account_bank_name: this.form.bankName,
+          account_holder_name: this.form.accountName,
+          account_number: this.form.accountNumber,
+          account_ifsc_code: this.form.accountIFSC,
+          account_swift_code: this.form.accountSWIFT,
+          account_type: 1,
+          is_default: true
+        };
+        console.log(reqBody);
+        var { data } = await axios.post(
+          config.registerBankDetail.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.form.bankName = "";
+          this.form.accountName = "";
+          this.form.accountNumber = "";
+          this.form.accountIFSC = "";
+          this.form.accountSWIFT = "";
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+        this.loadingImage = false;
+      } catch (ex) {
+        console.log(ex);
+      }
+    }
   }
 };
 </script>
@@ -257,5 +324,4 @@ input:focus {
   color: rgb(255, 255, 255);
   padding: 80px 0px 10px 10px;
 }
-
 </style>
