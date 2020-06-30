@@ -89,7 +89,7 @@
         {
             "icon": "fas fa-gift",
             "title": "Wire Transfer Next Step",
-            "path": "/mobile/payment/wireNextStep"
+            "path": "/mobile/payment/localNextStep"
         },
         {
             "icon": "fas fa-cogs",
