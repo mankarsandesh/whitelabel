@@ -1,5 +1,5 @@
 import colors from "vuetify/es5/util/colors";
-
+import config from "./config/config.global";
 export default {
   mode: "universal",
   /*
@@ -37,6 +37,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
+    "~/plugins/sweetAlert",
     "~/plugins/vuelidate",
     "~/plugins/CountryFlag",
     "~/plugins/fontAwesome",

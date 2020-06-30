@@ -224,14 +224,8 @@ export default {
         }
 
         if (data.code == 200) {
-          this.sucessMessage = data.message[0];
-          this.errorMessage = "";
-
-          this.form.bankName = "";
-          this.form.accountName = "";
-          this.form.accountNumber = "";
-          this.form.accountIFSC = "";
-          this.form.accountSWIFT = "";
+          this.closePopup();
+          this.$swal(data.message[0]);
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";

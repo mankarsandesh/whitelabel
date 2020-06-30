@@ -449,6 +449,8 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
+
+          
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
@@ -480,7 +482,7 @@ export default {
           this.errorMessage = "";
         } else {
           this.loadingImage = false;
-        }
+        }        
       } catch (ex) {
         console.log(ex);
       }
