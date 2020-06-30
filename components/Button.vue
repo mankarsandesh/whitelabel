@@ -7,6 +7,12 @@
         ><v-icon size="15" class=" opcity-1">
           fas fa-chevron-double-right</v-icon
         >
+        &nbsp;<v-progress-circular
+          v-if="loadingImage"
+          indeterminate
+          color="#FFF"
+          size="22"
+        ></v-progress-circular>
       </span>
     </v-btn>
     <!-- Register Form -->
@@ -57,9 +63,11 @@ import config from "../config/config.global";
 import Login from "../components/login";
 import Register from "../components/register";
 import forgotPassword from "../components/forgotPassword";
+import axios from "axios";
 export default {
   data() {
     return {
+      loadingImage: false,
       forgotPasswordDialog: false,
       loginDialog: false,
       registerDialog: false
@@ -81,14 +89,8 @@ export default {
         if (this.GetUserData) {
           if (this.link == true) {
             if (this.GetUserData.balance > 300) {
-              window.location =
-                config.mainServer.url +
-                "?portalProviderUUID=" +
-                config.portalProviderID.url +
-                "&portalProviderUserID=" +
-                this.GetUserData.username +
-                "&balance=" +
-                this.GetUserData.balance;
+              this.loadingImage = true;
+              this.loginECgame();
             } else {
               this.$swal({
                 title: "Your Balance is Low",
@@ -102,6 +104,25 @@ export default {
         }
       } catch (error) {
         console.log(error);
+      }
+    },
+    // Login User Another API
+    // User Delete Bank Data
+    async loginECgame() {
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          balance: this.GetUserData.balance
+        };
+        var { data } = await axios.post(config.ECGameLogin.url, reqBody, {
+          headers: config.header
+        });
+        if (data.status) {
+          window.open(data.data.URL, "_blank");
+        }
+        this.loadingImage = false;
+      } catch (ex) {
+        console.log(ex);
       }
     },
     // Close Register Screen

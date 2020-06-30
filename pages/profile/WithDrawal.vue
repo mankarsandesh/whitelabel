@@ -480,7 +480,7 @@ export default {
           this.errorMessage = "";
         } else {
           this.loadingImage = false;
-        }
+        }        
       } catch (ex) {
         console.log(ex);
       }

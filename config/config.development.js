@@ -63,6 +63,9 @@ const config = {
   deleteUserBankDetail: {
     url: `${process.env.BASE_URL}/deleteUserBankDetail`
   },
+  ECGameLogin :{
+    url: `${process.env.BASE_URL}/ecGameLogin`
+  },
   defaultLanguageLocale: "cn",
   language: {
     cn: "chinese",
