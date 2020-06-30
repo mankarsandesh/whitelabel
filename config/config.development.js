@@ -10,12 +10,12 @@ const config = {
   sessionExpiryTime: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   isMaintenance: process.env.MAINTENANCE_MODE,
   header: {
-    authorization: "Basic V2hpdGVMYWJlbFN1cGVyOlRlc3QxMjMh"
+    authorization: `${process.env.BASIC_AUTH}`
   },
-  mainServer : {
+  mainServer: {
     url: `${process.env.MAIN_GAME}`
   },
-  portalProviderID : {
+  portalProviderID: {
     url: `${process.env.portalProviderID}`
   },
   userRegisterAuth: {
@@ -36,8 +36,12 @@ const config = {
   userResetPassword: {
     url: `${process.env.BASE_URL}/resetPassword`
   },
-  userUpdateDetails:{
+  userUpdateDetails: {
     url: `${process.env.BASE_URL}/updateUserProfile`
+  },
+  serverConfig: {
+    port: 8000,
+    host: "0.0.0.0"
   }
 };
 export default config;

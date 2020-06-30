@@ -1,5 +1,5 @@
 import colors from "vuetify/es5/util/colors";
-
+import config from "./config/config.global";
 export default {
   mode: "universal",
   /*
