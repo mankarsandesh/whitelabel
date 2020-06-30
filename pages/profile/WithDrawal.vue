@@ -421,6 +421,7 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
+          this.fetchUsersBankList();
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
@@ -436,7 +437,7 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid,
           bank_account_uuid: this.accountName,
-          amount: this.userBalance
+          amount: this.withdrawableAmount
         };
         var { data } = await axios.post(
           config.userWithdrawalRequest.url,
@@ -463,7 +464,6 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid
         };
-        console.log(reqBody);
         var { data } = await axios.post(
           config.getUserBankDetails.url,
           reqBody,
