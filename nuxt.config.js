@@ -1,5 +1,4 @@
 import colors from "vuetify/es5/util/colors";
-import config from "./config/config.global";
 export default {
   mode: "universal",
   /*
@@ -7,7 +6,7 @@ export default {
    */
   head: {
     titleTemplate: "%s - " + process.env.npm_package_name,
-    title: "White Label",
+    title: process.env.npm_package_name || "",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -37,7 +36,6 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    "~/plugins/sweetAlert",
     "~/plugins/vuelidate",
     "~/plugins/CountryFlag",
     "~/plugins/fontAwesome",
