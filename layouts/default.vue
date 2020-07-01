@@ -55,7 +55,7 @@
         icon
         @click="$refs.language.showDialog()"
       >
-        <country-flag :country="getLocale" size="normal" />
+        <country-flag :country="countryflag" size="normal" />
         <!-- <v-icon> fas fa-globe</v-icon> -->
       </v-btn>
       <languageDialog ref="language" />
@@ -241,6 +241,13 @@ export default {
   },
   computed: {
     ...mapGetters("login", ["getLocale", "GetUserData"]),
+    countryflag() {
+      if(this.getLocale){
+        return this.getLocale;
+      }else{
+        return "us";
+      }
+    },
     checkPageBackground() {
       const route = this.$route.name;
       switch (true) {
