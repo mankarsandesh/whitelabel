@@ -63,7 +63,6 @@
                         item-value="bank_account_uuid"
                         :rules="[v => !!v || 'Bank is required']"
                       ></v-select>
-                      
                     </v-form>
                   </v-col>
                   <v-col>
@@ -81,22 +80,23 @@
                 </v-row>
 
                 <v-row>
-                  <v-col><v-select
-                        v-if="this.userBankList.length > 0 && lastStepWire"
-                        placeholder="Select Bank"
-                        class="inputClasswire"
-                        height="30"
-                        outlined
-                        rounded
-                        dense
-                        required
-                        autofocus
-                        v-model="bank"
-                        :items="banks"
-                        item-text="ac_bank_name"
-                        item-value="bank_account_uuid"
-                        :rules="[v => !!v || 'Bank is required']"
-                      ></v-select>
+                  <v-col
+                    ><v-select
+                      v-if="this.userBankList.length > 0 && lastStepWire"
+                      placeholder="Select Bank"
+                      class="inputClasswire"
+                      height="30"
+                      outlined
+                      rounded
+                      dense
+                      required
+                      autofocus
+                      v-model="bank"
+                      :items="banks"
+                      item-text="ac_bank_name"
+                      item-value="bank_account_uuid"
+                      :rules="[v => !!v || 'Bank is required']"
+                    ></v-select>
 
                     <div id="wireFirstStep" v-if="firstStepWire">
                       <div id="myBank" v-if="this.userBankList.length > 0">
@@ -108,21 +108,14 @@
                           <div class="bankName">
                             {{ data.ac_bank_name }}
                             <span style="float:right;">
+                              <v-icon class="icon" size="18">
+                                fas fa-pencil
+                              </v-icon>
                               <v-icon
                                 class="icon"
                                 size="18"
-                                @click="
-                                  openEditBankForm(
-                                    data.ac_bank_name,
-                                    data.ac_holder_name,
-                                    data.ac_ifsc_code,
-                                    data.ac_number
-                                  )
-                                "
+                                @click="deleteBankData(data.bank_account_uuid)"
                               >
-                                fas fa-pencil
-                              </v-icon>
-                              <v-icon class="icon" size="18">
                                 fas fa-trash
                               </v-icon>
                             </span>
@@ -135,21 +128,33 @@
                               }}</v-col>
                             </v-row>
                             <v-row>
-                              <v-col>IFSC Code</v-col>
-                              <v-col class="text-right">{{
-                                data.ac_ifsc_code
-                              }}</v-col>
-                            </v-row>
-                            <v-row>
                               <v-col>Account Number</v-col>
                               <v-col class="text-right">{{
                                 data.ac_number
                               }}</v-col>
                             </v-row>
                             <v-row>
-                              <v-col>Account Type</v-col>
+                              <v-col>IFSC Code</v-col>
                               <v-col class="text-right">{{
-                                data.account_type
+                                data.ac_ifsc_code
+                              }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>SWIFT Code</v-col>
+                              <v-col class="text-right">{{
+                                data.ac_swift_code
+                              }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>Bank Address</v-col>
+                              <v-col class="text-right">{{
+                                data.ac_bank_address
+                              }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>Country</v-col>
+                              <v-col class="text-right">{{
+                                data.country_code
                               }}</v-col>
                             </v-row>
                           </div>
@@ -293,14 +298,14 @@
               </template>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <p
+              <!-- <p
                 v-bind:class="{
                   sucessMessage: sucessMessage,
                   errorMessage: errorMessage
                 }"
               >
                 {{ this.errorMessage }} {{ this.sucessMessage }}
-              </p>
+              </p> -->
 
               <span style="font-size:12px;"
                 >Beneficiary Account Number/IBAN<span class="imp">*</span>
@@ -320,14 +325,14 @@
               </template>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <p
+              <!-- <p
                 v-bind:class="{
                   sucessMessage: sucessMessage,
                   errorMessage: errorMessage
                 }"
               >
                 {{ this.errorMessage }} {{ this.sucessMessage }}
-              </p>
+              </p> -->
 
               <span style="font-size:12px;"
                 >Beneficiary Account Number/IBAN<span class="imp">*</span></span
@@ -381,9 +386,6 @@
         quickly create some (sample) posts,
       </p>
     </div>
-    <v-dialog content-class="addBankBox" v-model="bankDialog" max-width="550px">
-      <addBank @bankClose="closeBank" />
-    </v-dialog>
   </div>
 </template>
 
@@ -391,12 +393,13 @@
 import config from "../../../config/config.global";
 import { mapGetters } from "vuex";
 import axios from "axios";
-import addBank from "../../../components/addBank";
 export default {
   layout: "mobile",
   data() {
     return {
+      renderComponent: true,
       panel: 0,
+
       loadingImage: false,
       errorMessage: "",
       sucessMessage: "",
@@ -423,9 +426,7 @@ export default {
       ]
     };
   },
-  components: {
-    addBank
-  },
+
   mounted() {
     this.fetchUsersBankList();
   },
@@ -433,13 +434,20 @@ export default {
     ...mapGetters("login", ["GetUserData"])
   },
   methods: {
+    // Forece Render
+    forceRerender() {
+      // Remove my-component from the DOM
+      this.renderComponent = false;
+
+      this.$nextTick(() => {
+        // Add the component back in
+        this.renderComponent = true;
+      });
+    },
     AddBank() {
       window.location.href = "/mobile/payment/localTransferAddBank";
     },
-    //Open edit bank form
-    openEditBankForm() {
-      this.bankDialog = true;
-    },
+
     // Close Bank Form
     closeBank() {
       this.bankDialog = false;
@@ -467,6 +475,32 @@ export default {
         this.userBalance = this.GetUserData.balance;
       }
     },
+    // User Delete Bank Data
+    async deleteBankData(bankUUID) {
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          bank_account_uuid: bankUUID
+        };
+        var { data } = await axios.post(
+          config.deleteUserBankDetail.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.fetchUsersBankList();
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+      } catch (ex) {
+        this.errorMessage = data.message[0];
+      }
+    },
     // User FETCH BANK lIST
     async fetchUsersBankList() {
       try {
@@ -492,6 +526,36 @@ export default {
         }
       } catch (ex) {
         console.log(ex);
+      }
+    },
+    // User withdrawal Request
+    async userwithdrawalRequest() {
+      this.loadingImage = true;
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          bank_account_uuid: this.accountName,
+          amount: this.withdrawableAmount
+        };
+        var { data } = await axios.post(
+          config.userWithdrawalRequest.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+
+          
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+        this.loadingImage = false;
+      } catch (ex) {
+        this.errorMessage = data.message[0];
       }
     }
   }
@@ -635,6 +699,14 @@ input:focus {
 .banInfo {
   border: 1px solid #dddddd;
   padding: 5px 10px;
+}
+.icon {
+  margin: 0px 5px;
+  cursor: pointer;
+  color: #757575 !important;
+}
+.icon :hover {
+  color: #ff0167 !important;
 }
 .noBank {
   height: 200px;
