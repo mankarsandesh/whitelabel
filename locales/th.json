@@ -2,8 +2,7 @@
   "banner": {
     "get": "ได้รับ",
     "getDescription": "บโบนัสต้อนรับ 200% สูงถึง $ 2000",
-    "useBonus": "ใช้รหัสโบนัส",
-    "joinNow": "เข้าร่วมเดี๋ยวนี้"
+    "useBonus": "ใช้รหัสโบนัส"
   },
   "banner2": {
     "text1": "อารมณ์หรือเกมของคุณ",
@@ -13,8 +12,24 @@
     "casino": "บ่อนคาสิโน",
     "classic": "คลาสสิก"
   },
-  "banner3" : {
-    "multipleBetOn" : "เดิมพันหลายครั้ง",
-    "stockAndDigit" : "หุ้นและตัวเลข"
+  "banner3": {
+    "multipleBetOn": "เดิมพันหลายครั้ง",
+    "stockAndDigit": "หุ้นและตัวเลข"
+  },
+  "menu": {
+    "liveStock": "ปศุสัตว์",
+    "gameMode": "โหมดเกม",
+    "promotions": "โปรโมชั่น",
+    "myAccount": "บัญชีของฉัน",
+    "deposit": "เงินฝาก",
+    "withdrawal": "การถอนตัว",
+    "orderHistory": "ประวัติการสั่งซื้อ",
+    "changePassword": "เปลี่ยนรหัสผ่าน",
+    "logout": "ออกจากระบบ"
+  },
+  "button": {
+    "joinNow": "เข้าร่วมเดี๋ยวนี้",
+    "betNow": "พนันตอนนี้",
+    "comingSoon": "เร็ว ๆ นี้"
   }
 }

@@ -43,7 +43,7 @@
               </v-col>
             </v-row>
 
-            <Button title="bet now" />
+            <Button  :title="$t('button.betNow')" />
           </v-col>
         </v-row>
       </v-container>

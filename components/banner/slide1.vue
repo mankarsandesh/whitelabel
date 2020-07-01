@@ -48,7 +48,7 @@
                     </v-list-item>
                   </v-col>
                 </v-row>
-                <Button title="Join Now" />
+                <Button :title="$t('button.joinNow')" />
               </v-card-actions>
             </v-card>
           </v-col>

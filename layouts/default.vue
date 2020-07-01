@@ -46,11 +46,16 @@
           class="mx-2"
         >
           <v-icon left>{{ item.icon }}</v-icon>
-          {{ item.title }}
+          {{ $t("menu." + item.title) }}
         </v-btn>
       </template>
-      <v-btn class="mx-5 countryFlag" large icon  @click="$refs.language.showDialog()">
-        <country-flag :country="getLocale" size="normal"  />
+      <v-btn
+        class="mx-5 countryFlag"
+        large
+        icon
+        @click="$refs.language.showDialog()"
+      >
+        <country-flag :country="getLocale" size="normal" />
         <!-- <v-icon> fas fa-globe</v-icon> -->
       </v-btn>
       <languageDialog ref="language" />
@@ -80,17 +85,23 @@
               </template>
               <v-list>
                 <v-list-item link class="menuList" to="/profile">
-                  <v-list-item-title> My Account</v-list-item-title>
+                  <v-list-item-title>
+                    {{ $t("menu.myAccount") }}
+                  </v-list-item-title>
                 </v-list-item>
                 <v-list-item
                   link
                   class="menuList"
                   to="/profile/change_password"
                 >
-                  <v-list-item-title>Change Password</v-list-item-title>
+                  <v-list-item-title>
+                    {{ $t("menu.changePassword") }}
+                  </v-list-item-title>
                 </v-list-item>
                 <v-list-item link class="menuList" @click="userLogout()">
-                  <v-list-item-title>Logout</v-list-item-title>
+                  <v-list-item-title>
+                    {{ $t("menu.logout") }}
+                  </v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -194,7 +205,7 @@ import Register from "../components/register";
 import forgotPassword from "../components/forgotPassword";
 import axios from "axios";
 import Cookies from "../plugins/js-cookie";
-import countryFlag from "vue-country-flag"; 
+import countryFlag from "vue-country-flag";
 import languageDialog from "../components/languageDialog";
 export default {
   data() {
@@ -229,9 +240,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("login",  ["getLocale", "GetUserData"]),
+    ...mapGetters("login", ["getLocale", "GetUserData"]),
     checkPageBackground() {
-      const route = this.$route.name;    
+      const route = this.$route.name;
       switch (true) {
         case route === "index":
           return null;
@@ -239,7 +250,7 @@ export default {
         case route === "profile" ||
           route === "profile-deposit" ||
           route === "profile-WithDrawal" ||
-           route === "profile-withdrawal" ||
+          route === "profile-withdrawal" ||
           route === "profile-order_history" ||
           route === "profile-change_password" ||
           route === "profile-track_order":
@@ -301,7 +312,6 @@ export default {
     },
     // Close Register Screen
     closeRegister() {
-      
       this.registerDialog = false;
     },
     closeLogin() {
@@ -311,12 +321,12 @@ export default {
     closeForgot() {
       this.forgotPasswordDialog = false;
     },
-    // Show Register Form 
+    // Show Register Form
     showRegisterDialog() {
       this.loginDialog = false;
       this.registerDialog = true;
     },
-    // Show Login Form 
+    // Show Login Form
     showLoginDialog() {
       this.registerDialog = false;
       this.loginDialog = true;
@@ -330,8 +340,8 @@ export default {
 };
 </script>
 <style scoped>
-.countryFlag{
-  border:1px solid #dddddd;
+.countryFlag {
+  border: 1px solid #dddddd;
   background-color: #dddddd;
   border-radius: 50%;
   width: 45px;

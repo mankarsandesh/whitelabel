@@ -2,8 +2,7 @@
   "banner": {
     "get": "get",
     "getDescription": "Get a 200% welcome bonus, up to $2000",
-    "useBonus": "use bonus code",
-    "joinNow": "join now"
+    "useBonus": "use bonus code"
   },
   "banner2": {
     "text1": "your mood or game",
@@ -13,8 +12,24 @@
     "casino": "casino",
     "classic": "classic"
   },
-  "banner3" : {
-    "multipleBetOn" : "multiple bet on",
-    "stockAndDigit" : "stock & Digits"
+  "banner3": {
+    "multipleBetOn": "multiple bet on",
+    "stockAndDigit": "stock & Digits"
+  },
+  "menu": {
+    "liveStock": "Live Stock",
+    "gameMode": "Game Mode",
+    "promotions": "Promotions",
+    "myAccount": "My Account",
+    "deposit": "Deposit",
+    "withdrawal": "Withdrawal",
+    "orderHistory": "Order History",
+    "changePassword": "Change Password",
+    "logout": "Logout"
+  },
+  "button": {
+    "betNow": "Bet Now",
+    "joinNow": "join now",
+    "comingSoon": "Coming Soon"
   }
 }
