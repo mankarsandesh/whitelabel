@@ -2,7 +2,7 @@
   <div class="mainLogin">
     <div class="triangle-topleft"></div>
     <div class="loginForm">
-      <v-icon class="closeButton" @click="closePopup()" right size="20">
+      <v-icon class="closeButton" @click="closePopup()" right size="18">
         fas fa-times
       </v-icon>
       <h2>
@@ -22,71 +22,107 @@
       </p>
 
       <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Bank name </label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="form.bankName"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Bank Name is required']"
-        ></v-text-field>
-
-        <label>Account Holder Name</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="form.accountName"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Account Holder Name is required']"
-        ></v-text-field>
-
-        <label>Account Number</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="form.accountNumber"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Account Number is required']"
-        ></v-text-field>
-
-        <label>Account IFSC Code</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="form.accountIFSC"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Account IFSC Code is required']"
-        ></v-text-field>
-
-        <label>Account Swift Code</label>
-        <v-text-field
-          class="inputClassRegi"
-          height="42"
-          light
-          v-model="form.accountSWIFT"
-          outlined
-          rounded
-          dense
-          required
-          :rules="[v => !!v || 'Account Swift Code is required']"
-        ></v-text-field>
-
+        <v-row>
+          <v-col cols="12" class="cols">
+            <label>Bank name </label>
+            <v-text-field
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.bankName"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Bank Name is required']"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" class="cols">
+            <label>Account Holder Name</label>
+            <v-text-field
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.accountName"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Account Holder Name is required']"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" class="cols">
+            <label>Account Number</label>
+            <v-text-field
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.accountNumber"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Account Number is required']"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6" class="cols">
+            <label>Account IFSC Code</label>
+            <v-text-field
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.accountIFSC"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Account IFSC Code is required']"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6" class="cols">
+            <label>Account Swift Code</label>
+            <v-text-field
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.accountSWIFT"
+              outlined
+              rounded
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" class="cols">
+            <label>Bank Address</label>
+            <v-text-field
+              class="inputClassRegi"
+              height="42"
+              light
+              v-model="form.bankAdresss"
+              outlined
+              rounded
+              dense
+              required
+              :rules="[v => !!v || 'Bank Address required']"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" class="cols">
+            <label>Country</label>
+            <v-select
+              placeholder="Select Country"
+              height="42"
+              dense
+              rounded
+              outlined
+              light
+              v-model="form.bankCountry"
+              :items="countrys"
+              item-text="name"
+              item-value="id"
+              required
+              :rules="[v => !!v || 'Country is required']"
+            ></v-select>
+          </v-col>
+        </v-row>
         <v-btn
           class="saveButton"
           @click="validate"
@@ -128,7 +164,27 @@ export default {
           accountName: "",
           accountNumber: "",
           accountIFSC: "",
-          accountSWIFT: ""
+          accountSWIFT: "",
+          bankAdresss: "",
+          bankCountry: ""
+        }
+      ],
+      countrys: [
+        {
+          id: 45,
+          name: "China"
+        },
+        {
+          id: 122,
+          name: "Laos"
+        },
+        {
+          id: 220,
+          name: "Thailand"
+        },
+        {
+          id: 236,
+          name: "USA"
         }
       ],
       loadingImage: false,
@@ -144,7 +200,9 @@ export default {
     "AccountName",
     "IFSCCode",
     "ACNumber",
-    "SWIFTCode"
+    "SWIFTCode",
+    "bankAddress",
+    "bankCountry"
   ],
   computed: {
     ...mapGetters("login", ["GetUserData"])
@@ -155,6 +213,8 @@ export default {
     this.form.accountNumber = this.ACNumber;
     this.form.accountIFSC = this.IFSCCode;
     this.form.accountSWIFT = this.SWIFTCode;
+    this.form.bankAdresss = this.bankAddress;
+    this.form.bankCountry = this.bankCountry;
   },
   mounted() {
     console.log("Mounted");
@@ -169,7 +229,8 @@ export default {
         this.form.accountName &&
         this.form.accountNumber &&
         this.form.accountIFSC &&
-        this.form.accountSWIFT
+        this.form.bankAdresss &&
+        this.form.bankCountry
       ) {
         this.addBank();
       }
@@ -185,8 +246,10 @@ export default {
         if (this.bankUUID) {
           var reqBody = {
             user_uuid: this.GetUserData.uuid,
+            country_id: this.form.bankCountry,
             bank_uuid: this.bankUUID,
             account_bank_name: this.form.bankName,
+            account_bank_address: this.form.bankAdresss,
             account_holder_name: this.form.accountName,
             account_number: this.form.accountNumber,
             account_ifsc_code: this.form.accountIFSC,
@@ -205,7 +268,9 @@ export default {
         } else {
           var reqBody = {
             user_uuid: this.GetUserData.uuid,
+            country_id: this.form.bankCountry,
             account_bank_name: this.form.bankName,
+            account_bank_address: this.form.bankAdresss,
             account_holder_name: this.form.accountName,
             account_number: this.form.accountNumber,
             account_ifsc_code: this.form.accountIFSC,
@@ -222,7 +287,6 @@ export default {
             }
           );
         }
-
         if (data.code == 200) {
           this.closePopup();
           this.$swal(data.message[0]);
@@ -239,6 +303,9 @@ export default {
 };
 </script>
 <style scoped>
+.cols {
+  padding: 0px 8px;
+}
 .errorMessage {
   color: #f17272 !important;
 }
@@ -283,7 +350,7 @@ input[type="radio"]:checked + label {
   top: 15px;
   left: 15px;
   background-color: #fff;
-  padding: 30px 20px 65px 20px;
+  padding: 20px 20px 20px 20px;
 }
 .loginForm .icon {
   color: #ff0167;
@@ -296,7 +363,8 @@ input[type="radio"]:checked + label {
 .loginForm h2 {
   text-transform: uppercase;
   color: #ff0167;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  font-size: 18px;
 }
 .loginForm p {
   color: #c1c0c1;
@@ -318,6 +386,7 @@ input[type="radio"]:checked + label {
 .loginForm label {
   color: #333;
   width: 100%;
+  font-size: 14px;
   font-weight: 600;
 }
 .loginForm .inputClass .input {

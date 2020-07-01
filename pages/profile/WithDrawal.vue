@@ -168,7 +168,9 @@
                                     data.ac_holder_name,
                                     data.ac_ifsc_code,
                                     data.ac_number,
-                                    data.ac_swift_code
+                                    data.ac_swift_code,
+                                    data.ac_bank_address,
+                                    data.country_id
                                   )
                                 "
                               >
@@ -285,6 +287,8 @@
         :IFSCCode="this.editUserIFSC"
         :ACNumber="this.editUserNumber"
         :SWIFTCode="this.editUserSwiftCode"
+        :bankAddress="this.editBankAddress"
+        :bankCountry="this.editBankCountry"
       />
     </v-dialog>
     <!-- Ending Bank Form -->
@@ -307,6 +311,8 @@ export default {
       editUserNumber: "",
       editUserType: "",
       editUserSwiftCode: "",
+      editBankAddress: "",
+      editBankCountry: "",
 
       sucessMessage: "",
       errorMessage: "",
@@ -319,6 +325,7 @@ export default {
       bank: "",
       banks: [],
       userBankList: "",
+
       // Next Step
       userAccountDetails: "",
       accountName: "",
@@ -356,13 +363,24 @@ export default {
       });
     },
     // Open Bank
-    openEditBankForm(UUID, bankName, ACNAME, IFSCCode, ACNumber, SWIFTCode) {
+    openEditBankForm(
+      UUID,
+      bankName,
+      ACNAME,
+      IFSCCode,
+      ACNumber,
+      SWIFTCode,
+      bankAdress,
+      bankCountry
+    ) {
       this.editUserUUID = UUID;
       this.editUserBankName = bankName;
       this.editUserName = ACNAME;
       this.editUserIFSC = IFSCCode;
       this.editUserNumber = ACNumber;
       this.editUserSwiftCode = SWIFTCode;
+      this.editBankAddress = bankAdress;
+      this.editBankCountry = bankCountry;
 
       this.bankDialog = true;
       this.forceRerender();
@@ -437,7 +455,8 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid,
           bank_account_uuid: this.accountName,
-          amount: this.withdrawableAmount
+          amount: this.withdrawableAmount,
+          note : this.userNote
         };
         var { data } = await axios.post(
           config.userWithdrawalRequest.url,
@@ -446,11 +465,10 @@ export default {
             headers: config.header
           }
         );
+        console.log(data);
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
-
-          
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
@@ -472,7 +490,8 @@ export default {
           {
             headers: config.header
           }
-        );      
+        );
+        console.log(data);
         if (data.code == 200) {
           this.userBankList = data.data;
           for (var i = 0; i < data.data.length; i++) {
@@ -481,7 +500,7 @@ export default {
           this.errorMessage = "";
         } else {
           this.loadingImage = false;
-        }        
+        }
       } catch (ex) {
         console.log(ex);
       }
