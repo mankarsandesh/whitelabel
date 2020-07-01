@@ -40,15 +40,49 @@
                 {{ this.errorMessage }} {{ this.sucessMessage }}
               </p>
 
-              <span 
+              <span
                 >Beneficiary Account Number/IBAN<span class="imp">*</span></span
               >
               <div v-if="this.userBankList.length > 0">
                 <v-row>
                   <v-col>
-                    <v-form  ref="form" v-model="valid" lazy-validation> 
+                    <v-form ref="form" v-model="valid" lazy-validation>
                       <v-select
-                        v-if="this.userBankList.length > 0"
+                        v-if="this.userBankList.length > 0 && firstStepWire"
+                        placeholder="Select Bank"
+                        class="inputClasswire xs-12 sm-12"
+                        height="30"
+                        outlined
+                        rounded
+                        dense
+                        required
+                        autofocus
+                        v-model="bank"
+                        :items="banks"
+                        item-text="ac_bank_name"
+                        item-value="bank_account_uuid"
+                        :rules="[v => !!v || 'Bank is required']"
+                      ></v-select>
+                      
+                    </v-form>
+                  </v-col>
+                  <v-col>
+                    <div
+                      class="addBank"
+                      @click="AddBank"
+                      v-if="this.userBankList.length > 0 && firstStepWire"
+                    >
+                      <v-icon size="15" color="#ff0167">
+                        fas fa-university
+                      </v-icon>
+                      Add bank
+                    </div>
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col><v-select
+                        v-if="this.userBankList.length > 0 && lastStepWire"
                         placeholder="Select Bank"
                         class="inputClasswire"
                         height="30"
@@ -63,91 +97,7 @@
                         item-value="bank_account_uuid"
                         :rules="[v => !!v || 'Bank is required']"
                       ></v-select>
-                      <!-- <div id="wireNextStep" v-if="lastStepWire">
-                        <label
-                          >Your Balance
-                          <v-icon size="18">
-                            fas fa-info-circle
-                          </v-icon>
-                        </label>
-                        <v-text-field
-                          readonly=""
-                          height="42"
-                          width="130"
-                          light
-                          v-model="userBalance"
-                          outlined
-                          rounded
-                          dense
-                          required
-                        ></v-text-field>
-                        <label>Withdrawable Amount</label>
-                        <v-text-field
-                          type="number"
-                          height="42"
-                          width="130"
-                          light
-                          v-model="withdrawableAmount"
-                          outlined
-                          rounded
-                          dense
-                          required
-                          prefix="$"
-                          :rules="amountRule"
-                          placeholder="Please enter Withdrawable Amount"
-                        ></v-text-field>
-                        <label>Note</label>
-                        <v-text-field
-                          height="42"
-                          width="130"
-                          light
-                          v-model="userNote"
-                          outlined
-                          rounded
-                          dense
-                          required
-                          placeholder="Please enter Note"
-                        ></v-text-field>
-                        <v-btn
-                          class="cancelButton"
-                          small
-                          height="35"
-                          @click="previousStep()"
-                        >
-                          Previous Step
-                        </v-btn>
-                        <v-btn
-                          class="saveButton"
-                          small
-                          height="35"
-                          @click="wireTransfter"
-                        >
-                          Finsh &nbsp;<v-progress-circular
-                            v-if="loadingImage"
-                            indeterminate
-                            color="#FFF"
-                            size="20"
-                          ></v-progress-circular>
-                        </v-btn>
-                      </div> -->
-                    </v-form>
-                  </v-col>
-                  <v-col>
-                    <div
-                      class="addBank"
-                      to="/mobile/payment/localTransferAddBank"
-                      v-if="this.userBankList.length > 0 && firstStepWire"
-                    >
-                      <v-icon size="15" color="#ff0167">
-                        fas fa-university
-                      </v-icon>
-                      Add bank
-                    </div>
-                  </v-col>
-                </v-row>
-                <div>
-                  <v-row>
-                    <v-col cols="12">
+
                     <div id="wireFirstStep" v-if="firstStepWire">
                       <div id="myBank" v-if="this.userBankList.length > 0">
                         <v-flex
@@ -234,82 +184,82 @@
                         Next Step
                       </v-btn>
                     </div>
-                    </v-col>
-                  </v-row>
-                </div>
+                  </v-col>
+                </v-row>
+
                 <div>
-                  <v-row>
-                    <div id="wireNextStep" v-if="lastStepWire">
-                        <label
-                          >Your Balance
-                          <v-icon size="18">
-                            fas fa-info-circle
-                          </v-icon>
-                        </label>
-                        <v-text-field
-                          readonly=""
-                          height="42"
-                          width="130"
-                          light
-                          v-model="userBalance"
-                          outlined
-                          rounded
-                          dense
-                          required
-                        ></v-text-field>
+                  <v-row align="center" justify="center">
+                    <div v-if="lastStepWire">
+                      <label
+                        >Your Balance
+                        <v-icon size="18">
+                          fas fa-info-circle
+                        </v-icon>
+                      </label>
+                      <v-text-field
+                        readonly=""
+                        height="42"
+                        width="130"
+                        light
+                        v-model="userBalance"
+                        outlined
+                        rounded
+                        dense
+                        required
+                      ></v-text-field>
 
-                        <label>Withdrawable Amount</label>
-                        <v-text-field
-                          type="number"
-                          height="42"
-                          width="130"
-                          light
-                          v-model="withdrawableAmount"
-                          outlined
-                          rounded
-                          dense
-                          required
-                          prefix="$"
-                          :rules="amountRule"
-                          placeholder="Please enter Withdrawable Amount"
-                        ></v-text-field>
+                      <label>Withdrawable Amount</label>
+                      <v-text-field
+                        type="number"
+                        height="42"
+                        width="130"
+                        light
+                        v-model="withdrawableAmount"
+                        outlined
+                        rounded
+                        dense
+                        required
+                        prefix="$"
+                        :rules="amountRule"
+                        placeholder="Please enter Withdrawable Amount"
+                      ></v-text-field>
 
-                        <label>Note</label>
-                        <v-text-field
-                          height="42"
-                          width="130"
-                          light
-                          v-model="userNote"
-                          outlined
-                          rounded
-                          dense
-                          required
-                          placeholder="Please enter Note"
-                        ></v-text-field>
+                      <label>Note</label>
+                      <v-text-field
+                        height="42"
+                        width="130"
+                        light
+                        v-model="userNote"
+                        outlined
+                        rounded
+                        dense
+                        required
+                        placeholder="Please enter Note"
+                      ></v-text-field>
 
-                        <v-btn
-                          class="cancelButton"
-                          small
-                          height="35"
-                          @click="previousStep()"
-                        >
-                          Previous Step
-                        </v-btn>
+                      <v-btn
+                        class="cancelButton"
+                        small
+                        height="35"
+                        @click="previousStep()"
+                      >
+                        Previous Step
+                      </v-btn>
 
-                        <v-btn
-                          class="saveButton"
-                          small
-                          height="35"
-                          @click="wireTransfter"
-                        >
-                          Finsh &nbsp;<v-progress-circular
-                            v-if="loadingImage"
-                            indeterminate
-                            color="#FFF"
-                            size="20"
-                          ></v-progress-circular>
-                        </v-btn>
-                      </div>
+                      <v-btn
+                        class="saveButton"
+                        small
+                        height="35"
+                        @click="wireTransfter"
+                      >
+                        Finsh &nbsp;<v-progress-circular
+                          v-if="loadingImage"
+                          indeterminate
+                          color="#FFF"
+                          size="20"
+                        ></v-progress-circular>
+                      </v-btn>
+                    </div>
                   </v-row>
                 </div>
               </div>
@@ -322,7 +272,7 @@
                   </span>
                 </div>
                 <div class="banInfo">
-                  <div class="noBank">
+                  <div class="noBank" @click="AddBank()">
                     <v-icon class="icon" size="100">
                       fa-plus-square
                     </v-icon>
@@ -483,6 +433,9 @@ export default {
     ...mapGetters("login", ["GetUserData"])
   },
   methods: {
+    AddBank() {
+      window.location.href = "/mobile/payment/localTransferAddBank";
+    },
     //Open edit bank form
     openEditBankForm() {
       this.bankDialog = true;
