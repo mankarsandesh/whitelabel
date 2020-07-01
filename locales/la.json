@@ -1,5 +1,20 @@
 {
-    "banner": {
-        "get": "lao"
-    }
+  "banner": {
+    "get": "ໄດ້ຮັບ",
+    "getDescription": "ໄດ້ຮັບເງິນຍິນດີຕ້ອນຮັບ 200%, ສູງເຖິງ 2000 ໂດລາ",
+    "useBonus": "ໃຊ້ລະຫັດໂບນັດ",
+    "joinNow": "ເຂົ້າ​ຮ່ວມ​ດຽວ​ນີ້"
+  },
+  "banner2": {
+    "text1": "ໂປຣໄຟລຫຼືເກມຂອງທ່ານ",
+    "chooseGame": "ເລືອກເກມ",
+    "business": "ທຸລະກິດ",
+    "gaming": "ເກມ",
+    "casino": "ກາຊີໂນ",
+    "classic": "ຄລາສສິກ"
+  },
+  "banner3" : {
+    "multipleBetOn" : "ການເດີມພັນຫຼາຍຄັ້ງ",
+    "stockAndDigit" : "ຫຸ້ນແລະຕົວເລກ"
+  }
 }

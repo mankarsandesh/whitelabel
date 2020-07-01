@@ -1,5 +1,20 @@
 {
-    "banner": {
-        "get": "Thai"
-    }
+  "banner": {
+    "get": "ได้รับ",
+    "getDescription": "บโบนัสต้อนรับ 200% สูงถึง $ 2000",
+    "useBonus": "ใช้รหัสโบนัส",
+    "joinNow": "เข้าร่วมเดี๋ยวนี้"
+  },
+  "banner2": {
+    "text1": "อารมณ์หรือเกมของคุณ",
+    "chooseGame": "เลือกเกม",
+    "business": "ธุรกิจ",
+    "gaming": "การเล่นเกม",
+    "casino": "บ่อนคาสิโน",
+    "classic": "คลาสสิก"
+  },
+  "banner3" : {
+    "multipleBetOn" : "เดิมพันหลายครั้ง",
+    "stockAndDigit" : "หุ้นและตัวเลข"
+  }
 }

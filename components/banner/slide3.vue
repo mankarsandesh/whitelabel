@@ -9,11 +9,11 @@
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="8">
             <v-card flat class="ml-20">
-              <v-card-title class="display-2 font-weight-bold"
-                >Multiple Bet on</v-card-title
+              <v-card-title class="display-2 font-weight-bold text-capitalize"
+                > {{   $t("banner3.multipleBetOn") }}</v-card-title
               >
-              <v-card-title class="flex display-4 font-weight-black color-pink"
-                >Stock & Digits</v-card-title
+              <v-card-title class="flex display-4 font-weight-black color-pink text-capitalize"
+                >{{   $t("banner3.stockAndDigit") }}</v-card-title
               >
             </v-card>
 

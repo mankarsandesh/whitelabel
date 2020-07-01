@@ -1,5 +1,20 @@
 {
-    "banner": {
-        "get": "chinese"
-    }
+  "banner": {
+    "get": "得到",
+    "getDescription": "獲得200％的歡迎獎金，最高$ 2000",
+    "useBonus": "使用獎勵代碼",
+    "joinNow": "現在加入"
+  },
+  "banner2": {
+    "text1": "你的心情或遊戲",
+    "chooseGame": "選擇遊戲",
+    "business": "商業",
+    "gaming": "賭博",
+    "casino": "賭場",
+    "classic": "經典"
+  },
+  "banner3" : {
+    "multipleBetOn" : "多注",
+    "stockAndDigit" : "庫存和數字"
+  }
 }
