@@ -57,8 +57,58 @@
               dense
               required
               placeholder="Please enter Note"
+              
             ></v-text-field>
 
+            <label>Provider Bank Details</label>
+             <v-select         
+            placeholder="Select Bank"
+            class="inputClasswire"
+            height="42"
+            outlined
+            rounded
+            dense
+            required
+            autofocus
+            v-model="providerBank"
+            :items="providerBanks"
+            item-text="ac_bank_name"
+            item-value="bank_account_uuid"
+            :rules="[v => !!v || 'Bank is required']"
+          ></v-select>
+
+
+         <div id="myBank" v-if="this.providerBankList.length > 0">
+            <v-flex
+              v-for="(data, index) in providerBankList"
+              :key="index"
+              class="listBank"
+            >
+              <div class="bankName">
+                {{ data.ac_bank_name }}              
+              </div>
+              <div class="banInfo">
+                <v-row>
+                  <v-col>Account Holder name </v-col>
+                  <v-col class="text-right">{{ data.ac_holder_name }}</v-col>
+                </v-row>
+                <v-row>
+                  <v-col>Account Number</v-col>
+                  <v-col class="text-right">{{ data.ac_number }}</v-col>
+                </v-row>
+                <v-row>
+                  <v-col>IFSC Code</v-col>
+                  <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
+                </v-row>
+                <v-row>
+                  <v-col>Bank Adress</v-col>
+                  <v-col class="text-right">{{ data.ac_bank_address }}</v-col>
+                </v-row>
+              </div>
+            </v-flex>
+          </div>
+
+        
             <v-btn
               class="cancelButton"
               small
@@ -232,9 +282,16 @@ export default {
       tab: 0,
       valid: true,
       loadingImage: false,
+
+      // User Bank List Variable
       bank: "",
       banks: [],
       userBankList: "",
+
+      // Provider bank variable
+      providerBank : "",
+      providerBanks : [],
+      providerBankList :"",
 
       // Next Step
       userAccountDetails: "",
@@ -254,7 +311,7 @@ export default {
     onlineTopup
   },
   mounted() {
-    this.fetchUsersBankList();
+    this.fetchUsersBankList();   
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
@@ -327,6 +384,7 @@ export default {
         this.firstStepWire = false;
         this.lastStepWire = true;
         this.accountName = this.bank;
+         this.fetchProviderBankList();
       }
     },
     // User Delete Bank Data
@@ -362,7 +420,8 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid,
           user_bank_account_uuid: this.accountName,
-          provider_bank_account_uuid : "",
+          provider_bank_account_uuid : this.providerBank,
+          transaction_type : 2,
           amount: this.userAmount,
           note: this.userNote
         };
@@ -402,6 +461,32 @@ export default {
           this.userBankList = data.data;
           for (var i = 0; i < data.data.length; i++) {
             this.banks.push(data.data[i]);
+          }
+          this.errorMessage = "";
+        } else {
+          this.loadingImage = false;
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
+    },
+    // User FETCH BANK lIST
+    async fetchProviderBankList() {
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid
+        };
+        var { data } = await axios.post(
+          config.getProviderBankDetail.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );      
+        if (data.code == 200) {
+          this.providerBankList = data.data;
+          for (var i = 0; i < data.data.length; i++) {
+            this.providerBanks.push(data.data[i]);
           }
           this.errorMessage = "";
         } else {

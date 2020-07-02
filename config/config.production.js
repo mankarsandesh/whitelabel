@@ -60,10 +60,13 @@ const config = {
   userTransactionHistory: {
     url: `${process.env.BASE_URL}/transactionHistory`
   },
-  deleteUserBankDetail : {
+  getProviderBankDetail: {
+    url: `${process.env.BASE_URL}/getProviderBankDetail`
+  },
+  deleteUserBankDetail: {
     url: `${process.env.BASE_URL}/deleteUserBankDetail`
   },
-  ECGameLogin :{
+  ECGameLogin: {
     url: `${process.env.BASE_URL}/ecGameLogin`
   },
   serverConfig: {
