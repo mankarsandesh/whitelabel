@@ -3,7 +3,7 @@
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
         <h4 class="text-uppercase display-0 pl-4">
-           Deposit - Manual Topup
+          Deposit - Manual Topup
         </h4>
       </v-row>
     </v-row>
@@ -11,14 +11,16 @@
     <v-row class="mt-5" align="center" justify="center">
       <span>Beneficiary Account Number/IBAN<span class="imp">*</span></span>
       <div v-if="this.userBankList.length > 0">
-        <v-row >
-          <v-col cols="7" justify="center">
+        <v-row>
+          <v-col cols="1"></v-col>
+          <v-col cols="6" justify="right">
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-select
                 v-if="this.userBankList.length > 0 && firstStepWire"
                 placeholder="Select Bank"
-                class="inputClasswire xs-12 sm-12"
+                class="inputClasswire"
                 height="30"
+                align="center"
                 outlined
                 rounded
                 dense
@@ -51,7 +53,6 @@
             ><v-select
               v-if="this.userBankList.length > 0 && lastStepWire"
               placeholder="Select Bank"
-              class="inputClasswire"
               height="30"
               outlined
               rounded
@@ -121,7 +122,7 @@
               </div>
 
               <div id="myBank" v-if="this.userBankList.length == 0">
-                <div class="bankName">
+                <div class="bankName2">
                   <span style="float:right;">
                     <v-icon class="icon" size="18">
                       fas fa-id-card
@@ -154,25 +155,7 @@
         <div>
           <v-row align="center" justify="center">
             <div v-if="lastStepWire">
-              <label
-                >Your Balance
-                <v-icon size="18">
-                  fas fa-info-circle
-                </v-icon>
-              </label>
-              <v-text-field
-                readonly=""
-                height="42"
-                width="130"
-                light
-                v-model="userBalance"
-                outlined
-                rounded
-                dense
-                required
-              ></v-text-field>
-
-              <label>Deposit Amount</label>
+              <label>Enter Amount</label>
               <v-text-field
                 type="number"
                 height="42"
@@ -210,11 +193,7 @@
                 Previous Step
               </v-btn>
 
-              <v-btn
-                class="saveButton"
-                small
-                height="35"
-              >
+              <v-btn class="saveButton" small height="35">
                 Finsh &nbsp;<v-progress-circular
                   v-if="loadingImage"
                   indeterminate
@@ -227,7 +206,7 @@
         </div>
       </div>
       <div v-else>
-        <div class="bankName">
+        <div class="bankName2">
           <span style="float:right;">
             <v-icon class="icon" size="18">
               fas fa-id-card
@@ -257,7 +236,6 @@ export default {
     return {
       renderComponent: true,
       panel: 0,
-
       loadingImage: false,
       errorMessage: "",
       sucessMessage: "",
@@ -405,8 +383,6 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
-
-          
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
@@ -483,6 +459,10 @@ export default {
 .imp {
   color: #ff0167;
 }
+.inputClasswire {
+  width: 100%;
+  font-size: 13px;
+}
 .saveButton {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50px;
@@ -550,15 +530,24 @@ input:focus {
 }
 .bankName {
   border: 1px solid #dddddd;
-  padding: 5px 10px;
+  padding: 0px 10px;
   font-weight: 600;
   font-size: 16px;
   height: 35px;
+}
+.bankName2 {
+  border: 1px solid #dddddd;
+  padding: 0px 10px;
+  font-weight: 600;
+  font-size: 16px;
+  height: 35px;
+  width: 260px;
 }
 .banInfo {
   border: 1px solid #dddddd;
   padding: 5px 10px;
 }
+
 .icon {
   margin: 0px 5px;
   cursor: pointer;
@@ -608,4 +597,3 @@ input:focus {
   overflow-y: auto;
 }
 </style>
-

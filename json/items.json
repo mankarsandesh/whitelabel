@@ -93,7 +93,7 @@
         },
         {
             "icon": "fas fa-cogs",
-            "title": "deposit-online topup",
+            "title": "deposit - online topup",
             "path": "/mobile/payment/deposit"
         },
         {
