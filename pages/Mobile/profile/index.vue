@@ -188,7 +188,7 @@
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
-          <v-expansion-panels>
+          <!-- <v-expansion-panels>
             <v-expansion-panel class="mt-5 account">
               <v-expansion-panel-header class="balance font-weight-bold">
                 Address Information
@@ -200,7 +200,7 @@
                 Comming Soon
               </v-expansion-panel-content>
             </v-expansion-panel>
-          </v-expansion-panels>
+          </v-expansion-panels> -->
           <v-btn @click="userLogout" class="loginButton" height="40">
             Logout &nbsp;<v-progress-circular
               v-if="loadingImage"
