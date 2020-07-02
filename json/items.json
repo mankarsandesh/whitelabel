@@ -84,16 +84,16 @@
     {
             "icon": "fas fa-chart-bar",
             "title": "Wire Transfer",
-            "path": "/mobile/payment/wireTransferAddBank"
+            "path": "/"
         },
         {
             "icon": "fas fa-gift",
-            "title": "Wire Transfer Next Step",
-            "path": "/mobile/payment/localNextStep"
+            "title": "deposit - manual topup",
+            "path": "/mobile/payment/depositManual"
         },
         {
             "icon": "fas fa-cogs",
-            "title": "deposit",
+            "title": "deposit - online topup",
             "path": "/mobile/payment/deposit"
         },
         {
@@ -104,7 +104,7 @@
         {
             "icon": "fas fa-file-alt",
             "title": "Local Transfer",
-            "path": "/mobile/payment/localTransferAddCard"
+            "path": "/"
         },
         {
             "icon": "fas fa-info-circle",

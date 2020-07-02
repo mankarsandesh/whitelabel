@@ -67,7 +67,7 @@
         placeholder="Please enter IFSC Code"
         :rules="[v => !!v || 'IFSC Code is required']"
       ></v-text-field>
-      <label>SWIFT Code<span class="imp">*</span></label>
+      <label>SWIFT Code</label>
       <v-text-field
         class="inputClasswire"
         height="30"
@@ -75,10 +75,34 @@
         outlined
         rounded
         dense
-        required
         placeholder="Please enter SWIFT Code"
-        :rules="[v => !!v || 'SWIFT Code is required']"
       ></v-text-field>
+      <label>Bank Address<span class="imp">*</span></label>
+      <v-text-field
+        class="inputClasswire"
+        height="30"
+        v-model="form.bankAddress"
+        outlined
+        rounded
+        dense
+        required
+        placeholder="Please enter Bank Address"
+        :rules="[v => !!v || 'Bank Address is required']"
+      ></v-text-field>
+      <label>Country<span class="imp">*</span></label>
+      <v-select
+        height="42"
+        dense
+        rounded
+        outlined
+        light
+        v-model="form.country"
+        :items="countrys"
+        item-text="name"
+        item-value="id"
+        required
+        :rules="[v => !!v || 'Country is required']"
+      ></v-select>
       <v-row justify="center">
         <v-col xs="3" sm="3">
           <v-btn
@@ -131,7 +155,25 @@ export default {
         accountNumber: "",
         accountIFSC: "",
         accountSWIFT: ""
-      }
+      },
+      countrys: [
+          {
+            id: 45,
+            name: "China"
+          },
+          {
+            id: 122,
+            name: "Laos"
+          },
+          {
+            id: 220,
+            name: "Thailand"
+          },
+          {
+            id: 236,
+            name: "USA"
+          }
+        ]
     };
   },
   computed: {
@@ -139,6 +181,9 @@ export default {
   },
 
   methods: {
+    AddBank() {
+      window.location.href = "/mobile/payment/withdrawal";
+    },
     // Validate Login Empty Filed
     validate() {
       this.$refs.form.validate();
@@ -147,7 +192,8 @@ export default {
         this.form.accountName &&
         this.form.accountNumber &&
         this.form.accountIFSC &&
-        this.form.accountSWIFT
+        this.form.bankAddress &&
+        this.form.country
       ) {
         this.addBank();
       }
@@ -165,6 +211,8 @@ export default {
           account_number: this.form.accountNumber,
           account_ifsc_code: this.form.accountIFSC,
           account_swift_code: this.form.accountSWIFT,
+          country_id: this.form.country,
+          account_bank_address: this.form.bankAddress,
           account_type: 1,
           is_default: true
         };
@@ -185,6 +233,7 @@ export default {
           this.form.accountNumber = "";
           this.form.accountIFSC = "";
           this.form.accountSWIFT = "";
+          this.AddBank();
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";

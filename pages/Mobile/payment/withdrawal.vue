@@ -40,17 +40,17 @@
                 {{ this.errorMessage }} {{ this.sucessMessage }}
               </p>
 
-              <span 
+              <span
                 >Beneficiary Account Number/IBAN<span class="imp">*</span></span
               >
               <div v-if="this.userBankList.length > 0">
                 <v-row>
-                  <v-col>
-                    <v-form  ref="form" v-model="valid" lazy-validation> 
+                  <v-col cols="7">
+                    <v-form ref="form" v-model="valid" lazy-validation>
                       <v-select
-                        v-if="this.userBankList.length > 0"
+                        v-if="this.userBankList.length > 0 && firstStepWire"
                         placeholder="Select Bank"
-                        class="inputClasswire"
+                        class="inputClasswire xs-12 sm-12"
                         height="30"
                         outlined
                         rounded
@@ -63,79 +63,12 @@
                         item-value="bank_account_uuid"
                         :rules="[v => !!v || 'Bank is required']"
                       ></v-select>
-                      <!-- <div id="wireNextStep" v-if="lastStepWire">
-                        <label
-                          >Your Balance
-                          <v-icon size="18">
-                            fas fa-info-circle
-                          </v-icon>
-                        </label>
-                        <v-text-field
-                          readonly=""
-                          height="42"
-                          width="130"
-                          light
-                          v-model="userBalance"
-                          outlined
-                          rounded
-                          dense
-                          required
-                        ></v-text-field>
-                        <label>Withdrawable Amount</label>
-                        <v-text-field
-                          type="number"
-                          height="42"
-                          width="130"
-                          light
-                          v-model="withdrawableAmount"
-                          outlined
-                          rounded
-                          dense
-                          required
-                          prefix="$"
-                          :rules="amountRule"
-                          placeholder="Please enter Withdrawable Amount"
-                        ></v-text-field>
-                        <label>Note</label>
-                        <v-text-field
-                          height="42"
-                          width="130"
-                          light
-                          v-model="userNote"
-                          outlined
-                          rounded
-                          dense
-                          required
-                          placeholder="Please enter Note"
-                        ></v-text-field>
-                        <v-btn
-                          class="cancelButton"
-                          small
-                          height="35"
-                          @click="previousStep()"
-                        >
-                          Previous Step
-                        </v-btn>
-                        <v-btn
-                          class="saveButton"
-                          small
-                          height="35"
-                          @click="wireTransfter"
-                        >
-                          Finsh &nbsp;<v-progress-circular
-                            v-if="loadingImage"
-                            indeterminate
-                            color="#FFF"
-                            size="20"
-                          ></v-progress-circular>
-                        </v-btn>
-                      </div> -->
                     </v-form>
                   </v-col>
-                  <v-col>
+                  <v-col cols="3">
                     <div
                       class="addBank"
-                      to="/mobile/payment/localTransferAddBank"
+                      @click="AddBank"
                       v-if="this.userBankList.length > 0 && firstStepWire"
                     >
                       <v-icon size="15" color="#ff0167">
@@ -145,9 +78,26 @@
                     </div>
                   </v-col>
                 </v-row>
-                <div>
-                  <v-row>
-                    <v-col cols="12">
+
+                <v-row>
+                  <v-col
+                    ><v-select
+                      v-if="this.userBankList.length > 0 && lastStepWire"
+                      placeholder="Select Bank"
+                      class="inputClasswire"
+                      height="30"
+                      outlined
+                      rounded
+                      dense
+                      required
+                      autofocus
+                      v-model="bank"
+                      :items="banks"
+                      item-text="ac_bank_name"
+                      item-value="bank_account_uuid"
+                      :rules="[v => !!v || 'Bank is required']"
+                    ></v-select>
+
                     <div id="wireFirstStep" v-if="firstStepWire">
                       <div id="myBank" v-if="this.userBankList.length > 0">
                         <v-flex
@@ -158,21 +108,14 @@
                           <div class="bankName">
                             {{ data.ac_bank_name }}
                             <span style="float:right;">
+                              <v-icon class="icon" size="18">
+                                fas fa-pencil
+                              </v-icon>
                               <v-icon
                                 class="icon"
                                 size="18"
-                                @click="
-                                  openEditBankForm(
-                                    data.ac_bank_name,
-                                    data.ac_holder_name,
-                                    data.ac_ifsc_code,
-                                    data.ac_number
-                                  )
-                                "
+                                @click="deleteBankData(data.bank_account_uuid)"
                               >
-                                fas fa-pencil
-                              </v-icon>
-                              <v-icon class="icon" size="18">
                                 fas fa-trash
                               </v-icon>
                             </span>
@@ -185,21 +128,33 @@
                               }}</v-col>
                             </v-row>
                             <v-row>
-                              <v-col>IFSC Code</v-col>
-                              <v-col class="text-right">{{
-                                data.ac_ifsc_code
-                              }}</v-col>
-                            </v-row>
-                            <v-row>
                               <v-col>Account Number</v-col>
                               <v-col class="text-right">{{
                                 data.ac_number
                               }}</v-col>
                             </v-row>
                             <v-row>
-                              <v-col>Account Type</v-col>
+                              <v-col>IFSC Code</v-col>
                               <v-col class="text-right">{{
-                                data.account_type
+                                data.ac_ifsc_code
+                              }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>SWIFT Code</v-col>
+                              <v-col class="text-right">{{
+                                data.ac_swift_code
+                              }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>Bank Address</v-col>
+                              <v-col class="text-right">{{
+                                data.ac_bank_address
+                              }}</v-col>
+                            </v-row>
+                            <v-row>
+                              <v-col>Country</v-col>
+                              <v-col class="text-right">{{
+                                data.country_code
                               }}</v-col>
                             </v-row>
                           </div>
@@ -234,82 +189,82 @@
                         Next Step
                       </v-btn>
                     </div>
-                    </v-col>
-                  </v-row>
-                </div>
+                  </v-col>
+                </v-row>
+
                 <div>
-                  <v-row>
-                    <div id="wireNextStep" v-if="lastStepWire">
-                        <label
-                          >Your Balance
-                          <v-icon size="18">
-                            fas fa-info-circle
-                          </v-icon>
-                        </label>
-                        <v-text-field
-                          readonly=""
-                          height="42"
-                          width="130"
-                          light
-                          v-model="userBalance"
-                          outlined
-                          rounded
-                          dense
-                          required
-                        ></v-text-field>
+                  <v-row align="center" justify="center">
+                    <div v-if="lastStepWire">
+                      <label
+                        >Your Balance
+                        <v-icon size="18">
+                          fas fa-info-circle
+                        </v-icon>
+                      </label>
+                      <v-text-field
+                        readonly=""
+                        height="42"
+                        width="130"
+                        light
+                        v-model="userBalance"
+                        outlined
+                        rounded
+                        dense
+                        required
+                      ></v-text-field>
 
-                        <label>Withdrawable Amount</label>
-                        <v-text-field
-                          type="number"
-                          height="42"
-                          width="130"
-                          light
-                          v-model="withdrawableAmount"
-                          outlined
-                          rounded
-                          dense
-                          required
-                          prefix="$"
-                          :rules="amountRule"
-                          placeholder="Please enter Withdrawable Amount"
-                        ></v-text-field>
+                      <label>Withdrawable Amount</label>
+                      <v-text-field
+                        type="number"
+                        height="42"
+                        width="130"
+                        light
+                        v-model="withdrawableAmount"
+                        outlined
+                        rounded
+                        dense
+                        required
+                        prefix="$"
+                        :rules="amountRule"
+                        placeholder="Please enter Withdrawable Amount"
+                      ></v-text-field>
 
-                        <label>Note</label>
-                        <v-text-field
-                          height="42"
-                          width="130"
-                          light
-                          v-model="userNote"
-                          outlined
-                          rounded
-                          dense
-                          required
-                          placeholder="Please enter Note"
-                        ></v-text-field>
+                      <label>Note</label>
+                      <v-text-field
+                        height="42"
+                        width="130"
+                        light
+                        v-model="userNote"
+                        outlined
+                        rounded
+                        dense
+                        required
+                        placeholder="Please enter Note"
+                      ></v-text-field>
 
-                        <v-btn
-                          class="cancelButton"
-                          small
-                          height="35"
-                          @click="previousStep()"
-                        >
-                          Previous Step
-                        </v-btn>
+                      <v-btn
+                        class="cancelButton"
+                        small
+                        height="35"
+                        @click="previousStep()"
+                      >
+                        Previous Step
+                      </v-btn>
 
-                        <v-btn
-                          class="saveButton"
-                          small
-                          height="35"
-                          @click="wireTransfter"
-                        >
-                          Finsh &nbsp;<v-progress-circular
-                            v-if="loadingImage"
-                            indeterminate
-                            color="#FFF"
-                            size="20"
-                          ></v-progress-circular>
-                        </v-btn>
-                      </div>
+                      <v-btn
+                        class="saveButton"
+                        small
+                        height="35"
+                        @click="wireTransfter"
+                      >
+                        Finsh &nbsp;<v-progress-circular
+                          v-if="loadingImage"
+                          indeterminate
+                          color="#FFF"
+                          size="20"
+                        ></v-progress-circular>
+                      </v-btn>
+                    </div>
                   </v-row>
                 </div>
               </div>
@@ -322,7 +277,7 @@
                   </span>
                 </div>
                 <div class="banInfo">
-                  <div class="noBank">
+                  <div class="noBank" @click="AddBank()">
                     <v-icon class="icon" size="100">
                       fa-plus-square
                     </v-icon>
@@ -343,14 +298,14 @@
               </template>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <p
+              <!-- <p
                 v-bind:class="{
                   sucessMessage: sucessMessage,
                   errorMessage: errorMessage
                 }"
               >
                 {{ this.errorMessage }} {{ this.sucessMessage }}
-              </p>
+              </p> -->
 
               <span style="font-size:12px;"
                 >Beneficiary Account Number/IBAN<span class="imp">*</span>
@@ -370,14 +325,14 @@
               </template>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <p
+              <!-- <p
                 v-bind:class="{
                   sucessMessage: sucessMessage,
                   errorMessage: errorMessage
                 }"
               >
                 {{ this.errorMessage }} {{ this.sucessMessage }}
-              </p>
+              </p> -->
 
               <span style="font-size:12px;"
                 >Beneficiary Account Number/IBAN<span class="imp">*</span></span
@@ -431,9 +386,6 @@
         quickly create some (sample) posts,
       </p>
     </div>
-    <v-dialog content-class="addBankBox" v-model="bankDialog" max-width="550px">
-      <addBank @bankClose="closeBank" />
-    </v-dialog>
   </div>
 </template>
 
@@ -441,12 +393,13 @@
 import config from "../../../config/config.global";
 import { mapGetters } from "vuex";
 import axios from "axios";
-import addBank from "../../../components/addBank";
 export default {
   layout: "mobile",
   data() {
     return {
+      renderComponent: true,
       panel: 0,
+
       loadingImage: false,
       errorMessage: "",
       sucessMessage: "",
@@ -473,9 +426,7 @@ export default {
       ]
     };
   },
-  components: {
-    addBank
-  },
+
   mounted() {
     this.fetchUsersBankList();
   },
@@ -483,10 +434,20 @@ export default {
     ...mapGetters("login", ["GetUserData"])
   },
   methods: {
-    //Open edit bank form
-    openEditBankForm() {
-      this.bankDialog = true;
+    // Forece Render
+    forceRerender() {
+      // Remove my-component from the DOM
+      this.renderComponent = false;
+
+      this.$nextTick(() => {
+        // Add the component back in
+        this.renderComponent = true;
+      });
     },
+    AddBank() {
+      window.location.href = "/mobile/payment/localTransferAddBank";
+    },
+
     // Close Bank Form
     closeBank() {
       this.bankDialog = false;
@@ -514,6 +475,32 @@ export default {
         this.userBalance = this.GetUserData.balance;
       }
     },
+    // User Delete Bank Data
+    async deleteBankData(bankUUID) {
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          bank_account_uuid: bankUUID
+        };
+        var { data } = await axios.post(
+          config.deleteUserBankDetail.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+          this.fetchUsersBankList();
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+      } catch (ex) {
+        this.errorMessage = data.message[0];
+      }
+    },
     // User FETCH BANK lIST
     async fetchUsersBankList() {
       try {
@@ -539,6 +526,36 @@ export default {
         }
       } catch (ex) {
         console.log(ex);
+      }
+    },
+    // User withdrawal Request
+    async userwithdrawalRequest() {
+      this.loadingImage = true;
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid,
+          bank_account_uuid: this.accountName,
+          amount: this.withdrawableAmount
+        };
+        var { data } = await axios.post(
+          config.userWithdrawalRequest.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.sucessMessage = data.message[0];
+          this.errorMessage = "";
+
+          
+        } else {
+          this.errorMessage = data.message[0];
+          this.sucessMessage = "";
+        }
+        this.loadingImage = false;
+      } catch (ex) {
+        this.errorMessage = data.message[0];
       }
     }
   }
@@ -682,6 +699,14 @@ input:focus {
 .banInfo {
   border: 1px solid #dddddd;
   padding: 5px 10px;
+}
+.icon {
+  margin: 0px 5px;
+  cursor: pointer;
+  color: #757575 !important;
+}
+.icon :hover {
+  color: #ff0167 !important;
 }
 .noBank {
   height: 200px;
