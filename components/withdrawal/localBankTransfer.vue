@@ -8,7 +8,9 @@
     >
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p>
-    <label>Beneficiary Account Number/BAN</label>
+    <label
+      >Beneficiary Account Number/BAN <span class="required">*</span></label
+    >
     <v-row>
       <v-col>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -39,29 +41,27 @@
             <v-text-field
               readonly=""
               height="42"
-              width="130"
               light
               v-model="userBalance"
-              outlined
               rounded
               dense
-              required
+              prefix="$"
             ></v-text-field>
 
-            <label>Withdrawable Amount</label>
+            <label>Withdrawal Amount <span class="required">*</span></label>
             <v-text-field
               type="number"
               height="42"
               width="130"
               light
-              v-model="withdrawableAmount"
+              v-model="withdrawalAmount"
               outlined
               rounded
               dense
               required
               prefix="$"
               :rules="amountRule"
-              placeholder="Please enter Withdrawable Amount"
+              placeholder="Please enter Withdrawal Amount"
             ></v-text-field>
 
             <label>Note</label>
@@ -163,8 +163,8 @@
                   <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
                 </v-row>
                 <v-row>
-                  <v-col>SWIFT Code</v-col>
-                  <v-col class="text-right">{{ data.ac_swift_code }}</v-col>
+                  <v-col bold>Bank Address</v-col>
+                  <v-col class="text-right">{{ data.ac_bank_address }}</v-col>
                 </v-row>
               </div>
             </v-flex>
@@ -257,7 +257,7 @@ export default {
       accountName: "",
       userBalance: 5000,
       userNote: "",
-      withdrawableAmount: "",
+      withdrawalAmount: "",
       // Amount Validation
       amountRule: [
         v => !!v || "Withdrawable amount is required",
@@ -333,8 +333,12 @@ export default {
       this.lastStepWire = false;
     },
     wireTransfter() {
-      if (this.bank && this.userBalance && this.withdrawableAmount) {
-        this.userwithdrawalRequest();
+      if (this.bank && this.withdrawalAmount) {
+        if (this.userBalance > 0) {
+          this.userwithdrawalRequest();
+        } else {
+          this.errorMessage = "Your balance is LOW";
+        }
       } else {
         this.errorMessage = "Please Fill All fileds";
       }
@@ -380,8 +384,8 @@ export default {
       try {
         var reqBody = {
           user_uuid: this.GetUserData.uuid,
-          user_bank_account_uuid : this.accountName,
-          amount: this.withdrawableAmount,
+          user_bank_account_uuid: this.accountName,
+          amount: this.withdrawalAmount,
           note: this.userNote,
           transaction_type: 1
         };
@@ -514,6 +518,9 @@ export default {
 }
 .wrapperDiv {
   padding: 30px 0px;
+}
+.wrapperDiv p {
+  width: 50%;
 }
 .listTopupType {
   text-transform: capitalize;

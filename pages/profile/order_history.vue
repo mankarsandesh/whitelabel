@@ -91,7 +91,7 @@ export default {
             headers: config.header
           }
         );
-        this.userOrderData = data.data;
+        this.userOrderData = data.data.reverse();
       } catch (ex) {
         this.errorMessage = data.message[0];
       }

@@ -79,4 +79,7 @@ h1 {
 .topupDiv {
   padding: 20px 20px;
 }
+.wrapperDiv {
+  padding: 30px 0px;
+}
 </style>
