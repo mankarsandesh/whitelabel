@@ -24,10 +24,12 @@
 
           <v-tabs-items v-model="tab">
             <v-tab-item :value="'tab-1'">
+              <!-- Manyally Topup -->
               <manuallyTopup />
             </v-tab-item>
             <v-tab-item :value="'tab-2'">
               <div class="wrapperDiv">
+                <!-- Online Topup -->
                 <onlineTopup />
               </div>
             </v-tab-item>
