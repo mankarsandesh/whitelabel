@@ -7,12 +7,12 @@
     <v-row class="fill-height" align="center" justify="center">
       <v-col cols="8">
         <v-card flat class="ml-20" color=" transparent" dark>
-          <v-card-title class="display-2 font-weight-bold"
-            >Your mood or Game</v-card-title
-          >
-          <v-card-title class="flex display-4 font-weight-black color-pink"
-            >Choose game</v-card-title
-          >
+          <v-card-title class="display-2 font-weight-bold">{{
+            $t("banner2.text1")
+          }}</v-card-title>
+          <v-card-title class="flex display-4 font-weight-black color-pink">{{
+            $t("banner2.chooseGame")
+          }}</v-card-title>
         </v-card>
         <v-row>
           <v-col
@@ -32,9 +32,13 @@
               <v-img :src="item.src" class=" align-center opcity-images">
                 <v-card-title
                   class=" text-uppercase justify-center text-center flex display-3 font-weight-black"
-                  >{{ item.title }}</v-card-title
                 >
-                <Button :title="item.buttonName" :link="item.status" />
+                  {{ $t("banner2." + item.title) }}
+                </v-card-title>
+                <Button
+                  :title="$t('button.' + item.buttonName)"
+                  :link="item.status"
+                />
               </v-img>
             </v-card>
           </v-col>

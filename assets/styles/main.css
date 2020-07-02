@@ -59,6 +59,19 @@
 .high-0 {
   height: 20px !important;
 }
+.card-flag {
+  text-align: center;
+}
+
+.layout.card-flag .v-radio {
+  text-align: center;
+  justify-content: center;
+  margin-left: 28px;
+}
+
+.card-flag .v-input.v-input--selection-controls {
+  justify-content: center;
+}
 
 .v-card .v-card__title .display-1,
 .v-card .v-card__title.display-3,

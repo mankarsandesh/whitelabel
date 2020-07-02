@@ -9,11 +9,13 @@
         <v-row class="fill-height" align="center" justify="center">
           <v-col cols="8">
             <v-card flat class="ml-20">
-              <v-card-title class="display-2 font-weight-bold"
-                >Your mood or Game</v-card-title
+              <v-card-title
+                class="display-2 font-weight-bold text-capitalize"
+                >{{ $t("banner2.text1") }}</v-card-title
               >
-              <v-card-title class="flex display-4 font-weight-black color-pink"
-                >Choose game</v-card-title
+              <v-card-title
+                class="flex display-4 font-weight-black color-pink text-capitalize"
+                >{{ $t("banner2.chooseGame") }}</v-card-title
               >
             </v-card>
             <v-row>
@@ -29,13 +31,14 @@
                   <v-img :src="item.src" class=" align-center opcity-images">
                     <v-card-title
                       class=" text-uppercase justify-center text-center display-1 font-weight-bold"
-                      >{{ item.title }}</v-card-title
                     >
+                      {{ $t("banner2." + item.title) }}
+                    </v-card-title>
                   </v-img>
                 </v-card>
               </v-col>
 
-              <Button title="bet now" />
+              <Button :title="$t('button.betNow')" />
             </v-row>
           </v-col>
         </v-row>

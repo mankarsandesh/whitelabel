@@ -9,7 +9,7 @@
               v-for="(item, index) in TabsProfiles"
               :key="index"
               :to="item.path"
-              >{{ item.title }}</v-tab
+              >  {{   $t('menu.'+item.title)  }}</v-tab
             >
           </v-tabs>
         </v-col>

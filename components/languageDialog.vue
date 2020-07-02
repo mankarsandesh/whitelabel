@@ -4,11 +4,11 @@
       <v-card-title class="headline">
         Choose language
       </v-card-title>
-      <v-layout>
-        <v-flex xs6 class="d-block card-flag" v-for="(item, index) in lang" :key="index">
+      <v-layout  class="card-flag">
+        <v-flex xs6 class="d-block card-flag text-center" v-for="(item, index) in lang" :key="index"  >
           <country-flag :country="item.country" size="big" />
-          <v-radio-group v-model="value" row>
-            <v-radio :value="item.value" @click="changeLanguage(item.value)"></v-radio>
+          <v-radio-group v-model="value" row  >
+            <v-radio :value="item.value" @click="changeLanguage(item.value)" ></v-radio>
           </v-radio-group>
         </v-flex>
       </v-layout>
