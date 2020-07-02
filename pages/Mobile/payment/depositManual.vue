@@ -1,5 +1,5 @@
 <template>
-  <div class="wireForm">
+  <div class="wireForm" >
     <v-row justify="center" class="sm-12">
       <v-row class="headline1">
         <h4 class="text-uppercase display-0 pl-4">
@@ -8,7 +8,7 @@
       </v-row>
     </v-row>
 
-    <v-row class="mt-5" align="center" justify="center">
+    <v-row class="mt-3" align="center" justify="center" >
       <p
         v-bind:class="{
           sucessMessage: sucessMessage,
@@ -18,10 +18,10 @@
         {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
       <span>Beneficiary Account Number/IBAN<span class="imp">*</span></span>
-      <div v-if="this.userBankList.length > 0">
-        <v-row>
-          <v-col cols="1"></v-col>
-          <v-col cols="6" justify="right">
+      <div v-if="this.userBankList.length > 0" > 
+        <v-row justify="center">
+         
+          <v-col cols="8" justify="right">
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-select
                 v-if="this.userBankList.length > 0 && firstStepWire"
@@ -42,22 +42,22 @@
               ></v-select>
             </v-form>
           </v-col>
-          <v-col cols="3" justify="center">
-            <div
+          <v-col cols="4" justify="center">
+            <v-btn
               class="addBank"
-              @click="AddBank"
+              to="/mobile/payment/localTransferAddBank"
               v-if="this.userBankList.length > 0 && firstStepWire"
             >
               <v-icon size="15" color="#ff0167">
                 fas fa-university
               </v-icon>
               Add bank
-            </div>
+            </v-btn>
           </v-col>
         </v-row>
 
         <v-row justify="center">
-          <v-col cols="11"
+          <v-col cols="12"
             ><v-select
               v-if="this.userBankList.length > 0 && lastStepWire"
               placeholder="Select Bank"
@@ -111,19 +111,12 @@
                       <v-col>IFSC Code</v-col>
                       <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
                     </v-row>
-                    <v-row>
-                      <v-col>SWIFT Code</v-col>
-                      <v-col class="text-right">{{ data.ac_swift_code }}</v-col>
-                    </v-row>
+
                     <v-row>
                       <v-col>Bank Address</v-col>
                       <v-col class="text-right">{{
                         data.ac_bank_address
                       }}</v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>Country</v-col>
-                      <v-col class="text-right">{{ data.country_code }}</v-col>
                     </v-row>
                   </div>
                 </v-flex>
@@ -160,7 +153,7 @@
           </v-col>
         </v-row>
 
-        <div>
+       
           <v-row align="center" justify="center">
             <div v-if="lastStepWire">
               <label>Enter Amount</label>
@@ -267,7 +260,7 @@
               </v-btn>
             </div>
           </v-row>
-        </div>
+      
       </div>
       <div v-else>
         <div class="bankName2">
@@ -523,7 +516,7 @@ export default {
 }
 .wireForm {
   position: sticky;
-  padding: 0px 20px 20px 20px;
+  padding:0px ;
   background-size: cover;
   width: 100%;
   height: auto;
