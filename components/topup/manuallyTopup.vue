@@ -8,7 +8,7 @@
     >
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p>
-    <label>Beneficiary Account Number/BAN</label>
+    <label>Beneficiary Account Number/BAN <span class="required">*</span></label>
     <v-row>
       <v-col>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -30,7 +30,7 @@
           ></v-select>
 
           <div id="wireNextStep" v-if="lastStepWire">
-            <label>Enter Amount</label>
+            <label>Enter Amount <span class="required">*</span></label>
             <v-text-field
               type="number"
               height="42"
@@ -60,7 +60,7 @@
               
             ></v-text-field>
 
-            <label>Provider Bank Details</label>
+            <label>Provider Bank Details <span class="required">*</span></label>
              <v-select         
             placeholder="Select Bank"
             class="inputClasswire"

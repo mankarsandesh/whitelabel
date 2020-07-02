@@ -24,7 +24,7 @@
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row>
           <v-col cols="12" class="cols">
-            <label>Bank name </label>
+            <label>Bank name <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -38,7 +38,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" class="cols">
-            <label>Account Holder Name</label>
+            <label>Account Holder Name <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -52,7 +52,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" class="cols">
-            <label>Account Number</label>
+            <label>Account Number <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -66,7 +66,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="6" class="cols">
-            <label>Account IFSC Code</label>
+            <label>Account IFSC Code <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -92,7 +92,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" class="cols">
-            <label>Bank Address</label>
+            <label>Bank Address <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -106,7 +106,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" class="cols">
-            <label>Country</label>
+            <label>Country <span class="required">*</span></label>
             <v-select
               placeholder="Select Country"
               height="42"

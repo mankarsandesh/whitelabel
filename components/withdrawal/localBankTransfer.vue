@@ -8,7 +8,7 @@
     >
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p>
-    <label>Beneficiary Account Number/BAN</label>
+    <label>Beneficiary Account Number/BAN <span class="required">*</span></label>
     <v-row>
       <v-col>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -31,7 +31,7 @@
 
           <div id="wireNextStep" v-if="lastStepWire">
             <label
-              >Your Balance
+              >Your Balance 
               <v-icon size="18">
                 fas fa-info-circle
               </v-icon>
@@ -48,7 +48,7 @@
               required
             ></v-text-field>
 
-            <label>Withdrawable Amount</label>
+            <label>Withdrawable Amount <span class="required">*</span></label>
             <v-text-field
               type="number"
               height="42"

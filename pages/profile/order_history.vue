@@ -91,6 +91,8 @@ export default {
             headers: config.header
           }
         );
+        console.log(reqBody);
+        console.log(data.data);
         this.userOrderData = data.data;
       } catch (ex) {
         this.errorMessage = data.message[0];
