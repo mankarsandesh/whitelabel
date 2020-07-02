@@ -45,7 +45,7 @@
               >
               <div v-if="this.userBankList.length > 0">
                 <v-row>
-                  <v-col>
+                  <v-col cols="7">
                     <v-form ref="form" v-model="valid" lazy-validation>
                       <v-select
                         v-if="this.userBankList.length > 0 && firstStepWire"
@@ -65,7 +65,7 @@
                       ></v-select>
                     </v-form>
                   </v-col>
-                  <v-col>
+                  <v-col cols="3">
                     <div
                       class="addBank"
                       @click="AddBank"

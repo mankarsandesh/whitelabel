@@ -9,6 +9,14 @@
     </v-row>
 
     <v-row class="mt-5" align="center" justify="center">
+      <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
+      </p>
       <span>Beneficiary Account Number/IBAN<span class="imp">*</span></span>
       <div v-if="this.userBankList.length > 0">
         <v-row>
@@ -161,7 +169,7 @@
                 height="42"
                 width="130"
                 light
-                v-model="withdrawableAmount"
+                v-model="userAmount"
                 outlined
                 rounded
                 dense
@@ -184,6 +192,57 @@
                 placeholder="Please enter Note"
               ></v-text-field>
 
+              <label>Provider Bank Details</label>
+              <v-select
+                placeholder="Select Bank"
+                class="inputClasswire providerBank"
+                height="42"
+                outlined
+                rounded
+                dense
+                required
+                autofocus
+                v-model="providerBank"
+                :items="providerBanks"
+                item-text="ac_bank_name"
+                item-value="bank_account_uuid"
+                :rules="[v => !!v || 'Bank is required']"
+              ></v-select>
+
+              <div id="providerBank" v-if="this.providerBankList.length > 0">
+                <v-flex
+                  v-for="(data, index) in providerBankList"
+                  :key="index"
+                  class="listBank"
+                >
+                  <div class="proBank">
+                    {{ data.ac_bank_name }}
+                  </div>
+                  <div class="proBankInfo">
+                    <v-row>
+                      <v-col>Account Holder name </v-col>
+                      <v-col class="text-right">{{
+                        data.ac_holder_name
+                      }}</v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>Account Number</v-col>
+                      <v-col class="text-right">{{ data.ac_number }}</v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>IFSC Code</v-col>
+                      <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col>Bank Adress</v-col>
+                      <v-col class="text-right">{{
+                        data.ac_bank_address
+                      }}</v-col>
+                    </v-row>
+                  </div>
+                </v-flex>
+              </div>
+
               <v-btn
                 class="cancelButton"
                 small
@@ -193,8 +252,13 @@
                 Previous Step
               </v-btn>
 
-              <v-btn class="saveButton" small height="35">
-                Finsh &nbsp;<v-progress-circular
+              <v-btn
+                class="saveButton"
+                small
+                height="35"
+                @click="wireTransfter"
+              >
+                Finish &nbsp;<v-progress-circular
                   v-if="loadingImage"
                   indeterminate
                   color="#FFF"
@@ -240,18 +304,23 @@ export default {
       errorMessage: "",
       sucessMessage: "",
       valid: false,
-      userBankList: "",
-      banks: [],
-      bank: "",
       firstStepWire: true,
       lastStepWire: false,
       bankDialog: false,
+      // User Bank List Variable
+      bank: "",
+      banks: [],
+      userBankList: "",
+      // Provider bank variable
+      providerBank: "",
+      providerBanks: [],
+      providerBankList: "",
       // Next Step
       userAccountDetails: "",
       accountName: "",
       userBalance: 5000,
       userNote: "",
-      withdrawableAmount: "",
+      userAmount: "",
       // Amount Validation
       amountRule: [
         v => !!v || "Withdrawable amount is required",
@@ -296,7 +365,7 @@ export default {
     },
     validateWireTransfer() {},
     wireTransfter() {
-      if (this.bank && this.userBalance && this.withdrawableAmount) {
+      if (this.bank && this.userAmount) {
         this.userwithdrawalRequest();
       } else {
         this.errorMessage = "Please Fill All fileds";
@@ -309,6 +378,7 @@ export default {
         this.lastStepWire = true;
         this.accountName = this.bank;
         this.userBalance = this.GetUserData.balance;
+        this.fetchProviderBankList();
       }
     },
     // User Delete Bank Data
@@ -370,11 +440,14 @@ export default {
       try {
         var reqBody = {
           user_uuid: this.GetUserData.uuid,
-          bank_account_uuid: this.accountName,
-          amount: this.withdrawableAmount
+          user_bank_account_uuid: this.accountName,
+          provider_bank_account_uuid: this.providerBank,
+          transaction_type: 2,
+          amount: this.userAmount,
+          note: this.userNote
         };
         var { data } = await axios.post(
-          config.userWithdrawalRequest.url,
+          config.userTransactionRequest.url,
           reqBody,
           {
             headers: config.header
@@ -390,6 +463,32 @@ export default {
         this.loadingImage = false;
       } catch (ex) {
         this.errorMessage = data.message[0];
+      }
+    },
+    // User FETCH BANK lIST
+    async fetchProviderBankList() {
+      try {
+        var reqBody = {
+          user_uuid: this.GetUserData.uuid
+        };
+        var { data } = await axios.post(
+          config.getProviderBankDetail.url,
+          reqBody,
+          {
+            headers: config.header
+          }
+        );
+        if (data.code == 200) {
+          this.providerBankList = data.data;
+          for (var i = 0; i < data.data.length; i++) {
+            this.providerBanks.push(data.data[i]);
+          }
+          this.errorMessage = "";
+        } else {
+          this.loadingImage = false;
+        }
+      } catch (ex) {
+        console.log(ex);
       }
     }
   }
@@ -418,6 +517,9 @@ export default {
 }
 .label-text span {
   color: #000 !important;
+}
+.providerBank {
+  max-width: 277px !important;
 }
 .wireForm {
   position: sticky;
@@ -455,6 +557,9 @@ export default {
   border-radius: 30px;
   padding: 20px 20px;
   color: #ffffff;
+}
+.listBank {
+  margin: 10px 0px;
 }
 .imp {
   color: #ff0167;
@@ -543,6 +648,18 @@ input:focus {
   height: 35px;
   width: 260px;
 }
+.proBank {
+  border: 1px solid #dddddd;
+  padding: 0px 10px;
+  font-weight: 600;
+  font-size: 16px;
+  height: 60px;
+  width: 280px;
+}
+.proBankInfo {
+  border: 1px solid #dddddd;
+  padding: 5px 10px;
+}
 .banInfo {
   border: 1px solid #dddddd;
   padding: 5px 10px;
@@ -592,6 +709,27 @@ input:focus {
   padding: 0px 10px;
   overflow-y: scroll;
   height: 300px;
+  overflow-x: hidden;
+  margin-bottom: 20px;
+  overflow-y: auto;
+}
+
+#providerBank::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+#providerBank::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+#providerBank::-webkit-scrollbar-thumb {
+  background-color: #ff0167;
+}
+#providerBank {
+  padding: 0px 10px;
+  overflow-y: scroll;
+  height: 300px;
+  width: 277px;
   overflow-x: hidden;
   margin-bottom: 20px;
   overflow-y: auto;
