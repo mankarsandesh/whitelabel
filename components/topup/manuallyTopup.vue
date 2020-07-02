@@ -101,7 +101,7 @@
                   <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
                 </v-row>
                 <v-row>
-                  <v-col>Bank Adress</v-col>
+                  <v-col bold>Bank Address</v-col>
                   <v-col class="text-right">{{ data.ac_bank_address }}</v-col>
                 </v-row>
               </div>
@@ -195,8 +195,8 @@
                   <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
                 </v-row>
                 <v-row>
-                  <v-col>SWIFT Code</v-col>
-                  <v-col class="text-right">{{ data.ac_swift_code }}</v-col>
+                  <v-col>Bank Address</v-col>
+                  <v-col class="text-right">{{ data.ac_bank_address }}</v-col>
                 </v-row>
               </div>
             </v-flex>
