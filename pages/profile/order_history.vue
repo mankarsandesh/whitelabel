@@ -13,10 +13,9 @@
                 <th class="text-center">TYPE</th>
                 <th class="text-center">METHOD</th>
                 <th class="text-left">AMOUNT</th>
-                   <th class="text-center">Note</th>
+                <th class="text-center">Note</th>
                 <th class="text-center">SUBMIT TIME</th>
                 <th class="text-center">STATUS</th>
-                
               </tr>
             </thead>
             <tbody v-if="userOrderData.length > 0">
@@ -31,7 +30,7 @@
                 </td>
                 <td class="text-center">Local Bank Transfer</td>
                 <td class="text-left">${{ item.amount }}</td>
-                   <td class="text-center">{{ item.note }}</td>
+                <td class="text-center">{{ item.note }}</td>
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center">
                   <span class="orderPending" v-if="item.status == 1">
@@ -92,7 +91,6 @@ export default {
             headers: config.header
           }
         );
-        console.log(data);
         this.userOrderData = data.data;
       } catch (ex) {
         this.errorMessage = data.message[0];

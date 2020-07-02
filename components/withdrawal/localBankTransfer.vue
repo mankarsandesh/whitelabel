@@ -380,18 +380,18 @@ export default {
       try {
         var reqBody = {
           user_uuid: this.GetUserData.uuid,
-          bank_account_uuid: this.accountName,
+          user_bank_account_uuid : this.accountName,
           amount: this.withdrawableAmount,
-          note: this.userNote
+          note: this.userNote,
+          transaction_type: 1
         };
         var { data } = await axios.post(
-          config.userWithdrawalRequest.url,
+          config.userTransactionRequest.url,
           reqBody,
           {
             headers: config.header
           }
         );
-        console.log(data);
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";

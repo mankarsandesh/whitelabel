@@ -54,8 +54,8 @@ const config = {
   userChangePassword: {
     url: `${process.env.BASE_URL}/changePassword`
   },
-  userWithdrawalRequest: {
-    url: `${process.env.BASE_URL}/userWithdrawalRequest`
+  userTransactionRequest: {
+    url: `${process.env.BASE_URL}/transactionRequest`
   },
   userTransactionHistory: {
     url: `${process.env.BASE_URL}/transactionHistory`
