@@ -32,6 +32,25 @@
     "betNow": "現在下注",
     "comingSoon": "快來了"
   },
+  "profile": {
+    "login": "登录",
+    "noAccount": "还没有账户吗？",
+    "registerNow": "现在注册",
+    "password": "密码",
+    "rememberMe": "记得我",
+    "register": "寄存器",
+    "haveAccount": "已经有帐号了？",
+    "loginNow": "现在登录",
+    "confirmPassword": "确认密码",
+    "male": "男",
+    "female": "女",
+    "other": "其他",
+    "agree": "同意条款和条件？",
+    "forgotPassword": "忘记密码",
+    "forgotTagLine": "没问题！ 只需填写以下电子邮件，我们将向您发送密码重置说明！",
+    "reset": "重启",
+    "enterOTP": "输入您的OTP"
+  },
   "myAccount" : {
     "personalInfo": "个人信息",
     "firstName": "名字",

@@ -9,11 +9,11 @@
         <v-icon class="icon" left size="20">
           fas fa-user
         </v-icon>
-        Register Account
+        {{ $t("profile.register") }}
       </h2>
       <p>
-        Already have an account?
-        <span @click="openLogin()">Login now</span>
+        {{ $t("profile.haveAccount") }}
+        <span @click="openLogin()">{{ $t("profile.loginNow") }}</span>
       </p>
       <p
         v-bind:class="{
@@ -30,7 +30,7 @@
         lazy-validation
         v-if="showRegisterForm"
       >
-        <label>Username</label>
+        <label>{{ $t("myAccount.username") }}</label>
         <v-text-field
           class="inputClassRegi"
           height="42"
@@ -42,7 +42,7 @@
           required
           :rules="[v => !!v || 'username is required']"
         ></v-text-field>
-        <label>Email</label>
+        <label>{{ $t("myAccount.email") }}</label>
         <v-text-field
           class="inputClassRegi"
           height="42"
@@ -54,7 +54,7 @@
           required
           :rules="emailRules"
         ></v-text-field>
-        <label>Password</label>
+        <label>{{ $t("profile.password") }}</label>
         <v-text-field
           class="inputClassRegi"
           height="42"
@@ -69,7 +69,7 @@
           @click:append="showPassword = !showPassword"
           :rules="[v => !!v || 'Password is required']"
         ></v-text-field>
-        <label>Confirm Password</label>
+        <label>{{ $t("profile.confirmPassword") }}</label>
         <v-text-field
           class="inputClassRegi"
           height="42"
@@ -86,7 +86,7 @@
         ></v-text-field>
 
         <div class="inputClassRegi">
-          <label>Gender</label>
+          <label>{{ $t("myAccount.gender") }}</label>
           <v-radio-group v-model="registerForm.gender" :mandatory="false" row>
             <v-radio
               height="42"
@@ -123,7 +123,7 @@
             light
             v-model="registerForm.agree"
             :rules="[v => !!v || 'You must agree to continue!']"
-            label="Agree with Terms & Conditions?"
+            :label="$t('profile.agree')"
             required
           ></v-checkbox>
         </div>
@@ -133,7 +133,7 @@
           :disabled="!valid"
           height="50"
         >
-          Register
+          {{ $t("profile.register") }}
           <v-icon size="30">
             fas fa-angle-double-right
           </v-icon>

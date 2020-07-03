@@ -32,6 +32,25 @@
     "joinNow": "join now",
     "comingSoon": "Coming Soon"
   },
+  "profile": {
+    "login": "Login",
+    "noAccount": "Doesn't have an account yet? ",
+    "registerNow": "Register Now",
+    "password": "Password",
+    "rememberMe": "Remember Me",
+    "register": "Register",
+    "haveAccount": "Already have an account?",
+    "loginNow": "Login Now",
+    "confirmPassword": "Confirm Password",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "agree": "Agree with Terms & Conditions?",
+    "forgotPassword": "Forgot Password",
+    "forgotTagLine": "No problem! Just fill in the email below and we'll send you password reset instructions!",
+    "reset": "Reset",
+    "enterOTP": "Enter your OTP"
+  },
   "myAccount" : {
     "personalInfo": "Personal Information",
     "firstName": "First Name",
