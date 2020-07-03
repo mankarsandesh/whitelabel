@@ -66,7 +66,7 @@
       />
       <v-row>
         <v-col cols="6">
-          <subheader title="First Name" />
+          <subheader :title="$t('myAccount.firstName')" />
           <v-text-field
             :error-messages="firstNameErrors"
             @input="$v.form.firstName.$touch()"
@@ -83,7 +83,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="6">
-          <subheader title="Last Name" />
+          <subheader :title="$t('myAccount.lastName')" />
           <v-text-field
             :error-messages="lastNameErrors"
             @input="$v.form.lastName.$touch()"
@@ -100,7 +100,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="6">
-          <subheader title="username" />
+          <subheader :title="$t('myAccount.username')" />
           <v-text-field
             :error-messages="usernameErrors"
             @input="$v.form.username.$touch()"
@@ -117,7 +117,7 @@
           ></v-text-field>
         </v-col>
         <v-col cols="6">
-          <subheader title="email" />
+          <subheader :title="$t('myAccount.email')" />
           <v-text-field
             :error-messages="emailErrors"
             @input="$v.form.email.$touch()"
@@ -138,7 +138,7 @@
           </v-text-field>
         </v-col>
         <v-col cols="6">
-          <subheader title="country" />
+          <subheader :title="$t('myAccount.country')" />
           <v-select
             height="42"
             dense
@@ -171,13 +171,13 @@
           @click="editProfile"
           :class="editable ? 'edit-active' : ''"
         >
-          <v-icon class="active" left>fas fa-pen</v-icon> edit info
+          <v-icon class="active" left>fas fa-pen</v-icon>{{ $t('myAccount.editInfo') }}
         </v-btn>
       </v-row>
       <v-row>
         <v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>Province/State</label>
+            <label>{{ $t('myAccount.province') }}</label>
             <p v-if="editable == false">{{ this.form.province }}</p>
 
             <v-text-field
@@ -196,7 +196,7 @@
         </v-col>
         <v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>City</label>
+            <label>{{ $t('myAccount.city') }}</label>
             <p v-if="editable == false">{{ form.city }}</p>
 
             <v-text-field
@@ -215,7 +215,7 @@
         </v-col>
         <v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>Address</label>
+            <label>{{ $t('myAccount.address') }}</label>
             <p v-if="editable == false">{{ this.form.address }}</p>
 
             <v-text-field
@@ -233,7 +233,7 @@
           </div> </v-col
         ><v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>Gender</label>
+            <label>{{ $t('myAccount.gender') }}</label>
             <p v-if="editable == false" class="genderClass">
               {{ this.form.gender }}
             </p>
@@ -257,7 +257,7 @@
           </div> </v-col
         ><v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>Data of Birth</label>
+            <label>{{ $t('myAccount.dob') }}</label>
             <p v-if="editable == false">{{ this.form.birthdate }}</p>
 
             <v-menu
@@ -292,7 +292,7 @@
         </v-col>
         <v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>Personal ID</label>
+            <label>{{ $t('myAccount.personalID') }}</label>
             <p v-if="editable == false">{{ this.form.personalID }}</p>
 
             <v-text-field
@@ -311,7 +311,7 @@
         </v-col>
 
         <v-btn class="justify-center text-center my-btn" @click="updateProfile"
-          >Save Changes
+          >{{ $t('myAccount.saveChanges') }}
           <span class=" ml-3">
             <v-icon size="15"> fas fa-chevron-double-right</v-icon
             ><v-icon size="15" class=" opacity-1">

@@ -48,7 +48,7 @@
             <tbody v-if="userOrderData.length == 0">
               <tr>
                 <td colspan="7" style="text-align:center;padding:150px 0px;">
-                  <h2>{{ $}}</h2>
+                  <h2>{{ $t('orderHistory.noOrder') }}</h2>
                 </td>
               </tr>
             </tbody>
