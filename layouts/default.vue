@@ -242,9 +242,9 @@ export default {
   computed: {
     ...mapGetters("login", ["getLocale", "GetUserData"]),
     countryflag() {
-      if(this.getLocale){
+      if (this.getLocale) {
         return this.getLocale;
-      }else{
+      } else {
         return "us";
       }
     },
@@ -272,7 +272,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("login", ["CLEAR_USER_DATA", "SET_USER_DATA"]),
+    ...mapMutations("login", [
+      "CLEAR_USER_DATA",
+      "SET_USER_DATA",
+      "SET_USER_UUID"
+    ]),
     // Logout Users
     async userLogout() {
       this.CLEAR_USER_DATA();
@@ -291,6 +295,7 @@ export default {
         if (data.code == 200) {
           this.userData = data.data[0];
           this.SET_USER_DATA(this.userData);
+          this.SET_USER_UUID(data.data[0].uuid);
         }
       } catch (ex) {
         console.log(ex);

@@ -9,6 +9,26 @@
   font-weight: normal;
   font-style: normal;
 } */
+.addBank {
+  cursor: pointer;
+  background-color: #FFF;
+  border: 1px solid #ff0167;
+  color: #ff0167;
+  text-align: center;
+  height: 30px;
+  width: 30px;
+}
+.wrapperDiv {
+  padding: 10px;
+}
+.headline {
+  border: 1px solid red;
+  background-color: rgb(255, 16, 103);
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 14px !important;
+  margin: 0px;
+}
 .saveButton {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 30px !important;

@@ -1,56 +1,82 @@
 <template>
-  <div class="wireForm">
-    <v-row justify="center" class="sm-12">
-      <v-row class="headline1">
-        <h4 class="text-uppercase display-0 pl-4">
-          Withdrawal
-        </h4>
-      </v-row>
-    </v-row>
+  <div class="wireForm header">
+    <h4 class="headline">
+      Withdrawal
+    </h4>
+    <div class="wrapperDiv">
+      <v-row class="mt-1" align="center" justify="center">
+        <v-col>
+          <v-expansion-panels rounded v-model="panel">
+            <v-expansion-panel class="account">
+              <v-expansion-panel-header class="font-weight-bold"
+                ><span
+                  ><v-icon size="15"> fas fa-university </v-icon>&nbsp; Local
+                  Bank Transfer</span
+                >
+                <template v-slot:actions>
+                  <v-icon color="#e91e63">$expand</v-icon>
+                </template>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <p
+                  v-bind:class="{
+                    sucessMessage: sucessMessage,
+                    errorMessage: errorMessage
+                  }"
+                >
+                  {{ this.errorMessage }} {{ this.sucessMessage }}
+                </p>
 
-    <!-- <p
-      v-bind:class="{
-        sucessMessage: sucessMessage,
-        errorMessage: errorMessage
-      }"
-    >
-      {{ this.errorMessage }} {{ this.sucessMessage }}
-    </p> -->
+                <span
+                  >Beneficiary Account Number/IBAN<span class="imp"
+                    >*</span
+                  ></span
+                >
+                <div v-if="this.userBankList.length > 0">
+                  <v-row>
+                    <v-col>
+                      <v-form ref="form" v-model="valid" lazy-validation>
+                        <v-select
+                          v-if="this.userBankList.length > 0 && firstStepWire"
+                          placeholder="Select Bank"
+                          class="inputClasswire"
+                          height="30"
+                          outlined
+                          rounded
+                          dense
+                          required
+                          autofocus
+                          v-model="bank"
+                          :items="banks"
+                          item-text="ac_bank_name"
+                          item-value="bank_account_uuid"
+                          :rules="[v => !!v || 'Bank is required']"
+                        ></v-select>
+                      </v-form>
+                    </v-col>
+                    <v-col v-if="firstStepWire">
+                      <v-btn
+                        fab
+                        width="42"
+                        height="42"
+                        color="white"
+                        class="addBank"
+                        @click="AddBank"
+                        v-if="this.userBankList.length > 0 "
+                      >
+                        <v-icon size="18" color="#ff0167">
+                          fas fa-university
+                        </v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
 
-    <v-row class="mt-5" align="center" justify="center">
-      <v-col>
-        <v-expansion-panels rounded v-model="panel">
-          <v-expansion-panel class="account">
-            <v-expansion-panel-header class="font-weight-bold"
-              ><span
-                ><v-icon size="15"> fas fa-university </v-icon>&nbsp; Local Bank
-                Transfer</span
-              >
-              <template v-slot:actions>
-                <v-icon color="#e91e63">$expand</v-icon>
-              </template>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <p
-                v-bind:class="{
-                  sucessMessage: sucessMessage,
-                  errorMessage: errorMessage
-                }"
-              >
-                {{ this.errorMessage }} {{ this.sucessMessage }}
-              </p>
-
-              <span
-                >Beneficiary Account Number/IBAN<span class="imp">*</span></span
-              >
-              <div v-if="this.userBankList.length > 0">
-                <v-row>
-                  <v-col cols="7">
-                    <v-form ref="form" v-model="valid" lazy-validation>
-                      <v-select
-                        v-if="this.userBankList.length > 0 && firstStepWire"
+                  <v-row>
+                    <v-col
+                      ><v-select
+                        v-if="this.userBankList.length > 0 && lastStepWire"
                         placeholder="Select Bank"
-                        class="inputClasswire xs-12 sm-12"
+                        class="inputClasswire"
                         height="30"
                         outlined
                         rounded
@@ -63,317 +89,231 @@
                         item-value="bank_account_uuid"
                         :rules="[v => !!v || 'Bank is required']"
                       ></v-select>
-                    </v-form>
-                  </v-col>
-                  <v-col cols="3">
-                    <div
-                      class="addBank"
-                      @click="AddBank"
-                      v-if="this.userBankList.length > 0 && firstStepWire"
-                    >
-                      <v-icon size="15" color="#ff0167">
-                        fas fa-university
-                      </v-icon>
-                      Add bank
-                    </div>
-                  </v-col>
-                </v-row>
 
-                <v-row>
-                  <v-col
-                    ><v-select
-                      v-if="this.userBankList.length > 0 && lastStepWire"
-                      placeholder="Select Bank"
-                      class="inputClasswire"
-                      height="30"
-                      outlined
-                      rounded
-                      dense
-                      required
-                      autofocus
-                      v-model="bank"
-                      :items="banks"
-                      item-text="ac_bank_name"
-                      item-value="bank_account_uuid"
-                      :rules="[v => !!v || 'Bank is required']"
-                    ></v-select>
+                      <div id="wireFirstStep" v-if="firstStepWire">
+                        <div id="myBank" v-if="this.userBankList.length > 0">
+                          <v-flex
+                            v-for="(data, index) in userBankList"
+                            :key="index"
+                            class="listBank"
+                          >
+                            <div class="bankName">
+                              {{ data.ac_bank_name }}
+                              <span style="float:right;">
+                                <v-icon class="icon" size="18">
+                                  fas fa-pencil
+                                </v-icon>
+                                <v-icon
+                                  class="icon"
+                                  size="18"
+                                  @click="
+                                    deleteBankData(data.bank_account_uuid)
+                                  "
+                                >
+                                  fas fa-trash
+                                </v-icon>
+                              </span>
+                            </div>
+                            <div class="banInfo">
+                              <v-row>
+                                <v-col>Account Holder name </v-col>
+                                <v-col class="text-right">{{
+                                  data.ac_holder_name
+                                }}</v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col>Account Number</v-col>
+                                <v-col class="text-right">{{
+                                  data.ac_number
+                                }}</v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col>IFSC Code</v-col>
+                                <v-col class="text-right">{{
+                                  data.ac_ifsc_code
+                                }}</v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col>SWIFT Code</v-col>
+                                <v-col class="text-right">{{
+                                  data.ac_swift_code
+                                }}</v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col>Bank Address</v-col>
+                                <v-col class="text-right">{{
+                                  data.ac_bank_address
+                                }}</v-col>
+                              </v-row>
+                              <v-row>
+                                <v-col>Country</v-col>
+                                <v-col class="text-right">{{
+                                  data.country_code
+                                }}</v-col>
+                              </v-row>
+                            </div>
+                          </v-flex>
+                        </div>
 
-                    <div id="wireFirstStep" v-if="firstStepWire">
-                      <div id="myBank" v-if="this.userBankList.length > 0">
-                        <v-flex
-                          v-for="(data, index) in userBankList"
-                          :key="index"
-                          class="listBank"
-                        >
+                        <div id="myBank" v-if="this.userBankList.length == 0">
                           <div class="bankName">
-                            {{ data.ac_bank_name }}
                             <span style="float:right;">
                               <v-icon class="icon" size="18">
-                                fas fa-pencil
-                              </v-icon>
-                              <v-icon
-                                class="icon"
-                                size="18"
-                                @click="deleteBankData(data.bank_account_uuid)"
-                              >
-                                fas fa-trash
+                                fas fa-id-card
                               </v-icon>
                             </span>
                           </div>
                           <div class="banInfo">
-                            <v-row>
-                              <v-col>Account Holder name </v-col>
-                              <v-col class="text-right">{{
-                                data.ac_holder_name
-                              }}</v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col>Account Number</v-col>
-                              <v-col class="text-right">{{
-                                data.ac_number
-                              }}</v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col>IFSC Code</v-col>
-                              <v-col class="text-right">{{
-                                data.ac_ifsc_code
-                              }}</v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col>SWIFT Code</v-col>
-                              <v-col class="text-right">{{
-                                data.ac_swift_code
-                              }}</v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col>Bank Address</v-col>
-                              <v-col class="text-right">{{
-                                data.ac_bank_address
-                              }}</v-col>
-                            </v-row>
-                            <v-row>
-                              <v-col>Country</v-col>
-                              <v-col class="text-right">{{
-                                data.country_code
-                              }}</v-col>
-                            </v-row>
-                          </div>
-                        </v-flex>
-                      </div>
-
-                      <div id="myBank" v-if="this.userBankList.length == 0">
-                        <div class="bankName">
-                          <span style="float:right;">
-                            <v-icon class="icon" size="18">
-                              fas fa-id-card
-                            </v-icon>
-                          </span>
-                        </div>
-                        <div class="banInfo">
-                          <div class="noBank">
-                            <v-icon class="icon" size="100">
-                              fa-plus-square
-                            </v-icon>
-                            <h3>Add Bank</h3>
+                            <div class="noBank">
+                              <v-icon class="icon" size="100">
+                                fa-plus-square
+                              </v-icon>
+                              <h3>Add Bank</h3>
+                            </div>
                           </div>
                         </div>
+                        <v-btn
+                          v-if="this.userBankList.length > 0"
+                          class="saveButton"
+                          small
+                          height="35"
+                          @click="validate"
+                          :disabled="!valid"
+                        >
+                          Next Step
+                        </v-btn>
                       </div>
-                      <v-btn
-                        v-if="this.userBankList.length > 0"
-                        class="saveButton"
-                        small
-                        height="35"
-                        @click="validate"
-                        :disabled="!valid"
-                      >
-                        Next Step
-                      </v-btn>
-                    </div>
-                  </v-col>
-                </v-row>
-
-                <div>
-                  <v-row align="center" justify="center">
-                    <div v-if="lastStepWire">
-                      <label
-                        >Your Balance
-                        <v-icon size="18">
-                          fas fa-info-circle
-                        </v-icon>
-                      </label>
-                      <v-text-field
-                        readonly=""
-                        height="42"
-                        width="130"
-                        light
-                        v-model="userBalance"
-                        outlined
-                        rounded
-                        dense
-                        required
-                      ></v-text-field>
-
-                      <label>Withdrawable Amount</label>
-                      <v-text-field
-                        type="number"
-                        height="42"
-                        width="130"
-                        light
-                        v-model="withdrawableAmount"
-                        outlined
-                        rounded
-                        dense
-                        required
-                        prefix="$"
-                        :rules="amountRule"
-                        placeholder="Please enter Withdrawable Amount"
-                      ></v-text-field>
-
-                      <label>Note</label>
-                      <v-text-field
-                        height="42"
-                        width="130"
-                        light
-                        v-model="userNote"
-                        outlined
-                        rounded
-                        dense
-                        required
-                        placeholder="Please enter Note"
-                      ></v-text-field>
-
-                      <v-btn
-                        class="cancelButton"
-                        small
-                        height="35"
-                        @click="previousStep()"
-                      >
-                        Previous Step
-                      </v-btn>
-
-                      <v-btn
-                        class="saveButton"
-                        small
-                        height="35"
-                        @click="wireTransfter"
-                      >
-                        Finsh &nbsp;<v-progress-circular
-                          v-if="loadingImage"
-                          indeterminate
-                          color="#FFF"
-                          size="20"
-                        ></v-progress-circular>
-                      </v-btn>
-                    </div>
+                    </v-col>
                   </v-row>
-                </div>
-              </div>
-              <div v-else>
-                <div class="bankName">
-                  <span style="float:right;">
-                    <v-icon class="icon" size="18">
-                      fas fa-id-card
-                    </v-icon>
-                  </span>
-                </div>
-                <div class="banInfo">
-                  <div class="noBank" @click="AddBank()">
-                    <v-icon class="icon" size="100">
-                      fa-plus-square
-                    </v-icon>
-                    <h3>Add Bank</h3>
+
+                  <div>
+                    <v-row align="center" justify="center">
+                      <div v-if="lastStepWire">
+                        <label
+                          >Your Balance
+                          <v-icon size="18">
+                            fas fa-info-circle
+                          </v-icon>
+                        </label>
+                        <v-text-field
+                          readonly=""
+                          height="42"
+                          width="130"
+                          light
+                          v-model="userBalance"
+                          outlined
+                          rounded
+                          dense
+                          required
+                        ></v-text-field>
+
+                        <label>Withdrawable Amount</label>
+                        <v-text-field
+                          type="number"
+                          height="42"
+                          width="130"
+                          light
+                          v-model="withdrawableAmount"
+                          outlined
+                          rounded
+                          dense
+                          required
+                          prefix="$"
+                          :rules="amountRule"
+                          placeholder="Please enter Withdrawable Amount"
+                        ></v-text-field>
+
+                        <label>Note</label>
+                        <v-text-field
+                          height="42"
+                          width="130"
+                          light
+                          v-model="userNote"
+                          outlined
+                          rounded
+                          dense
+                          required
+                          placeholder="Please enter Note"
+                        ></v-text-field>
+
+                        <v-btn
+                          class="cancelButton"
+                          small
+                          height="35"
+                          @click="previousStep()"
+                        >
+                          Previous Step
+                        </v-btn>
+
+                        <v-btn
+                          class="saveButton"
+                          small
+                          height="35"
+                          @click="wireTransfter"
+                        >
+                          Finsh &nbsp;<v-progress-circular
+                            v-if="loadingImage"
+                            indeterminate
+                            color="#FFF"
+                            size="20"
+                          ></v-progress-circular>
+                        </v-btn>
+                      </div>
+                    </v-row>
                   </div>
                 </div>
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-          <v-expansion-panel class="mt-5 account">
-            <v-expansion-panel-header class="balance font-weight-bold">
-              <span
-                ><v-icon size="15"> fas fa-exchange </v-icon>&nbsp;Wire
-                Transfer</span
-              >
-              <template v-slot:actions>
-                <v-icon color="#e91e63">$expand</v-icon>
-              </template>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <!-- <p
-                v-bind:class="{
-                  sucessMessage: sucessMessage,
-                  errorMessage: errorMessage
-                }"
-              >
-                {{ this.errorMessage }} {{ this.sucessMessage }}
-              </p> -->
-
-              <span style="font-size:12px;"
-                >Beneficiary Account Number/IBAN<span class="imp">*</span>
-              </span>
-              <p>Coming Soon</p>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-
-          <v-expansion-panel class="mt-5 account">
-            <v-expansion-panel-header class="balance font-weight-bold">
-              <span
-                ><v-icon size="15"> fas fa-university </v-icon>&nbsp;Digital
-                Account</span
-              >
-              <template v-slot:actions>
-                <v-icon color="#e91e63">$expand</v-icon>
-              </template>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <!-- <p
-                v-bind:class="{
-                  sucessMessage: sucessMessage,
-                  errorMessage: errorMessage
-                }"
-              >
-                {{ this.errorMessage }} {{ this.sucessMessage }}
-              </p> -->
-
-              <span style="font-size:12px;"
-                >Beneficiary Account Number/IBAN<span class="imp">*</span></span
-              >
-              <div class="bankName">
-                <span style="float:right;">
-                  <v-icon class="icon" size="18">
-                    fas fa-id-card
-                  </v-icon>
-                </span>
-              </div>
-              <div class="banInfo">
-                <div class="noBank">
-                  <v-icon class="icon" size="100">
-                    fa-plus-square
-                  </v-icon>
-                  <h3>Add Bank</h3>
+                <div v-else>
+                  <div class="bankName">
+                    <span style="float:right;">
+                      <v-icon class="icon" size="18">
+                        fas fa-id-card
+                      </v-icon>
+                    </span>
+                  </div>
+                  <div class="banInfo">
+                    <div class="noBank" @click="AddBank()">
+                      <v-icon class="icon" size="100">
+                        fa-plus-square
+                      </v-icon>
+                      <h3>Add Bank</h3>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="mt-2">
-                <v-btn
-                  class="saveButton"
-                  small
-                  height="35"
-                  max-width="120"
-                  :disabled="!valid"
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+            <v-expansion-panel class="mt-5 account">
+              <v-expansion-panel-header class="balance font-weight-bold">
+                <span
+                  ><v-icon size="15"> fas fa-exchange </v-icon>&nbsp;Wire
+                  Transfer</span
                 >
-                  Next Step &nbsp;<v-progress-circular
-                    v-if="loadingImage"
-                    indeterminate
-                    color="#FFF"
-                    size="20"
-                  ></v-progress-circular>
-                </v-btn>
-              </div>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-col>
-    </v-row>
-    <div class="wrapperDiv">
+                <template v-slot:actions>
+                  <v-icon color="#e91e63">$expand</v-icon>
+                </template>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <p>Coming Soon</p>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+
+            <v-expansion-panel class="mt-5 account">
+              <v-expansion-panel-header class="balance font-weight-bold">
+                <span
+                  ><v-icon size="15"> fas fa-university </v-icon>&nbsp;Digital
+                  Account</span
+                >
+                <template v-slot:actions>
+                  <v-icon color="#e91e63">$expand</v-icon>
+                </template>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <p>Coming Soon</p>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-col>
+      </v-row>
+
       <h4>
         <v-icon size="22" color="#fdc84f">
           fas fa-info-circle
@@ -547,8 +487,6 @@ export default {
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
-
-          
         } else {
           this.errorMessage = data.message[0];
           this.sucessMessage = "";
@@ -562,6 +500,14 @@ export default {
 };
 </script>
 <style scoped>
+.inputClasswire {
+  width: 100%;
+  min-width: 280px;
+  font-size: 13px;
+}
+.header h4 {
+  font-size: 16px !important;
+}
 .account {
   outline-width: 0px;
   outline-color: #e91e63;
@@ -583,15 +529,6 @@ export default {
 }
 .label-text span {
   color: #000 !important;
-}
-.wireForm {
-  position: sticky;
-  padding: 0px 20px 20px 20px;
-  background-size: cover;
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  background-blend-mode: multiply;
 }
 .wireForm .icon {
   color: #dddddd;
@@ -681,9 +618,7 @@ input:focus {
   text-align: center;
   font-weight: 400;
 }
-.wrapperDiv {
-  padding: 30px 0px;
-}
+
 .headline1 {
   background-color: rgb(255, 16, 103);
   color: rgb(255, 255, 255);
@@ -720,15 +655,7 @@ input:focus {
   text-align: center;
   color: #dddddd !important;
 }
-.addBank {
-  cursor: pointer;
-  border-radius: 50px;
-  border: 1px solid #ff0167;
-  color: #ff0167;
-  width: 110px;
-  text-align: center;
-  padding: 7px 2px;
-}
+
 #myBank::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;

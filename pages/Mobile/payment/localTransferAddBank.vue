@@ -1,138 +1,135 @@
 <template>
-  <div class="localForm">
-    <v-row justify="center" class="sm-12">
-      <v-row class="headline1">
-        <h4 class="text-uppercase display-0 pl-4">
-          Local Transfer - ADD BANK
-        </h4>
-      </v-row>
-    </v-row>
+  <div class="localForm header">
+    <h4 class="headline">
+      Local Transfer - ADD BANK
+    </h4>
+    <div class="wrapperDiv">
+      <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
+      </p>
 
-    <p
-      v-bind:class="{
-        sucessMessage: sucessMessage,
-        errorMessage: errorMessage
-      }"
-    >
-      {{ this.errorMessage }} {{ this.sucessMessage }}
-    </p>
-
-    <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
-      <label>Bank Name<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="form.bankName"
-        outlined
-        rounded
-        dense
-        required
-        autofocus
-        placeholder="Please enter Bank Name"
-        :rules="[v => !!v || 'Bank Name is required']"
-      ></v-text-field>
-      <label>Account Holder Name<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="form.accountName"
-        outlined
-        rounded
-        dense
-        required
-        placeholder="Please enter Account Holder Name"
-        :rules="[v => !!v || 'Account holder name is required']"
-      ></v-text-field>
-      <label>Account Number<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="form.accountNumber"
-        outlined
-        rounded
-        dense
-        required
-        placeholder="Please enter Account Number"
-        :rules="[v => !!v || 'Account Number is required']"
-      ></v-text-field>
-      <label>IFSC Code<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="form.accountIFSC"
-        outlined
-        rounded
-        dense
-        required
-        placeholder="Please enter IFSC Code"
-        :rules="[v => !!v || 'IFSC Code is required']"
-      ></v-text-field>
-      <label>SWIFT Code</label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="form.accountSWIFT"
-        outlined
-        rounded
-        dense
-        placeholder="Please enter SWIFT Code"
-      ></v-text-field>
-      <label>Bank Address<span class="imp">*</span></label>
-      <v-text-field
-        class="inputClasswire"
-        height="30"
-        v-model="form.bankAddress"
-        outlined
-        rounded
-        dense
-        required
-        placeholder="Please enter Bank Address"
-        :rules="[v => !!v || 'Bank Address is required']"
-      ></v-text-field>
-      <label>Country<span class="imp">*</span></label>
-      <v-select
-        height="42"
-        dense
-        rounded
-        outlined
-        light
-        v-model="form.country"
-        :items="countrys"
-        item-text="name"
-        item-value="id"
-        required
-        :rules="[v => !!v || 'Country is required']"
-      ></v-select>
-      <v-row justify="center">
-        <v-col xs="3" sm="3">
-          <v-btn
-            class="saveButton"
-            @click="validate"
-            :disabled="!valid"
-            height="30"
-          >
-            Save
-            <v-icon class="icon" size="15">
-              fas fa-chevron-double-right
-            </v-icon>
-            <v-icon class="icon" size="15">
-              fas fa-chevron-double-right
-            </v-icon>
-            &nbsp;<v-progress-circular
-              v-if="loadingImage"
-              indeterminate
-              color="#FFF"
-              size="15"
-            ></v-progress-circular>
-          </v-btn>
-        </v-col>
-        <v-col xs="9" sm="9">
-          <v-btn class="closeButton" :disabled="!valid" height="30">
-            Cancel
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-form>
+      <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
+        <label>Bank Name<span class="imp">*</span></label>
+        <v-text-field
+          class="inputClasswire"
+          height="30"
+          v-model="form.bankName"
+          outlined
+          rounded
+          dense
+          required
+          autofocus
+          placeholder="Please enter Bank Name"
+          :rules="[v => !!v || 'Bank Name is required']"
+        ></v-text-field>
+        <label>Account Holder Name<span class="imp">*</span></label>
+        <v-text-field
+          class="inputClasswire"
+          height="30"
+          v-model="form.accountName"
+          outlined
+          rounded
+          dense
+          required
+          placeholder="Please enter Account Holder Name"
+          :rules="[v => !!v || 'Account holder name is required']"
+        ></v-text-field>
+        <label>Account Number<span class="imp">*</span></label>
+        <v-text-field
+          class="inputClasswire"
+          height="30"
+          v-model="form.accountNumber"
+          outlined
+          rounded
+          dense
+          required
+          placeholder="Please enter Account Number"
+          :rules="[v => !!v || 'Account Number is required']"
+        ></v-text-field>
+        <label>IFSC Code<span class="imp">*</span></label>
+        <v-text-field
+          class="inputClasswire"
+          height="30"
+          v-model="form.accountIFSC"
+          outlined
+          rounded
+          dense
+          required
+          placeholder="Please enter IFSC Code"
+          :rules="[v => !!v || 'IFSC Code is required']"
+        ></v-text-field>
+        <label>SWIFT Code</label>
+        <v-text-field
+          class="inputClasswire"
+          height="30"
+          v-model="form.accountSWIFT"
+          outlined
+          rounded
+          dense
+          placeholder="Please enter SWIFT Code"
+        ></v-text-field>
+        <label>Bank Address<span class="imp">*</span></label>
+        <v-text-field
+          class="inputClasswire"
+          height="30"
+          v-model="form.bankAddress"
+          outlined
+          rounded
+          dense
+          required
+          placeholder="Please enter Bank Address"
+          :rules="[v => !!v || 'Bank Address is required']"
+        ></v-text-field>
+        <label>Country<span class="imp">*</span></label>
+        <v-select
+          height="42"
+          dense
+          rounded
+          outlined
+          light
+          v-model="form.country"
+          :items="countrys"
+          item-text="name"
+          item-value="id"
+          required
+          :rules="[v => !!v || 'Country is required']"
+        ></v-select>
+        <v-row justify="center">
+          <v-col xs="3" sm="3">
+            <v-btn
+              class="saveButton"
+              @click="validate"
+              :disabled="!valid"
+              height="30"
+            >
+              Save
+              <v-icon class="icon" size="15">
+                fas fa-chevron-double-right
+              </v-icon>
+              <v-icon class="icon" size="15">
+                fas fa-chevron-double-right
+              </v-icon>
+              &nbsp;<v-progress-circular
+                v-if="loadingImage"
+                indeterminate
+                color="#FFF"
+                size="15"
+              ></v-progress-circular>
+            </v-btn>
+          </v-col>
+          <v-col xs="9" sm="9">
+            <v-btn class="closeButton" :disabled="!valid" height="30">
+              Cancel
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
+    </div>
   </div>
 </template>
 
@@ -157,23 +154,23 @@ export default {
         accountSWIFT: ""
       },
       countrys: [
-          {
-            id: 45,
-            name: "China"
-          },
-          {
-            id: 122,
-            name: "Laos"
-          },
-          {
-            id: 220,
-            name: "Thailand"
-          },
-          {
-            id: 236,
-            name: "USA"
-          }
-        ]
+        {
+          id: 45,
+          name: "China"
+        },
+        {
+          id: 122,
+          name: "Laos"
+        },
+        {
+          id: 220,
+          name: "Thailand"
+        },
+        {
+          id: 236,
+          name: "USA"
+        }
+      ]
     };
   },
   computed: {
@@ -247,6 +244,12 @@ export default {
 };
 </script>
 <style scoped>
+label {
+  font-size: 14px;
+}
+.header h4 {
+  font-size: 16px !important;
+}
 .terms {
   color: #ff0167 !important;
 }
@@ -263,15 +266,7 @@ export default {
 .label-text span {
   color: #000 !important;
 }
-.localForm {
-  position: sticky;
-  padding: 0px 20px 20px 20px;
-  background-size: cover;
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  background-blend-mode: multiply;
-}
+
 .localForm .icon {
   color: #ff0167;
 }

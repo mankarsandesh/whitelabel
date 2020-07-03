@@ -1,21 +1,17 @@
 <template>
-  <div class="depositForm">
-    <v-row justify="center" class="sm-12">
-      <v-row class="headline1">
-        <h4 class="text-uppercase display-0 pl-4">
-          Deposit - Online Topup
-        </h4>
-      </v-row>
-    </v-row>
-
-    <!-- <p
+  <div class="depositForm header">
+    <h4 class="headline">
+      Deposit - Online Topup
+    </h4>
+     <div class="wrapperDiv">
+    <p
       v-bind:class="{
         sucessMessage: sucessMessage,
         errorMessage: errorMessage
       }"
     >
       {{ this.errorMessage }} {{ this.sucessMessage }}
-    </p> -->
+    </p>
 
     <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
       <label>Topup Amount<span class="imp">*</span></label>
@@ -60,6 +56,7 @@
         </v-col>
       </v-row>
     </v-form>
+     </div>
   </div>
 </template>
 <script>
@@ -70,8 +67,8 @@ export default {
   data() {
     return {
       loadingImage: false,
-      // errorMessage: "",
-      // sucessMessage: "",
+      errorMessage: "",
+      sucessMessage: "",
       valid: false,
       amount: "",
       Topuptype: "alipay_qrcode",
@@ -108,14 +105,8 @@ export default {
 };
 </script>
 <style scoped>
-.depositForm {
-  position: sticky;
-  padding: 0px 20px 20px 20px;
-  background-size: cover;
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  background-blend-mode: multiply;
+.header h4 {
+  font-size: 16px !important;
 }
 .depositForm .icon {
   color: #ff0167;

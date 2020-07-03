@@ -1,6 +1,4 @@
 <template>
-  <!-- App.vue -->
-
   <v-app>
     <v-navigation-drawer
       v-model="OpenDrawer"
@@ -24,7 +22,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar fixed color="#1E1E1F" class="navbar-mobile" height="60" dens>
+    <v-app-bar app fixed color="#1E1E1F" height="60">
       <v-toolbar-title>
         <v-btn to="/" text color="transparent">
           <v-img width="100" src="/logo/logo.png"></v-img>
@@ -33,7 +31,7 @@
 
       <v-spacer></v-spacer>
       <div class="menu-list" v-if="GetUserData">
-      <v-btn dark class="userLogout" to="/mobile/profile">
+        <v-btn dark class="userLogout" to="/mobile/profile">
           <v-avatar size="35" mr-1>
             <img :src="this.defaultImage" alt />
           </v-avatar>
@@ -57,10 +55,7 @@
           <v-icon size="18">fas fa-user-plus</v-icon>
           &nbsp;Register
         </v-btn>
-        <!-- Transalte Language -->
-        <!-- <v-btn dark small icon>
-          <v-icon size="18">fas fa-globe-americas</v-icon>
-        </v-btn> -->
+
         <v-btn dark small icon @click.stop="OpenDrawer = !OpenDrawer">
           <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>
         </v-btn>
@@ -129,6 +124,9 @@ import json from "~/json/items";
 import Login from "../components/Mobile/login/login";
 import forgotPassword from "../components/Mobile/login/forgotPassword";
 import register from "../components/Mobile/login/register";
+import Cookies from "../plugins/js-cookie";
+import axios from "axios";
+import config from "../config/config.global";
 export default {
   name: "mobile",
   data() {
@@ -138,7 +136,8 @@ export default {
       registerDialog: false,
       forgotPasswordDialog: false,
       slideMenu: json.slideMenu,
-      OpenDrawer: false
+      OpenDrawer: false,
+      userUUID: Cookies.get("userUUID")
     };
   },
   components: {
@@ -149,13 +148,37 @@ export default {
   computed: {
     ...mapGetters("login", ["GetUserData"])
   },
+  created() {
+    if (this.userUUID) {
+      this.userInfo();
+    } else {
+      this.$router.push("/");
+    }
+  },
   methods: {
-    // ...mapMutations("login", ["CLEAR_USER_DATA", "SET_USER_DATA"]),
+    ...mapMutations("login", ["CLEAR_USER_DATA", "SET_USER_DATA"]),
     // Logout Users
     userLogout() {
       this.CLEAR_USER_DATA();
       Cookies.remove("userUUID", { path: "" }); // removed! UserUUID Cookies
       this.$router.push("/");
+    },
+    // Get User Info
+    async userInfo() {
+      try {
+        var reqBody = {
+          user_uuid: this.userUUID
+        };
+        var { data } = await axios.post(config.getUserProfile.url, reqBody, {
+          headers: config.header
+        });
+        if (data.code == 200) {
+          this.userData = data.data[0];
+          this.SET_USER_DATA(this.userData);
+        }
+      } catch (ex) {
+        console.log(ex);
+      }
     },
     closeTheLogin() {
       this.loginDialog = false;
@@ -194,8 +217,6 @@ export default {
 }
 
 .userLogoutMenu {
-  float: left;
-  text-align: left;
   color: #fff;
   font-size: 16px;
   display: inline-grid;

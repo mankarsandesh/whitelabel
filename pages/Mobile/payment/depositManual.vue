@@ -1,14 +1,10 @@
 <template>
-  <div class="wireForm" >
-    <v-row justify="center" class="sm-12">
-      <v-row class="headline1">
-        <h4 class="text-uppercase display-0 pl-4">
-          Deposit - Manual Topup
-        </h4>
-      </v-row>
-    </v-row>
+  <div class="wireForm header">
+    <h4 class="headline">
+      Deposit - Manual Topup
+    </h4>
 
-    <v-row class="mt-3" align="center" justify="center" >
+    <div class="wrapperDiv">
       <p
         v-bind:class="{
           sucessMessage: sucessMessage,
@@ -17,51 +13,15 @@
       >
         {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
-      <span>Beneficiary Account Number/IBAN<span class="imp">*</span></span>
-      <div v-if="this.userBankList.length > 0" > 
-        <v-row justify="center">
-         
-          <v-col cols="8" justify="right">
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-select
-                v-if="this.userBankList.length > 0 && firstStepWire"
-                placeholder="Select Bank"
-                class="inputClasswire"
-                height="30"
-                align="center"
-                outlined
-                rounded
-                dense
-                required
-                autofocus
-                v-model="bank"
-                :items="banks"
-                item-text="ac_bank_name"
-                item-value="bank_account_uuid"
-                :rules="[v => !!v || 'Bank is required']"
-              ></v-select>
-            </v-form>
-          </v-col>
-          <v-col cols="4" justify="center">
-            <v-btn
-              class="addBank"
-              to="/mobile/payment/localTransferAddBank"
-              v-if="this.userBankList.length > 0 && firstStepWire"
-            >
-              <v-icon size="15" color="#ff0167">
-                fas fa-university
-              </v-icon>
-              Add bank
-            </v-btn>
-          </v-col>
-        </v-row>
-
-        <v-row justify="center">
-          <v-col cols="12"
-            ><v-select
-              v-if="this.userBankList.length > 0 && lastStepWire"
+      <label>Beneficiary Account Number/IBAN<span class="imp">*</span></label>
+      <v-row>
+        <v-col>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-select
+              v-if="this.userBankList.length > 0"
               placeholder="Select Bank"
-              height="30"
+              class="inputClasswire"
+              height="42"
               outlined
               rounded
               dense
@@ -74,27 +34,62 @@
               :rules="[v => !!v || 'Bank is required']"
             ></v-select>
 
-            <div id="wireFirstStep" v-if="firstStepWire">
-              <div id="myBank" v-if="this.userBankList.length > 0">
+            <div id="wireNextStep" v-if="lastStepWire">
+              <label>Enter Amount <span class="required">*</span></label>
+              <v-text-field
+                type="number"
+                height="42"
+                width="130"
+                light
+                v-model="userAmount"
+                outlined
+                rounded
+                dense
+                required
+                prefix="$"
+                :rules="amountRule"
+                placeholder="Please enter Amount"
+              ></v-text-field>
+
+              <label>Note</label>
+              <v-text-field
+                height="42"
+                width="130"
+                light
+                v-model="userNote"
+                outlined
+                rounded
+                dense
+                required
+                placeholder="Please enter Note"
+              ></v-text-field>
+
+              <label
+                >Provider Bank Details <span class="required">*</span></label
+              >
+              <v-select
+                placeholder="Select Bank"
+                height="42"
+                outlined
+                rounded
+                dense
+                required
+                autofocus
+                v-model="providerBank"
+                :items="providerBanks"
+                item-text="ac_bank_name"
+                item-value="bank_account_uuid"
+                :rules="[v => !!v || 'Provider Bank is required']"
+              ></v-select>
+
+              <div id="myBank" v-if="this.providerBankList.length > 0">
                 <v-flex
-                  v-for="(data, index) in userBankList"
+                  v-for="(data, index) in providerBankList"
                   :key="index"
                   class="listBank"
                 >
                   <div class="bankName">
                     {{ data.ac_bank_name }}
-                    <span style="float:right;">
-                      <v-icon class="icon" size="18">
-                        fas fa-pencil
-                      </v-icon>
-                      <v-icon
-                        class="icon"
-                        size="18"
-                        @click="deleteBankData(data.bank_account_uuid)"
-                      >
-                        fas fa-trash
-                      </v-icon>
-                    </span>
                   </div>
                   <div class="banInfo">
                     <v-row>
@@ -111,123 +106,8 @@
                       <v-col>IFSC Code</v-col>
                       <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
                     </v-row>
-
                     <v-row>
-                      <v-col>Bank Address</v-col>
-                      <v-col class="text-right">{{
-                        data.ac_bank_address
-                      }}</v-col>
-                    </v-row>
-                  </div>
-                </v-flex>
-              </div>
-
-              <div id="myBank" v-if="this.userBankList.length == 0">
-                <div class="bankName2">
-                  <span style="float:right;">
-                    <v-icon class="icon" size="18">
-                      fas fa-id-card
-                    </v-icon>
-                  </span>
-                </div>
-                <div class="banInfo">
-                  <div class="noBank">
-                    <v-icon class="icon" size="100">
-                      fa-plus-square
-                    </v-icon>
-                    <h3>Add Bank</h3>
-                  </div>
-                </div>
-              </div>
-              <v-btn
-                v-if="this.userBankList.length > 0"
-                class="saveButton"
-                small
-                height="35"
-                @click="validate"
-                :disabled="!valid"
-              >
-                Next Step
-              </v-btn>
-            </div>
-          </v-col>
-        </v-row>
-
-       
-          <v-row align="center" justify="center">
-            <div v-if="lastStepWire">
-              <label>Enter Amount</label>
-              <v-text-field
-                type="number"
-                height="42"
-                width="130"
-                light
-                v-model="userAmount"
-                outlined
-                rounded
-                dense
-                required
-                prefix="$"
-                :rules="amountRule"
-                placeholder="Please enter Withdrawable Amount"
-              ></v-text-field>
-
-              <label>Note</label>
-              <v-text-field
-                height="42"
-                width="130"
-                light
-                v-model="userNote"
-                outlined
-                rounded
-                dense
-                required
-                placeholder="Please enter Note"
-              ></v-text-field>
-
-              <label>Provider Bank Details</label>
-              <v-select
-                placeholder="Select Bank"
-                class="inputClasswire providerBank"
-                height="42"
-                outlined
-                rounded
-                dense
-                required
-                autofocus
-                v-model="providerBank"
-                :items="providerBanks"
-                item-text="ac_bank_name"
-                item-value="bank_account_uuid"
-                :rules="[v => !!v || 'Bank is required']"
-              ></v-select>
-
-              <div id="providerBank" v-if="this.providerBankList.length > 0">
-                <v-flex
-                  v-for="(data, index) in providerBankList"
-                  :key="index"
-                  class="listBank"
-                >
-                  <div class="proBank">
-                    {{ data.ac_bank_name }}
-                  </div>
-                  <div class="proBankInfo">
-                    <v-row>
-                      <v-col>Account Holder name </v-col>
-                      <v-col class="text-right">{{
-                        data.ac_holder_name
-                      }}</v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>Account Number</v-col>
-                      <v-col class="text-right">{{ data.ac_number }}</v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>IFSC Code</v-col>
-                      <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col>Bank Adress</v-col>
+                      <v-col bold>Bank Address</v-col>
                       <v-col class="text-right">{{
                         data.ac_bank_address
                       }}</v-col>
@@ -250,8 +130,9 @@
                 small
                 height="35"
                 @click="wireTransfter"
+                :disabled="!valid"
               >
-                Finish &nbsp;<v-progress-circular
+                Finsh &nbsp;<v-progress-circular
                   v-if="loadingImage"
                   indeterminate
                   color="#FFF"
@@ -259,27 +140,116 @@
                 ></v-progress-circular>
               </v-btn>
             </div>
-          </v-row>
-      
-      </div>
-      <div v-else>
-        <div class="bankName2">
-          <span style="float:right;">
-            <v-icon class="icon" size="18">
-              fas fa-id-card
+          </v-form>
+        </v-col>
+        <v-col v-if="firstStepWire">
+          <v-btn
+            fab
+            width="42"
+            height="42"
+            color="white"
+            class="addBank"
+            @click="openBankForm()"
+            v-if="this.userBankList.length > 0 && firstStepWire"
+          >
+            <v-icon size="20" color="#ff0167">
+              fas fa-university
             </v-icon>
-          </span>
-        </div>
-        <div class="banInfo">
-          <div class="noBank" @click="AddBank()">
-            <v-icon class="icon" size="100">
-              fa-plus-square
-            </v-icon>
-            <h3>Add Bank</h3>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <div id="wireFirstStep" v-if="firstStepWire">
+            <div id="myBank" v-if="this.userBankList.length > 0">
+              <v-flex
+                v-for="(data, index) in userBankList"
+                :key="index"
+                class="listBank"
+              >
+                <div class="bankName">
+                  {{ data.ac_bank_name }}
+                  <span style="float:right;">
+                    <v-icon
+                      class="icon"
+                      size="18"
+                      @click="
+                        openEditBankForm(
+                          data.bank_account_uuid,
+                          data.ac_bank_name,
+                          data.ac_holder_name,
+                          data.ac_ifsc_code,
+                          data.ac_number,
+                          data.ac_swift_code,
+                          data.ac_bank_address,
+                          data.country_id
+                        )
+                      "
+                    >
+                      fas fa-pencil
+                    </v-icon>
+                    <v-icon
+                      class="icon"
+                      size="18"
+                      @click="deleteBankData(data.bank_account_uuid)"
+                    >
+                      fas fa-trash
+                    </v-icon>
+                  </span>
+                </div>
+                <div class="banInfo">
+                  <v-row>
+                    <v-col>Account Holder name </v-col>
+                    <v-col class="text-right">{{ data.ac_holder_name }}</v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>Account Number</v-col>
+                    <v-col class="text-right">{{ data.ac_number }}</v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>IFSC Code</v-col>
+                    <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col>Bank Address</v-col>
+                    <v-col class="text-right">{{ data.ac_bank_address }}</v-col>
+                  </v-row>
+                </div>
+              </v-flex>
+            </div>
+
+            <div id="myBank" v-if="this.userBankList.length == 0">
+              <div class="bankName">
+                <span style="float:right;">
+                  <v-icon class="icon" size="18">
+                    fas fa-id-card
+                  </v-icon>
+                </span>
+              </div>
+              <div class="banInfo">
+                <div class="noBank" @click="openBankForm()">
+                  <v-icon class="icon" size="100">
+                    fa-plus-square
+                  </v-icon>
+                  <h3>Add Bank</h3>
+                </div>
+              </div>
+            </div>
+
+            <v-btn
+              v-if="this.userBankList.length > 0"
+              class="saveButton"
+              small
+              height="35"
+              @click="validate"
+              :disabled="!valid"
+            >
+              Next Step
+            </v-btn>
           </div>
-        </div>
-      </div>
-    </v-row>
+        </v-col>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -316,11 +286,9 @@ export default {
       userAmount: "",
       // Amount Validation
       amountRule: [
-        v => !!v || "Withdrawable amount is required",
-        v => v >= 10 || "Withdrawable amount should be above $10",
-        v =>
-          v <= 50000000 ||
-          "Withdrawable amount should not be greater than $50000000"
+        v => !!v || "Amount is required",
+        v => v >= 10 || "Amount should be above $10",
+        v => v <= 50000000 || "Amount should not be greater than $50000000"
       ]
     };
   },
@@ -489,6 +457,12 @@ export default {
 </script>
 
 <style scoped>
+.header h4 {
+  font-size: 16px !important;
+}
+label {
+  font-size: 14px;
+}
 .account {
   outline-width: 0px;
   outline-color: #e91e63;
@@ -514,22 +488,12 @@ export default {
 .providerBank {
   max-width: 277px !important;
 }
-.wireForm {
-  position: sticky;
-  padding:0px ;
-  background-size: cover;
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  background-blend-mode: multiply;
-}
 .wireForm .icon {
   color: #dddddd;
 }
 .wireForm h2 {
   text-transform: uppercase;
   color: #ff0167;
-  margin-bottom: 20px;
 }
 .wireForm p {
   color: #000;
@@ -559,6 +523,7 @@ export default {
 }
 .inputClasswire {
   width: 100%;
+  min-width: 320px;
   font-size: 13px;
 }
 .saveButton {
@@ -618,44 +583,17 @@ input:focus {
   text-align: center;
   font-weight: 400;
 }
-.wrapperDiv {
-  padding: 30px 0px;
-}
-.headline1 {
-  background-color: rgb(255, 16, 103);
-  color: rgb(255, 255, 255);
-  padding: 80px 0px 10px 10px;
-}
 .bankName {
   border: 1px solid #dddddd;
   padding: 0px 10px;
   font-weight: 600;
-  font-size: 16px;
-  height: 35px;
-}
-.bankName2 {
-  border: 1px solid #dddddd;
-  padding: 0px 10px;
-  font-weight: 600;
-  font-size: 16px;
-  height: 35px;
-  width: 260px;
-}
-.proBank {
-  border: 1px solid #dddddd;
-  padding: 0px 10px;
-  font-weight: 600;
-  font-size: 16px;
-  height: 60px;
-  width: 280px;
-}
-.proBankInfo {
-  border: 1px solid #dddddd;
-  padding: 5px 10px;
+  font-size: 14px;
+  height: 40px;
 }
 .banInfo {
   border: 1px solid #dddddd;
   padding: 5px 10px;
+  font-size: 14px;
 }
 
 .icon {
@@ -678,15 +616,7 @@ input:focus {
   text-align: center;
   color: #dddddd !important;
 }
-.addBank {
-  cursor: pointer;
-  border-radius: 50px;
-  border: 1px solid #ff0167;
-  color: #ff0167;
-  width: 110px;
-  text-align: center;
-  padding: 7px 2px;
-}
+
 #myBank::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;
