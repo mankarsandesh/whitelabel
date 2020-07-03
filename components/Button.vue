@@ -100,7 +100,6 @@ export default {
           }
         } else {
           this.loginDialog = true;
-          console.log("Yes Login");
         }
       } catch (error) {
         console.log(error);

@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="400" style="background-color:#fff!important;">
     <v-card class="pa-3">
-      <v-card-title class="headline">
+      <v-card-title >
         Choose language
       </v-card-title>
       <v-layout  class="card-flag">

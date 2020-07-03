@@ -196,7 +196,7 @@ import Validate from "~/validation/profile";
 import axios from "axios";
 import config from "../../../config/config.global";
 import AnimatedNumber from "animated-number-vue";
-
+import Cookies from "../../../plugins/js-cookie";
 export default {
   layout: ctx => (ctx.isMobile ? "mobile" : "default"),
   components: {
@@ -245,7 +245,6 @@ export default {
   async mounted() {
     await this.usersData();
     this.updateUserData();
-    console.log("Mounted");
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
@@ -256,7 +255,7 @@ export default {
     // Logout Users
     async userLogout() {
       this.CLEAR_USER_DATA();
-      // Cookies.remove("userUUID", { path: "" }); // removed! UserUUID Cookies
+      Cookies.remove("userUUID", { path: "" }); // removed! UserUUID Cookies
       this.$router.push("/");
     },
     // Format User balance
