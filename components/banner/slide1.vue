@@ -20,7 +20,7 @@
                 $t("banner.getDescription")
               }}</v-card-title>
 
-              <v-card-title class="headline font-weight-light">
+              <v-card-title class="headliner font-weight-light">
                 {{ $t("banner.useBonus") }} :
                 <v-chip outlined class="ma-2 ec-welcome white--text display-1">
                   ecwelcome

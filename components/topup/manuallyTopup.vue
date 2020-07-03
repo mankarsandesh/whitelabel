@@ -457,8 +457,6 @@ export default {
             headers: config.header
           }
         );
-        console.log(reqBody);
-        console.log(data);
         if (data.code == 200) {
           this.userBankList = data.data;
           for (var i = 0; i < data.data.length; i++) {
