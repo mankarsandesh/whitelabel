@@ -9,6 +9,32 @@
   font-weight: normal;
   font-style: normal;
 } */
+.saveButtonMobile {
+  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
+  border-radius: 50%;
+  font-size: 16px;
+  padding: 12px 12px;
+  color: #FFF; 
+  height: 50px; 
+}
+.closeButtonMobile {
+  background-color: #ffffff;
+  border-radius: 50%;
+  font-size: 16px;
+  padding: 12px 12px;
+  color: #FFF; 
+  height: 50px; 
+}
+.addBankDesktop{
+  cursor: pointer;
+  border-radius: 50px;
+  border: 1px solid #ff0167;
+  color: #ff0167;
+  width: 150px;
+  text-align: center;
+  padding: 6px 8px;
+  height: 40px;
+}
 .addBank {
   cursor: pointer;
   background-color: #FFF;

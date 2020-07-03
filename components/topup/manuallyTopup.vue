@@ -131,7 +131,7 @@
       </v-col>
       <v-col>
         <div
-          class="addBank"
+          class="addBankDesktop"
           @click="openBankForm()"
           v-if="this.userBankList.length > 0 && firstStepWire"
         >
@@ -571,15 +571,7 @@ export default {
   padding: 5px 10px;
   font-size: 14px;
 }
-.addBank {
-  cursor: pointer;
-  border-radius: 50px;
-  border: 1px solid #ff0167;
-  color: #ff0167;
-  width: 150px;
-  text-align: center;
-  padding: 6px 8px;
-}
+
 .wrapperDiv {
   padding: 30px 0px;
 }

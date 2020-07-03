@@ -8,14 +8,14 @@
       </v-row>
     </v-row>
 
-    <!-- <p
+    <p
       v-bind:class="{
         sucessMessage: sucessMessage,
         errorMessage: errorMessage
       }"
     >
       {{ this.errorMessage }} {{ this.sucessMessage }}
-    </p> -->
+    </p>
 
     <v-form class="mt-5" ref="form" v-model="valid" lazy-validation>
       <label>Name<span class="imp">*</span></label>
@@ -126,8 +126,8 @@ export default {
   data() {
     return {
       loadingImage: false,
-      //   errorMessage: "",
-      //   sucessMessage: "",
+        errorMessage: "",
+        sucessMessage: "",
       valid: false,
       wireForm: {
         name: "",

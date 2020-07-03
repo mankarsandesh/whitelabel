@@ -1,6 +1,9 @@
 <template>
-  <div class="wireForm mt-5">
-    <h2>Order History</h2>
+  <div class="wireForm  header">
+    <h4 class="headline">
+      Order History
+    </h4>
+
     <v-divider></v-divider>
     <v-row class="topupDiv">
       <v-col cols="12" class="py-0">
@@ -66,8 +69,7 @@ export default {
     return {
       valid: true,
       loadingImage: false,
-      userOrderData: [],
-      
+      userOrderData: []
     };
   },
   mounted() {
@@ -100,6 +102,9 @@ export default {
 };
 </script>
 <style scoped>
+.header h4 {
+  font-size: 16px !important;
+}
 .orderView {
   border-radius: 15px;
   background-color: #dddddd;
@@ -120,15 +125,7 @@ h1 {
 .topupDiv {
   padding: 20px 0px;
 }
-.wireForm {
-  position: sticky;
-  padding: 50px 20px 20px 20px;
-  background-size: cover;
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  background-blend-mode: multiply;
-}
+
 .wireForm .icon {
   color: #dddddd;
 }
@@ -167,22 +164,22 @@ h1 {
   padding: 20px 20px;
   color: #ffffff;
 }
-.pendingOrder{
+.pendingOrder {
   background-color: #dbbb04;
   border-radius: 10px;
   padding: 1px 4px;
-  color: #FFF;
+  color: #fff;
 }
-.successOrder{
+.successOrder {
   background-color: #04db04;
   border-radius: 15px;
   padding: 4px 8px;
-  color: #FFF;
+  color: #fff;
 }
-.cancelOrder{
+.cancelOrder {
   background-color: #db041d;
   border-radius: 15px;
   padding: 4px 8px;
-  color: #FFF;
+  color: #fff;
 }
 </style>

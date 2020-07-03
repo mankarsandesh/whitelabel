@@ -1,186 +1,184 @@
 {
-    "menu": [{
-            "icon": "far fa-chart-bar fa-2x",
-            "title": "liveStock",
-            "text": true,
-            "to": "/"
-        },
-        {
-            "icon": "fa fa-gamepad fa-2x",
-            "title": "gameMode",
-            "text": true,
-            "to": "/gameMode"
-        },
-        {
-            "icon": "fa fa-gift fa-2x",
-            "title": "promotions",
-            "text": true,
-            "to": "/"
-        }
-    ],
-    "languages": [
-        { "text": "English", "value": "us" },
-        { "text": "Chinese", "value": "cn" },
-        { "text": "Thai", "value": "th" },
-        { "text": "Lao", "value": "La" }
-    ],
-    "slideItems": [{
-            "title": "register your",
-            "desc": "account today",
-            "src": "/icon/slider-1.png",
-            "class": "icon-left"
-        },
-        {
-            "title": "deposit amount",
-            "desc": "and bet",
-            "src": "/icon/slider-1.png",
-            "class": "icon-center"
-        },
-        {
-            "title": "enjoy your bonus",
-            "desc": "and bet games",
-            "src": "/icon/slider-1.png",
-            "class": "icon-right"
-        }
-    ],
-    "banner2": [{
-            "title": "business",
-            "src": "/banner/banner2/Business.png"
-        },
-        {
-            "title": "gaming",
-            "src": "/banner/banner2/Gaming.png"
-        },
-        {
-            "title": "casino",
-            "src": "/banner/banner2/Casino.png"
-        },
-        {
-            "title": "classic",
-            "src": "/banner/banner2/Classic.png"
-        }
-    ],
-    "mutiple_bet": [{
-            "src": "/banner/banner3/Stock-img-1.png",
-            "itemsDesc": ["usindex"],
-            "title": "USA Stock"
-        },
-        {
-            "src": "/banner/banner3/Stock-img-2.png",
-            "itemsDesc": ["btc5", "btc1"],
-            "title": "Crypto"
-        },
-        {
-            "src": "/banner/banner3/Stock-img-3.png",
-            "itemsDesc": ["sh000001", "sh000300", "sz399415"],
-            "title": "China Stock"
-        }
-    ],
-    "slideMenu": [{
-        "icon": "far fa-gamepad",
-        "title": "game mode",
-        "path": "/mobile/gameMode"
+  "menu": [
+    {
+      "icon": "far fa-chart-bar fa-2x",
+      "title": "liveStock",
+      "text": true,
+      "to": "/"
     },
     {
-            "icon": "fas fa-chart-bar",
-            "title": "Wire Transfer",
-            "path": "/"
-        },
-        {
-            "icon": "fas fa-gift",
-            "title": "deposit - manual topup",
-            "path": "/mobile/payment/depositManual"
-        },
-        {
-            "icon": "fas fa-cogs",
-            "title": "deposit - online topup",
-            "path": "/mobile/payment/deposit"
-        },
-        {
-            "icon": "fas fa-trophy",
-            "title": "Withdrawal",
-            "path": "/mobile/payment/withdrawal"
-        },
-        {
-            "icon": "fas fa-file-alt",
-            "title": "Local Transfer",
-            "path": "/"
-        },
-        {
-            "icon": "fas fa-info-circle",
-            "title": "Add Local Bank",
-            "path": "/mobile/payment/localTransferAddBank"
-        },
-        {
-            "icon": "far fa-file-alt",
-            "title": "Change password",
-            "path": "/mobile/profile/changePassword"
-        },
-        {
-            "icon": "fas fa-cogs",
-            "title": "Order history",
-            "path": "/mobile/payment/orderHistory"
-        }
-    ],
-    "TabsProfiles": [{
-            "title": "myAccount",
-            "icon": "fas fa-home",
-            "path": "/profile"
-        },
-        {
-            "title": "deposit",
-            "icon": "fas fa-home",
-            "path": "/profile/deposit"
-        },
-        {
-            "title": "withdrawal",
-            "icon": "fas fa-home",
-            "path": "/profile/withdrawal"
-        },
-        {
-            "title": "orderHistory",
-            "icon": "fas fa-home",
-            "path": "/profile/order_history"
-        },
-        {
-            "title": "changePassword",
-            "icon": "fas fa-home",
-            "path": "/profile/change_password"
-        }
-    ],
-    "stockImg": [{
-            "title": "USA STOCK",
-            "desc": "USINDEX",
-            "src": "/stockImg/Stock-img-1.png"
-        },
-        {
-            "title": "CRYPTO",
-            "desc": "BTC5 | BTC1",
-            "src": "/stockImg/Stock-img-2.png"
-        },
-        {
-            "title": "CHINA STOCK",
-            "desc": "SH000001 | SH000300 | SZ399415",
-            "src": "/stockImg/Stock-img-3.png"
-        }
-    ],
-    "gameMode": [{
-            "src": "/gameMode/business-mode.png",
-            "title": "business",
-            "buttonName": "betNow",
-            "status" : true
-        },
-        {
-            "src": "/gameMode/gaming-mode.png",
-            "title": "gaming",
-            "buttonName": "comingSoon",
-            "status": false
-        },
-        {
-            "src": "/gameMode/casino-mode.png",
-            "title": "classic",
-            "buttonName": "comingSoon",
-            "status" : false
-        }
-    ]
+      "icon": "fa fa-gamepad fa-2x",
+      "title": "gameMode",
+      "text": true,
+      "to": "/gameMode"
+    },
+    {
+      "icon": "fa fa-gift fa-2x",
+      "title": "promotions",
+      "text": true,
+      "to": "/"
+    }
+  ],
+  "languages": [
+    { "text": "English", "value": "us" },
+    { "text": "Chinese", "value": "cn" },
+    { "text": "Thai", "value": "th" },
+    { "text": "Lao", "value": "La" }
+  ],
+  "slideItems": [
+    {
+      "title": "register your",
+      "desc": "account today",
+      "src": "/icon/slider-1.png",
+      "class": "icon-left"
+    },
+    {
+      "title": "deposit amount",
+      "desc": "and bet",
+      "src": "/icon/slider-1.png",
+      "class": "icon-center"
+    },
+    {
+      "title": "enjoy your bonus",
+      "desc": "and bet games",
+      "src": "/icon/slider-1.png",
+      "class": "icon-right"
+    }
+  ],
+  "banner2": [
+    {
+      "title": "business",
+      "src": "/banner/banner2/Business.png"
+    },
+    {
+      "title": "gaming",
+      "src": "/banner/banner2/Gaming.png"
+    },
+    {
+      "title": "casino",
+      "src": "/banner/banner2/Casino.png"
+    },
+    {
+      "title": "classic",
+      "src": "/banner/banner2/Classic.png"
+    }
+  ],
+  "mutiple_bet": [
+    {
+      "src": "/banner/banner3/Stock-img-1.png",
+      "itemsDesc": ["usindex"],
+      "title": "USA Stock"
+    },
+    {
+      "src": "/banner/banner3/Stock-img-2.png",
+      "itemsDesc": ["btc5", "btc1"],
+      "title": "Crypto"
+    },
+    {
+      "src": "/banner/banner3/Stock-img-3.png",
+      "itemsDesc": ["sh000001", "sh000300", "sz399415"],
+      "title": "China Stock"
+    }
+  ],
+  "slideMenu": [
+    {
+      "icon": "far fa-gamepad",
+      "title": "game mode",
+      "path": "/mobile/gameMode"
+    },
+    {
+      "icon": "fas fa-info-circle",
+      "title": "Add Local Bank",
+      "path": "/mobile/payment/localTransferAddBank"
+    },
+    {
+      "icon": "fas fa-gift",
+      "title": "deposit - manual topup",
+      "path": "/mobile/payment/depositManual"
+    },
+    {
+      "icon": "fas fa-cogs",
+      "title": "deposit - online topup",
+      "path": "/mobile/payment/deposit"
+    },
+    {
+      "icon": "fas fa-trophy",
+      "title": "Withdrawal",
+      "path": "/mobile/payment/withdrawal"
+    },
+    {
+      "icon": "fas fa-cogs",
+      "title": "Order history",
+      "path": "/mobile/payment/orderHistory"
+    },
+    {
+      "icon": "far fa-file-alt",
+      "title": "Change password",
+      "path": "/mobile/profile/changePassword"
+    }
+  ],
+  "TabsProfiles": [
+    {
+      "title": "myAccount",
+      "icon": "fas fa-home",
+      "path": "/profile"
+    },
+    {
+      "title": "deposit",
+      "icon": "fas fa-home",
+      "path": "/profile/deposit"
+    },
+    {
+      "title": "withdrawal",
+      "icon": "fas fa-home",
+      "path": "/profile/withdrawal"
+    },
+    {
+      "title": "orderHistory",
+      "icon": "fas fa-home",
+      "path": "/profile/order_history"
+    },
+    {
+      "title": "changePassword",
+      "icon": "fas fa-home",
+      "path": "/profile/change_password"
+    }
+  ],
+  "stockImg": [
+    {
+      "title": "USA STOCK",
+      "desc": "USINDEX",
+      "src": "/stockImg/Stock-img-1.png"
+    },
+    {
+      "title": "CRYPTO",
+      "desc": "BTC5 | BTC1",
+      "src": "/stockImg/Stock-img-2.png"
+    },
+    {
+      "title": "CHINA STOCK",
+      "desc": "SH000001 | SH000300 | SZ399415",
+      "src": "/stockImg/Stock-img-3.png"
+    }
+  ],
+  "gameMode": [
+    {
+      "src": "/gameMode/business-mode.png",
+      "title": "business",
+      "buttonName": "betNow",
+      "status": true
+    },
+    {
+      "src": "/gameMode/gaming-mode.png",
+      "title": "gaming",
+      "buttonName": "comingSoon",
+      "status": false
+    },
+    {
+      "src": "/gameMode/casino-mode.png",
+      "title": "classic",
+      "buttonName": "comingSoon",
+      "status": false
+    }
+  ]
 }

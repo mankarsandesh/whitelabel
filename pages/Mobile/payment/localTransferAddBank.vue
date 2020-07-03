@@ -100,15 +100,15 @@
           :rules="[v => !!v || 'Country is required']"
         ></v-select>
         <v-row justify="center">
-          <v-col xs="3" sm="3">
+          <v-col >
             <v-btn
-              class="saveButton"
+              rounded
+              class="saveButtonMobile"
               @click="validate"
               :disabled="!valid"
-              height="30"
             >
-              Save
-              <v-icon class="icon" size="15">
+              Save &nbsp;
+              <v-icon size="15">
                 fas fa-chevron-double-right
               </v-icon>
               <v-icon class="icon" size="15">
@@ -122,8 +122,8 @@
               ></v-progress-circular>
             </v-btn>
           </v-col>
-          <v-col xs="9" sm="9">
-            <v-btn class="closeButton" :disabled="!valid" height="30">
+          <v-col >
+            <v-btn rounded class="closeButtonMobile" :disabled="!valid" >
               Cancel
             </v-btn>
           </v-col>
@@ -308,25 +308,6 @@ label {
 .imp {
   color: #ff0167;
 }
-.saveButton {
-  background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
-  border-radius: 50px;
-  font-size: 15px;
-  /* text-align: center; */
-  font-weight: 800;
-  margin: 0 auto !important;
-  width: 180px;
-  color: #fff !important;
-  text-transform: uppercase;
-  max-width: 130px;
-  cursor: pointer;
-  position: inherit;
-  z-index: 999;
-  bottom: 10px;
-  left: 0;
-  right: 0;
-}
-
 label .label-text {
   color: #ffffff;
 }
@@ -343,26 +324,15 @@ label input.check:checked + .label-text,
 .label-text {
   cursor: pointer;
 }
-.saveButton .icon {
-  color: #fff;
-  margin-top: 0px;
-}
+
 .saveButton .icon:last-child {
   opacity: 0.4;
-  margin-left: -10px;
   color: #fff;
 }
 input:focus {
   outline: none;
 }
-.closeButton {
-  background-color: #ffffff;
-  color: #000 !important;
-  border-radius: 50px;
-  font-size: 18px;
-  max-width: 130px;
-  text-align: center;
-}
+
 .headline1 {
   background-color: rgb(255, 16, 103);
   color: rgb(255, 255, 255);
