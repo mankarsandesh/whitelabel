@@ -9,11 +9,10 @@
         <v-icon class="icon" left size="20">
           fas fa-user
         </v-icon>
-        Forgot Password
+        {{ $t("profile.forgotPassword") }}
       </h2>
       <p>
-        No problem! Just fill in the email below and we'll send you password
-        reset instructions!
+        {{ $t("profile.forgotTagLine") }}
       </p>
       <p
         v-bind:class="{
@@ -25,7 +24,7 @@
       </p>
       <v-form ref="form" v-model="valid" lazy-validation>
         <div class="yourEmail" v-if="showStep1">
-          <label>Your Email</label>
+          <label>{{ $t("myAccount.email") }}</label>
           <v-text-field
             class="inputClassRegi"
             height="42"
@@ -39,7 +38,7 @@
           ></v-text-field>
         </div>
         <div class="yourEmail" v-if="showStep2">
-          <label>Enter your OTP</label>
+          <label>{{ $t("profile.enterOTP") }}</label>
           <v-text-field
             class="inputClassRegi"
             height="42"
@@ -49,12 +48,13 @@
             rounded
             dense
             required
+            type="password"
             :rules="[v => !!v || 'OTP is required']"
           ></v-text-field>
         </div>
 
         <div class="yourEmail" v-if="showStep3">
-          <label>Enter New Password</label>
+          <label>{{ $t("changePassword.newPassword") }}</label>
           <v-text-field
             class="inputClassRegi"
             height="42"
@@ -64,9 +64,10 @@
             rounded
             dense
             required
+            type="password"
             :rules="[v => !!v || 'New Password is required']"
           ></v-text-field>
-          <label>Enter Repeat New Password</label>
+          <label>{{ $t("profile.confirmPassword") }}</label>
           <v-text-field
             class="inputClassRegi"
             height="42"
@@ -87,7 +88,7 @@
           :disabled="!valid"
           height="50"
         >
-          Reset
+          {{ $t("profile.reset") }}
           <v-icon class="icon" size="30">
             fas fa-angle-double-right
           </v-icon>

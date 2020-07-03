@@ -9,18 +9,23 @@
         <v-icon class="icon" left size="20">
           fas fa-user
         </v-icon>
-        login
+        {{ $t("profile.login") }}
       </h2>
       <p>
-        Doesn't have an account yet?
-        <span @click="openRegister()">Register Now</span>
+        {{ $t("profile.noAccount") }}
+        <span @click="openRegister()">{{ $t("profile.registerNow") }}</span>
       </p>
-      <p v-bind:class="{ 'sucessMessage': sucessMessage, 'errorMessage' : errorMessage }"  >
-        {{ this.errorMessage }}  {{ this.sucessMessage }}
-      </p>   
+      <p
+        v-bind:class="{
+          sucessMessage: sucessMessage,
+          errorMessage: errorMessage
+        }"
+      >
+        {{ this.errorMessage }} {{ this.sucessMessage }}
+      </p>
 
       <v-form ref="form" v-model="valid" lazy-validation>
-        <label>Username</label>
+        <label>{{ $t("myAccount.username") }}</label>
         <v-text-field
           class="inputClassRegi"
           height="42"
@@ -33,7 +38,7 @@
           :rules="[v => !!v || 'Username is required']"
         ></v-text-field>
 
-        <label>Password</label>
+        <label>{{ $t("profile.password") }}</label>
         <v-text-field
           class="inputClassRegi"
           height="42"
@@ -52,12 +57,16 @@
           <v-flex>
             <label class="remember float-left ">
               <input class="check" type="checkbox" />
-              <span class="label-text">Remember Me </span></label
+              <span class="label-text">{{
+                $t("profile.rememberMe")
+              }}</span></label
             >
           </v-flex>
           <v-flex style="text-align:right;">
             <label class="forgotPassword">
-              <a href="#" @click="openForgotPassword">Forgot Password?</a>
+              <a href="#" @click="openForgotPassword"
+                >{{ $t("profile.forgotPassword") }}?</a
+              >
             </label>
           </v-flex>
         </v-layout>
@@ -68,7 +77,7 @@
           :disabled="!valid"
           height="50"
         >
-          Login
+          {{ $t("profile.login") }}
           <v-icon size="30">
             fas fa-angle-double-right
           </v-icon>

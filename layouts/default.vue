@@ -125,7 +125,7 @@
           class="mx-2"
         >
           <v-icon left>fas fa-user</v-icon>
-          Login
+          {{ $t("profile.login") }}
         </v-btn>
 
         <v-btn
@@ -136,7 +136,7 @@
           class="mx-2"
         >
           <v-icon left>fas fa-user-plus</v-icon>
-          Register
+          {{ $t("profile.register") }}
         </v-btn>
       </div>
 
