@@ -120,16 +120,6 @@
             "icon": "fas fa-cogs",
             "title": "Order history",
             "path": "/mobile/payment/orderHistory"
-        },
-        {
-            "icon": "fas fa-question",
-            "title": "faq",
-            "path": "/"
-        },
-        {
-            "icon": "far fa-handshake-alt",
-            "title": "disconnection policy",
-            "path": "/"
         }
     ],
     "TabsProfiles": [{

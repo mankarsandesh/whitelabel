@@ -140,19 +140,6 @@
                   >
 
                   <label class="labelFont"
-                    >Phone<span class="balance">*</span></label
-                  >
-                  <v-text-field
-                    class="inputClass"
-                    height="30"
-                    v-model="form.phone"
-                    outlined
-                    rounded
-                    dense
-                    required
-                    :rules="[v => !!v || 'Phone number is required']"
-                  ></v-text-field>
-                  <label class="labelFont"
                     >Country<span class="balance">*</span></label
                   >
                   <v-select
@@ -188,19 +175,7 @@
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
-          <!-- <v-expansion-panels>
-            <v-expansion-panel class="mt-5 account">
-              <v-expansion-panel-header class="balance font-weight-bold">
-                Address Information
-                <template v-slot:actions>
-                  <v-icon color="#e91e63">$expand</v-icon>
-                </template>
-              </v-expansion-panel-header>
-              <v-expansion-panel-content>
-                Comming Soon
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels> -->
+
           <v-btn @click="userLogout" class="loginButton" height="40">
             Logout &nbsp;<v-progress-circular
               v-if="loadingImage"
@@ -258,8 +233,7 @@ export default {
             id: 236,
             name: "USA"
           }
-        ],
-        phone: null
+        ]       
       },
       selectedLanguage: "us",
       emailRules: [

@@ -314,7 +314,7 @@ export default {
     this.fetchUsersBankList();   
   },
   computed: {
-    ...mapGetters("login", ["GetUserData"])
+    ...mapGetters("login", ["GetUserData"]),
   },
   methods: {
     // Forece Render
@@ -457,6 +457,8 @@ export default {
             headers: config.header
           }
         );
+        console.log(reqBody);
+        console.log(data);
         if (data.code == 200) {
           this.userBankList = data.data;
           for (var i = 0; i < data.data.length; i++) {

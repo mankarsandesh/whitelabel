@@ -43,7 +43,6 @@ const mutations = {
   SET_LANGUAGE(state, payload) {
     state.locale = payload;
     secureStorage.setItem("lang", payload);
-
   }
 };
 
