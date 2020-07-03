@@ -3,7 +3,9 @@
     <v-col cols="12">
       <v-form ref="form" v-model="valid" lazy-validation>
         <div class="userInfo">
-          <label>{{ $t('deposit.amount') }} <span class="required">*</span></label>
+          <label
+            >{{ $t("deposit.amount") }} <span class="required">*</span></label
+          >
           <v-text-field
             type="number"
             class="inputClass"
@@ -21,7 +23,10 @@
           ></v-text-field>
         </div>
         <div>
-          <label>{{ $t('deposit.selectPayment') }} <span class="required">*</span></label>
+          <label
+            >{{ $t("deposit.selectPayment") }}
+            <span class="required">*</span></label
+          >
           <v-radio-group v-model="Topuptype" :mandatory="false" row>
             <v-radio
               class="listTopupType"
@@ -42,7 +47,7 @@
           @click="validate"
           :disabled="!valid"
         >
-          {{ $t('deposit.confirm') }} &nbsp;<v-progress-circular
+          {{ $t("deposit.confirm") }} &nbsp;<v-progress-circular
             v-if="loadingImage"
             indeterminate
             color="#FFF"
@@ -62,6 +67,7 @@ export default {
   components: {},
   data() {
     return {
+      valid : true,
       loadingImage: false,
       // Online Topup Form
       validOnline: true,
@@ -88,7 +94,12 @@ export default {
           value: "wxpay_trans"
         }
       ],
-      onlineAmount: ""
+      onlineAmount: "",
+      amountRule: [
+        v => !!v || "Amount is required",
+        v => v >= 10 || "Amount should be above $10",
+        v => v <= 50000000 || "Amount should not be greater than $50000000"
+      ]
     };
   },
   methods: {
