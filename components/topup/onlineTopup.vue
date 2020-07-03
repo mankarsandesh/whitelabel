@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-form ref="form" v-model="valid" lazy-validation>
         <div class="userInfo">
-          <label>Amount <span class="required">*</span></label>
+          <label>{{ $t('deposit.amount') }} <span class="required">*</span></label>
           <v-text-field
             type="number"
             class="inputClass"
@@ -16,11 +16,12 @@
             dense
             required
             prefix="$"
+            :placeholder="$t('deposit.enterAmount')"
             :rules="amountRule"
           ></v-text-field>
         </div>
         <div>
-          <label>Select Payment Type <span class="required">*</span></label>
+          <label>{{ $t('deposit.selectPayment') }} <span class="required">*</span></label>
           <v-radio-group v-model="Topuptype" :mandatory="false" row>
             <v-radio
               class="listTopupType"
@@ -41,7 +42,7 @@
           @click="validate"
           :disabled="!valid"
         >
-          Confirm &nbsp;<v-progress-circular
+          {{ $t('deposit.confirm') }} &nbsp;<v-progress-circular
             v-if="loadingImage"
             indeterminate
             color="#FFF"

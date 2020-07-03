@@ -9,8 +9,8 @@
         <v-icon class="icon" left size="20">
           fas fa-user
         </v-icon>
-        <span v-if="bankUUID">Edit bank</span>
-        <span v-if="!bankUUID">Add bank</span>
+        <span v-if="bankUUID">{{ $t('deposit.editBank') }}</span>
+        <span v-if="!bankUUID">{{ $t('deposit.addBank') }}</span>
       </h2>
       <p
         v-bind:class="{
@@ -24,7 +24,7 @@
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-row>
           <v-col cols="12" class="cols">
-            <label>Bank name <span class="required">*</span></label>
+            <label>{{ $t('deposit.bankName') }}<span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -38,7 +38,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" class="cols">
-            <label>Account Holder Name <span class="required">*</span></label>
+            <label>{{ $t('deposit.accHolder') }} <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -52,7 +52,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" class="cols">
-            <label>Account Number <span class="required">*</span></label>
+            <label>{{ $t('deposit.accNumber') }} <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -66,7 +66,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="6" class="cols">
-            <label>Account IFSC Code <span class="required">*</span></label>
+            <label>IFSC {{ $t('deposit.code') }} <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -80,7 +80,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="6" class="cols">
-            <label>Account Swift Code</label>
+            <label>Swift {{ $t('deposit.code') }}</label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -92,7 +92,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" class="cols">
-            <label>Bank Address <span class="required">*</span></label>
+            <label>{{ $t('deposit.bankAddress') }} <span class="required">*</span></label>
             <v-text-field
               class="inputClassRegi"
               height="42"
@@ -106,7 +106,7 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" class="cols">
-            <label>Country <span class="required">*</span></label>
+            <label>{{ $t('deposit.country') }} <span class="required">*</span></label>
             <v-select
               placeholder="Select Country"
               height="42"
@@ -129,7 +129,7 @@
           :disabled="!valid"
           height="38"
         >
-          Save &nbsp;
+          {{ $t('deposit.save') }} &nbsp;
           <v-icon size="22">
             fas fa-angle-double-right
           </v-icon>
@@ -144,7 +144,7 @@
           ></v-progress-circular>
         </v-btn>
         <v-btn class="cancelButton" height="38" @click="closePopup()">
-          Cancel
+          {{ $t('deposit.cancel') }}
         </v-btn>
       </v-form>
     </div>
