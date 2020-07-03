@@ -96,7 +96,8 @@
     "status": "Status",
     "inProgress": "In progress",
     "done": "Done",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "noOrder": "There are no user Order History."
   },
   "changePassword": {
     "currentPassword": "Current Password",

@@ -96,7 +96,8 @@
     "status": "ສະຖານະພາບ",
     "inProgress": "ກຳ ລັງ ດຳ ເນີນຢູ່",
     "done": "ເຮັດແລ້ວ",
-    "cancel": "ຍົກເລີກ"
+    "cancel": "ຍົກເລີກ",
+    "noOrder": "ບໍ່ມີປະຫວັດການສັ່ງຊື້ຂອງຜູ້ໃຊ້."
   },
   "changePassword": {
     "currentPassword": "ລະ​ຫັດ​ປັດ​ຈຸ​ບັນ",

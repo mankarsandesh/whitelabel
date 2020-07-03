@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Change Password</h1>
+    <h1>{{ $t("menu.changePassword") }}</h1>
     <v-divider></v-divider>
     <v-row class="topupDiv">
       <v-col cols="3" class="py-0">
@@ -14,7 +14,7 @@
             {{ this.errorMessage }} {{ this.sucessMessage }}
           </p>
           <div class="userInfo">
-            <label>Current Password <label class="required">*</label></label>
+            <label>{{ $t("changePassword.currentPassword") }}<label class="required">*</label></label>
             <v-text-field
               type="password"
               height="42"
@@ -28,7 +28,7 @@
             ></v-text-field>
           </div>
           <div class="userInfo">
-            <label>New Password <label class="required">*</label></label>
+            <label>{{ $t("changePassword.newPassword") }}<label class="required">*</label></label>
             <v-text-field
               type="password"
               height="42"
@@ -43,7 +43,7 @@
           </div>
           <div class="userInfo">
             <label
-              >Confirm New Password <label class="required">*</label></label
+              >{{ $t("changePassword.confirmPassword") }}<label class="required">*</label></label
             >
             <v-text-field
               type="password"
@@ -64,7 +64,7 @@
             @click="validate"
             :disabled="!valid"
           >
-            Confirm &nbsp;<v-progress-circular
+            {{ $t("deposit.confirm") }} &nbsp;<v-progress-circular
               v-if="loadingImage"
               indeterminate
               color="#FFF"

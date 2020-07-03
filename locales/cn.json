@@ -96,7 +96,8 @@
     "status": "状态",
     "inProgress": "进行中",
     "done": "完成",
-    "cancel": "取消"
+    "cancel": "取消",
+    "noOrder": "没有用户的订单历史记录。"
   },
   "changePassword": {
     "currentPassword": "当前密码",

@@ -96,7 +96,8 @@
     "status": "สถานะ",
     "inProgress": "กำลังดำเนินการ",
     "done": "เสร็จสิ้น",
-    "cancel": "ยกเลิก"
+    "cancel": "ยกเลิก",
+    "noOrder": "ไม่มีประวัติการสั่งซื้อของผู้ใช้"
   },
   "changePassword": {
     "currentPassword": "รหัสผ่านปัจจุบัน",
