@@ -80,7 +80,11 @@
             dense
             required
             :hide-details="firstNameErrors.length ? false : true"
-          ></v-text-field>
+          >
+            <template slot="append">
+              <v-icon size="20" color="pink">fas fa-pen</v-icon>
+            </template>
+          </v-text-field>
         </v-col>
         <v-col cols="6">
           <subheader :title="$t('myAccount.lastName')" />
@@ -97,7 +101,11 @@
             dense
             required
             :hide-details="lastNameErrors.length ? false : true"
-          ></v-text-field>
+          >
+            <template slot="append">
+              <v-icon size="20" color="pink">fas fa-pen</v-icon>
+            </template>
+          </v-text-field>
         </v-col>
         <v-col cols="6">
           <subheader :title="$t('myAccount.username')" />
@@ -114,15 +122,17 @@
             dense
             required
             :hide-details="usernameErrors.length ? false : true"
-          ></v-text-field>
+          >
+            <template slot="append">
+              <v-icon size="20" color="pink">fas fa-pen</v-icon>
+            </template>
+          </v-text-field>
         </v-col>
         <v-col cols="6">
           <subheader :title="$t('myAccount.email')" />
           <v-text-field
+            readonly
             :error-messages="emailErrors"
-            @input="$v.form.email.$touch()"
-            @blur="$v.form.email.$touch()"
-            :hide-details="emailErrors.length ? false : true"
             v-model="form.email"
             class="text-filed"
             height="42"
@@ -130,11 +140,7 @@
             outlined
             rounded
             dense
-            required
           >
-            <template slot="append">
-              <v-icon size="20" color="pink">fas fa-pen</v-icon>
-            </template>
           </v-text-field>
         </v-col>
         <v-col cols="6">
@@ -151,8 +157,12 @@
             item-value="id"
             required
             :rules="[v => !!v || 'Country is required']"
-          ></v-select>
-        </v-col>       
+          >
+            <template slot="append">
+              <v-icon size="20" color="pink">fas fa-pen</v-icon>
+            </template>
+          </v-select>
+        </v-col>
       </v-row>
 
       <v-divider></v-divider>
@@ -171,13 +181,14 @@
           @click="editProfile"
           :class="editable ? 'edit-active' : ''"
         >
-          <v-icon class="active" left>fas fa-pen</v-icon>{{ $t('myAccount.editInfo') }}
+          <v-icon class="active" left>fas fa-pen</v-icon
+          >{{ $t("myAccount.editInfo") }}
         </v-btn>
       </v-row>
       <v-row>
         <v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>{{ $t('myAccount.province') }}</label>
+            <label>{{ $t("myAccount.province") }}</label>
             <p v-if="editable == false">{{ this.form.province }}</p>
 
             <v-text-field
@@ -196,7 +207,7 @@
         </v-col>
         <v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>{{ $t('myAccount.city') }}</label>
+            <label>{{ $t("myAccount.city") }}</label>
             <p v-if="editable == false">{{ form.city }}</p>
 
             <v-text-field
@@ -215,7 +226,7 @@
         </v-col>
         <v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>{{ $t('myAccount.address') }}</label>
+            <label>{{ $t("myAccount.address") }}</label>
             <p v-if="editable == false">{{ this.form.address }}</p>
 
             <v-text-field
@@ -233,7 +244,7 @@
           </div> </v-col
         ><v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>{{ $t('myAccount.gender') }}</label>
+            <label>{{ $t("myAccount.gender") }}</label>
             <p v-if="editable == false" class="genderClass">
               {{ this.form.gender }}
             </p>
@@ -257,7 +268,7 @@
           </div> </v-col
         ><v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>{{ $t('myAccount.dob') }}</label>
+            <label>{{ $t("myAccount.dob") }}</label>
             <p v-if="editable == false">{{ this.form.birthdate }}</p>
 
             <v-menu
@@ -292,7 +303,7 @@
         </v-col>
         <v-col cols="6" class="py-0">
           <div class="userInfo">
-            <label>{{ $t('myAccount.personalID') }}</label>
+            <label>{{ $t("myAccount.personalID") }}</label>
             <p v-if="editable == false">{{ this.form.personalID }}</p>
 
             <v-text-field
@@ -311,7 +322,7 @@
         </v-col>
 
         <v-btn class="justify-center text-center my-btn" @click="updateProfile"
-          >{{ $t('myAccount.saveChanges') }}
+          >{{ $t("myAccount.saveChanges") }}
           <span class=" ml-3">
             <v-icon size="15"> fas fa-chevron-double-right</v-icon
             ><v-icon size="15" class=" opacity-1">
@@ -391,13 +402,13 @@ export default {
   }),
   async mounted() {
     await this.usersData();
-    this.updateUserData();      
+    this.updateUserData();
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
   },
   methods: {
-    ...mapActions("login",["setUserData","usersData"]),
+    ...mapActions("login", ["setUserData", "usersData"]),
     // Set All User Exiting Value
     updateUserData() {
       this.form.username = this.GetUserData.username;
