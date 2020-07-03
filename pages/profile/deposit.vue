@@ -1,24 +1,24 @@
 <template>
   <div>
-    <h1>Topup</h1>
+    <h1>{{ $t('deposit.topUp') }}</h1>
     <v-divider></v-divider>
     <v-row class="topupDiv">
       <v-col cols="8" class="py-0">
         <div class="userInfo">
-          <label>Method</label>
+          <label>{{ $t('deposit.method') }}</label>
 
           <v-tabs v-model="tab" color="#ff003b">
             <v-tab class="text-capitalize" href="#tab-1">
               <v-icon size="20">
                 fas fa-university
               </v-icon>
-              &nbsp;Manually Topup</v-tab
+              &nbsp;{{ $t('deposit.manualTopUp') }}</v-tab
             >
             <v-tab class="text-capitalize" href="#tab-2">
               <v-icon size="20">
                 fas fa-university
               </v-icon>
-              &nbsp; Online Topup</v-tab
+              &nbsp; {{ $t('deposit.onlineTopUp') }}</v-tab
             >
           </v-tabs>
 
@@ -42,7 +42,6 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
 import config from "../../config/config.global";
-import addBank from "../../components/addBank";
 import onlineTopup from "../../components/topup/onlineTopup";
 import manuallyTopup from "../../components/topup/manuallyTopup";
 import axios from "axios";
@@ -53,7 +52,6 @@ export default {
     };
   },
   components: {
-    addBank,
     onlineTopup,
     manuallyTopup
   }

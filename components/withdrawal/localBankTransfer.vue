@@ -9,7 +9,7 @@
       {{ this.errorMessage }} {{ this.sucessMessage }}
     </p>
     <label
-      >Beneficiary Account Number/BAN <span class="required">*</span></label
+      >{{ $t("deposit.BAN") }}<span class="required">*</span></label
     >
     <v-row>
       <v-col>
@@ -33,7 +33,7 @@
 
           <div id="wireNextStep" v-if="lastStepWire">
             <label
-              >Your Balance
+              >{{ $t("withdrawal.yourbalance") }}
               <v-icon size="18">
                 fas fa-info-circle
               </v-icon>
@@ -48,7 +48,7 @@
               prefix="$"
             ></v-text-field>
 
-            <label>Withdrawal Amount <span class="required">*</span></label>
+            <label>{{ $t("withdrawal.withdrawableAmount") }} <span class="required">*</span></label>
             <v-text-field
               type="number"
               height="42"
@@ -64,7 +64,7 @@
               placeholder="Please enter Withdrawal Amount"
             ></v-text-field>
 
-            <label>Note</label>
+            <label>{{ $t("deposit.note") }}</label>
             <v-text-field
               height="42"
               width="130"
@@ -83,11 +83,11 @@
               height="35"
               @click="previousStep()"
             >
-              Previous Step
+              {{ $t("deposit.previousStep") }}
             </v-btn>
 
             <v-btn class="saveButton" small height="35" @click="wireTransfter">
-              Finsh &nbsp;<v-progress-circular
+              {{ $t("deposit.finish") }} &nbsp;<v-progress-circular
                 v-if="loadingImage"
                 indeterminate
                 color="#FFF"
@@ -106,7 +106,7 @@
           <v-icon size="20" color="#ff0167">
             fas fa-university
           </v-icon>
-          Add bank
+          {{ $t("deposit.addBank") }}
         </div>
       </v-col>
     </v-row>
@@ -151,19 +151,19 @@
               </div>
               <div class="banInfo">
                 <v-row>
-                  <v-col>Account Holder name </v-col>
+                  <v-col>{{ $t("deposit.accHolder") }} </v-col>
                   <v-col class="text-right">{{ data.ac_holder_name }}</v-col>
                 </v-row>
                 <v-row>
-                  <v-col>Account Number</v-col>
+                  <v-col>{{ $t("deposit.accNumber") }}</v-col>
                   <v-col class="text-right">{{ data.ac_number }}</v-col>
                 </v-row>
                 <v-row>
-                  <v-col>IFSC Code</v-col>
+                  <v-col>IFSC {{ $t("deposit.code") }}</v-col>
                   <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
                 </v-row>
                 <v-row>
-                  <v-col bold>Bank Address</v-col>
+                  <v-col bold>{{ $t("deposit.bankAddress") }}</v-col>
                   <v-col class="text-right">{{ data.ac_bank_address }}</v-col>
                 </v-row>
               </div>
@@ -196,7 +196,7 @@
             @click="validate"
             :disabled="!valid"
           >
-            Next Step
+            {{ $t("deposit.nextStep") }}
           </v-btn>
         </div>
       </v-col>

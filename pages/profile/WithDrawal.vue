@@ -1,43 +1,43 @@
 <template>
   <div>
-    <h1>Withdrawal</h1>
+    <h1>{{ $t("menu.withdrawal") }}</h1>
     <v-divider></v-divider>
     <v-row class="topupDiv">
       <v-col cols="8" class="py-0">
         <div class="userInfo">
-          <label>Method</label>
+          <label>{{ $t("deposit.method") }}</label>
 
           <v-tabs v-model="tab" color="#ff003b">
             <v-tab class="text-capitalize" href="#tab-1">
               <v-icon size="20">
                 fas fa-university
               </v-icon>
-              &nbsp;Local Bank Transfer</v-tab
+              &nbsp;{{ $t("withdrawal.localBank") }}</v-tab
             >
             <v-tab class="text-capitalize" href="#tab-2">
               <v-icon size="20">
                 fas fa-exchange
               </v-icon>
-              &nbsp; Wire Transfer</v-tab
+              &nbsp; {{ $t("withdrawal.wireTransfer") }}</v-tab
             >
             <v-tab class="text-capitalize" href="#tab-3">
               <v-icon size="20">
                 fas fa-university
               </v-icon>
-              &nbsp; CryptoCurrency</v-tab
+              &nbsp; {{ $t("withdrawal.cryptoCurrency") }}</v-tab
             >
           </v-tabs>
 
           <v-tabs-items v-model="tab">
-            <v-tab-item :value="'tab-1'"> <localBankTransfer/> </v-tab-item>
+            <v-tab-item :value="'tab-1'"> <localBankTransfer /> </v-tab-item>
             <v-tab-item :value="'tab-2'">
               <div class="wrapperDiv">
-                <label>Coming Soon</label>
+                <label>{{ $t("withdrawal.comingSoon") }}</label>
               </div>
             </v-tab-item>
             <v-tab-item :value="'tab-3'">
               <div class="wrapperDiv">
-                <label>Coming Soon</label>
+                <label>{{ $t("withdrawal.comingSoon") }}</label>
               </div>
             </v-tab-item>
           </v-tabs-items>
@@ -48,11 +48,10 @@
             <v-icon size="22" color="#fdc84f">
               fas fa-info-circle
             </v-icon>
-            Wire TransferPrompt
+            {{ $t("withdrawal.wireTransferPrompt") }}
           </h4>
           <p>
-            Wire transfer, bank transfer or credit transfer, is a method of
-            Electronic Funds Transfer from one person or entity to another.
+            {{ $t("withdrawal.wireTransferDescription") }}
           </p>
         </div>
       </v-col>

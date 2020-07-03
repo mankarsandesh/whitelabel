@@ -8,14 +8,14 @@
           <template v-slot:default>
             <thead>
               <tr class="tableHead">
-                <th class="text-left">#ORDER ID</th>
-                <th>ACCOUNT NAME</th>
-                <th class="text-center">TYPE</th>
-                <th class="text-center">METHOD</th>
-                <th class="text-left">AMOUNT</th>
-                <th class="text-center">Note</th>
-                <th class="text-center">SUBMIT TIME</th>
-                <th class="text-center">STATUS</th>
+                <th class="text-left">#{{ $t("orderHistory.orderID") }}</th>
+                <th>{{ $t("orderHistory.accName") }}</th>
+                <th class="text-center">{{ $t("orderHistory.type") }}</th>
+                <th class="text-center">{{ $t("deposit.method") }}</th>
+                <th class="text-left">{{ $t("deposit.amount") }}</th>
+                <th class="text-center">{{ $t("deposit.note") }}</th>
+                <th class="text-center">{{ $t("orderHistory.submitTime") }}</th>
+                <th class="text-center">{{ $t("orderHistory.status") }}</th>
               </tr>
             </thead>
             <tbody v-if="userOrderData.length > 0">
@@ -34,13 +34,13 @@
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center">
                   <span class="orderPending" v-if="item.status == 1">
-                    in Progress
+                    {{ $t("orderHistory.inProgress") }}
                   </span>
                   <span class="orderSuccess" v-if="item.status == 2">
-                    Done
+                    {{ $t("orderHistory.done") }}
                   </span>
                   <span class="orderCancel" v-if="item.status == 3">
-                    Cancel
+                    {{ $t("orderHistory.inProgress") }}
                   </span>
                 </td>
               </tr>
@@ -48,7 +48,7 @@
             <tbody v-if="userOrderData.length == 0">
               <tr>
                 <td colspan="7" style="text-align:center;padding:150px 0px;">
-                  <h2>There are no user Order History.</h2>
+                  <h2>{{ $t('orderHistory.noOrder') }}</h2>
                 </td>
               </tr>
             </tbody>
