@@ -60,10 +60,12 @@ export default {
       ]
     };
   },
-  created() {},
+  created() {
+    console.log("created");
+  },
   computed: {
     ...mapGetters("login", ["getLocale"]),
-    value() {
+    value() {     
       return this.getLocale;
     }
   },
@@ -75,7 +77,7 @@ export default {
     changeLanguage(value) {
       this.setLanguage(value);
       this.dialog = false;
-      this.$i18n.locale = this.getLocale;
+      this.$i18n.locale = value;
       Cookies.set("locale", value, {
         path: " "
       });

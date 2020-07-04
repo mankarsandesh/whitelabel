@@ -8,7 +8,7 @@ const state = () => ({
   uuid: null,
   userData: "",// Store user data
   locales: ["cn", "us", "th", "la"], // Store language locales
-  locale: "cn", // Store locale
+  locale: Cookies.get("locale"), // Store locale
 });
 
 //Getters
@@ -18,7 +18,7 @@ const getters = {
 
   GetUserData: state => state.userData,
 
-  getLocale(state) {
+  getLocale(state) {  
     return state.locale;
   }
 

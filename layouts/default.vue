@@ -55,7 +55,7 @@
         icon
         @click="$refs.language.showDialog()"
       >
-        <country-flag :country="countryflag" size="normal" />
+        <country-flag :country="country" size="normal" />
         <!-- <v-icon> fas fa-globe</v-icon> -->
       </v-btn>
       <languageDialog ref="language" />
@@ -223,7 +223,7 @@ export default {
       slideMenu: json.slideMenu,
       userData: [],
       userUUID: Cookies.get("userUUID"),
-      locale : Cookies.get("locale")
+      locale: Cookies.get("locale")
     };
   },
   components: {
@@ -234,6 +234,7 @@ export default {
     languageDialog
   },
   created() {
+    this.SET_LANGUAGE(this.locale);
     if (this.userUUID) {
       this.userInfo();
     } else {
@@ -242,7 +243,7 @@ export default {
   },
   computed: {
     ...mapGetters("login", ["getLocale", "GetUserData"]),
-    countryflag() {
+    country() {    
       if (this.getLocale) {
         return this.getLocale;
       } else {
@@ -276,7 +277,8 @@ export default {
     ...mapMutations("login", [
       "CLEAR_USER_DATA",
       "SET_USER_DATA",
-      "SET_USER_UUID","SET_LANGUAGE"
+      "SET_USER_UUID",
+      "SET_LANGUAGE"
     ]),
     // Logout Users
     async userLogout() {
@@ -297,7 +299,6 @@ export default {
           this.userData = data.data[0];
           this.SET_USER_DATA(this.userData);
           this.SET_USER_UUID(data.data[0].uuid);
-          this.SET_LANGUAGE(this.locale);
         }
       } catch (ex) {
         console.log(ex);
