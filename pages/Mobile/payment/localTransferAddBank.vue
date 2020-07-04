@@ -14,7 +14,7 @@
       </p>
 
       <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
-        <label>Bank Name<span class="imp">*</span></label>
+        <label>Bank Name<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -27,7 +27,7 @@
           placeholder="Please enter Bank Name"
           :rules="[v => !!v || 'Bank Name is required']"
         ></v-text-field>
-        <label>Account Holder Name<span class="imp">*</span></label>
+        <label>Account Holder Name<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -39,7 +39,7 @@
           placeholder="Please enter Account Holder Name"
           :rules="[v => !!v || 'Account holder name is required']"
         ></v-text-field>
-        <label>Account Number<span class="imp">*</span></label>
+        <label>Account Number<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -51,7 +51,7 @@
           placeholder="Please enter Account Number"
           :rules="[v => !!v || 'Account Number is required']"
         ></v-text-field>
-        <label>IFSC Code<span class="imp">*</span></label>
+        <label>IFSC Code<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -73,7 +73,7 @@
           dense
           placeholder="Please enter SWIFT Code"
         ></v-text-field>
-        <label>Bank Address<span class="imp">*</span></label>
+        <label>Bank Address<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -85,7 +85,7 @@
           placeholder="Please enter Bank Address"
           :rules="[v => !!v || 'Bank Address is required']"
         ></v-text-field>
-        <label>Country<span class="imp">*</span></label>
+        <label>Country<span class="required">*</span></label>
         <v-select
           height="42"
           dense
@@ -100,15 +100,15 @@
           :rules="[v => !!v || 'Country is required']"
         ></v-select>
         <v-row justify="center">
-          <v-col >
+          <v-col>
             <v-btn
               rounded
               class="saveButtonMobile"
               @click="validate"
               :disabled="!valid"
             >
-              Save &nbsp;
-              <v-icon size="15">
+              Save
+              <v-icon class="icon" size="15">
                 fas fa-chevron-double-right
               </v-icon>
               <v-icon class="icon" size="15">
@@ -122,8 +122,8 @@
               ></v-progress-circular>
             </v-btn>
           </v-col>
-          <v-col >
-            <v-btn rounded class="closeButtonMobile" :disabled="!valid" >
+          <v-col>
+            <v-btn rounded class="closeButtonMobile" :disabled="!valid">
               Cancel
             </v-btn>
           </v-col>
@@ -198,7 +198,6 @@ export default {
     // User Login Request to API
     async addBank() {
       this.loadingImage = true;
-
       try {
         var reqBody = {
           user_uuid: this.GetUserData.uuid,
@@ -219,7 +218,6 @@ export default {
             headers: config.header
           }
         );
-
         if (data.code == 200) {
           this.sucessMessage = data.message[0];
           this.errorMessage = "";
@@ -248,25 +246,8 @@ label {
 .header h4 {
   font-size: 16px !important;
 }
-.terms {
-  color: #ff0167 !important;
-}
-.genderClass {
-  text-transform: capitalize;
-  color: #ffffff !important;
-}
-.errorMessage {
-  color: red !important;
-}
-.sucessMessage {
-  color: green !important;
-}
 .label-text span {
   color: #000 !important;
-}
-
-.localForm .icon {
-  color: #ff0167;
 }
 .localForm h2 {
   text-transform: uppercase;
@@ -303,9 +284,6 @@ label {
   padding: 10px 20px;
   color: #ffffff;
 }
-.imp {
-  color: #ff0167;
-}
 label .label-text {
   color: #ffffff;
 }
@@ -322,18 +300,7 @@ label input.check:checked + .label-text,
 .label-text {
   cursor: pointer;
 }
-
-.saveButton .icon:last-child {
-  opacity: 0.4;
-  color: #fff;
-}
 input:focus {
   outline: none;
-}
-
-.headline1 {
-  background-color: rgb(255, 16, 103);
-  color: rgb(255, 255, 255);
-  padding: 80px 0px 10px 10px;
 }
 </style>

@@ -51,10 +51,10 @@
           <v-icon size="18">fas fa-user</v-icon>
           &nbsp;Login
         </v-btn>
-        <v-btn dark small rounded color="pink" @click="openRegisterDialog()">
+        <!-- <v-btn dark small rounded color="pink" @click="openRegisterDialog()">
           <v-icon size="18">fas fa-user-plus</v-icon>
           &nbsp;Register
-        </v-btn>
+        </v-btn> -->
 
         <v-btn dark small icon @click.stop="OpenDrawer = !OpenDrawer">
           <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>

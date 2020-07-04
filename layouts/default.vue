@@ -222,7 +222,8 @@ export default {
       menu: json.menu,
       slideMenu: json.slideMenu,
       userData: [],
-      userUUID: Cookies.get("userUUID")
+      userUUID: Cookies.get("userUUID"),
+      locale : Cookies.get("locale")
     };
   },
   components: {
@@ -275,7 +276,7 @@ export default {
     ...mapMutations("login", [
       "CLEAR_USER_DATA",
       "SET_USER_DATA",
-      "SET_USER_UUID"
+      "SET_USER_UUID","SET_LANGUAGE"
     ]),
     // Logout Users
     async userLogout() {
@@ -296,6 +297,7 @@ export default {
           this.userData = data.data[0];
           this.SET_USER_DATA(this.userData);
           this.SET_USER_UUID(data.data[0].uuid);
+          this.SET_LANGUAGE(this.locale);
         }
       } catch (ex) {
         console.log(ex);
