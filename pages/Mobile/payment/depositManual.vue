@@ -144,8 +144,8 @@
             width="42"
             height="42"
             color="white"
-            class="addBank"
-            @click="openBankForm()"
+            class="addBank"           
+            to="/mobile/payment/localTransferAddBank"
             v-if="this.userBankList.length > 0 && firstStepWire"
           >
             <v-icon size="20" color="#ff0167">
@@ -223,7 +223,7 @@
                 </span>
               </div>
               <div class="banInfo">
-                <div class="noBank" @click="openBankForm()">
+                <div class="noBank" @click="addBank()">
                   <v-icon class="icon" size="100">
                     fa-plus-square
                   </v-icon>
@@ -306,7 +306,7 @@ export default {
         this.renderComponent = true;
       });
     },
-    AddBank() {
+    addBank() {
       window.location.href = "/mobile/payment/localTransferAddBank";
     },
 
@@ -320,7 +320,6 @@ export default {
       this.firstStepWire = true;
       this.lastStepWire = false;
     },
-    validateWireTransfer() {},
     wireTransfter() {
       if (this.bank && this.userAmount) {
         this.userwithdrawalRequest();

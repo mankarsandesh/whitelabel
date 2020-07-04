@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex class="profileForm ">
-      <v-row justify="center">
+      <v-row justify="center" class="profileWrap">
         <v-col cols="6">
           <v-card class="mx-auto text-center" flat>
             <v-row align="end" class="fill-height">
@@ -362,8 +362,8 @@ export default {
 .genderClass {
   text-transform: capitalize;
 }
-.profileForm {
-  padding: 60px 20px 405px 20px;
+.profileWrap{
+  padding: 0px 20px;
 }
 .profileForm .inputClass {
   width: 100%;
