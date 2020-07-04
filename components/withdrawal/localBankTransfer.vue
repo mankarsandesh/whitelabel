@@ -16,7 +16,7 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-select
             v-if="this.userBankList.length > 0"
-            placeholder="Select Bank"
+            :placeholder="$t('deposit.selectBank')"
             class="inputClasswire"
             height="42"
             outlined

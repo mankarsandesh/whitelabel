@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Order History</h1>
+    <h1>{{ $t('menu.orderHistory')}}</h1>
     <v-divider></v-divider>
     <v-row class="topupDiv">
       <v-col cols="12" class="py-0">
@@ -8,11 +8,11 @@
           <template v-slot:default>
             <thead>
               <tr class="tableHead">
-                <th class="text-left">#{{ $t("orderHistory.orderID") }}</th>
+                <th class="text-center">#{{ $t("orderHistory.orderID") }}</th>
                 <th>{{ $t("orderHistory.accName") }}</th>
                 <th class="text-center">{{ $t("orderHistory.type") }}</th>
                 <th class="text-center">{{ $t("deposit.method") }}</th>
-                <th class="text-left">{{ $t("deposit.amount") }}</th>
+                <th class="text-center">{{ $t("deposit.amount") }}</th>
                 <th class="text-center">{{ $t("deposit.note") }}</th>
                 <th class="text-center">{{ $t("orderHistory.submitTime") }}</th>
                 <th class="text-center">{{ $t("orderHistory.status") }}</th>
@@ -20,7 +20,7 @@
             </thead>
             <tbody v-if="userOrderData.length > 0">
               <tr v-for="item in userOrderData" :key="item.name">
-                <td>
+                <td class="text-center">
                   <a href="#">{{ item.bank_account_uuid }}</a>
                 </td>
                 <td>{{ item.ac_bank_name }}, {{ item.ac_holder_name }}</td>
@@ -29,7 +29,7 @@
                   <span v-if="item.type == 3"> Top-up </span>
                 </td>
                 <td class="text-center">Local Bank Transfer</td>
-                <td class="text-left">${{ item.amount }}</td>
+                <td class="text-center">${{ item.amount }}</td>
                 <td class="text-center">{{ item.note }}</td>
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center">
@@ -40,7 +40,7 @@
                     {{ $t("orderHistory.done") }}
                   </span>
                   <span class="orderCancel" v-if="item.status == 3">
-                    {{ $t("orderHistory.inProgress") }}
+                    {{ $t("orderHistory.cancel") }}
                   </span>
                 </td>
               </tr>
