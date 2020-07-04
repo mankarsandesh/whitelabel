@@ -16,7 +16,7 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-select
             v-if="this.userBankList.length > 0"
-            placeholder="Select Bank"
+            :placeholder="$t('deposit.selectBank')"
             class="inputClasswire"
             height="42"
             outlined
@@ -33,7 +33,7 @@
 
           <div id="wireNextStep" v-if="lastStepWire">
             <label
-              >{{ $t("withdrawal.yourbalance") }}
+              >{{ $t("withdrawal.yourBalance") }}
               <v-icon size="18">
                 fas fa-info-circle
               </v-icon>

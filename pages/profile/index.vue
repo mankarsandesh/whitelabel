@@ -62,7 +62,7 @@
 
       <subheader
         class=" font-weight-bold text-capitalize "
-        title="personal information"
+        :title="$t('myAccount.personalInfo')"
       />
       <v-row>
         <v-col cols="6">
@@ -170,7 +170,7 @@
       <v-row class="my-4">
         <subheader
           class=" font-weight-bold text-capitalize "
-          title="address information"
+          :title="$t('myAccount.addressInfo')"
         />
         <v-spacer></v-spacer>
         <v-btn

@@ -104,7 +104,7 @@ export default {
           this.loadingImage = true;
           this.userChangePassword();
         } else {
-          this.errorMessage = "New Password Does't Match.";
+          this.errorMessage = "New Password Doesn't Match.";
         }
       }
     },

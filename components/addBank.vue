@@ -217,7 +217,7 @@ export default {
     this.form.bankCountry = this.bankCountry;
   },
   mounted() {
-    console.log("Mounted");
+    // console.log("Mounted");
   },
   methods: {
     ...mapMutations("login", ["SET_USER_UUID", "SET_USER_DATA"]),
