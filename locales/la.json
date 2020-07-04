@@ -101,6 +101,8 @@
     "localBank": "ການໂອນທະນາຄານທ້ອງຖິ່ນ",
     "yourBalance": "ຍອດເງິນຂອງທ່ານ",
     "withdrawableAmount": "ຈຳ ນວນທີ່ສາມາດຖອນໄດ້",
+    "enterAmount": "ກະລຸນາໃສ່ ຈຳ ນວນເງິນຖອນ",
+    "enterNote": "ກະລຸນາໃສ່ ໝາຍ ເຫດ",
     "wireTransfer": "ການໂອນສາຍ",
     "comingSoon": "ໃກ້ເຂົ້າມາແລ້ວ",
     "cryptoCurrency": "ສະກຸນເງິນ Crypto",

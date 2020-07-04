@@ -101,6 +101,8 @@
     "localBank": "本地银行转帐",
     "yourBalance": "您的余额",
     "withdrawableAmount": "提款金额",
+    "enterAmount": "请输入提款金额",
+    "enterNote": "请输入备注",
     "wireTransfer": "电汇",
     "comingSoon": "快来了",
     "cryptoCurrency": "加密货币",

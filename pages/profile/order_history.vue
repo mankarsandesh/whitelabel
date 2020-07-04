@@ -30,7 +30,8 @@
                 </td>
                 <td class="text-center">Local Bank Transfer</td>
                 <td class="text-center">${{ item.amount }}</td>
-                <td class="text-center"> {{ item.note }}</td>
+                <td class="text-center" v-if="item.note == null " > {{ item.note }}</td>
+                <td class="text-center" v-else > {{ item.note.substring(0, 35) }}</td>
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center">
                   <span class="orderPending" v-if="item.status == 1">
