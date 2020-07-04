@@ -3,58 +3,46 @@
     <h4 class="headline">
       Order History
     </h4>
-
-    <v-divider></v-divider>
     <v-row class="topupDiv">
       <v-col cols="12" class="py-0">
-        <v-simple-table fixed-header>
-          <template v-slot:default>
-            <thead>
-              <tr class="tableHead">
-                <th class="text-left">#ORDER ID</th>
-                <th>ACCOUNT NAME</th>
-                <th class="text-center">TYPE</th>
-                <th class="text-center">METHOD</th>
-                <th class="text-left">AMOUNT</th>
-                <th class="text-center">SUBMIT TIME</th>
-                <th class="text-center">STATUS</th>
-              </tr>
-            </thead>
-            <tbody v-if="userOrderData.length > 0">
-              <tr v-for="item in userOrderData" :key="item.name">
-                <td>
-                  <a href="#">{{ item.bank_account_uuid }}</a>
-                </td>
-                <td>{{ item.ac_bank_name }}, {{ item.ac_holder_name }}</td>
-                <td class="text-center">
+        <div v-if="userOrderData.length > 0">
+          <v-list-item
+            three-line
+            v-for="item in userOrderData"
+            :key="item.name"
+          >
+            <v-list-item-content style="border-bottom:1px solid #dddddd;">
+              <v-list-item-title
+                >{{ item.ac_bank_name }}, {{ item.ac_holder_name }}
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                <b>
                   <span v-if="item.type == 2"> Withdraw </span>
                   <span v-if="item.type == 3"> Top-up </span>
-                </td>
-                <td class="text-center">Local Bank Transfer</td>
-                <td class="text-left">${{ item.amount }}</td>
-                <td class="text-center">{{ item.created_at }}</td>
-                <td class="text-center">
-                  <span class="pendingOrder" v-if="item.status == 1">
-                    pending
-                  </span>
-                  <span class="successOrder" v-if="item.status == 2">
-                    Done
-                  </span>
-                  <span class="cancelOrder" v-if="item.status == 3">
-                    Cancel
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-            <tbody v-if="userOrderData.length == 0">
-              <tr>
-                <td colspan="7" style="text-align:center;padding:150px 0px;">
-                  <h2>There are no user Order History.</h2>
-                </td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
+                  Request :</b
+                >
+                ${{ item.amount }} by Local Bank transfer
+              </v-list-item-subtitle>
+              <v-list-item-subtitle>
+                <span class="orderPendingMobile" v-if="item.status == 1">
+                  pending
+                </span>
+                <span class="orderSuccessMobile" v-if="item.status == 2">
+                  Done
+                </span>
+                <span class="orderCancelMobile" v-if="item.status == 3">
+                  Cancel
+                </span>
+              </v-list-item-subtitle>
+              <v-list-item-subtitle>
+                <b>#ORDER ID : </b> {{ item.bank_account_uuid }}
+              </v-list-item-subtitle>
+              <v-list-item-subtitle>
+                {{ item.created_at }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </div>
       </v-col>
     </v-row>
   </div>
@@ -122,10 +110,6 @@ export default {
 h1 {
   margin: 10px 0px !important;
 }
-.topupDiv {
-  padding: 20px 0px;
-}
-
 .wireForm .icon {
   color: #dddddd;
 }

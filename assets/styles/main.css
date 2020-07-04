@@ -9,6 +9,8 @@
   font-weight: normal;
   font-style: normal;
 } */
+
+/* Mobile Save Button */
 .saveButtonMobile {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
   border-radius: 50%;
@@ -17,6 +19,7 @@
   color: #fff !important;
   height: 50px; 
 }
+/* Mobile Save Button Icon */
 .saveButtonMobile .icon:first-child {
   margin-left:5px;
   color: #fff;
@@ -25,6 +28,7 @@
   opacity: 0.4;
   color: #fff;
 }
+/* Mobile Close Button */
 .closeButtonMobile {
   background-color: #ffffff;
   border-radius: 50%;
@@ -93,19 +97,36 @@
   border-radius: 15px;
   padding: 4px 8px;
   color: #FFF;
+  text-transform: capitalize;
 }
 .orderSuccess{
   background-color: #04db04;
   border-radius: 15px;
   padding: 4px 8px;
-  color: #FFF;
+  color: #FFF;  
+  text-transform: capitalize;
 }
 .orderCancel{
   background-color: #db041d;
   border-radius: 15px;
   padding: 4px 8px;
   color: #FFF;
+  text-transform: capitalize;
 }
+
+.orderPendingMobile{
+  color: #dbbb04;
+  text-transform: capitalize;
+}
+.orderSuccessMobile{
+  color: #04db04;  
+  text-transform: capitalize;
+}
+.orderCancelMobile{
+  color: #db041d;
+  text-transform: capitalize;
+}
+
 .ml-20 {
   margin-left: -20px;
 }
