@@ -56,7 +56,7 @@
               rounded
               dense
               required
-              placeholder="Please enter Note"
+              :placeholder="$t('withdrawal.enterNote')"
               
             ></v-text-field>
 
