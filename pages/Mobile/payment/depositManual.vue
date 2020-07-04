@@ -13,7 +13,9 @@
       >
         {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
-      <label>Beneficiary Account Number/IBAN<span class="imp">*</span></label>
+      <label
+        >Beneficiary Account Number/IBAN<span class="required">*</span></label
+      >
       <v-row>
         <v-col>
           <v-form ref="form" v-model="valid" lazy-validation>
@@ -116,19 +118,13 @@
                 </v-flex>
               </div>
 
-              <v-btn
-                class="cancelButton"
-                small
-                height="35"
-                @click="previousStep()"
-              >
+              <v-btn rounded class="closeButtonMobile" @click="previousStep()">
                 Previous Step
               </v-btn>
 
               <v-btn
-                class="saveButton"
-                small
-                height="35"
+                rounded
+                class="saveButtonMobile"
                 @click="wireTransfter"
                 :disabled="!valid"
               >
@@ -374,7 +370,6 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid
         };
-        console.log(reqBody);
         var { data } = await axios.post(
           config.getUserBankDetails.url,
           reqBody,
@@ -463,25 +458,6 @@ export default {
 label {
   font-size: 14px;
 }
-.account {
-  outline-width: 0px;
-  outline-color: #e91e63;
-  outline-style: solid;
-  box-shadow: 0 0 0 1px #e91e63;
-}
-.terms {
-  color: #ff0167 !important;
-}
-.genderClass {
-  text-transform: capitalize;
-  color: #ffffff !important;
-}
-.errorMessage {
-  color: red !important;
-}
-.sucessMessage {
-  color: green !important;
-}
 .label-text span {
   color: #000 !important;
 }
@@ -518,12 +494,9 @@ label {
 .listBank {
   margin: 10px 0px;
 }
-.imp {
-  color: #ff0167;
-}
 .inputClasswire {
   width: 100%;
-  min-width:280px;
+  min-width: 280px;
   font-size: 13px;
 }
 .saveButton {

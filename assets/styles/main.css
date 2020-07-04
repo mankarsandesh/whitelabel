@@ -14,8 +14,16 @@
   border-radius: 50%;
   font-size: 16px;
   padding: 12px 12px;
-  color: #FFF; 
+  color: #fff !important;
   height: 50px; 
+}
+.saveButtonMobile .icon:first-child {
+  margin-left:5px;
+  color: #fff;
+}
+.saveButtonMobile .icon:last-child {
+  opacity: 0.4;
+  color: #fff;
 }
 .closeButtonMobile {
   background-color: #ffffff;
