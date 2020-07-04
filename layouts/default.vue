@@ -74,11 +74,11 @@
                     v-on="on"
                   >
                     <span v-if="GetUserData.first_name">
-                      {{ GetUserData.first_name }}
-                      {{ GetUserData.last_name }}</span
+                      {{ GetUserData.first_name.substring(0,8) }}
+                      {{ GetUserData.last_name.substring(0,8) }}</span
                     >
                     <span v-if="!GetUserData.first_name">
-                      {{ GetUserData.username }}
+                      {{ GetUserData.username.substring(0,8) }}
                     </span>
                   </v-list-item-title>
                 </v-list-item-content>

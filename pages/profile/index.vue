@@ -30,7 +30,7 @@
                   >{{ GetUserData.username }}
                 </v-list-item-title>
                 <v-list-item-title class="title" v-if="GetUserData.first_name"
-                  >{{ GetUserData.first_name }} {{ GetUserData.last_name }}
+                  >{{ GetUserData.first_name.substring(0,12) }} {{ GetUserData.last_name.substring(0,12) }}
                 </v-list-item-title>
 
                 <v-list-item-subtitle>Laos,Vientaine</v-list-item-subtitle>

@@ -101,6 +101,8 @@
     "localBank": "โอนเงินผ่านธนาคารท้องถิ่น",
     "yourBalance": "ยอดคงเหลือของคุณ",
     "withdrawableAmount": "จำนวนเงินที่ถอนได้",
+    "enterAmount": "โปรดป้อนจำนวนเงินที่ถอน",
+    "enterNote": "กรุณาใส่หมายเหตุ",
     "wireTransfer": "โอนเงิน",
     "comingSoon": "เร็ว ๆ นี้",
     "cryptoCurrency": "สกุลเงิน Crypto",

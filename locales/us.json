@@ -101,10 +101,13 @@
     "localBank": "Local Bank Transfer",
     "yourBalance": "Your Balance",
     "withdrawableAmount": "Withdrawable Amount",
+    "enterAmount": "Please enter Withdrawal Amount",
+    "enterNote": "Please enter Note",
     "wireTransfer": "Wire Transfer",
     "comingSoon": "Coming Soon",
     "cryptoCurrency": "Crypto Currency",
     "wireTransferPrompt": " Wire Transfer Prompt",
+
     "wireTransferDescription": "Wire transfer, bank transfer or credit transfer, is a method of Electronic Funds Transfer from one person or entity to another."
   },
   "orderHistory": {

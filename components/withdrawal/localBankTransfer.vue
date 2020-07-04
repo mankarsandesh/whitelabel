@@ -61,7 +61,7 @@
               required
               prefix="$"
               :rules="amountRule"
-              placeholder="Please enter Withdrawal Amount"
+              :placeholder="$t('withdrawal.enterAmount')"
             ></v-text-field>
 
             <label>{{ $t("deposit.note") }}</label>
@@ -74,7 +74,7 @@
               rounded
               dense
               required
-              placeholder="Please enter Note"
+              :placeholder="$t('withdrawal.enterNote')"
             ></v-text-field>
 
             <v-btn
