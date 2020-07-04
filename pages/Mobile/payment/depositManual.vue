@@ -523,7 +523,7 @@ label {
 }
 .inputClasswire {
   width: 100%;
-  min-width: 320px;
+  min-width:280px;
   font-size: 13px;
 }
 .saveButton {

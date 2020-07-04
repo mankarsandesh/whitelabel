@@ -6,7 +6,7 @@ import secureStorage from "../plugins/secure-storage"
 const state = () => ({
   // User UUID
   uuid: null,
-  userData: "" ,// Store user data
+  userData: "",// Store user data
   locales: ["cn", "us", "th", "la"], // Store language locales
   locale: "cn", // Store locale
 });
@@ -41,7 +41,7 @@ const mutations = {
   },
   //Store language
   SET_LANGUAGE(state, payload) {
-    state.locale = payload;   
+    state.locale = payload;
     secureStorage.setItem("lang", payload);
   }
 };
@@ -64,7 +64,7 @@ const actions = {
       };
       var res = await this.$axios.$post(config.getUserProfile.url, reqBody, {
         headers: config.header
-      });     
+      });
       if (res.status) {
         let userInfo = res.data[0];
         context.commit("SET_USER_DATA", userInfo);

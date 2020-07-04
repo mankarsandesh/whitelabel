@@ -62,7 +62,7 @@
                         color="white"
                         class="addBank"
                         @click="AddBank"
-                        v-if="this.userBankList.length > 0 "
+                        v-if="this.userBankList.length > 0"
                       >
                         <v-icon size="18" color="#ff0167">
                           fas fa-university
@@ -201,10 +201,7 @@
                           width="130"
                           light
                           v-model="userBalance"
-                          outlined
-                          rounded
-                          dense
-                          required
+                          prefix="$"
                         ></v-text-field>
 
                         <label>Withdrawable Amount</label>
