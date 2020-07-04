@@ -198,7 +198,6 @@ export default {
     // User Login Request to API
     async addBank() {
       this.loadingImage = true;
-      console.log("Hiii");
 
       try {
         var reqBody = {
@@ -213,7 +212,6 @@ export default {
           account_type: 1,
           is_default: true
         };
-        console.log(reqBody);
         var { data } = await axios.post(
           config.registerBankDetail.url,
           reqBody,

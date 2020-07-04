@@ -58,7 +58,6 @@ export default {
 
   methods: {
     updateValue: function(value) {
-      console.log("This is the value", value);
       this.$emit("input", value);
     }
   }

@@ -33,7 +33,7 @@
 
           <div id="wireNextStep" v-if="lastStepWire">
             <label
-              >{{ $t("withdrawal.yourbalance") }}
+              >{{ $t("withdrawal.yourBalance") }}
               <v-icon size="18">
                 fas fa-info-circle
               </v-icon>

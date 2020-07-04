@@ -31,8 +31,6 @@ const checkUserLogin = async (userUUID, store, axios) => {
 
       var userInfo = data.data[0];
       var userUuid = userInfo.uuid;
-      console.log(userUUID);
-      console.log(userInfo, "data");
       if (data.code == 200) {
         store.dispatch("login", "setUserData", userInfo);
         store.dispatch("login", "setUserUUID", userUuid);

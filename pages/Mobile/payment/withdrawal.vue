@@ -447,7 +447,6 @@ export default {
         var reqBody = {
           user_uuid: this.GetUserData.uuid
         };
-        console.log(reqBody);
         var { data } = await axios.post(
           config.getUserBankDetails.url,
           reqBody,
