@@ -60,7 +60,8 @@
     "forgotPassword": "Forgot Password",
     "forgotTagLine": "No problem! Just fill in the email below and we'll send you password reset instructions!",
     "reset": "Reset",
-    "enterOTP": "Enter your OTP"
+    "enterOTP": "Enter your OTP",
+    "accountBalance": "Account Balance"
   },
   "myAccount" : {
     "personalInfo": "Personal Information",
@@ -82,7 +83,7 @@
   "deposit": {
     "topUp": "Topup",
     "method": "Method",
-    "manualTopUp": "Manually Topup",
+    "manualTopUp": "Manual Topup",
     "BAN": "Beneficiary Account Number/BAN",
     "selectBank": "Select Bank",
     "accHolder": "Account Holder name",
@@ -118,7 +119,6 @@
     "comingSoon": "Coming Soon",
     "cryptoCurrency": "Crypto Currency",
     "wireTransferPrompt": " Wire Transfer Prompt",
-
     "wireTransferDescription": "Wire transfer, bank transfer or credit transfer, is a method of Electronic Funds Transfer from one person or entity to another."
   },
   "orderHistory": {
@@ -130,7 +130,8 @@
     "inProgress": "In progress",
     "done": "Done",
     "cancel": "Cancel",
-    "noOrder": "There are no user Order History."
+    "noOrder": "There are no user Order History.",
+    "request": "Request"
   },
   "changePassword": {
     "currentPassword": "Current Password",

@@ -1,7 +1,7 @@
 <template>
   <div class="wireForm header">
     <h4 class="headline">
-      Deposit - Manual Topup
+      {{ $t("menu.deposit") }} - {{ $t("deposit.manualTopUp") }}
     </h4>
 
     <div class="wrapperDiv">
@@ -14,14 +14,14 @@
         {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
       <label
-        >Beneficiary Account Number/IBAN<span class="required">*</span></label
+        >{{ $t("deposit.BAN") }}<span class="required">*</span></label
       >
       <v-row>
         <v-col>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-select
               v-if="this.userBankList.length > 0"
-              placeholder="Select Bank"
+              :placeholder="$t('deposit.selectBank')"
               class="inputClasswire"
               height="42"
               outlined
@@ -37,7 +37,7 @@
             ></v-select>
 
             <div id="wireNextStep" v-if="lastStepWire">
-              <label>Enter Amount <span class="required">*</span></label>
+              <label>{{ $t("deposit.enterAmount") }} <span class="required">*</span></label>
               <v-text-field
                 type="number"
                 height="42"
@@ -50,10 +50,9 @@
                 required
                 prefix="$"
                 :rules="amountRule"
-                placeholder="Please enter Amount"
               ></v-text-field>
 
-              <label>Note</label>
+              <label>{{ $t("deposit.note") }}</label>
               <v-text-field
                 height="42"
                 width="130"
@@ -63,14 +62,13 @@
                 rounded
                 dense
                 required
-                placeholder="Please enter Note"
               ></v-text-field>
 
               <label
-                >Provider Bank Details <span class="required">*</span></label
+                >{{ $t("deposit.providerBank") }} <span class="required">*</span></label
               >
               <v-select
-                placeholder="Select Bank"
+                :placeholder="$t('deposit.selectBank')"
                 height="42"
                 outlined
                 rounded
@@ -95,21 +93,21 @@
                   </div>
                   <div class="banInfo">
                     <v-row>
-                      <v-col>Account Holder name </v-col>
+                      <v-col>{{ $t("deposit.accHolder") }}</v-col>
                       <v-col class="text-right">{{
                         data.ac_holder_name
                       }}</v-col>
                     </v-row>
                     <v-row>
-                      <v-col>Account Number</v-col>
+                      <v-col>{{ $t("deposit.accNumber") }}</v-col>
                       <v-col class="text-right">{{ data.ac_number }}</v-col>
                     </v-row>
                     <v-row>
-                      <v-col>IFSC Code</v-col>
+                      <v-col>IFSC {{ $t("deposit.code") }}</v-col>
                       <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
                     </v-row>
                     <v-row>
-                      <v-col bold>Bank Address</v-col>
+                      <v-col bold>{{ $t("deposit.bankAddress") }}</v-col>
                       <v-col class="text-right">{{
                         data.ac_bank_address
                       }}</v-col>
@@ -119,7 +117,7 @@
               </div>
 
               <v-btn rounded class="closeButtonMobile" @click="previousStep()">
-                Previous Step
+                {{ $t("deposit.previousStep") }}
               </v-btn>
 
               <v-btn
@@ -128,7 +126,7 @@
                 @click="wireTransfter"
                 :disabled="!valid"
               >
-                Finsh &nbsp;<v-progress-circular
+                {{ $t("deposit.finish") }} &nbsp;<v-progress-circular
                   v-if="loadingImage"
                   indeterminate
                   color="#FFF"
@@ -195,19 +193,19 @@
                 </div>
                 <div class="banInfo">
                   <v-row>
-                    <v-col>Account Holder name </v-col>
+                    <v-col>{{ $t("deposit.accHolder") }} </v-col>
                     <v-col class="text-right">{{ data.ac_holder_name }}</v-col>
                   </v-row>
                   <v-row>
-                    <v-col>Account Number</v-col>
+                    <v-col>{{ $t("deposit.accNumber") }}</v-col>
                     <v-col class="text-right">{{ data.ac_number }}</v-col>
                   </v-row>
                   <v-row>
-                    <v-col>IFSC Code</v-col>
+                    <v-col>IFSC {{ $t("deposit.code") }}</v-col>
                     <v-col class="text-right">{{ data.ac_ifsc_code }}</v-col>
                   </v-row>
                   <v-row>
-                    <v-col>Bank Address</v-col>
+                    <v-col>{{ $t("deposit.bankAddress") }}</v-col>
                     <v-col class="text-right">{{ data.ac_bank_address }}</v-col>
                   </v-row>
                 </div>
@@ -227,7 +225,7 @@
                   <v-icon class="icon" size="100">
                     fa-plus-square
                   </v-icon>
-                  <h3>Add Bank</h3>
+                  <h3>{{ $t("deposit.addBank") }}</h3>
                 </div>
               </div>
             </div>
@@ -240,7 +238,7 @@
               @click="validate"
               :disabled="!valid"
             >
-              Next Step
+              {{ $t("deposit.nextStep") }}
             </v-btn>
           </div>
         </v-col>

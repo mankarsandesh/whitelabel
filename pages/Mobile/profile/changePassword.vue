@@ -1,7 +1,7 @@
 <template>
   <div class="passwordForm header">
     <h4 class="headline">
-      Change password
+      {{ $t("menu.changePassword")}}
     </h4>
     <div class="wrapperDiv">
       <p
@@ -14,7 +14,7 @@
       </p>
 
       <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
-        <label>Old Password<span class="imp">*</span></label>
+        <label>{{ $t("changePassword.currentPassword")}}<span class="imp">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -27,7 +27,7 @@
           type="password"
           :rules="[v => !!v || 'Old password is required']"
         ></v-text-field>
-        <label>New Password<span class="imp">*</span></label>
+        <label>{{ $t("changePassword.newPassword")}}<span class="imp">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -39,7 +39,7 @@
           type="password"
           :rules="[v => !!v || 'New password is required']"
         ></v-text-field>
-        <label>Confirm password<span class="imp">*</span></label>
+        <label>{{ $t("changePassword.confirmPassword")}}<span class="imp">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -60,7 +60,7 @@
               @click="validate"
               :disabled="!valid"
             >
-              Save
+              {{ $t("deposit.save")}}
               <v-icon class="icon" size="15">
                 fas fa-chevron-double-right
               </v-icon>
@@ -77,7 +77,7 @@
           </v-col>
           <v-col xs="9" sm="9">
             <v-btn rounded class="closeButtonMobile" :disabled="!valid">
-              Cancel
+              {{ $t("deposit.cancel")}}
             </v-btn>
           </v-col>
         </v-row>

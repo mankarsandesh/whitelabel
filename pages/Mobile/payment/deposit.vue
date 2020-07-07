@@ -1,7 +1,7 @@
 <template>
   <div class="depositForm header">
     <h4 class="headline">
-      Deposit - Online Topup
+      {{ $t("menu.deposit") }} - {{ $t("deposit.onlineTopUp") }}
     </h4>
      <div class="wrapperDiv">
     <p
@@ -14,7 +14,7 @@
     </p>
 
     <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
-      <label>Topup Amount<span class="imp">*</span></label>
+      <label>{{ $t("deposit.topUp") }} {{ $t("deposit.amount") }}<span class="imp">*</span></label>
       <v-text-field
         class="inputClasswire"
         height="30"
@@ -28,7 +28,7 @@
         :rules="amountRule"
       ></v-text-field>
       <div>
-        <label>Topup Type</label>
+        <label>{{ $t("deposit.topUp") }} {{ $t("orderHistory.type") }} Type</label>
         <v-radio-group v-model="Topuptype" :mandatory="false" row>
           <v-radio
             class="listTopupType"
@@ -46,7 +46,7 @@
       <v-row justify="center">
         <v-col xs="3" sm="3">
           <v-btn class="saveButton" :disabled="!valid" height="35">
-            Confirm &nbsp;<v-progress-circular
+            {{ $t("deposit.confirm") }} &nbsp;<v-progress-circular
               v-if="loadingImage"
               indeterminate
               color="#FFF"

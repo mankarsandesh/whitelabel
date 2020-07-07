@@ -1,7 +1,7 @@
 <template>
   <div class="localForm header">
     <h4 class="headline">
-      Local Transfer - ADD BANK
+      {{ $t("withdrawal.localBank") }} - {{ $t("deposit.addBank") }}
     </h4>
     <div class="wrapperDiv">
       <p
@@ -14,7 +14,7 @@
       </p>
 
       <v-form ref="form" class="mt-5" v-model="valid" lazy-validation>
-        <label>Bank Name<span class="required">*</span></label>
+        <label>{{ $t("deposit.bankName") }}<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -24,10 +24,9 @@
           dense
           required
           autofocus
-          placeholder="Please enter Bank Name"
           :rules="[v => !!v || 'Bank Name is required']"
         ></v-text-field>
-        <label>Account Holder Name<span class="required">*</span></label>
+        <label>{{ $t("deposit.accHolder") }}<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -36,10 +35,9 @@
           rounded
           dense
           required
-          placeholder="Please enter Account Holder Name"
           :rules="[v => !!v || 'Account holder name is required']"
         ></v-text-field>
-        <label>Account Number<span class="required">*</span></label>
+        <label>{{ $t("deposit.accNumber") }}<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -48,10 +46,9 @@
           rounded
           dense
           required
-          placeholder="Please enter Account Number"
           :rules="[v => !!v || 'Account Number is required']"
         ></v-text-field>
-        <label>IFSC Code<span class="required">*</span></label>
+        <label>IFSC {{ $t("deposit.code") }}<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -60,10 +57,9 @@
           rounded
           dense
           required
-          placeholder="Please enter IFSC Code"
           :rules="[v => !!v || 'IFSC Code is required']"
         ></v-text-field>
-        <label>SWIFT Code</label>
+        <label>SWIFT {{ $t("deposit.code") }}</label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -71,9 +67,8 @@
           outlined
           rounded
           dense
-          placeholder="Please enter SWIFT Code"
         ></v-text-field>
-        <label>Bank Address<span class="required">*</span></label>
+        <label>{{ $t("deposit.bankAddress") }}<span class="required">*</span></label>
         <v-text-field
           class="inputClasswire"
           height="30"
@@ -82,10 +77,9 @@
           rounded
           dense
           required
-          placeholder="Please enter Bank Address"
           :rules="[v => !!v || 'Bank Address is required']"
         ></v-text-field>
-        <label>Country<span class="required">*</span></label>
+        <label>{{ $t("deposit.country") }}<span class="required">*</span></label>
         <v-select
           height="42"
           dense
@@ -107,7 +101,7 @@
               @click="validate"
               :disabled="!valid"
             >
-              Save
+              {{ $t("deposit.save") }}
               <v-icon class="icon" size="15">
                 fas fa-chevron-double-right
               </v-icon>
@@ -124,7 +118,7 @@
           </v-col>
           <v-col>
             <v-btn rounded class="closeButtonMobile" :disabled="!valid">
-              Cancel
+              {{ $t("deposit.cancel") }}
             </v-btn>
           </v-col>
         </v-row>
