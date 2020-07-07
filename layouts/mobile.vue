@@ -28,7 +28,6 @@
           <v-img width="100" src="/logo/logo.png"></v-img>
         </v-btn>
       </v-toolbar-title>
-
       <v-spacer></v-spacer>
       <v-btn
         class="mr-1"
@@ -56,18 +55,15 @@
           </v-icon>
         </v-btn>
       </div>
+      <!-- Without Login Show This Button -->
       <div v-else class="menu-list">
         <v-btn rounded small outlined color="pink" @click="openloginDialog()">
           <v-icon size="18">fas fa-user</v-icon>
           &nbsp;Login
         </v-btn>
-        <!-- <v-btn dark small rounded color="pink" @click="openRegisterDialog()">
+        <v-btn dark small rounded color="pink" @click="openRegisterDialog()">
           <v-icon size="18">fas fa-user-plus</v-icon>
           &nbsp;Register
-        </v-btn> -->
-
-        <v-btn dark small icon @click.stop="OpenDrawer = !OpenDrawer">
-          <v-icon> {{ OpenDrawer ? "fas fa-times" : "mdi-menu" }} </v-icon>
         </v-btn>
       </div>
     </v-app-bar>

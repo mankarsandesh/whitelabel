@@ -30,7 +30,6 @@
 
 <script>
 import json from "~/json/items";
-import axios from "axios";
 export default {
   data() {
     return {

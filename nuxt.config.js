@@ -5,8 +5,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: "%s - " + process.env.npm_package_name,
-    title: process.env.npm_package_name || "",
+    title: "Whitelabel",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -17,7 +16,7 @@ export default {
       }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.png" },
       {
         rel: "stylesheet",
         href: "https://pro.fontawesome.com/releases/v5.2.0/css/all.css"
@@ -53,7 +52,7 @@ export default {
    */
 
   modules: [
-    [    
+    [
       "@nuxtjs/device",
       {
         defaultUserAgent:
@@ -72,7 +71,7 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
- 
+
 
   axios: {},
   /*
@@ -113,6 +112,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) { }
   }
 };

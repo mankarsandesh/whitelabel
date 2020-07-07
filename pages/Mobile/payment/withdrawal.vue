@@ -61,7 +61,7 @@
                         height="42"
                         color="white"
                         class="addBank"
-                        @click="AddBank"
+                        to="/mobile/payment/localTransferAddBank"
                         v-if="this.userBankList.length > 0"
                       >
                         <v-icon size="18" color="#ff0167">
