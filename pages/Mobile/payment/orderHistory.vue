@@ -1,7 +1,7 @@
 <template>
   <div class="wireForm  header">
     <h4 class="headline">
-      Order History
+      {{ $t("menu.orderHistory") }}
     </h4>
     <v-row class="topupDiv">
       <v-col cols="12" class="py-0">
@@ -17,31 +17,34 @@
               </v-list-item-title>
               <v-list-item-subtitle>
                 <b>
-                  <span v-if="item.type == 2"> Withdraw </span>
-                  <span v-if="item.type == 3"> Top-up </span>
-                  Request :</b
+                  <span v-if="item.type == 2"> {{ $t("menu.withdrawal")}} </span>
+                  <span v-if="item.type == 3"> {{ $t("deposit.topUp") }} </span>
+                  {{ $t("orderHistory.request") }} :</b
                 >
-                ${{ item.amount }} by Local Bank transfer
+                ${{ item.amount }} {{ $t("withdrawal.localBank") }}
               </v-list-item-subtitle>
               <v-list-item-subtitle>
                 <span class="orderPendingMobile" v-if="item.status == 1">
-                  pending
+                  {{ $t("orderHistory.inProgress") }}
                 </span>
                 <span class="orderSuccessMobile" v-if="item.status == 2">
-                  Done
+                  {{ $t("orderHistory.done") }}
                 </span>
                 <span class="orderCancelMobile" v-if="item.status == 3">
-                  Cancel
+                  {{ $t("orderHistory.cancel") }}
                 </span>
               </v-list-item-subtitle>
               <v-list-item-subtitle>
-                <b>#ORDER ID : </b> {{ item.bank_account_uuid }}
+                <b>#{{ $t("orderHistory.orderID") }} : </b> {{ item.bank_account_uuid }}
               </v-list-item-subtitle>
               <v-list-item-subtitle>
                 {{ item.created_at }}
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
+        </div>
+        <div v-if="userOrderData.length == 0">
+          <h2>{{ $t('orderHistory.noOrder') }}</h2>
         </div>
       </v-col>
     </v-row>

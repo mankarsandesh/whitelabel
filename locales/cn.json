@@ -59,7 +59,9 @@
     "forgotPassword": "忘记密码",
     "forgotTagLine": "没问题！ 只需填写以下电子邮件，我们将向您发送密码重置说明！",
     "reset": "重启",
-    "enterOTP": "输入您的OTP"
+    "enterOTP": "输入您的OTP",
+    "accountBalance": "账户余额"
+
   },
   "myAccount" : {
     "personalInfo": "个人信息",
@@ -128,7 +130,8 @@
     "inProgress": "进行中",
     "done": "完成",
     "cancel": "取消",
-    "noOrder": "没有用户的订单历史记录。"
+    "noOrder": "没有用户的订单历史记录。",
+    "request": "请求"
   },
   "changePassword": {
     "currentPassword": "当前密码",

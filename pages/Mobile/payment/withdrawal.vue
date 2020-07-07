@@ -1,7 +1,7 @@
 <template>
   <div class="wireForm header">
     <h4 class="headline">
-      Withdrawal
+      {{ $t("menu.withdrawal") }}
     </h4>
     <div class="wrapperDiv">
       <v-row class="mt-1" align="center" justify="center">
@@ -10,8 +10,7 @@
             <v-expansion-panel class="account">
               <v-expansion-panel-header class="font-weight-bold"
                 ><span
-                  ><v-icon size="15"> fas fa-university </v-icon>&nbsp; Local
-                  Bank Transfer</span
+                  ><v-icon size="15"> fas fa-university </v-icon>&nbsp; {{ $t("withdrawal.localBank") }}</span
                 >
                 <template v-slot:actions>
                   <v-icon color="#e91e63">$expand</v-icon>
@@ -28,7 +27,7 @@
                 </p>
 
                 <span
-                  >Beneficiary Account Number/IBAN<span class="imp"
+                  >{{ $t("deposit.BAN") }}<span class="imp"
                     >*</span
                   ></span
                 >
@@ -38,7 +37,7 @@
                       <v-form ref="form" v-model="valid" lazy-validation>
                         <v-select
                           v-if="this.userBankList.length > 0 && firstStepWire"
-                          placeholder="Select Bank"
+                          :placeholder="$t('deposit.selectBank')"
                           class="inputClasswire"
                           height="30"
                           outlined
@@ -116,37 +115,37 @@
                             </div>
                             <div class="banInfo">
                               <v-row>
-                                <v-col>Account Holder name </v-col>
+                                <v-col>{{ $t("deposit.accHolder") }} </v-col>
                                 <v-col class="text-right">{{
                                   data.ac_holder_name
                                 }}</v-col>
                               </v-row>
                               <v-row>
-                                <v-col>Account Number</v-col>
+                                <v-col>{{ $t("deposit.accNumber") }}</v-col>
                                 <v-col class="text-right">{{
                                   data.ac_number
                                 }}</v-col>
                               </v-row>
                               <v-row>
-                                <v-col>IFSC Code</v-col>
+                                <v-col>IFSC {{ $t("deposit.code") }}</v-col>
                                 <v-col class="text-right">{{
                                   data.ac_ifsc_code
                                 }}</v-col>
                               </v-row>
                               <v-row>
-                                <v-col>SWIFT Code</v-col>
+                                <v-col>SWIFT {{ $t("deposit.code") }}</v-col>
                                 <v-col class="text-right">{{
                                   data.ac_swift_code
                                 }}</v-col>
                               </v-row>
                               <v-row>
-                                <v-col>Bank Address</v-col>
+                                <v-col>{{ $t("deposit.bankAddress") }}</v-col>
                                 <v-col class="text-right">{{
                                   data.ac_bank_address
                                 }}</v-col>
                               </v-row>
                               <v-row>
-                                <v-col>Country</v-col>
+                                <v-col>{{ $t("deposit.country") }}</v-col>
                                 <v-col class="text-right">{{
                                   data.country_code
                                 }}</v-col>
@@ -168,7 +167,7 @@
                               <v-icon class="icon" size="100">
                                 fa-plus-square
                               </v-icon>
-                              <h3>Add Bank</h3>
+                              <h3>{{ $t("deposit.addBank") }}</h3>
                             </div>
                           </div>
                         </div>
@@ -180,7 +179,7 @@
                           @click="validate"
                           :disabled="!valid"
                         >
-                          Next Step
+                          {{ $t("deposit.nextStep") }}
                         </v-btn>
                       </div>
                     </v-col>
@@ -190,7 +189,7 @@
                     <v-row align="center" justify="center">
                       <div v-if="lastStepWire">
                         <label
-                          >Your Balance
+                          >{{ $t("withdrawal.yourBalance") }}
                           <v-icon size="18">
                             fas fa-info-circle
                           </v-icon>
@@ -204,7 +203,7 @@
                           prefix="$"
                         ></v-text-field>
 
-                        <label>Withdrawable Amount</label>
+                        <label>{{ $t("withdrawal.withdrawableAmount") }}</label>
                         <v-text-field
                           type="number"
                           height="42"
@@ -217,10 +216,9 @@
                           required
                           prefix="$"
                           :rules="amountRule"
-                          placeholder="Please enter Withdrawable Amount"
                         ></v-text-field>
 
-                        <label>Note</label>
+                        <label>{{ $t("deposit.note") }}</label>
                         <v-text-field
                           height="42"
                           width="130"
@@ -230,7 +228,6 @@
                           rounded
                           dense
                           required
-                          placeholder="Please enter Note"
                         ></v-text-field>
 
                         <v-btn
@@ -239,7 +236,7 @@
                           height="35"
                           @click="previousStep()"
                         >
-                          Previous Step
+                          {{ $t("deposit.previousStep") }}
                         </v-btn>
 
                         <v-btn
@@ -248,7 +245,7 @@
                           height="35"
                           @click="wireTransfter"
                         >
-                          Finsh &nbsp;<v-progress-circular
+                          {{ $t("deposit.finish") }} &nbsp;<v-progress-circular
                             v-if="loadingImage"
                             indeterminate
                             color="#FFF"
@@ -281,30 +278,28 @@
             <v-expansion-panel class="mt-5 account">
               <v-expansion-panel-header class="balance font-weight-bold">
                 <span
-                  ><v-icon size="15"> fas fa-exchange </v-icon>&nbsp;Wire
-                  Transfer</span
+                  ><v-icon size="15"> fas fa-exchange </v-icon>&nbsp;{{ $t("withdrawal.wireTransfer") }}</span
                 >
                 <template v-slot:actions>
                   <v-icon color="#e91e63">$expand</v-icon>
                 </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                <p>Coming Soon</p>
+                <p>{{ $t("withdrawal.comingSoon") }}</p>
               </v-expansion-panel-content>
             </v-expansion-panel>
 
             <v-expansion-panel class="mt-5 account">
               <v-expansion-panel-header class="balance font-weight-bold">
                 <span
-                  ><v-icon size="15"> fas fa-university </v-icon>&nbsp;Digital
-                  Account</span
+                  ><v-icon size="15"> fas fa-university </v-icon>&nbsp;{{ $t("withdrawal.cryptoCurrency") }}</span
                 >
                 <template v-slot:actions>
                   <v-icon color="#e91e63">$expand</v-icon>
                 </template>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                <p>Coming Soon</p>
+                <p>{{ $t("withdrawal.comingSoon") }}</p>
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -315,12 +310,10 @@
         <v-icon size="22" color="#fdc84f">
           fas fa-info-circle
         </v-icon>
-        Wire Transfer Prompt
+        {{ $t("withdrawal.wireTransferPrompt") }}
       </h4>
       <p>
-        If you would like to have some demo content on your WordPress website,
-        there are basically three different ways to do so. First, you could just
-        quickly create some (sample) posts,
+        {{ $t("withdrawal.wireTransferDescription") }}
       </p>
     </div>
   </div>

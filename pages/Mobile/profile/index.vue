@@ -58,7 +58,7 @@
             rounded="true"
           >
             <span class="font-weight-light" align="center" justify="center"
-              >Account Balance</span
+              >{{ $t("profile.accountBalance") }}</span
             >
             <div class="display-0 balance font-weight-black">
               <animated-number
@@ -75,7 +75,7 @@
           <v-expansion-panels rounded v-model="panel">
             <v-expansion-panel class="account">
               <v-expansion-panel-header class="balance font-weight-bold"
-                >Personal Information
+                >{{ $t("myAccount.personalInfo") }}
                 <template v-slot:actions>
                   <v-icon color="#e91e63">$expand</v-icon>
                 </template>
@@ -91,7 +91,7 @@
                 </p>
 
                 <v-form ref="form" v-model="valid" lazy-validation>
-                  <label class="labelFont">First Name</label>
+                  <label class="labelFont">{{ $t("myAccount.firstName") }}</label>
                   <v-text-field
                     class="inputClass"
                     height="30"
@@ -100,7 +100,7 @@
                     rounded
                     dense
                   ></v-text-field>
-                  <label class="labelFont">Last Name</label>
+                  <label class="labelFont">{{ $t("myAccount.lastName") }}</label>
                   <v-text-field
                     class="inputClass"
                     height="30"
@@ -109,7 +109,7 @@
                     rounded
                     dense
                   ></v-text-field>
-                  <label class="labelFont">Username</label>
+                  <label class="labelFont">{{ $t("myAccount.username") }}</label>
                   <v-text-field
                     class="inputClass"
                     height="30"
@@ -119,7 +119,7 @@
                     dense
                   ></v-text-field>
                   <label class="labelFont"
-                    >Email<span class="balance">*</span></label
+                    >{{ $t("myAccount.email") }}<span class="balance">*</span></label
                   >
                   <v-text-field
                     class="inputClass"
@@ -140,7 +140,7 @@
                   >
 
                   <label class="labelFont"
-                    >Country<span class="balance">*</span></label
+                    >{{ $t("myAccount.country") }}<span class="balance">*</span></label
                   >
                   <v-select
                     height="30"
@@ -157,7 +157,7 @@
                   ></v-select>
 
                   <v-btn @click="updateProfile" class="loginButton" height="40">
-                    Save&nbsp;
+                    {{ $t("deposit.save") }}&nbsp;
                     <v-icon class="icon" size="20">
                       fas fa-chevron-double-right
                     </v-icon>
@@ -177,7 +177,7 @@
           </v-expansion-panels>
 
           <v-btn @click="userLogout" class="loginButton" height="40">
-            Logout &nbsp;<v-progress-circular
+            {{ $t("menu.logout") }} &nbsp;<v-progress-circular
               v-if="loadingImage"
               indeterminate
               color="#FFF"
