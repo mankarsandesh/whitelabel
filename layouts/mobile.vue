@@ -30,13 +30,23 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
+      <v-btn
+        class="mr-1"
+        small
+        icon
+        @click="$refs.language.showDialog()"
+      >
+        <country-flag :country="country" size="normal" />
+        <!-- <v-icon> fas fa-globe</v-icon> -->
+      </v-btn>
+      <languageDialog ref="language" />
       <div class="menu-list" v-if="GetUserData">
         <v-btn dark class="userLogout" to="/mobile/profile">
-          <v-avatar size="35" mr-1>
+          <v-avatar size="30" mr-1>
             <img :src="this.defaultImage" alt />
           </v-avatar>
           <div class="userLogoutMenu">
-            <span> &nbsp; &nbsp;{{ GetUserData.username }} </span>
+            <span>&nbsp;{{ GetUserData.username.substring(0,9) }} </span>
           </div>
         </v-btn>
 
@@ -127,6 +137,8 @@ import register from "../components/Mobile/login/register";
 import Cookies from "../plugins/js-cookie";
 import axios from "axios";
 import config from "../config/config.global";
+import countryFlag from "vue-country-flag";
+import languageDialog from "../components/languageDialog";
 export default {
   name: "mobile",
   data() {
@@ -140,13 +152,30 @@ export default {
       userUUID: Cookies.get("userUUID")
     };
   },
+  created() {
+    this.SET_LANGUAGE(this.locale);
+    if (this.userUUID) {
+      this.userInfo();
+    } else {
+      this.$router.push("/");
+    }
+  },
   components: {
     Login,
     register,
-    forgotPassword
+    forgotPassword,
+    countryFlag,
+    languageDialog
   },
   computed: {
-    ...mapGetters("login", ["GetUserData"])
+    ...mapGetters("login", ["GetUserData","getLocale"]),
+    country() {
+      if (this.getLocale) {
+        return this.getLocale;
+      } else {
+        return "us";
+      }
+    }
   },
   created() {
     if (this.userUUID) {
@@ -156,7 +185,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("login", ["CLEAR_USER_DATA", "SET_USER_DATA"]),
+    ...mapMutations("login", [
+      "CLEAR_USER_DATA",
+      "SET_USER_DATA",
+      "SET_USER_UUID",
+      "SET_LANGUAGE"
+    ]),
     // Logout Users
     userLogout() {
       this.CLEAR_USER_DATA();
@@ -175,6 +209,7 @@ export default {
         if (data.code == 200) {
           this.userData = data.data[0];
           this.SET_USER_DATA(this.userData);
+          this.SET_USER_UUID(data.data[0].uuid);
         }
       } catch (ex) {
         console.log(ex);
@@ -208,6 +243,7 @@ export default {
 </script>
 
 <style scoped>
+
 .v-menu__content {
   border-radius: 15px;
 }
@@ -215,16 +251,18 @@ export default {
 .v-list {
   padding: 0px;
 }
+ userLogout {
+   width: 130px !important;
+ }
 
 .userLogoutMenu {
   color: #fff;
-  font-size: 16px;
-  display: inline-grid;
+  font-size: 13px;
 }
 
 .userLogoutMenu .balance {
   color: #fff;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .v-list__tile i {
