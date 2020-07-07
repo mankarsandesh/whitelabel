@@ -2,7 +2,13 @@
   "banner": {
     "get": "ได้รับ",
     "getDescription": "บโบนัสต้อนรับ 200% สูงถึง $ 2000",
-    "useBonus": "ใช้รหัสโบนัส"
+    "useBonus": "ใช้รหัสโบนัส",
+    "register your": "ลงทะเบียนของคุณ",
+    "account today": "บัญชีวันนี้",
+    "deposit amount":"จำนวนเงินฝาก",
+    "and bet":"และเดิมพัน",
+    "enjoy your bonus":"เพลิดเพลินไปกับโบนัสของคุณ",
+    "and bet games":"และเดิมพันเกม"
   },
   "banner2": {
     "text1": "อารมณ์หรือเกมของคุณ",

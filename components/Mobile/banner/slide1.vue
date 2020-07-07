@@ -6,21 +6,21 @@
           flat
           max-width="1000"
           class="text-center mb-5"
-          style="margin-top:60px;"
+        
         >
           <v-card
             class="display-0 font-weight-bold justify-center mt-3 bonusLine"
-            >Get</v-card
+            >{{ $t("banner.get") }}</v-card
           >
           <v-row
             class="flex display-2 font-weight-black color-pink justify-center"
             >$2000
           </v-row>
           <v-card-title class="display-0 font-weight-bold bonusLine"
-            >Get a WELCOME 200% Bonus up to $2000</v-card-title
+            >{{ $t("banner.getDescription") }}</v-card-title
           >
           <v-card class="font-weight-thin text-center">
-            Use bonus code :
+            {{ $t("banner.useBonus") }} :
           </v-card>
           <v-chip
             outlined
@@ -46,14 +46,14 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title class="text-uppercase">
-                      {{ item.title }} {{ item.desc }}
+                      {{ $t("banner."+ item.title) }} {{ $t("banner."+ item.desc) }}
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-card>
             </v-card>
             <v-btn x-large rounded color="pink" class="px-8 mb-5 btnShadow"
-              >Bet now
+              >{{ $t("button.betNow") }}
               <span class=" ml-3">
                 <v-icon size="15"> fas fa-chevron-double-right</v-icon
                 ><v-icon size="15" class=" opacity-1">
