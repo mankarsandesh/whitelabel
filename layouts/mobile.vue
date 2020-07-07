@@ -14,27 +14,31 @@
         <v-list-item v-for="(item, i) in slideMenu" :key="i" :to="item.path">
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
+          </v-list-item-icon>       
+           <v-list-item-content>
             <v-list-item-title v-text="item.title"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+         <v-list-item @click="userLogout" >
+          <v-list-item-icon>
+            <v-icon>far fa-file-alt</v-icon>
+          </v-list-item-icon>       
+           <v-list-item-content>
+            <v-list-item-title > Logout </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+ 
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app fixed color="#1E1E1F" height="60">
       <v-toolbar-title>
-        <v-btn to="/" text color="transparent">
+        <router-link to="/">
           <v-img width="100" src="/logo/logo.png"></v-img>
-        </v-btn>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        class="mr-1"
-        small
-        icon
-        @click="$refs.language.showDialog()"
-      >
+      <v-btn class="mr-1" small icon @click="$refs.language.showDialog()">
         <country-flag :country="country" size="normal" />
         <!-- <v-icon> fas fa-globe</v-icon> -->
       </v-btn>
@@ -45,7 +49,7 @@
             <img :src="this.defaultImage" alt />
           </v-avatar>
           <div class="userLogoutMenu">
-            <span>&nbsp;{{ GetUserData.username.substring(0,9) }} </span>
+            <span>&nbsp;{{ GetUserData.username.substring(0, 9) }} </span>
           </div>
         </v-btn>
 
@@ -164,7 +168,7 @@ export default {
     languageDialog
   },
   computed: {
-    ...mapGetters("login", ["GetUserData","getLocale"]),
+    ...mapGetters("login", ["GetUserData", "getLocale"]),
     country() {
       if (this.getLocale) {
         return this.getLocale;
@@ -239,7 +243,6 @@ export default {
 </script>
 
 <style scoped>
-
 .v-menu__content {
   border-radius: 15px;
 }
@@ -247,9 +250,9 @@ export default {
 .v-list {
   padding: 0px;
 }
- userLogout {
-   width: 130px !important;
- }
+.userLogout {
+  width: 130px !important;
+}
 
 .userLogoutMenu {
   color: #fff;

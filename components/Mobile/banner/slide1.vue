@@ -2,12 +2,7 @@
   <v-carousel-item src="/banner/banner-1.png">
     <v-sheet height="100%" tile>
       <v-row class="fill-height" align="center" justify="center">
-        <v-card
-          flat
-          max-width="1000"
-          class="text-center mb-5"
-        
-        >
+        <v-card flat max-width="1000" class="text-center mb-5">
           <v-card
             class="display-0 font-weight-bold justify-center mt-3 bonusLine"
             >{{ $t("banner.get") }}</v-card
@@ -16,9 +11,9 @@
             class="flex display-2 font-weight-black color-pink justify-center"
             >$2000
           </v-row>
-          <v-card-title class="display-0 font-weight-bold bonusLine"
-            >{{ $t("banner.getDescription") }}</v-card-title
-          >
+          <v-card-title class="display-0 font-weight-bold bonusLine">{{
+            $t("banner.getDescription")
+          }}</v-card-title>
           <v-card class="font-weight-thin text-center">
             {{ $t("banner.useBonus") }} :
           </v-card>
@@ -46,7 +41,8 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title class="text-uppercase">
-                      {{ $t("banner."+ item.title) }} {{ $t("banner."+ item.desc) }}
+                      {{ $t("banner." + item.title) }}
+                      {{ $t("banner." + item.desc) }}
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
@@ -70,12 +66,14 @@
 
 <script>
 import json from "~/json/items";
+import Button from "~/components/Mobile/Button";
 export default {
   data() {
     return {
       titleDetail: json.slideItems
     };
-  }
+  },
+  components: {}
 };
 </script>
 
