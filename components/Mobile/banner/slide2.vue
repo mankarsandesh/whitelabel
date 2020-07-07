@@ -11,14 +11,14 @@
             <v-card flat>
               <v-card-title
                 class="display-0 font-weight-black justify-center"
-                style="margin-top:60px;"
-                >Your Mood or Game</v-card-title
+                
+                >{{ $t("banner2.text1") }}</v-card-title
               >
               <v-card-title
                 class="flex display-2 font-weight-bold color-pink justify-center"
                 style="white-space:nowrap;"
               >
-                Choose Game</v-card-title
+                {{ $t("banner2.chooseGame") }}</v-card-title
               >
             </v-card>
             <v-row>
@@ -41,14 +41,14 @@
                     <v-card-title
                       class=" text-uppercase text-center display-0 font-weight-bold"
                       style="white-space: nowrap;"
-                      >{{ item.title }}</v-card-title
+                      >{{ $t("banner2." + item.title) }}</v-card-title
                     >
                   </v-img>
                 </v-card>
               </v-col>
             </v-row>
             <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-2 btnShadow"
-              >bet now
+              >{{ $t("button.betNow") }}
               <span class="ml-3">
                 <v-icon size="15"> fas fa-chevron-double-right</v-icon
                 ><v-icon size="15" class="opacity-1">

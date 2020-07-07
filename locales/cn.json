@@ -2,7 +2,13 @@
   "banner": {
     "get": "得到",
     "getDescription": "獲得200％的歡迎獎金，最高$ 2000",
-    "useBonus": "使用獎勵代碼"
+    "useBonus": "使用獎勵代碼",
+    "register your": "注册你的",
+    "account today": "今天的帐户",
+    "deposit amount":"存款金额",
+    "and bet":"并下注",
+    "enjoy your bonus":"享受你的奖金",
+    "and bet games":"和下注游戏"
   },
   "banner2": {
     "text1": "你的心情或遊戲",
@@ -30,6 +36,10 @@
   "button": {
     "joinNow": "現在加入",
     "betNow": "現在下注",
+    "comingSoon": "快來了"
+  },
+  "status": {
+    "betNow":"現在下注",
     "comingSoon": "快來了"
   },
   "profile": {

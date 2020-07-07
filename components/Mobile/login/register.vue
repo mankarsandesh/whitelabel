@@ -8,13 +8,13 @@
         <v-icon class="icon" left size="20">
           fas fa-user-plus
         </v-icon>
-        Register
+        {{ $t("profile.register") }}
       </h2>
     </v-row>
     <v-row justify="center">
       <p>
-        Already have an account?
-        <span class="terms" @click="openLogin()">Login now</span>
+        {{ $t("profile.haveAccount") }}
+        <span class="terms" @click="openLogin()">{{ $t("profile.loginNow") }}</span>
       </p>
     </v-row>
 
@@ -28,7 +28,7 @@
     </p>
 
     <v-form ref="form" v-model="valid" lazy-validation>
-      <label>Username</label>
+      <label>{{ $t("myAccount.username") }}</label>
       <v-text-field
         class="inputClassRegi"
         height="30"
@@ -41,7 +41,7 @@
         autofocus
         :rules="[v => !!v || 'Username is required']"
       ></v-text-field>
-      <label>Email<span class="imp">*</span></label>
+      <label>{{ $t("myAccount.email") }}<span class="imp">*</span></label>
       <v-text-field
         class="inputClassRegi"
         height="30"
@@ -52,7 +52,7 @@
         required
         :rules="emailRules"
       ></v-text-field>
-      <label>Password<span class="imp">*</span></label>
+      <label>{{ $t("profile.password") }}<span class="imp">*</span></label>
       <v-text-field
         class="inputClassRegi"
         height="30"
@@ -64,7 +64,7 @@
         required
         :rules="[v => !!v || 'Password is required']"
       ></v-text-field>
-      <label>Confirm Password<span class="imp">*</span></label>
+      <label>{{ $t("profile.confirmPassword") }}<span class="imp">*</span></label>
       <v-text-field
         class="inputClassRegi"
         height="30"
@@ -78,7 +78,7 @@
       ></v-text-field>
 
       <div>
-        <label>Gender</label>
+        <label>{{ $t("myAccount.gender") }}</label>
         <v-radio-group v-model="registerForm.gender" :mandatory="false" row>
           <v-radio
             height="30"
@@ -94,7 +94,7 @@
       </div>
 
       <div>
-        <label>Country<span class="imp">*</span></label>
+        <label>{{ $t("myAccount.country") }}<span class="imp">*</span></label>
         <v-select
           height="30"
           class="inputClassRegi"
@@ -114,7 +114,7 @@
         <v-checkbox
           v-model="registerForm.agree"
           :rules="[v => !!v || 'You must agree to continue!']"
-          label="Agree with Terms & Conditions"
+          :label="$t('profile.agree')"
           required
           dense
           color="#ff1067"
@@ -127,7 +127,7 @@
           :disabled="!valid"
           height="50"
         >
-          Sign up
+          {{ $t("profile.register")}}
           <v-icon class="icon" size="20">
             fas fa-chevron-double-right
           </v-icon>

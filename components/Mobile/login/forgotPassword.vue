@@ -9,12 +9,11 @@
           <v-icon class="icon" left size="20">
             fas fa-user
           </v-icon>
-          Forgot Password
+          {{ $t("profile.forgotPassword") }}
         </h2>
       </v-row>
       <p>
-        No problem! Just fill in the email below and we'll send you password
-        reset instructions!
+        {{ $t("profile.forgotTagLine") }}
       </p>
       <p
         v-bind:class="{
@@ -28,7 +27,7 @@
 
       <v-form ref="form" v-model="valid" lazy-validation>
         <div v-if="showStep1">
-          <label>Your Email</label>
+          <label>{{ $t("myAccount.email") }}</label>
           <v-text-field
             class="inputClassRegi"
             height="30"
@@ -42,7 +41,7 @@
           ></v-text-field>
         </div>
         <div v-if="showStep2">
-          <label>Enter your OTP</label>
+          <label>{{ $t("profile.enterOTP") }}</label>
           <v-text-field
             class="inputClassRegi"
             height="30"
@@ -56,7 +55,7 @@
         </div>
 
         <div v-if="showStep3">
-          <label>Enter New Password</label>
+          <label>{{ $t("changePassword.newPassword") }}</label>
           <v-text-field
             class="inputClassRegi"
             height="30"
@@ -68,7 +67,7 @@
             type="password"
             :rules="[v => !!v || 'New Password is required']"
           ></v-text-field>
-          <label>Enter Repeat New Password</label>
+          <label>{{ $t("changePassword.confirmPassword") }}</label>
           <v-text-field
             class="inputClassRegi"
             height="30"
@@ -89,7 +88,7 @@
             :disabled="!valid"
             height="50"
           >
-            Reset
+            {{ $t("profile.reset") }}
             <v-icon class="icon" size="20">
               fas fa-chevron-double-right
             </v-icon>
@@ -116,6 +115,8 @@ export default {
   data() {
     return {
       loadingImage: false,
+      errorMessage: "",
+      sucessMessage: "",
       showStep1: true,
       showStep2: false,
       showStep3: false,

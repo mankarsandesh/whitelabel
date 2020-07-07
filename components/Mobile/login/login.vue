@@ -9,13 +9,13 @@
           <v-icon class="icon" left size="20">
             fas fa-user
           </v-icon>
-          login
+          {{ $t("profile.login") }}
         </h2>
       </v-row>
       <v-row justify="center">
         <p style="color: #ffffff;">
-          Don't have an account yet?
-          <span @click="openRegister()" class="terms">Register Now</span>
+          {{ $t("profile.noAccount") }}
+          <span @click="openRegister()" class="terms">{{ $t("profile.registerNow") }}</span>
         </p>
       </v-row>
       <p
@@ -27,7 +27,7 @@
         {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
       <v-form ref="form" v-model="valid" lazy-validation class="mt-5">
-        <label>Email/Username</label>
+        <label>{{ $t("myAccount.email") }}/{{ $t("myAccount.username") }}</label>
         <v-text-field
           height="30"
           v-model="username"
@@ -42,7 +42,7 @@
           :rules="[v => !!v || 'Username is required']"
         ></v-text-field>
 
-        <label>Password</label>
+        <label>{{ $t("profile.password") }}</label>
         <v-text-field
           height="30"
           v-model="password"
@@ -59,13 +59,13 @@
           <div class="col  xs-9 sm-9">
             <label>
               <input class="check" size="13" type="checkbox" />
-              <span class="rememberme">Remember Me </span>
+              <span class="rememberme">{{ $t("profile.rememberMe") }} </span>
             </label>
           </div>
           <div class="col xs-3 sm-3">
             <label class="float-right">
               <span href="#" @click="openForgotPassword()" class="terms"
-                >Forgot Password?</span
+                >{{ $t("profile.forgotPassword") }}?</span
               >
             </label>
           </div>
@@ -78,7 +78,7 @@
             height="50"
             to="/mobile/profile"
           >
-            Login&nbsp;
+            {{ $t("profile.login") }}&nbsp;
             <v-icon class="icon" size="20">
               fas fa-chevron-double-right
             </v-icon>

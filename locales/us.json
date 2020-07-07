@@ -1,8 +1,14 @@
 {
   "banner": {
-    "get": "get",
+    "get": "Get",
     "getDescription": "Get a 200% welcome bonus, up to $2000",
-    "useBonus": "use bonus code"
+    "useBonus": "use bonus code",
+    "register your": "register your",
+    "account today": "account today",
+    "deposit amount":"deposit amount",
+    "and bet":"and bet",
+    "enjoy your bonus":"enjoy your bonus",
+    "and bet games":"and bet games"
   },
   "banner2": {
     "text1": "your mood or game",
@@ -32,6 +38,11 @@
     "joinNow": "join now",
     "comingSoon": "Coming Soon"
   },
+  "status": {
+    "betNow":"Bet Now",
+    "comingSoon": "Coming Soon"
+  },
+
   "profile": {
     "login": "Login",
     "noAccount": "Doesn't have an account yet? ",

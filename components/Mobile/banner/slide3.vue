@@ -6,19 +6,19 @@
     display: contents;
 "
       >
-        <v-row class="fill-height mt-5" align="center">
+        <v-row class="fill-height" align="center">
           <v-col cols="12" align="center">
             <v-card flat>
-              <v-row
+              <v-card-title
                 class="display-0 font-weight-bold justify-center"
-                style="margin-top:30px;"
-                >Multiple BET On</v-row
+               
+                >{{ $t("banner3.multipleBetOn") }}</v-card-title
               >
               <v-card-title
                 flat
                 class="display-2 font-weight-bold color-pink justify-center"
                 style="white-space:nowrap;"
-                >Stocks & Digits</v-card-title
+                >{{ $t("banner3.stockAndDigit") }}</v-card-title
               >
             </v-card>
             <v-row>
@@ -49,7 +49,7 @@
               </v-col>
             </v-row>
             <v-btn x-large rounded color="pink" class="px-8 ml-4 mt-4 btnShadow"
-              >bet now
+              >{{ $t("button.betNow") }}
               <span class="ml-3">
                 <v-icon size="15"> fas fa-chevron-double-right</v-icon
                 ><v-icon size="15" class=" opacity-1">

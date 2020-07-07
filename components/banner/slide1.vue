@@ -39,10 +39,10 @@
                       </v-list-item-avatar>
                       <v-list-item-content>
                         <v-list-item-title class="  text-uppercase">{{
-                          item.title
+                          $t("banner."+ item.title)
                         }}</v-list-item-title>
                         <v-list-item-subtitle class="text-uppercase">{{
-                          item.desc
+                          $t("banner."+ item.desc)
                         }}</v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
