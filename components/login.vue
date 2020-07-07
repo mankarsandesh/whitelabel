@@ -192,7 +192,7 @@ input[type="radio"]:checked + label {
 }
 .mainLogin {
   width: 450px;
-  height: 500px;
+  height: 435px;
   margin: 0 auto;
   position: relative;
 }

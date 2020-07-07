@@ -285,7 +285,7 @@ input[type="radio"]:checked + label {
 }
 .mainRegister {
   width: 450px;
-  height: 850px;
+  height: 800px;
   margin: 0 auto;
   position: relative;
 }
