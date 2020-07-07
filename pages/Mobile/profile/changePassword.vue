@@ -75,11 +75,7 @@
               ></v-progress-circular>
             </v-btn>
           </v-col>
-          <v-col xs="9" sm="9">
-            <v-btn rounded class="closeButtonMobile" :disabled="!valid">
-              Cancel
-            </v-btn>
-          </v-col>
+         
         </v-row>
       </v-form>
     </div>

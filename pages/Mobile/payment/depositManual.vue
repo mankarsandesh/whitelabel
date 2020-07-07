@@ -144,7 +144,7 @@
             width="42"
             height="42"
             color="white"
-            class="addBank"           
+            class="addBank"
             to="/mobile/payment/localTransferAddBank"
             v-if="this.userBankList.length > 0 && firstStepWire"
           >
@@ -223,11 +223,16 @@
                 </span>
               </div>
               <div class="banInfo">
-                <div class="noBank" @click="addBank()">
-                  <v-icon class="icon" size="100">
-                    fa-plus-square
-                  </v-icon>
-                  <h3>Add Bank</h3>
+                <div class="noBank">
+                  <router-link
+                    to="/mobile/payment/localTransferAddBank"
+                    style="text-decoration:none;"
+                  >
+                    <v-icon class="icon" size="100">
+                      fa-plus-square
+                    </v-icon>
+                    <h3>Add Bank</h3>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -287,10 +292,9 @@ export default {
         v => v <= 50000000 || "Amount should not be greater than $50000000"
       ]
     };
-  },
-
+  }, 
   mounted() {
-    this.fetchUsersBankList();
+    this.fetchUsersBankList();  
   },
   computed: {
     ...mapGetters("login", ["GetUserData"])
@@ -577,11 +581,13 @@ input:focus {
   color: #ff0167 !important;
 }
 .noBank {
+  text-decoration: none;
   height: 200px;
   padding-top: 50px;
   text-align: center;
 }
 .noBank h3 {
+  text-decoration: none;
   color: #dddddd !important;
 }
 .noBank .icon {
