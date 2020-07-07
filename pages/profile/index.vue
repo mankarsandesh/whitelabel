@@ -30,7 +30,8 @@
                   >{{ GetUserData.username }}
                 </v-list-item-title>
                 <v-list-item-title class="title" v-if="GetUserData.first_name"
-                  >{{ GetUserData.first_name.substring(0,12) }} {{ GetUserData.last_name.substring(0,12) }}
+                  >{{ GetUserData.first_name.substring(0, 12) }}
+                  {{ GetUserData.last_name.substring(0, 12) }}
                 </v-list-item-title>
 
                 <v-list-item-subtitle>Laos,Vientaine</v-list-item-subtitle>
@@ -164,10 +165,27 @@
           </v-select>
         </v-col>
       </v-row>
+      <v-row>
+        <v-btn class="ml-4 saveButton" @click="updateProfile"
+          >{{ $t("myAccount.saveChanges") }}
+          <span class=" ml-3">
+            <v-icon size="15"> fas fa-chevron-double-right</v-icon
+            ><v-icon size="15" class="icon opacity-1">
+              fas fa-chevron-double-right</v-icon
+            >
+            <v-progress-circular
+              v-if="loadingImage"
+              indeterminate
+              color="#FFF"
+              size="22"
+            ></v-progress-circular>
+          </span>
+        </v-btn>
+      </v-row>
 
-      <v-divider></v-divider>
+      <!-- <v-divider></v-divider> -->
 
-      <v-row class="my-4">
+      <!-- <v-row class="my-4">
         <subheader
           class=" font-weight-bold text-capitalize "
           :title="$t('myAccount.addressInfo')"
@@ -336,7 +354,7 @@
             ></v-progress-circular>
           </span>
         </v-btn>
-      </v-row>
+      </v-row> -->
     </v-col>
   </v-row>
 </template>

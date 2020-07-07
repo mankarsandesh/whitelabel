@@ -78,6 +78,11 @@
   text-transform: uppercase;
   cursor: pointer;
 }
+.saveButton .icon {
+  color: #fff;
+  opacity: 0.4;
+  margin-top: 0px;
+}
 .cancelButton {
   background: #dddddd;
   border-radius: 30px !important;
