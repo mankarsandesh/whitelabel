@@ -9,10 +9,10 @@
       <v-col cols="10">
         <v-card flat class="ml-20" color=" transparent" dark>
           <v-card-title class="display-2 font-weight-bold" style="word-break: keep-all;"
-            >Your mood or Game</v-card-title
+            >{{ $t("banner2.text1") }}</v-card-title
           >
           <v-card-title class="flex display-1 font-weight-black color-pink"
-            >Choose game</v-card-title
+            >{{ $t("banner2.chooseGame") }}</v-card-title
           >
         </v-card>
         <v-row>
@@ -33,9 +33,9 @@
               <v-img :src="item.src" class="align-center opcity-images">
                 <v-card-title
                   class=" text-uppercase justify-center text-center flex display-1 font-weight-black"
-                  >{{ item.title }}</v-card-title
+                  >{{ $t("banner2."+item.title) }}</v-card-title
                 >
-                <Button :title="item.buttonName" :link="item.status" />
+                <Button :title="$t('status.' + item.buttonName)" :link="item.status" />
               </v-img>
             </v-card>
           </v-col>

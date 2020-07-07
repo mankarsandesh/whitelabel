@@ -59,11 +59,11 @@
       <div v-else class="menu-list">
         <v-btn rounded small outlined color="pink" @click="openloginDialog()">
           <v-icon size="18">fas fa-user</v-icon>
-          &nbsp;Login
+          {{ $t("profile.login") }}
         </v-btn>
         <v-btn dark small rounded color="pink" @click="openRegisterDialog()">
           <v-icon size="18">fas fa-user-plus</v-icon>
-          &nbsp;Register
+          {{ $t("profile.register") }}
         </v-btn>
       </div>
     </v-app-bar>

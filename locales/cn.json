@@ -38,6 +38,10 @@
     "betNow": "現在下注",
     "comingSoon": "快來了"
   },
+  "status": {
+    "betNow":"現在下注",
+    "comingSoon": "快來了"
+  },
   "profile": {
     "login": "登录",
     "noAccount": "还没有账户吗？",

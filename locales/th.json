@@ -38,13 +38,17 @@
     "betNow": "พนันตอนนี้",
     "comingSoon": "เร็ว ๆ นี้"
   },
+  "status": {
+    "betNow":"พนันตอนนี้",
+    "comingSoon": "เร็ว ๆ นี้"
+  },
   "profile": {
     "login": "เข้าสู่ระบบ",
     "noAccount": "ยังไม่มีบัญชีใช่ไหม",
     "registerNow": "สมัครตอนนี้",
     "password": "รหัสผ่าน",
     "rememberMe": "จดจำฉัน",
-    "register": "สมัครสมาชิก",
+    "register": "ทะเบียน",
     "haveAccount": "มีบัญชีอยู่แล้ว?",
     "loginNow": "ลงชื่อเข้าใช้ตอนนี้",
     "confirmPassword": "ยืนยันรหัสผ่าน",
