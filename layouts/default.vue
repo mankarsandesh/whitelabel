@@ -74,11 +74,11 @@
                     v-on="on"
                   >
                     <span v-if="GetUserData.first_name">
-                      {{ GetUserData.first_name.substring(0,8) }}
-                      {{ GetUserData.last_name.substring(0,8) }}</span
+                      {{ GetUserData.first_name.substring(0, 8) }}
+                      {{ GetUserData.last_name.substring(0, 8) }}</span
                     >
                     <span v-if="!GetUserData.first_name">
-                      {{ GetUserData.username.substring(0,8) }}
+                      {{ GetUserData.username.substring(0, 8) }}
                     </span>
                   </v-list-item-title>
                 </v-list-item-content>
@@ -177,6 +177,7 @@
 
     <!-- Login Form -->
     <v-dialog
+      elevation="0"
       dark
       v-model="loginDialog"
       width="550"
@@ -243,7 +244,8 @@ export default {
   },
   computed: {
     ...mapGetters("login", ["getLocale", "GetUserData"]),
-    country() {    
+    country() {
+      console.log(this.getLocale, "Country");
       if (this.getLocale) {
         return this.getLocale;
       } else {
@@ -355,6 +357,9 @@ export default {
 };
 </script>
 <style scoped>
+.v-dialog{
+  box-shadow: none !important;
+}
 .countryFlag {
   border: 1px solid #dddddd;
   background-color: #dddddd;

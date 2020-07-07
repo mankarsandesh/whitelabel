@@ -83,13 +83,13 @@
 
         <v-btn
           v-if="showButton"
-          class="loginButton "
+          class="loginButton"
           @click="validate"
           :disabled="!valid"
           height="50"
         >
           {{ $t("profile.reset") }}
-          <v-icon class="icon" size="30">
+          <v-icon size="30">
             fas fa-angle-double-right
           </v-icon>
           <v-icon class="icon" size="30">
@@ -247,7 +247,7 @@ input[type="radio"]:checked + label {
 }
 .mainLogin {
   width: 450px;
-  height: 550px;
+  height: 355px;
   margin: 0 auto;
   position: relative;
 }
@@ -366,15 +366,10 @@ label input.check:checked + .label-text,
   margin-left: -10px;
   color: #fff;
 }
-
 .loginButton .icon {
   color: #fff;
-  margin-top: 0px;
-}
-.loginButton .icon:last-child {
   opacity: 0.4;
-  margin-left: -10px;
-  color: #fff;
+  margin-top: 0px;
 }
 
 input:focus {
