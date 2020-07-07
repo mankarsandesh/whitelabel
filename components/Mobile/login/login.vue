@@ -15,7 +15,9 @@
       <v-row justify="center">
         <p style="color: #ffffff;">
           {{ $t("profile.noAccount") }}
-          <span @click="openRegister()" class="terms">{{ $t("profile.registerNow") }}</span>
+          <span @click="openRegister()" class="terms">{{
+            $t("profile.registerNow")
+          }}</span>
         </p>
       </v-row>
       <p
@@ -27,7 +29,9 @@
         {{ this.errorMessage }} {{ this.sucessMessage }}
       </p>
       <v-form ref="form" v-model="valid" lazy-validation class="mt-5">
-        <label>{{ $t("myAccount.email") }}/{{ $t("myAccount.username") }}</label>
+        <label
+          >{{ $t("myAccount.email") }}/{{ $t("myAccount.username") }}</label
+        >
         <v-text-field
           height="30"
           v-model="username"
@@ -79,7 +83,7 @@
             to="/mobile/profile"
           >
             {{ $t("profile.login") }}&nbsp;
-            <v-icon class="icon" size="20">
+            <v-icon size="20">
               fas fa-chevron-double-right
             </v-icon>
             <v-icon class="icon" size="20">
@@ -270,12 +274,8 @@ label input.check:checked + .label-text,
 }
 .loginButton .icon {
   color: #fff;
-  margin-top: 0px;
-}
-.loginButton .icon:last-child {
   opacity: 0.4;
-  margin-left: -10px;
-  color: #fff;
+  margin-top: 0px;
 }
 input:focus {
   outline: none;
