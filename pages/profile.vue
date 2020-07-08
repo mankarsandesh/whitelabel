@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section  >
     <v-container class="py-0">
       <v-row justify="center" align="center">
         <v-col cols="10" class="py-0">
@@ -16,7 +16,7 @@
       </v-row>
     </v-container>
 
-    <section class="profile-content">
+    <section class="profile-content" >
       <v-container>
         <v-row justify="center" align="center">
           <v-col cols="10">

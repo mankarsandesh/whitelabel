@@ -1,5 +1,5 @@
 <template>
-  <v-app id="page">
+  <v-app id="page"  >
     <v-navigation-drawer
       v-model="OpenDrawer"
       class="top-80"

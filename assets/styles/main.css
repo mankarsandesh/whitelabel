@@ -10,6 +10,9 @@
   font-style: normal;
 } */
 
+html{
+  overflow-y: hidden !important;
+}
 /* Mobile Save Button */
 .saveButtonMobile {
   background: linear-gradient(50deg, #ff0167 0%, #ff0167 100%);
@@ -186,6 +189,9 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 500px;
+  overflow-x: hidden; 
+  overflow-y: hidden; 
 }
 
 .game_mode-container {
