@@ -1,5 +1,5 @@
 <template>
-  <v-carousel-item src="/banner/banner-1.png">
+  <v-carousel-item src="/banner/banner-1.jpg">
     <v-sheet height="100%" tile>
       <v-row class="fill-height" align="center" justify="center">
         <v-card flat max-width="1000" class="text-center mb-5">

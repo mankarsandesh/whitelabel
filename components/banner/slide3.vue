@@ -1,5 +1,5 @@
 <template>
-  <v-carousel-item src="/banner/banner-3.png">
+  <v-carousel-item src="/banner/banner-3.jpg">
     <v-sheet height="100%" tile>
       <v-container
         style="

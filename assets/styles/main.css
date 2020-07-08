@@ -182,14 +182,14 @@
 }
 
 .profile-container {
-  background-image: url("/banner/banner-1.png");
+  background-image: url("/banner/banner-1.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .game_mode-container {
-  background-image: url("/banner/banner-2.png");
+  background-image: url("/banner/banner-2.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
